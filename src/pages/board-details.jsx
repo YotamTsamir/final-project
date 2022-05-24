@@ -27,7 +27,7 @@ export const Board = () => {
     }
 
 
-    console.log(board)
+    // console.log(board)
     if(!board.boxes) return <h1>Loading...</h1>
     return <div className="board">
         <BoxList board={board} onAddTask={onAddTask} boxes={board.boxes}/>
