@@ -11,6 +11,11 @@ function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/boards'/>
+        <Route path='/b/:boardId'  />
+        <Route path='/b/:boardId/card/:cardId'  />
+        <Route path='/login'/>
+        <Route path='/signup'/>
       </Routes>
     </Router>
   );
