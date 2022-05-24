@@ -6,8 +6,8 @@ export const AppHeader = () => {
         <h1>Traillo</h1>
         <div className="app-header-links">
         <NavLink className="nav-link" to='/login'>Login</NavLink>
-        <NavLink className="nav-link" to='/signup'>Sign Up Now!</NavLink>
+        <NavLink className="nav-link" to='/boards'>Boards</NavLink>
 
         </div>
     </div>
-}
+}   
