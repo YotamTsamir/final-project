@@ -4,6 +4,11 @@ const initialState = {
 export function boardReducer(state = initialState, action) {
     var newState = state;
     switch (action.type) {
+        case 'SET_BOARDS':
+            return {
+                ...state,
+                boards: action.boards
+            }
         case 'SET_BOARD':
             newState = { board:action.board }
             break;

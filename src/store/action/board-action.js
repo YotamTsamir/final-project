@@ -6,3 +6,17 @@ export function getBoard(boardId) {
         dispatch({ type: 'SET_BOARD', board })
     }
 }
+
+// console.log(loadBoards())
+export function loadBoards() {
+    return async (dispatch, getState) => {
+        try {
+            // const { filterBy } = getState().robotModule
+            const boards = await boardService.query()
+            dispatch({ type: 'SET_BOARDS', boards })
+        } catch (err) {
+            console.log('err:', err)
+        }
+
+    }
+}
