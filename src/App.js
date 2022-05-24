@@ -1,21 +1,26 @@
 import React from 'react';
 import { HashRouter as Router, Route, Routes, NavLink } from 'react-router-dom'
-import { Home } from './pages/home';
+import { Hero } from './pages/hero.jsx';
+import { BoardList } from './pages/board-list.jsx';
+import { Board } from './pages/board.jsx';
+import { Login } from './pages/login.jsx';
+import { SignUp } from './pages/signup.jsx';
+import { AppHeader } from './cmps/app-header.jsx';
 import './styles/main.scss';
 
 function App() {
   return (
     <Router>
       <header>
-      <NavLink className="nav-link" to="/">Home</NavLink>
+      <AppHeader/>
       </header>
       <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/boards'/>
-        <Route path='/b/:boardId'  />
-        <Route path='/b/:boardId/card/:cardId'  />
-        <Route path='/login'/>
-        <Route path='/signup'/>
+        <Route path='/' element={<Hero />} />
+        <Route path='/boards'element={<BoardList />}/>
+        <Route path='/b/:boardId'element={<Board />}  />
+        <Route path='/b/:boardId/card/:cardId'  />{/*cmps*/}
+        <Route path='/login'element={<Login />}/>
+        <Route path='/signup' element={<SignUp />}/>
       </Routes>
     </Router>
   );
