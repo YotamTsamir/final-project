@@ -1,5 +1,4 @@
-import {utilService} from './util.service'
-import {storageService} from './async-storage.service'
+import { storageService } from './async-storage.service'
 
 const STORAGE_KEY = 'board'
 
@@ -7,54 +6,56 @@ export const boardService = {
     query,
     getById,
     save,
-    remove,    
+    remove,
+    addTask
 }
+
 const board = {
-    "_id":"b101",
-    "title":"my first board",
-    "archivedAt":null,
-    "createdAt":Date.now(),
+    "_id": "b101",
+    "title": "my first board",
+    "archivedAt": null,
+    "createdAt": Date.now(),
     // "createdBy": {
     //     "_id": "u101",
     //     "fullname": "Abi Abambi",
     //     "imgUrl": "http://some-img"
     // }
-    "createdBy":{},
-    "style":{},
+    "createdBy": {},
+    "style": {},
     // label should look like this
     // {
     //     "id": "l101",
     //     "title": "Done",
     //     "color": "#61bd4f"
     // }
-    
-    "labels":[],
-    "members":[],
-    "boxes":[
+
+    "labels": [],
+    "members": [],
+    "boxes": [
         {
-        "id":"b101",
-        "title":"first box",
-        "archivedAt":null,
-        "tasks":[
-            //basic task
-            {
-                "id":"c101",
-                "title":"write code",
-            },
-            //image task
-            {
-                "id":"c102",
-                "title":"feed cat",
-                "imageUrl":"http/gazibozibo.com",
-                "attachments":[],
-                "isDueDate":null,
-            },
+            "id": "b101",
+            "title": "first box",
+            "archivedAt": null,
+            "tasks": [
+                //basic task
+                {
+                    "id": "c101",
+                    "title": "write code",
+                },
+                //image task
+                {
+                    "id": "c102",
+                    "title": "feed cat",
+                    "imageUrl": "http/gazibozibo.com",
+                    "attachments": [],
+                    "isDueDate": null,
+                },
             ]
-        },{
-            "id":"b102",
-            "title":"descriptions",
-            "archivedAt":null,
-            "tasks":{
+        }, {
+            "id": "b102",
+            "title": "descriptions",
+            "archivedAt": null,
+            "tasks": [{
                 "id": "c104",
                 "title": "Help me",
                 "status": "in-progress",
@@ -97,21 +98,32 @@ const board = {
                 "style": {
                     "bgColor": "#26de81"
                 }
-            }
+            }]
         }
-    
-    ]
-    
-    }
 
+    ]
+
+}
+
+
+
+async function addTask(boardId, task, boxId) {
+    let board =await getById(boardId)
+    
+    let box = board.boxes.find(box => box.id === boxId)
+    box.tasks.push(task)
+    save(board)
+}
 
 function query() {
     return storageService.query(STORAGE_KEY)
 }
+
 function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
     // return axios.get(`/api/car/${carId}`)
 }
+
 async function remove(boardId) {
     // return new Promise((resolve, reject) => {
     //     setTimeout(reject, 2000)
@@ -122,7 +134,7 @@ async function remove(boardId) {
 async function save(board) {
     var savedBoard
     if (board._id) {
-        savedBoard = await storageService.put(STORAGE_KEY, board)        
+        savedBoard = await storageService.put(STORAGE_KEY, board)
     } else {
         // Later, owner is set by the backend
         savedBoard = await storageService.post(STORAGE_KEY, board)

@@ -12,7 +12,7 @@ function App() {
   return (
     <Router>
       <header>
-      <AppHeader/>
+        <AppHeader />
       </header>
       <Routes>
         <Route path='/' element={<Home />} />

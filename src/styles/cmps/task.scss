@@ -1,0 +1,21 @@
+.task {
+    margin: 10px;
+    background-color: $clr4;
+    height: fit-content;
+    padding: 0.1rem 0;
+    border-radius: 5px;
+    
+    & p {
+        margin-left: 5px;
+    }
+}
+.task-link{
+    text-decoration: none;
+}
+.add-card{
+    text-align: center;
+    margin: 2px 0 8px 8px;
+}
+.add-card:hover{
+    cursor: pointer;
+}
