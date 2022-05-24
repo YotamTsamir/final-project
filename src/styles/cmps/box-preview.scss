@@ -1,0 +1,8 @@
+.box{
+    background-color: $clr5;
+    width: 210px;
+    border-radius: 5px;
+    & h2{
+        margin-left: 15px;
+    }
+}

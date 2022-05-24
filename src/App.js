@@ -12,14 +12,14 @@ function App() {
   return (
     <Router>
       <header>
-      <AppHeader/>
+        <AppHeader />
       </header>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/boards'element={<BoardList />}/>
-        <Route path='/b/:boardId'element={<Board />}  />
-        <Route path='/b/:boardId/card/:cardId'  />{/*cmps*/}
-        <Route path='/login'element={<Login />}/>
+        <Route path='/boards' element={<BoardList />} />
+        <Route path='/b/:boardId' element={<Board />} />
+        <Route path='/b/:boardId/card/:cardId' />{/*cmps*/}
+        <Route path='/login' element={<Login />} />
         {/* <Route path='/signup' element={<SignUp />}/> */}
       </Routes>
     </Router>
