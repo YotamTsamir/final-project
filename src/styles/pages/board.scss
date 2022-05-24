@@ -2,4 +2,16 @@
     display: flex;
     gap: 30px;
     margin-left: 40px;
+    width: fit-content;
+}
+.add-box{
+    margin-top: 200px;
+    background-color: $clr5;
+    padding: 6px 8px;
+    height: fit-content;
+    border-radius: 3px;
+    cursor: pointer;
+    width: max-content;
+
+    // color: $clr4;
 }

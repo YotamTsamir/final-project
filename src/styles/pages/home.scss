@@ -5,21 +5,31 @@ body{
 
 .home {
     display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: center;
+    // flex-direction: column;
+    width: 100vw;
     padding: 20px;
     height: 50vh;
-    width: 80vh;
-    margin-left: 15%;
-    
+    margin-left: 18%;
+
+    & .home-texts{
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+        padding-top: 80px;
+        margin-right: 80px;
+        
+
+    }
     h1{
         font-size: 45px;  
         color: rgb(24, 24, 24);
+        margin-bottom: 0;
     }
     p{
         font-size: 25px;
         color: rgb(24, 24, 24);
+        max-width: 45ch;
+        margin-top: 10px;
 
     }
     button{
@@ -31,7 +41,15 @@ body{
         line-height: 1.5;
         letter-spacing: 1.5px;
         word-spacing: 3px;
-        background-color: $clr5;
+        background-color: $clr6;
         color: white;
+    }
+    & .img-container{
+        display: flex;
+        right: 0;
+
+    }
+    & .img-container img{
+        height: 70vh;
     }
 }

@@ -17,6 +17,11 @@ export function loadBoards() {
         } catch (err) {
             console.log('err:', err)
         }
+    }
+}
 
+export function setNewBoard(board) {
+    return async (dispatch) => {
+        dispatch({ type: 'SET_BOARD', board })
     }
 }

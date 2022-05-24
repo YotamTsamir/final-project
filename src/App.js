@@ -6,6 +6,7 @@ import { Board } from './pages/board-details';
 import { Login } from './pages/login.jsx';
 import { SignUp } from './pages/signup.jsx';
 import { AppHeader } from './cmps/app-header.jsx';
+import { TaskDetails } from './cmps/task-details.jsx';
 import './styles/main.scss';
 
 function App() {
@@ -18,7 +19,7 @@ function App() {
         <Route path='/' element={<Home />} />
         <Route path='/boards'element={<BoardList />}/>
         <Route path='/b/:boardId'element={<Board />}  />
-        <Route path='/b/:boardId/card/:cardId'  />{/*cmps*/}
+        <Route path='/b/:boardId/card/:cardId' element={<TaskDetails />} />
         <Route path='/login'element={<Login />}/>
         <Route path='/signup' element={<SignUp />}/>
       </Routes>

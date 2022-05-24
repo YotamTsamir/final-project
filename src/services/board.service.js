@@ -8,7 +8,8 @@ export const boardService = {
     save,
     remove,
     addTask,
-    addBoard
+    addBoard,
+    addBox
 }
 
 const board = {
@@ -108,12 +109,17 @@ const board = {
 
 
 
+async function addBox(boardId,box){
+    let board = await getById(boardId)
+    board.boxes.push(box)
+    return save(board)
+}
+
 async function addTask(boardId, task, boxId) {
-    let board =await getById(boardId)
-    
+    let board = await getById(boardId)
     let box = board.boxes.find(box => box.id === boxId)
     box.tasks.push(task)
-    save(board)
+    return save(board)
 }
 
 

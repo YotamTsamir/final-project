@@ -1,13 +1,32 @@
 .app-header{
     padding-bottom: 1rem ;
+    position: fixed;
+    width: 100%;
     display: flex;
     justify-content: space-between;
 
-    & h1{
+    & .logo-container {
+        display: flex;
+        margin: 10px;
+        justify-content: center;
+
+        & .logo {
+            height: 6vh;
+            margin-top: 2px;
+        }
+        
+        & h1{
         color: black;
+        font-weight: 9s00;
         font-size: xx-large;
-        padding: 10px;
+        padding-left: 5px;
+        margin: 0 0 10px 0;
+
+        justify-content: center;
+    } 
     }
+
+
     & .app-header-links{
         padding: 10px;
         margin-right: 3%;
@@ -24,11 +43,11 @@
         border-radius: 3px;
     }
     & .signup{
-        background-color: $clr5;
+        background-color: $clr6;
         color: white;
     }
     & .login{
-        color: $clr5;
+        color: $clr6;
     }
 
 }
