@@ -1,8 +1,9 @@
 .app-header{
     padding-bottom: 1rem ;
+    position: fixed;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-
     & h1{
         color: black;
         font-size: xx-large;

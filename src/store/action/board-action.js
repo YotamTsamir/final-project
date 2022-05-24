@@ -6,3 +6,9 @@ export function getBoard(boardId) {
         dispatch({ type: 'SET_BOARD', board })
     }
 }
+
+export function setNewBoard(board) {
+    return async (dispatch) => {
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
