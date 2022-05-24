@@ -1,0 +1,17 @@
+
+.boards-container{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content: flex-start;
+}
+.board-prev{
+    // margin: 0 2% 2% 0;
+    padding: 0;
+    transform: translate(0);
+    width: 23.5%;
+    background-color: #091e4214;
+    height:80px;
+    text-align: center;
+    vertical-align: middle;
+    padding:8px;
+}

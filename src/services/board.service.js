@@ -104,8 +104,8 @@ const board = {
     
     }
 
-
 function query() {
+    
     return storageService.query(STORAGE_KEY)
 }
 function getById(boardId) {
