@@ -4,4 +4,14 @@
 //BASICS
 @import './basics/base.scss';
 //pages
-@import './pages/board-list.scss'
+@import './pages/board-list.scss';
+//PAGES
+@import './pages/board.scss';
+//CMPS
+@import './cmps/box-preview.scss';
+@import './cmps/task.scss';
+
+//PAGES
+@import './pages/home.scss';
+//CMPS
+@import './cmps/app-header.scss';
