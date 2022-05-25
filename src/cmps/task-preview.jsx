@@ -57,6 +57,7 @@ export const TaskPreview = ({ task, board, box }) => {
         
         {(!isEdit) ? <div onClick={() => {}} className=" task " to={`/b/${board._id}/card/${task.id}`}>
         <div className="labels">
+            
             {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
         </div>
         <div className="flex space-between">
