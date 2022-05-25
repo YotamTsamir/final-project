@@ -6,7 +6,7 @@ import { Route, Outlet } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { toggleDetails } from "../store/action/board-action"
 
-export const TaskPreview = ({ task, board }) => {
+export const TaskPreview = ({ task, board, box}) => {
     const [isEdit,setIsEdit] = useState(false)
     
         const dispatch = useDispatch()
