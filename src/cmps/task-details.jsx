@@ -21,14 +21,15 @@ export const TaskDetails = () => {
   }, []);
   const onToggleDetails = () => {
     dispatch(toggleDetails(""));
+    window.history.back()
   };
-
-  if (!task) return;
+console.log('here')
+  // if (!task) return <h1>asdasd</h1>;
   return (
     <div className={`task-details ${task ? "" : "hidden"}`}>
-      <button onClick={onToggleDetails}>X</button>
+      <button onClick={() => onToggleDetails()}>X</button>
       <h1>{task.title}</h1>
-
-   </div>
+      <h1>asdasd</h1>
+    </div>
   );
 };
