@@ -10,8 +10,7 @@ export const TaskDetails = () => {
         dispatch(toggleDetails())
     }
 
-    console.log('AAAAAAAAAAAAAAAAAAAAAA',task)
-    if (!task) return <h1>Loading...</h1>
+    if (!task) return 
     return <div className={`task-details ${task ? '' : 'hidden'}`}>
         <button onClick={onToggleDetails}>X</button>
         <h1>Task Details</h1>

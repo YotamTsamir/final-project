@@ -26,7 +26,7 @@ export const TaskList = ({ tasks, board, box }) => {
 
     // if (!tasks.length) return <h1>Loading...</h1>
     return <div>
-        {tasks.map(task => <TaskPreview board={board} key={task.id} task={task} />)}
+        {tasks.map(task => <TaskPreview box={box} board={board} key={task.id} task={task} />)}
         {(!isAddTask) ? <div onClick={() => setAddTask()} className='add-card'>+ add a card</div> :
             <div><form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><input {...register('title')} /></form></div>}
     </div>

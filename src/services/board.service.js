@@ -9,7 +9,8 @@ export const boardService = {
     remove,
     addTask,
     addBox,
-    editBoxTitle
+    editBoxTitle,
+    editTaskTitle
 }
 
 const board = {
@@ -107,15 +108,22 @@ const board = {
 
 }
 
-async function editBoxTitle(boardId,box,newTitle){
+async function editBoxTitle(boardId, box, newTitle) {
     let board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
     currBox.title = newTitle
     // console.log(box.title)
     return save(board)
 }
+async function editTaskTitle(boardId, box, task, newTitle) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
+    currTask.title = newTitle
+    return save(board)
+}
 
-async function addBox(boardId,box){
+async function addBox(boardId, box) {
     let board = await getById(boardId)
     console.log(board)
     board.boxes.push(box)
@@ -132,7 +140,7 @@ async function addTask(boardId, task, boxId) {
 
 
 function query() {
-    
+
     return storageService.query(STORAGE_KEY)
 }
 
@@ -163,11 +171,11 @@ async function save(board) {
 async function addBoard(ev) {
     ev.preventDefault()
     let newBoard = board
-    newBoard._id =''
-    const {value} = ev.target[0]
-    
+    newBoard._id = ''
+    const { value } = ev.target[0]
+
     console.log(value)
-    newBoard.title=value
+    newBoard.title = value
     save(newBoard)
 }
 
