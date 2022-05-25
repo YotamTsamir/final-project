@@ -196,10 +196,12 @@ async function editTaskTitle(boardId, box, task, newTitle) {
     return save(board)
 }
 async function editTaskDesc(boardId, box, task, newDesc) {
+    console.log('SH>>AGA');
     let board = await getById(boardId)
-    let currBox = board.boxes.find(currBox => currBox.id === box.id)
-    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
-    currTask.description = newDesc
+    let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
+    let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
+    board.boxes[boxIdx].tasks[taskIdx].description = newDesc
+    console.log(board.boxes[boxIdx].tasks[taskIdx].description)
     return save(board)
 }
 
@@ -291,7 +293,7 @@ function _createBoard(userBoard) {
 // localStorage.clear()
 
 // TEST DATA
-// storageService.post(STORAGE_KEY, board)
+// storageService.post(STORAGE_KEY, BOARD)
 
 
 

@@ -40,7 +40,6 @@ export const TaskPreview = ({ task, board, box }) => {
 
     const onSetTask = (box) => {
         dispatch(setTask(task, box))
-        console.log(box)
         navigate(`task/${task.id}`)
     }
 
@@ -60,9 +59,12 @@ export const TaskPreview = ({ task, board, box }) => {
         {(!isEdit) ? <div onClick={() => {}} className=" task " to={`/b/${board._id}/card/${task.id}`}>
         <div className="labels">
             
-            {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
+            {(labels) ? labels.map(label => {
+                console.log(label);
+                return <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>
+            }) : ''}
         </div>
-        <div className="flex space-between" onClick={()=>{onSetTask(box)}}>
+        <div className="flex space-between" onClick={()=>{onSetTask( box)}}>
             <p >{task.title}</p>
             <div className="edit-fav">
                 <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />
