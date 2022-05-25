@@ -20,6 +20,11 @@ export function loadBoards() {
     }
 }
 
+export function toggleDetails(task){
+    return (dispatch) => {
+        dispatch({type: 'TOGGLE_DETAILS', task})
+    }
+}
 export function setNewBoard(board) {
     return async (dispatch) => {
         dispatch({ type: 'SET_BOARD', board })

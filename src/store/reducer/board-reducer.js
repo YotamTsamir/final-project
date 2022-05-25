@@ -1,5 +1,6 @@
 const initialState = {
-    board: {}
+    board: {},
+    task:{}
 }
 export function boardReducer(state = initialState, action) {
     var newState = state;
@@ -15,6 +16,8 @@ export function boardReducer(state = initialState, action) {
         case 'ADD_TASK':
             // newState = { ...board, }
             break;
+        case 'TOGGLE_DETAILS':
+            newState = {...state, task: action.task}
         default:
     }
 

@@ -5,6 +5,7 @@ import { getBoard, setNewBoard } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
+import { TaskDetails } from "../cmps/task-details"
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
@@ -70,12 +71,13 @@ export const Board = () => {
         const newBoard = await boardService.addBox(boardId, box)
         dispatch(setNewBoard(newBoard))
     }
-
+    
 
     console.log(board)
     if (!board.boxes) return <h1>Loading...</h1>
     return <div className="board">
         <BoxList board={board} onAddTask={onAddTask} boxes={board.boxes} />
+        <TaskDetails />
         <div className="add-box" onClick={() => onAddBox(board._id)}>+ add another list</div>
     </div>
 }
