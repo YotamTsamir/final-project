@@ -20,6 +20,7 @@ function App() {
         <Route path='/boards'element={<BoardList />}/>
         <Route path='/b/:boardId'element={<Board />}  />
         <Route path='/b/:boardId/card/:cardId' element={<TaskDetails />} />
+        <Route/>
         <Route path='/login'element={<Login />}/>
         <Route path='/signup' element={<SignUp />}/>
       </Routes>

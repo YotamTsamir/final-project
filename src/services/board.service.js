@@ -171,11 +171,9 @@ async function save(board) {
 async function addBoard(ev) {
     ev.preventDefault()
     let newBoard = board
-    newBoard._id = ''
-    const { value } = ev.target[0]
-
-    console.log(value)
-    newBoard.title = value
+    newBoard._id =''
+    const {value} = ev.target[0]
+    newBoard.title=value
     save(newBoard)
 }
 
