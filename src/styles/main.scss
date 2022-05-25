@@ -4,6 +4,8 @@
 @import './setup/helpers.scss';
 //BASICS
 @import './basics/base.scss';
+//pages
+@import './pages/board-list.scss';
 //PAGES
 @import './pages/board.scss';
 //CMPS
@@ -14,3 +16,4 @@
 @import './pages/home.scss';
 //CMPS
 @import './cmps/app-header.scss';
+@import './cmps/task-details.scss';

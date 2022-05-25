@@ -6,6 +6,7 @@ import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
 import { useFormRegister } from "../hooks/useFormRegister"
+import { TaskDetails } from "../cmps/task-details"
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
@@ -83,7 +84,7 @@ export const Board = () => {
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
-
+    
 
     if (!board.boxes) return <h1>Loading...</h1>
     return <div className="board">

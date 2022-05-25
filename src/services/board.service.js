@@ -129,7 +129,10 @@ async function addTask(boardId, task, boxId) {
     return save(board)
 }
 
+
+
 function query() {
+    
     return storageService.query(STORAGE_KEY)
 }
 
@@ -153,13 +156,25 @@ async function save(board) {
         // Later, owner is set by the backend
         savedBoard = await storageService.post(STORAGE_KEY, board)
     }
+
     return savedBoard
 }
 
+async function addBoard(ev) {
+    ev.preventDefault()
+    let newBoard = board
+    newBoard._id =''
+    const {value} = ev.target[0]
+    
+    console.log(value)
+    newBoard.title=value
+    save(newBoard)
+}
 
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, board)
+
 
 
 
