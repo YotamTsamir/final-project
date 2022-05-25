@@ -10,7 +10,9 @@ export const boardService = {
     addTask,
     addBox,
     editBoxTitle,
-    editTaskTitle
+    editTaskTitle,
+    getLabelById,
+    addLabelToTask
 }
 
 const board = {
@@ -32,7 +34,23 @@ const board = {
     //     "color": "#61bd4f"
     // }
 
-    "labels": [],
+    "labels": [
+        {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        },
+        {
+            "id": "l103",
+            "title": "In progress",
+            "color": "red"
+        },
+        {
+            "id": "l102",
+            "title": "shlaga",
+            "color": "#212121"
+        }
+    ],
     "members": [],
     "boxes": [
         {
@@ -108,6 +126,16 @@ const board = {
 
 }
 
+function addLabelToTask(task,labelId,board){
+    task.labelIds.push(labelId)
+    return save(board)
+}
+
+function getLabelById(labelId, board) {
+    const label = board.labels.find(label => label.id === labelId)
+    return label
+}
+
 async function editBoxTitle(boardId, box, newTitle) {
     let board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
@@ -171,9 +199,9 @@ async function save(board) {
 async function addBoard(ev) {
     ev.preventDefault()
     let newBoard = board
-    newBoard._id =''
-    const {value} = ev.target[0]
-    newBoard.title=value
+    newBoard._id = ''
+    const { value } = ev.target[0]
+    newBoard.title = value
     save(newBoard)
 }
 

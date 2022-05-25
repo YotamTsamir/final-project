@@ -18,6 +18,10 @@ export const TaskList = ({ tasks, board, box }) => {
     const onAddTask = async (ev,boardId, boxId,input) => {
         ev.preventDefault()
         const task = { id: utilService.makeId(4), title:input }
+        if(!input) {
+            setAddTask()
+            return
+        }
         const newBoard = await boardService.addTask(boardId, task, boxId)
         setAddTask()
         EditTask('')

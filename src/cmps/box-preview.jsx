@@ -27,7 +27,8 @@ export const BoxPreview = ({ box, board, onAddTask }) => {
 
     if (!box) return <h1>Loading</h1>
     return <div className="box">
-        {(!isEdit) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> : <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input {...register('title')} /></form>}
+        {(!isEdit) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> : 
+        <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
         <TaskList board={board} onAddTask={onAddTask} box={box} tasks={box.tasks} />
     </div>
 }
