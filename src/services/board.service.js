@@ -8,13 +8,19 @@ export const boardService = {
     save,
     remove,
     addTask,
+    addBoard,
+    addBox,
+    getDefaultBgs,
+    
     addBox,
     editBoxTitle,
     editTaskTitle,
-    editTaskDesc,
+    getLabelById,
+    addLabelToTask,
+    editTaskDesc
 }
 
-const board = {
+const BOARD = {
     "_id": "b101",
     "title": "my first board",
     "archivedAt": null,
@@ -33,7 +39,23 @@ const board = {
     //     "color": "#61bd4f"
     // }
 
-    "labels": [],
+    "labels": [
+        {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        },
+        {
+            "id": "l103",
+            "title": "In progress",
+            "color": "red"
+        },
+        {
+            "id": "l102",
+            "title": "shlaga",
+            "color": "#212121"
+        }
+    ],
     "members": [],
     "boxes": [
         {
@@ -116,6 +138,49 @@ const board = {
 
 }
 
+function addLabelToTask(task,labelId,board){
+    task.labelIds.push(labelId)
+    return save(board)
+}
+
+function getLabelById(labelId, board) {
+    const label = board.labels.find(label => label.id === labelId)
+    return label
+}
+
+
+const defaultBgs = {
+    image:[
+        "https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360",
+        "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95d2d9f93.png",
+        "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/103834-simple_background-748x421.jpg",
+        "https://static.vecteezy.com/system/resources/thumbnails/000/378/561/small/geometric-pastel-01.jpg",
+        "https://thumbs.dreamstime.com/b/blue-white-simple-background-162530250.jpg",
+        "https://thumbs.dreamstime.com/b/vintage-style-brick-wall-textured-simple-background-wallpaper-pattern-vintage-style-brick-wall-textured-simple-background-175877314.jpg",
+        "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/100192-simple_background-748x421.jpg",
+        "https://wallup.net/wp-content/uploads/2018/09/25/632758-simple_background-blue_background-hexagon.jpg",
+    ],
+    color: [
+        "#FF5733",
+        "#EF8D12",
+        "#D3F330",
+        "#8EF130",
+        "#30F1B2",
+        "#30F1EC",
+        "#3081F1",
+        "#6B73E1",
+        "#906BE1",
+        "#4500DD",
+        "#A736D8",
+        "#CE36D8",
+        "#D836CC",
+    ]
+}
+
+
+
+
+// async function addBox(boardId, box) {
 async function editBoxTitle(boardId, box, newTitle) {
     let board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
@@ -183,15 +248,47 @@ async function save(board) {
     return savedBoard
 }
 
-async function addBoard(ev) {
-    ev.preventDefault()
-    let newBoard = board
-    newBoard._id =''
-    const {value} = ev.target[0]
-    newBoard.title=value
+async function addBoard(board) {
+
+    let newBoard = _createBoard(board)
+
     save(newBoard)
+    return newBoard
 }
 
+function getDefaultBgs(){
+    return defaultBgs
+}
+
+function _createBoard(userBoard) {
+    return {
+        "_id": "",
+        "title": userBoard.title,
+        "archivedAt": null,
+        "createdAt": Date.now(),
+        "createdBy": {},
+        "style": userBoard.style,
+        "labels": [  {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        },
+        {
+            "id": "l103",
+            "title": "In progress",
+            "color": "red"
+        },
+        {
+            "id": "l102",
+            "title": "shlaga",
+            "color": "#212121"
+        }],
+        "members": [],
+        "boxes": [],
+    }
+}
+
+// localStorage.clear()
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, board)

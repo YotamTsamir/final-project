@@ -1,25 +1,39 @@
 import { useNavigate } from "react-router-dom"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { boardService } from "../services/board.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { Route, Outlet } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { setTask } from "../store/action/board-action"
+import { setTask,toggleDetails } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { setNewBoard } from "../store/action/board-action"
+import { EditTaskNav } from "./edit-task-nav"
 
 export const TaskPreview = ({ task, board, box }) => {
     const [isEdit, setIsEdit] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
+    const [labels, setLabels] = useState([])
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        // getLabels()
+        setLabels(getLabels)
+    }, [task])
+
+    // const onToggleDetails = (task) => {
+    //     dispatch(toggleDetails(task))
+    // }
 
     const onEditTaskTitle = async (ev) => {
         ev.preventDefault()
+        if (!newBoxTitle.title) {
+            setIsEdit(!isEdit)
+            return
+        }
         const newBoard = await boardService.editTaskTitle(board._id, box, task, newBoxTitle.title)
-        onEditTask()
+        setIsEdit(!isEdit)
         dispatch(setNewBoard(newBoard))
     }
 
@@ -29,20 +43,34 @@ export const TaskPreview = ({ task, board, box }) => {
         navigate(`task/${task.id}`)
     }
     const onEditTask = (ev) => {
-        // ev.stopPropagation()
-        setIsEdit(!isEdit) 
+        ev.stopPropagation()
+        setIsEdit(!isEdit)
     }
 
-
+    const getLabels = () => {
+        if (!task.labelIds) return
+        const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
+        return taskLabels
+    }
+    if (task.title === 'Help me') console.log(task.labelIds)
     return <div>
-        {(!isEdit) ? <div onClick={()=>{onSetTask(task, box)}} className=" task flex" to={`/b/${board._id}/card/${task.id}`}>
+        
+        {(!isEdit) ? <div onClick={() => {}} className=" task " to={`/b/${board._id}/card/${task.id}`}>
+        <div className="labels">
+            {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
+        </div>
+        <div className="flex space-between">
             <p >{task.title}</p>
             <div className="edit-fav">
                 <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />
             </div>
-        </div> : <div className="task-link task flex space-between" to={`/b/${board._id}/card/${task.id}`}>
-            <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input autoFocus {...register('title')} /></form>
-        </div>}
-        <Outlet/>
+        </div>
+        </div> : <div className="task-link task" onClick={() => {}} to={`/b/${board._id}/card/${task.id}`}>
+            <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input className="task-edit" {...register('title')} /></form>
+            <EditTaskNav task={task} board={board}/>
+        </div>
+
+        }
+        <Outlet />
     </div>
 }

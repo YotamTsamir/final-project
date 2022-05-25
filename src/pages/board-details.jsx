@@ -72,6 +72,10 @@ export const Board = () => {
 
     const onAddBox = async (ev,boardId) => {
         ev.preventDefault()
+        if(!newBoxTitle.title) {
+            setIsAdd(false)
+            return
+        }
         const box = { id: utilService.makeId(4), tasks: [], title:newBoxTitle.title }
         const newBoard = await boardService.addBox(boardId, box)
         setIsAdd(false)
