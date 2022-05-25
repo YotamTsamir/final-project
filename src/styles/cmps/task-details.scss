@@ -10,4 +10,17 @@
     &.hidden {
         display: none;
     }
+    & .box-title {
+        letter-spacing: 0.5px;
+        color: rgb(97, 96, 96);
+        font-weight: 500;
+        font-size: 14px;
+
+        & .box-title-details {
+            text-decoration: underline;
+            color: rgb(97, 96, 96);
+
+        }
+        
+    }
 }

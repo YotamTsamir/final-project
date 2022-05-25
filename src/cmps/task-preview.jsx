@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { Route, Outlet } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleDetails } from "../store/action/board-action"
+import { setTask } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { setNewBoard } from "../store/action/board-action"
 
@@ -15,9 +15,6 @@ export const TaskPreview = ({ task, board, box }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const onToggleDetails = (task) => {
-        dispatch(toggleDetails(task))
-    }
 
     const onEditTaskTitle = async (ev) => {
         ev.preventDefault()
@@ -26,24 +23,25 @@ export const TaskPreview = ({ task, board, box }) => {
         dispatch(setNewBoard(newBoard))
     }
 
-    const onLinkToDetails = () => {
+
+    const onSetTask = async (task, box) => {
+        await dispatch(setTask(task, box))
         navigate(`task/${task.id}`)
     }
-
     const onEditTask = (ev) => {
-        ev.stopPropagation()
+        // ev.stopPropagation()
         setIsEdit(!isEdit) 
     }
 
 
     return <div>
-        {(!isEdit) ? <div onClick={()=>{onLinkToDetails()}} className=" task flex" to={`/b/${board._id}/card/${task.id}`}>
+        {(!isEdit) ? <div onClick={()=>{onSetTask(task, box)}} className=" task flex" to={`/b/${board._id}/card/${task.id}`}>
             <p >{task.title}</p>
             <div className="edit-fav">
                 <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />
             </div>
-        </div> : <div className="task-link task flex space-between" onClick={() => onToggleDetails(task)} to={`/b/${board._id}/card/${task.id}`}>
-            <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input {...register('title')} /></form>
+        </div> : <div className="task-link task flex space-between" to={`/b/${board._id}/card/${task.id}`}>
+            <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input autoFocus {...register('title')} /></form>
         </div>}
         <Outlet/>
     </div>

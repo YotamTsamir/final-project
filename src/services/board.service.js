@@ -10,7 +10,8 @@ export const boardService = {
     addTask,
     addBox,
     editBoxTitle,
-    editTaskTitle
+    editTaskTitle,
+    editTaskDesc,
 }
 
 const board = {
@@ -37,13 +38,15 @@ const board = {
     "boxes": [
         {
             "id": "b101",
-            "title": "first box",
+            "title": "Bugs",
             "archivedAt": null,
             "tasks": [
                 //basic task
                 {
                     "id": "c101",
-                    "title": "write code",
+                    "title": "Div wont render",
+                    "description": "Dont forget to update Yotam",
+                    "comments": []
                 },
                 //image task
                 {
@@ -52,17 +55,20 @@ const board = {
                     "imageUrl": "http/gazibozibo.com",
                     "attachments": [],
                     "isDueDate": null,
+                    "description": "",
+                    "comments": []
+
                 },
             ]
         }, {
             "id": "b102",
-            "title": "descriptions",
+            "title": "In Progress",
             "archivedAt": null,
             "tasks": [{
                 "id": "c104",
-                "title": "Help me",
+                "title": "Task Details",
                 "status": "in-progress",
-                "description": "description",
+                "description": "",
                 "comments": [
                     {
                         "id": "ZdPnm",
@@ -79,6 +85,8 @@ const board = {
                     {
                         "id": "YEhmF",
                         "title": "Checklist",
+                        "comments": [],
+                        "description": "",
                         "todos": [
                             {
                                 "id": "212jX",
@@ -120,6 +128,13 @@ async function editTaskTitle(boardId, box, task, newTitle) {
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
     let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
     currTask.title = newTitle
+    return save(board)
+}
+async function editTaskDesc(boardId, box, task, newDesc) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
+    currTask.description = newDesc
     return save(board)
 }
 
