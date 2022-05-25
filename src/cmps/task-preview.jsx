@@ -30,19 +30,21 @@ export const TaskPreview = ({ task, board, box }) => {
         navigate(`task/${task.id}`)
     }
 
-    const onEditTask = () => {
-        (isEdit) ? setIsEdit(false) : setIsEdit(true)
+    const onEditTask = (ev) => {
+        ev.stopPropagation()
+        setIsEdit(!isEdit) 
     }
 
 
     return <div>
-        {(!isEdit) ? <div className=" task flex" to={`/b/${board._id}/card/${task.id}`}>
-            <p onClick={()=>{onLinkToDetails()}}>{task.title}</p>
+        {(!isEdit) ? <div onClick={()=>{onLinkToDetails()}} className=" task flex" to={`/b/${board._id}/card/${task.id}`}>
+            <p >{task.title}</p>
             <div className="edit-fav">
-                <FontAwesomeIcon onClick={() => onEditTask()} icon={faPen} />
+                <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />
             </div>
         </div> : <div className="task-link task flex space-between" onClick={() => onToggleDetails(task)} to={`/b/${board._id}/card/${task.id}`}>
             <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input {...register('title')} /></form>
         </div>}
+        <Outlet/>
     </div>
 }
