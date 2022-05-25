@@ -12,8 +12,6 @@ export const TaskDetails = () => {
   const onToggleDetails = () => {
     console.log(board._id)
     navigate(`/b/${board._id}`)
-    console.log('here')
-
   }
   // if (!task) return <h1>asdasd</h1>;
   return (
