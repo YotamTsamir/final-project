@@ -38,10 +38,12 @@ export const TaskPreview = ({ task, board, box }) => {
     }
 
 
-    const onSetTask = async (task, box) => {
-        await dispatch(setTask(task, box))
+    const onSetTask = (box) => {
+        dispatch(setTask(task, box))
+        console.log(box)
         navigate(`task/${task.id}`)
     }
+
     const onEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
@@ -59,7 +61,7 @@ export const TaskPreview = ({ task, board, box }) => {
         <div className="labels">
             {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
         </div>
-        <div className="flex space-between">
+        <div className="flex space-between" onClick={()=>{onSetTask(box)}}>
             <p >{task.title}</p>
             <div className="edit-fav">
                 <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />

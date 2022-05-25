@@ -29,7 +29,7 @@ export const TaskDetails = () => {
 
   return (
     <div className="task-details">
-      <button onClick={() => {onToggleDetails() }}>X</button>
+      <button onClick={() => {onToggleDetails()}}>X</button>
       <h1>{task?.title}</h1>
       <h1 className="box-title">
         in list <span className="box-title-details">{box?.title}</span>
