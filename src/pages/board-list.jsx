@@ -25,7 +25,7 @@ export const BoardList = () => {
             </div>
 
             {boards.map(board => {
-                return <NavLink to={`/b/${board._id}`}
+                return <NavLink key={board.id} to={`/b/${board._id}`}
                     className="board-prev">
                     <div>
                         <p>{board.title}</p>

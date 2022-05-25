@@ -30,3 +30,6 @@ export function setNewBoard(board) {
         dispatch({ type: 'SET_BOARD', board })
     }
 }
+// export function setNewBoard(dispatch, board) {
+//     dispatch({ type: 'SET_BOARD', board })
+// }
