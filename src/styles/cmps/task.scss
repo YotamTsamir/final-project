@@ -9,6 +9,16 @@
         margin-left: 5px;
     }
 }
+.task:hover{
+    .edit-fav{
+        display: inline;
+    }
+    .edit-fav:hover{
+        background-color: $clr5;
+    }
+}
+
+
 .task-link{
     text-decoration: none;
 }
@@ -18,4 +28,14 @@
 }
 .add-card:hover{
     cursor: pointer;
+}
+.edit-fav{
+    // transform: translateY(15px);
+    position: relative;
+    top: 0;
+    right: 0;
+    display: none;
+    border-radius: 12px;
+    height: fit-content;
+    padding: 5px;
 }

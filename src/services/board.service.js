@@ -12,6 +12,10 @@ export const boardService = {
     addBox,
     getDefaultBgs,
     
+    addBox,
+    editBoxTitle,
+    editTaskTitle,
+    editTaskDesc,
 }
 
 const BOARD = {
@@ -38,13 +42,15 @@ const BOARD = {
     "boxes": [
         {
             "id": "b101",
-            "title": "first box",
+            "title": "Bugs",
             "archivedAt": null,
             "tasks": [
                 //basic task
                 {
                     "id": "c101",
-                    "title": "write code",
+                    "title": "Div wont render",
+                    "description": "Dont forget to update Yotam",
+                    "comments": []
                 },
                 //image task
                 {
@@ -53,17 +59,20 @@ const BOARD = {
                     "imageUrl": "http/gazibozibo.com",
                     "attachments": [],
                     "isDueDate": null,
+                    "description": "",
+                    "comments": []
+
                 },
             ]
         }, {
             "id": "b102",
-            "title": "descriptions",
+            "title": "In Progress",
             "archivedAt": null,
             "tasks": [{
                 "id": "c104",
-                "title": "Help me",
+                "title": "Task Details",
                 "status": "in-progress",
-                "description": "description",
+                "description": "",
                 "comments": [
                     {
                         "id": "ZdPnm",
@@ -80,6 +89,8 @@ const BOARD = {
                     {
                         "id": "YEhmF",
                         "title": "Checklist",
+                        "comments": [],
+                        "description": "",
                         "todos": [
                             {
                                 "id": "212jX",
@@ -141,8 +152,32 @@ const defaultBgs = {
 
 
 
+// async function addBox(boardId, box) {
+async function editBoxTitle(boardId, box, newTitle) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    currBox.title = newTitle
+    // console.log(box.title)
+    return save(board)
+}
+async function editTaskTitle(boardId, box, task, newTitle) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
+    currTask.title = newTitle
+    return save(board)
+}
+async function editTaskDesc(boardId, box, task, newDesc) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
+    currTask.description = newDesc
+    return save(board)
+}
+
 async function addBox(boardId, box) {
     let board = await getById(boardId)
+    console.log(board)
     board.boxes.push(box)
     return save(board)
 }

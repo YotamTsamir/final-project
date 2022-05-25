@@ -1,0 +1,26 @@
+.task-details {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+
+    &.hidden {
+        display: none;
+    }
+    & .box-title {
+        letter-spacing: 0.5px;
+        color: rgb(97, 96, 96);
+        font-weight: 500;
+        font-size: 14px;
+
+        & .box-title-details {
+            text-decoration: underline;
+            color: rgb(97, 96, 96);
+
+        }
+        
+    }
+}

@@ -1,6 +1,7 @@
 //SETUP
 @import './setup/vars.scss';
 @import './setup/typography.scss';
+@import './setup/helpers.scss';
 //BASICS
 @import './basics/base.scss';
 //pages
@@ -15,3 +16,4 @@
 @import './pages/home.scss';
 //CMPS
 @import './cmps/app-header.scss';
+@import './cmps/task-details.scss';
