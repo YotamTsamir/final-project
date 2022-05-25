@@ -268,7 +268,21 @@ function _createBoard(userBoard) {
         "createdAt": Date.now(),
         "createdBy": {},
         "style": userBoard.style,
-        "labels": [],
+        "labels": [  {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        },
+        {
+            "id": "l103",
+            "title": "In progress",
+            "color": "red"
+        },
+        {
+            "id": "l102",
+            "title": "shlaga",
+            "color": "#212121"
+        }],
         "members": [],
         "boxes": [],
     }
