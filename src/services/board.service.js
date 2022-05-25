@@ -9,10 +9,12 @@ export const boardService = {
     remove,
     addTask,
     addBoard,
-    addBox
+    addBox,
+    getDefaultBgs,
+    
 }
 
-const board = {
+const BOARD = {
     "_id": "b101",
     "title": "my first board",
     "archivedAt": null,
@@ -108,8 +110,38 @@ const board = {
 }
 
 
+const defaultBgs = {
+    image:[
+        "https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360",
+        "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95d2d9f93.png",
+        "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/103834-simple_background-748x421.jpg",
+        "https://static.vecteezy.com/system/resources/thumbnails/000/378/561/small/geometric-pastel-01.jpg",
+        "https://thumbs.dreamstime.com/b/blue-white-simple-background-162530250.jpg",
+        "https://thumbs.dreamstime.com/b/vintage-style-brick-wall-textured-simple-background-wallpaper-pattern-vintage-style-brick-wall-textured-simple-background-175877314.jpg",
+        "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/100192-simple_background-748x421.jpg",
+        "https://wallup.net/wp-content/uploads/2018/09/25/632758-simple_background-blue_background-hexagon.jpg",
+    ],
+    color: [
+        "#FF5733",
+        "#EF8D12",
+        "#D3F330",
+        "#8EF130",
+        "#30F1B2",
+        "#30F1EC",
+        "#3081F1",
+        "#6B73E1",
+        "#906BE1",
+        "#4500DD",
+        "#A736D8",
+        "#CE36D8",
+        "#D836CC",
+    ]
+}
 
-async function addBox(boardId,box){
+
+
+
+async function addBox(boardId, box) {
     let board = await getById(boardId)
     board.boxes.push(box)
     return save(board)
@@ -125,7 +157,7 @@ async function addTask(boardId, task, boxId) {
 
 
 function query() {
-    
+
     return storageService.query(STORAGE_KEY)
 }
 
@@ -153,17 +185,33 @@ async function save(board) {
     return savedBoard
 }
 
-async function addBoard(ev) {
-    ev.preventDefault()
-    let newBoard = board
-    newBoard._id =''
-    const {value} = ev.target[0]
-    
-    console.log(value)
-    newBoard.title=value
+async function addBoard(board) {
+
+    let newBoard = _createBoard(board)
+
     save(newBoard)
+    return newBoard
 }
 
+function getDefaultBgs(){
+    return defaultBgs
+}
+
+function _createBoard(userBoard) {
+    return {
+        "_id": "",
+        "title": userBoard.title,
+        "archivedAt": null,
+        "createdAt": Date.now(),
+        "createdBy": {},
+        "style": userBoard.style,
+        "labels": [],
+        "members": [],
+        "boxes": [],
+    }
+}
+
+// localStorage.clear()
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, board)

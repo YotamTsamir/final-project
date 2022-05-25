@@ -1,18 +1,36 @@
+.board-list {
+    margin-top: 100px;
+}
+
 .boards-container {
     display: flex;
     flex-wrap: wrap;
     // justify-content: flex-start;
     justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
 }
 
-.board-new{
-    cursor: pointer;
+.board-new {
+
+    & p {
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        display: grid;
+        place-content: center;
+
+    }
+
+    & p:hover>* {
+        cursor: pointer;
+    }
+
 }
 
 .board-prev {
     margin: 0 2% 2% 0;
     padding: 0;
-    transform: translate(0);
     width: 23.5%;
     background-color: #091e4214;
     height: 80px;
@@ -20,31 +38,106 @@
     padding: 8px;
     border-radius: 3px;
 
-    display:flex;
+    background-size: cover;
+    background-repeat: no-repeat;
+
+    display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
 }
 
-.board-prev:hover{
-    box-shadow: inset 0px 0px 10px 0px ;
+.board-prev:hover {
+    // box-shadow: inset 0px 0px 10px 0px;
+    backdrop-filter: brightness(80%);
+    filter: brightness(80%);
 }
 
-.board-add{
+.board-add {
     background-color: white;
-    position:absolute;
-    right: -40px;
-    height: 150px;
-    width: 150px; 
+    position: fixed;
+    will-change: top, left;
+    top: 30%;
+    left: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    height: 200px;
+    max-width: 250px;
 
-    input{
+    border-radius: 3px;
+
+    & input {
         margin: 2px;
     }
 
-    button{
-        position:absolute;
-        width:100%;
-        left:0;
-        bottom: 0;
+    & .exit-add-btn {
+        position: absolute;
+        // background: none;
+        border-radius: 50%;
+        border: 0 solid $clr3;
+        right: -25px;
+        top: 0;
+        cursor: pointer;
     }
+
+    & .submit-btn {
+        width: 100%;
+        background-color: inherit;
+        border: none;
+        border-radius: 10px;
+    }
+
+    & .submit-btn:hover {
+        background-color: rgb(221, 221, 221);
+        cursor: pointer;
+    }
+
+    .newboard-prev-container{
+        display:flex;
+        justify-content: center;
+    }
+    .newboard-prev{
+        min-width: 50%;
+    }
+}
+
+.choose-bg {
+
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        height: 50px;
+        overflow:auto;
+        padding: 0 0 4px;
+        
+
+        
+        li {
+            margin: 0 2% 2% 0;
+            min-width: 40px;
+            flex-grow: 1;
+            border-radius: 3px;
+
+            button {
+                border-radius: inherit;
+                border: none;
+                height: 100%;
+                width: 100%;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            button:hover {
+                filter: brightness(90%);
+                cursor: pointer;
+            }
+        }
+    }
+    
 }
