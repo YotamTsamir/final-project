@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { Route, Outlet } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { toggleDetails } from "../store/action/board-action"
+import { setTask,toggleDetails } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { setNewBoard } from "../store/action/board-action"
 import { EditTaskNav } from "./edit-task-nav"
@@ -22,9 +22,9 @@ export const TaskPreview = ({ task, board, box }) => {
         setLabels(getLabels)
     }, [task])
 
-    const onToggleDetails = (task) => {
-        dispatch(toggleDetails(task))
-    }
+    // const onToggleDetails = (task) => {
+    //     dispatch(toggleDetails(task))
+    // }
 
     const onEditTaskTitle = async (ev) => {
         ev.preventDefault()
@@ -37,10 +37,11 @@ export const TaskPreview = ({ task, board, box }) => {
         dispatch(setNewBoard(newBoard))
     }
 
-    const onLinkToDetails = () => {
+
+    const onSetTask = async (task, box) => {
+        await dispatch(setTask(task, box))
         navigate(`task/${task.id}`)
     }
-
     const onEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
@@ -54,7 +55,7 @@ export const TaskPreview = ({ task, board, box }) => {
     if (task.title === 'Help me') console.log(task.labelIds)
     return <div>
         
-        {(!isEdit) ? <div onClick={() => { onLinkToDetails() }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
+        {(!isEdit) ? <div onClick={() => {}} className=" task " to={`/b/${board._id}/card/${task.id}`}>
         <div className="labels">
             {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
         </div>
@@ -64,7 +65,7 @@ export const TaskPreview = ({ task, board, box }) => {
                 <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />
             </div>
         </div>
-        </div> : <div className="task-link task" onClick={() => onToggleDetails(task)} to={`/b/${board._id}/card/${task.id}`}>
+        </div> : <div className="task-link task" onClick={() => {}} to={`/b/${board._id}/card/${task.id}`}>
             <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input className="task-edit" {...register('title')} /></form>
             <EditTaskNav task={task} board={board}/>
         </div>

@@ -20,9 +20,9 @@ export function loadBoards() {
     }
 }
 
-export function toggleDetails(task){
+export function setTask(task, box){
     return (dispatch) => {
-        dispatch({type: 'TOGGLE_DETAILS', task})
+        dispatch({type: 'SET_TASK', task, box})
     }
 }
 export function setNewBoard(board) {
