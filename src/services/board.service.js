@@ -12,6 +12,7 @@ export const boardService = {
     addBox,
     getDefaultBgs,
     editTask,
+    editBoardStyle,
 
     addBox,
     editBox,
@@ -78,6 +79,15 @@ async function addTask(boardId, task, boxId) {
     return save(board)
 }
 
+async function query() {
+    const boards = await storageService.query(STORAGE_KEY)
+    return boards
+}
+
+function getById(boardId) {
+    return storageService.get(STORAGE_KEY, boardId)
+    // return axios.get(`/api/car/${carId}`)
+}
 
 async function remove(boardId) {
     // return new Promise((resolve, reject) => {
@@ -280,11 +290,16 @@ const BOARD = {
 
 }
 
+function editTaskLabel() {
 
+}
 
-
-function editTaskLabel(){
-
+async function editBoardStyle(boardId, field, change) {
+    const board = await getById(boardId)
+    board.style = {
+        [field]: change
+    }
+    return save(board)
 }
 
 // async function addBox(boardId, box) {
@@ -313,19 +328,7 @@ async function editBoxTitle(boardId, box, newTitle) {
 //     return save(board)
 // }
 
-
-
-
-async function query() {
-    return await storageService.query(STORAGE_KEY)
-}
-
-function getById(boardId) {
-    return storageService.get(STORAGE_KEY, boardId)
-    // return axios.get(`/api/car/${carId}`)
-}
-
-async function getTaskById(boardId, boxId, taskId){
+async function getTaskById(boardId, boxId, taskId) {
     const board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === boxId)
     return currBox.tasks.find(t => t.id === taskId)
@@ -342,6 +345,11 @@ async function findBoxByTaskId(boardId, taskId) {
         }
     })
     return foundBox
+}
+
+async function addBoard(board) {
+    let newBoard = _createBoard(board)
+    return save(newBoard)
 }
 
 

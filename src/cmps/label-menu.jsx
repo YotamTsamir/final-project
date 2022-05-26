@@ -22,7 +22,7 @@ export const LabelMenu = ({ topic, board, task, box, colors }) => {
     const onChangeColor = async (color) => {
         let newTask;
         console.log(color)
-        newTask = { ...task, color:color }
+        newTask = { ...task, color: color }
         dispatch(editTask(board._id, box.id, newTask))
     }
 
@@ -43,5 +43,6 @@ export const LabelMenu = ({ topic, board, task, box, colors }) => {
                 )
             }))}
         </div>
+        {(topic === 'Date') }
     </div>
 }

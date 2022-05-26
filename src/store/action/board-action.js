@@ -26,6 +26,7 @@ export function deleteBoard(boardId) {
     return async (dispatch) => {
         await boardService.remove(boardId)
         dispatch({ type: 'REMOVE_BOARD', boardId })
+        dispatch({type: 'SET_BOARD', board: {}})
     }
 }
 
