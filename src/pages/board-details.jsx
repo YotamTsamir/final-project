@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
@@ -7,18 +7,21 @@ import { getBoard, setNewBoard, deleteBoard } from '../store/action/board-action
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
+import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { TaskDetails } from "../cmps/task-details"
-import { BoardMenu } from '../cmps/board-menu.jsx'
+import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
     const [isBoardMenu, setIsBoardMenu] = useState(false)
-    const [windowPos, setWindowPos] = useState('')
+    const [isFilter, setIsFilter] = useState(false)
+    const [boxes, setBoxes] = useState([])
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const params = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     let isClick = false
     let posX
     let x = 0
@@ -27,9 +30,13 @@ export const Board = () => {
     useEffect(() => {
         const { boardId } = params
         addMouseListeners()
-        setWindowPos(0)
         dispatch(getBoard(boardId))
+        onFilterBoxes()
     }, [])
+
+    useEffectUpdate(() => {
+        if (!board._id) navigate('/boards')
+    }, [board])
 
     const addMouseListeners = () => {
         window.addEventListener('mousemove', onMove)
@@ -38,7 +45,6 @@ export const Board = () => {
     }
 
     const onDown = (ev) => {
-        // setIsAdd(false)
         isClick = true
         posX = ev.pageX
     }
@@ -52,10 +58,6 @@ export const Board = () => {
         if (!isClick) {
             return
         }
-        // let dis = ev.pageX - posX
-        // posX = ev.pageX
-        // window.scroll(dis,0)
-        // console.log(dis)
         else if (ev.pageX > posX) {
             posX = ev.pageX
             x -= 1
@@ -66,19 +68,31 @@ export const Board = () => {
             x += 1
             window.scroll(x, 0)
         }
-
     }
 
     const setAddBox = () => {
         isAdd ? setIsAdd(false) : setIsAdd(true)
-
     }
 
-    const onOpenMenu = () => {
+    const onFilterBoxes = (filter) => {
+        setBoxes(board.boxes)
+    }
+
+    const onToggleMenu = () => {
         setIsBoardMenu(!isBoardMenu)
+        if (isFilter) setIsFilter(!isFilter)
+    }
+    const onToggleFilter = () => {
+        setIsFilter(!isFilter)
+        if (isBoardMenu) setIsBoardMenu(!isBoardMenu)
     }
     const onDeleteBoard = async (boardId) => {
         dispatch(deleteBoard(boardId))
+
+    }
+    const onEditBoard = async (boardId, field, change) => {
+        const newBoard = await boardService.editBoardStyle(boardId, field, change)
+        dispatch(setNewBoard(newBoard))
     }
 
 
@@ -95,22 +109,21 @@ export const Board = () => {
         dispatch(setNewBoard(newBoard))
     }
 
-
     if (!board.boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <header >
             <h1 className="board-title">{board.title}</h1>
-            <div className="board-bar">
-                <button className="menu-btn" 
-                onClick={onOpenMenu}>
-                    {!isBoardMenu && <FontAwesomeIcon icon={faBars} />}
-                    {isBoardMenu && <FontAwesomeIcon icon={faX} />}                    
-                </button>
-                {isBoardMenu && <BoardMenu 
-                boardId={board._id}
-                deleteBoard={onDeleteBoard}/>}
-            </div>
+            <BoardHeaderBar
+                board={board}
+                deleteBoard={onDeleteBoard}
+                dfBgs={boardService.getDefaultBgs()}
+                onEditBoard={onEditBoard}
+                onToggleMenu={onToggleMenu}
+                isBoardMenu={isBoardMenu}
+                onToggleFilter={onToggleFilter}
+                isFilter={isFilter} />
         </header>
+
         <div className="board">
             <BoxList board={board} boxes={board.boxes} />
             {(!isAdd) && <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>}

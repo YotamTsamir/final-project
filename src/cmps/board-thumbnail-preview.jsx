@@ -4,17 +4,17 @@ import { faEllipsisVertical, faTrashCan } from '@fortawesome/free-solid-svg-icon
 import { useState } from 'react'
 
 export const BoardThumbnailPreview = ({ board, onRemove }) => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    // const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-    const onToggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen)
-    }
+    // const onToggleMenu = () => {
+    //     setIsMenuOpen(!isMenuOpen)
+    // }
 
 
-    const onDelete = () => {
-        onRemove(board._id)
-        setIsMenuOpen(!isMenuOpen)
-    }
+    // const onDelete = () => {
+    //     onRemove(board._id)
+    //     setIsMenuOpen(!isMenuOpen)
+    // }
 
     return <div className="board-prev"
         style={board.style}>
@@ -25,7 +25,7 @@ export const BoardThumbnailPreview = ({ board, onRemove }) => {
                 <p>{board.title}</p>
             </div>
         </NavLink>
-        <div className="boardmenu">
+        {/* <div className="boardmenu">
             {!isMenuOpen &&
                 <button className="boardmenu-btn"
                     onClick={onToggleMenu}>
@@ -38,6 +38,6 @@ export const BoardThumbnailPreview = ({ board, onRemove }) => {
                 <FontAwesomeIcon icon={faTrashCan} />
             </div>
             }
-        </div>
+        </div> */}
     </div>
 }
