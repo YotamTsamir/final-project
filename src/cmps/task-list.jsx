@@ -5,43 +5,35 @@ import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux"
 import { setNewBoard } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
+import { Draggable } from "react-beautiful-dnd"
+
 
 export const TaskList = ({ tasks, board, box }) => {
-    const [isAddTask, setIsAddTask] = useState(false)
-    const [register, newTask, EditTask] = useFormRegister({ title: '' })
+  
     const dispatch = useDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         // window.addEventListener('mousedown',onDown)
         // window.addEventListener('keydown',onDown)
     })
 
     const onDown = (ev) => {
         // if(ev.key !== 'Escape') return
-        setIsAddTask(false)
+        // setIsAddTask(false)
     }
 
-    const setAddTask = () => {
-        isAddTask ? setIsAddTask(false) : setIsAddTask(true)
-    }
-
-    const onAddTask = async (ev,boardId, boxId,input) => {
-        ev.preventDefault()
-        const task = { id: utilService.makeId(4), title:input,labelIds:[], description:'', comments: [], color:'' }
-        if(!input) {
-            setAddTask()
-            return
-        }
-        const newBoard = await boardService.addTask(boardId, task, boxId)
-        setAddTask()
-        EditTask('')
-        dispatch(setNewBoard(newBoard))
-    }
+    
 
     // if (!tasks.length) return <h1>Loading...</h1>
     return <div>
-        {tasks.map(task => <TaskPreview box={box} board={board} key={task.id} task={task} />)}
-        {(!isAddTask) ? <div onClick={() => setAddTask()} className='add-card'>+ add a card</div> :
-            <div><form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><input {...register('title')} autoFocus /></form></div>}
+        {tasks.map((task, index) => <Draggable key={task.id} draggableId={task.id} index={index}>
+            {provided => {
+                return <div  {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} index={index} >
+                 <TaskPreview box={box} board={board} key={task.id} task={task} />
+                </div>
+            }}
+        </Draggable>
+        )}
+       
     </div>
 }
