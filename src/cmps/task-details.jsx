@@ -49,7 +49,7 @@ export const TaskDetails = () => {
 
   const isCommentsLength = () => {
 
-    return comments.length > 0;
+    // return comments.length > 0;
   };
 
   const { comments, labelIds } = task;
