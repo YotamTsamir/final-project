@@ -1,0 +1,38 @@
+[
+    {
+        "userId": ObjectId("6286272edc60c7a2eda1cfb6"),
+        "toyId": ObjectId("6286276879fca8822686ffd1"),
+        "content": "System hates Woody!",
+        "rate": "5"
+    },
+    {
+        "userId": ObjectId("6286272edc60c7a2eda1cfb9"),
+        "toyId": ObjectId("6286276879fca8822686ffd1"),
+        "content": "User1 loves Woody!",
+        "rate": "5"
+    },
+    {
+        "userId": ObjectId("6286272edc60c7a2eda1cfb7"),
+        "toyId": ObjectId("6286276879fca8822686ffd2"),
+        "content": "Admin hates Buzz!",
+        "rate": "5"
+    },
+    {
+        "userId": ObjectId("6286272edc60c7a2eda1cfb8"),
+        "toyId": ObjectId("6286276879fca8822686ffd3"),
+        "content": "User loves Jessie!",
+        "rate": "5"
+    },
+    {
+        "userId": ObjectId("6286272edc60c7a2eda1cfbb"),
+        "toyId": ObjectId("6286276879fca8822686ffd4"),
+        "content": "Guy loves Bullseye!",
+        "rate": "5"
+    },
+    {
+        "userId": ObjectId("6286272edc60c7a2eda1cfbb"),
+        "toyId": ObjectId("6286276879fca8822686ffd5"),
+        "content": "Guy loves Rex!",
+        "rate": "5"
+    },
+]

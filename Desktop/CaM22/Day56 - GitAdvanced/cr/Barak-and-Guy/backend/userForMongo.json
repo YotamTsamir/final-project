@@ -1,0 +1,38 @@
+[
+    {
+        "fullname":"System",
+        "username": "system",
+        "password": "system",
+        "isAdmin": true
+    },
+    {
+        "fullname":"Admin",
+        "username": "admin",
+        "password": "admin",
+        "isAdmin": true
+    },
+    {
+        "fullname":"User",
+        "username": "user",
+        "password": "user",
+        "isAdmin": false
+    },
+    {
+        "fullname":"User1",
+        "username": "user1",
+        "password": "user1",
+        "isAdmin": false
+    },
+    {
+        "fullname":"User2",
+        "username": "user2",
+        "password": "user2",
+        "isAdmin": false
+    },
+    {
+        "fullname":"Guy",
+        "username": "guy",
+        "password": "guy",
+        "isAdmin": false
+    }
+]

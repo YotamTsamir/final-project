@@ -1,0 +1,110 @@
+[
+   {
+       "name": "Woody",
+       "desc": "",
+       "imgName": "woody.jpeg",
+       "labels": ["Toy story","Transformers"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 100
+   },
+   {
+       "name": "Buzz Lightyear",
+       "desc": "",
+       "imgName": "buzz.jpeg",
+       "labels": ["Toy story"], 
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 150
+   },
+   {
+       "name": "Jessie",
+       "desc": "",
+       "imgName": "jessie.png",
+       "labels": ["Toy story"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 200
+   },
+   {
+       "name": "Bullseye",
+       "desc": "",
+       "imgName": "bullseye.jpg",
+       "labels": ["Toy story"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 250
+   },
+   {
+       "name": "Rex",
+       "desc": "",
+       "imgName": "rex.jpeg",
+       "labels": ["Toy story"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 300
+   },
+   {
+       "name": "Bumblebee",
+       "desc": "",
+       "imgName": "bumblebee.jpg",
+       "labels": ["Transformers"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 350
+   },
+   {
+       "name": "Megatron",
+       "desc": "",
+       "imgName": "megatron.jpg",
+       "labels": ["Transformers"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 400
+   },
+   {
+       "name": "Optimus Prime",
+       "desc": "",
+       "imgName": "optimus.jpeg",
+       "labels": ["Transformers"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 450
+   },
+   {
+       "name": "Mr potato",
+       "desc": "",
+       "imgName": "potato.jpg",
+       "labels": ["Toy story"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 500
+   },
+   {
+       "name": "Ham",
+       "desc": "",
+       "imgName": "ham.jpg",
+       "labels": ["Toy story"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 550
+   },
+   {
+       "name": "Slinky",
+       "desc": "",
+       "imgName": "slinky.jpg",
+       "labels": ["Toy story"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 600
+   },
+   {
+       "name": "Ironhide",
+       "desc": "",
+       "imgName": "ironhide.jpg",
+       "labels": ["Transformers"],
+       "createdAt": 1652604448043,
+       "inStock": true,
+       "price": 650
+   }
+]
