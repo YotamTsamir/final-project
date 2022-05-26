@@ -24,7 +24,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), title: input, labelIds: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), title: input, labelIds: [], comments: [], description: '', color: '' }
         if (!input) {
             setAddNewTask('')
             return
@@ -74,8 +74,8 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ add a card</div> :
             <div><div className="task">
                 <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><input className="new-task-input" {...registery('title')} autoFocus /></form>
-                </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>
-               
+            </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>
+
                     <button className="close-new-task" onClick={() => setAddNewTask('')}>X</button></div>
             </div>}
     </div>
