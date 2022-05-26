@@ -10,7 +10,7 @@ import { useFormRegister } from "../hooks/useFormRegister"
 import { setNewBoard } from "../store/action/board-action"
 import { EditTaskNav } from "./edit-task-nav"
 
-export const TaskPreview = ({ task, board, box }) => {
+export const TaskPreview = ({ task, board, box, index }) => {
     const [isEdit, setIsEdit] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
@@ -56,15 +56,14 @@ export const TaskPreview = ({ task, board, box }) => {
 
     const getLabels = () => {
         if (!task.labelIds) return
-        console.log(task.labelIds)
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
         return taskLabels
     }
 
 
     return <div>
-
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
+            {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
             <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
             </div>
@@ -74,9 +73,13 @@ export const TaskPreview = ({ task, board, box }) => {
                     <FontAwesomeIcon onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                 </div>
             </div>
-        </div>}
+        </div>
+        }
+
+
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div><div className="task-link task task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
+                {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>

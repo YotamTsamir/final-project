@@ -1,7 +1,7 @@
 .box{
     // margin-top: 100px;
     background-color: $clr5;
-    width: 210px;
+    width: 272px;
     height: fit-content;
     border-radius: 5px;
     & h2{
@@ -13,4 +13,19 @@
     margin-left: 10px;
     margin-top: 10px;
     width: fit-content;
+}
+.close-new-task{
+    transform: translate3d(31px, -6px, 5px);
+}
+.new-task-input{
+    margin: 10px;
+    background-color: #FFFFFF;
+    height: -moz-fit-content;
+    height: fit-content;
+    padding: 6px 8px 2px;
+    border: none;
+    border-radius: 5px;
+    &:focus{
+        outline: none;
+    }
 }

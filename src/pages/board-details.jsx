@@ -9,6 +9,7 @@ import { useFormRegister } from "../hooks/useFormRegister"
 import { TaskDetails } from "../cmps/task-details"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { DragDropContext } from 'react-beautiful-dnd'
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
@@ -85,24 +86,29 @@ export const Board = () => {
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
+    const onDragEnd = () => {
+
+    }
 
 
     if (!board.boxes) return <h1>Loading...</h1>
+
     return <div className="board-container" style={board.style}>
         <header >
-        <h1 className="board-title">{board.title}</h1>
-        <div className="board-bar">
-            <button className="menu-btn">
-            <FontAwesomeIcon icon={faBars} />
-            </button>
-        </div>
+            <h1 className="board-title">{board.title}</h1>
+            <div className="board-bar">
+                <button className="menu-btn">
+                    <FontAwesomeIcon icon={faBars} />
+                </button>
+            </div>
         </header>
-        <div className="board">
-            <BoxList board={board} boxes={board.boxes} />
-            {(!isAdd) ? <div className="add-box" onClick={() => setAddBox()}>+ add another list</div> :
+        <DragDropContext onDragEnd={onDragEnd}>
+            <div className="board">
+                <BoxList board={board} boxes={board.boxes} />
+                {(!isAdd) ? <div className="add-box" onClick={() => setAddBox()}>+ add another list</div> :
                 <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
-
-        </div>
+            </div>
+        </DragDropContext>
     </div>
 }
 
