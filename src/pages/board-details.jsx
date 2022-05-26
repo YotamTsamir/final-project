@@ -7,12 +7,14 @@ import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { TaskDetails } from "../cmps/task-details"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
     const [windowPos, setWindowPos] = useState('')
-    const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: ''})
+    const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const params = useParams()
     const dispatch = useDispatch()
     let isClick = false
@@ -54,15 +56,15 @@ export const Board = () => {
         // console.log(dis)
         else if (ev.pageX > posX) {
             posX = ev.pageX
-            x-=1
+            x -= 1
             window.scroll(x, 0)
         }
         else {
             posX = ev.pageX
-            x+=1
+            x += 1
             window.scroll(x, 0)
         }
-      
+
     }
 
     const setAddBox = () => {
@@ -71,27 +73,36 @@ export const Board = () => {
     }
 
 
-    const onAddBox = async (ev,boardId) => {
+    const onAddBox = async (ev, boardId) => {
         ev.preventDefault()
-        if(!newBoxTitle.title) {
+        if (!newBoxTitle.title) {
             setIsAdd(false)
             return
         }
-        const box = { id: utilService.makeId(4), tasks: [], title:newBoxTitle.title }
+        const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
         const newBoard = await boardService.addBox(boardId, box)
         setIsAdd(false)
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
-    
+
 
     if (!board.boxes) return <h1>Loading...</h1>
-    return <div className="board">
+    return <div className="board-container" style={board.style}>
+        <header >
         <h1 className="board-title">{board.title}</h1>
-        <BoxList board={board} boxes={board.boxes} />
-        {(!isAdd) ? <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>:
-        <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev,board._id) }}><input {...register('title')} /></form></div>}
-      
+        <div className="board-bar">
+            <button className="menu-btn">
+            <FontAwesomeIcon icon={faBars} />
+            </button>
+        </div>
+        </header>
+        <div className="board">
+            <BoxList board={board} boxes={board.boxes} />
+            {(!isAdd) ? <div className="add-box" onClick={() => setAddBox()}>+ add another list</div> :
+                <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
+
+        </div>
     </div>
 }
 

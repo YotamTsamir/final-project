@@ -1,19 +1,50 @@
-.board{
+.board-container {
+    height: 100vh;
+    width: fit-content;
+    padding: 10px;
+
+
+    header {
+        position: relative;
+        margin-top: 100px;
+        font-size: 30px;
+        height: fit-content;
+
+        // width: 400px;
+        >* {
+            padding-bottom: 10px;
+        }
+
+        .board-title {
+            // position: absolute;
+            // margin-top: 100px;
+            margin: 0;
+            font-size: 30px;
+            height: fit-content;
+            width: 400px;
+        }
+    }
+
+    .menu-btn {
+        background: none;
+        border: none;
+        border-radius: 3px;
+    }
+
+    .menu-btn:hover {
+        background-color: $clr5;
+        cursor: pointer;
+    }
+}
+
+.board {
     display: flex;
     gap: 30px;
     margin-left: 40px;
     width: fit-content;
-    
-    .board-title {
-        position: absolute;
-        margin-top: 100px;
-        font-size: 30px;
-        height: fit-content;
-        width: 400px;
-    }
-
 }
-.add-box{
+
+.add-box {
     margin-top: 200px;
     background-color: $clr5;
     padding: 6px 8px;

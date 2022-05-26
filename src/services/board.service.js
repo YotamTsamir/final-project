@@ -8,7 +8,7 @@ export const boardService = {
     save,
     remove,
     addTask,
-    addBoard,
+    addNewBoard,
     addBox,
     getDefaultBgs,
     editTask,

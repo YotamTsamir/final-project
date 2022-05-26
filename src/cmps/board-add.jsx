@@ -7,12 +7,11 @@ export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
         title: 'Hello',
         style: {
             backgroundImage: "url(https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360)",
-            // backgroundColor: '',
         }
     })
 
 
-    const closeAddBoard = () => {
+    const onCloseAddBoard = () => {
         setIsAddBoardOpen(!isAddBoardOpen)
         onToggleAddBoard()
     }
@@ -71,7 +70,7 @@ export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
                 </ul>
                 <ul className="bg-color">
                     {dfBgs.color.map((color, idx) => {
-                        return <li key={`${idx+10}`}>
+                        return <li key={`${idx + 10}`}>
                             <button
                                 style={{ backgroundColor: `${color}` }}
                                 onClick={handleChange}
@@ -87,7 +86,7 @@ export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
 
 
         <button className="exit-add-btn"
-            onClick={closeAddBoard}>
+            onClick={onCloseAddBoard}>
             X
         </button>
         <button type="submit"
