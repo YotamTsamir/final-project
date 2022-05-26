@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { Route, Outlet } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { setTask, toggleDetails } from "../store/action/board-action"
+import { setTask, toggleDetails, editTask } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { setNewBoard } from "../store/action/board-action"
 import { EditTaskNav } from "./edit-task-nav"
@@ -16,34 +16,35 @@ export const TaskPreview = ({ task, board, box }) => {
     const [labels, setLabels] = useState([])
     const navigate = useNavigate()
     const dispatch = useDispatch()
-
     useEffect(() => {
+        // window.addEventListener('mousedown', onDown)
         setLabels(getLabels)
     }, [task])
 
     // const onToggleDetails = (task) => {
     //     dispatch(toggleDetails(task))
     // }
+    const onDown = () => {
+        setIsEdit(false)
+    }
 
-    const onEditTaskTitle = async (ev) => {
+    const onEditTask = async (ev, board, box) => {
         ev.preventDefault()
         if (!newBoxTitle.title) {
             setIsEdit(!isEdit)
             return
         }
-        // setLabels(getLabels)
-        const newBoard = await boardService.editTaskTitle(board._id, box, task, newBoxTitle.title)
+        const newTask = { ...task, title: newBoxTitle.title }
         setIsEdit(!isEdit)
-        dispatch(setNewBoard(newBoard))
+        dispatch(editTask(board._id, box.id, newTask))
     }
-
 
     const onSetTask = (box) => {
         dispatch(setTask(task, box))
         navigate(`task/${task.id}`)
     }
 
-    const onEditTask = (ev) => {
+    const onOpenEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
     }
@@ -65,16 +66,19 @@ export const TaskPreview = ({ task, board, box }) => {
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
                 <p >{task.title}</p>
                 <div className="edit-fav">
-                    <FontAwesomeIcon onClick={(ev) => onEditTask(ev)} icon={faPen} />
+                    <FontAwesomeIcon onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                 </div>
             </div>
         </div>}
-        {(isEdit) && <div className="task-link task" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
-            <div className="labels">
-                {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
+        {(isEdit) && <div>
+            <div onClick={() => { onDown() }} className="the-great-one"></div><div className="task-link task task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
+                <div className="labels">
+                    {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
+                </div>
+                <form onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><input className="task-edit" {...register('title')} />
+                    <button className="save-btn-edit">save</button></form>
+                <EditTaskNav setIsEdit={setIsEdit} box={box} task={task} board={board} />
             </div>
-            <form onSubmit={(ev) => { onEditTaskTitle(ev) }}><input className="task-edit" {...register('title')} /></form>
-            <EditTaskNav setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} box={box} task={task} board={board} />
         </div>}
 
         <Outlet />

@@ -23,7 +23,12 @@ export function loadBoards() {
 export function editTask(boardId, boxId, task) {
     return async dispatch => {
         const board = await boardService.editTask(boardId, boxId, task)
-        console.log(board)
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
+export function editBox(boardId, box) {
+    return async dispatch => {
+        const board = await boardService.editBox(boardId, box)
         dispatch({ type: 'SET_BOARD', board })
     }
 }

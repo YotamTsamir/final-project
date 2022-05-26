@@ -1,9 +1,9 @@
 import { TaskList } from "./task-list"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormRegister } from "../hooks/useFormRegister"
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
-import { setNewBoard } from '../store/action/board-action'
+import { editBox, setNewBoard } from '../store/action/board-action'
 
 
 export const BoxPreview = ({ box, board, onAddTask }) => {
@@ -11,6 +11,13 @@ export const BoxPreview = ({ box, board, onAddTask }) => {
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const dispatch = useDispatch()
 
+    useEffect(()=>{
+        // window.addEventListener('mousedown',onDown)
+    })
+
+    const onDown = () => {
+        setIsEdit(false)
+    }
 
     const onEdit = () => {
         isEdit ? setIsEdit(false) : setIsEdit(true)
@@ -18,10 +25,12 @@ export const BoxPreview = ({ box, board, onAddTask }) => {
 
     const onEditBoxTitle = async (ev) => {
         ev.preventDefault()
+        ev.stopPropagation()
         console.log(newBoxTitle.title)
-        const newBoard = await boardService.editBoxTitle(board._id, box, newBoxTitle.title)
+        const newBox = {...box,title:newBoxTitle.title}
+        // const newBoard = await boardService.editBoxTitle(board._id, box, newBoxTitle.title)
         onEdit()
-        dispatch(setNewBoard(newBoard))
+        dispatch(editBox(board._id,newBox))
     }
 
 
