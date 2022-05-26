@@ -20,15 +20,17 @@ export function loadBoards() {
     }
 }
 
-export function editTask(task){
-    return dispatch => {
-        dispatch({type:'EDIT_TASK',task})
+export function editTask(boardId, boxId, task) {
+    return async dispatch => {
+        const board = await boardService.editTask(boardId, boxId, task)
+        console.log(board)
+        dispatch({ type: 'SET_BOARD', board })
     }
 }
 
-export function setTask(task, box){
+export function setTask(task, box) {
     return (dispatch) => {
-        dispatch({type: 'SET_TASK', task, box})
+        dispatch({ type: 'SET_TASK', task, box })
     }
 }
 

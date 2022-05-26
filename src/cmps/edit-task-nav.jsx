@@ -2,15 +2,15 @@ import { useState } from 'react'
 import { LabelManu } from './label-manu'
 
 export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit }) => {
-    const [labelManu, setLabelManu] = useState(false)
+    const [labelMenu, setLabelMenu] = useState(false)
 
-    const openLabelManu = () => {
-        setLabelManu(!labelManu)
+    const openLabelMenu = () => {
+        setLabelMenu(!labelMenu)
     }
 
-    const manuBtns = [
+    const menuBtns = [
         { txt: 'Open card', func: '' },
-        { txt: 'Edit label', func: openLabelManu },
+        { txt: 'Edit label', func: openLabelMenu },
         { txt: 'Change members', func: '' },
         { txt: 'Change cover', func: '' },
         { txt: 'Move', func: '' },
@@ -21,12 +21,12 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit }) =>
 
     return <section>
         <div className="edit-task-nav">
-            {manuBtns.map(btn => {
+            {menuBtns.map(btn => {
                 return (
                     <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>{btn.txt}</button>
                 )
             })}
         </div>
-        {(labelManu) && <LabelManu setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
+        {(labelMenu) && <LabelManu setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
     </section>
 }

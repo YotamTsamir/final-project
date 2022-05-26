@@ -6,11 +6,10 @@ import { setNewBoard,editTask } from "../store/action/board-action"
 export const LabelManu = ({ board, task, box,onEditTaskTitle,setIsEdit }) => {
     const dispatch = useDispatch()
     const onAddLabel = async (ev, labelId) => {
-      const newBoard = await boardService.editTaskTitle(board._id,box,task,false,labelId)
-      dispatch(setNewBoard(newBoard))
-    // console.log(task)
-    // const newTask = task.labelIds.push(labelId)
-    // dispatch(editTask(newTask))
+    //   const newBoard = await boardService.editTaskTitle(board._id,box,task,false,labelId)
+    //   dispatch(setNewBoard(newBoard))
+    const newTask = {...task,labelIds:[...task.labelIds,labelId]}
+    dispatch(editTask(board._id,box.id,newTask))
     }
 
     return <div className="label-manu">
@@ -23,6 +22,5 @@ export const LabelManu = ({ board, task, box,onEditTaskTitle,setIsEdit }) => {
                 <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
             )
         }))}
-
     </div>
 }

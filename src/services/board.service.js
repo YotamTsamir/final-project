@@ -11,10 +11,11 @@ export const boardService = {
     addBoard,
     addBox,
     getDefaultBgs,
+    editTask,
 
     addBox,
     editBoxTitle,
-    editTaskTitle,
+    // editTaskTitle,
     getLabelById,
     addLabelToTask,
     editTaskDesc
@@ -194,19 +195,28 @@ async function editBoxTitle(boardId, box, newTitle) {
     // console.log(box.title)
     return save(board)
 }
-async function editTaskTitle(boardId, box, task, newTitle, labelId) {
+
+async function editTask(boardId, boxId, task) {
     let board = await getById(boardId)
-    let currBox = board.boxes.find(currBox => currBox.id === box.id)
-    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
-    if (newTitle) currTask.title = newTitle
-    if (labelId){
-        if(currTask.labelIds.includes(labelId)) {
-            let labelIdx = currTask.labelIds.findIndex(currLabelId => currLabelId === labelId)
-            currTask.labelIds.splice(labelIdx,1)
-        } else currTask.labelIds.push(labelId)
-    }
+    let currBox = board.boxes.find(currBox => currBox.id === boxId)
+    let currTaskIdx = currBox.tasks.findIndex(currTask => currTask.id === task.id)
+    currBox.tasks[currTaskIdx] = task
     return save(board)
 }
+
+// async function editTaskTitle(boardId, box, task, newTitle, labelId) {
+//     let board = await getById(boardId)
+//     let currBox = board.boxes.find(currBox => currBox.id === box.id)
+//     let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
+//     if (newTitle) currTask.title = newTitle
+//     if (labelId){
+//         if(currTask.labelIds.includes(labelId)) {
+//             let labelIdx = currTask.labelIds.findIndex(currLabelId => currLabelId === labelId)
+//             currTask.labelIds.splice(labelIdx,1)
+//         } else currTask.labelIds.push(labelId)
+//     }
+//     return save(board)
+// }
 async function editTaskDesc(boardId, box, task, newDesc) {
     console.log('SH>>AGA');
     let board = await getById(boardId)
