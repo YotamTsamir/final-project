@@ -312,6 +312,8 @@ async function editBoxTitle(boardId, box, newTitle) {
     return save(board)
 }
 
+
+
 // async function editTaskTitle(boardId, box, task, newTitle, labelId) {
 //     let board = await getById(boardId)
 //     let currBox = board.boxes.find(currBox => currBox.id === box.id)
@@ -323,15 +325,6 @@ async function editBoxTitle(boardId, box, newTitle) {
 //             currTask.labelIds.splice(labelIdx,1)
 //         } else currTask.labelIds.push(labelId)
 //     }
-//     return save(board)
-// }
-// async function editTaskDesc(boardId, box, task, newDesc) {
-//     console.log('SH>>AGA');
-//     let board = await getById(boardId)
-//     let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
-//     let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
-//     board.boxes[boxIdx].tasks[taskIdx].description = newDesc
-//     console.log(board.boxes[boxIdx].tasks[taskIdx].description)
 //     return save(board)
 // }
 
@@ -361,6 +354,10 @@ async function addBoard(board) {
 
 
 
+// async function addBoard(board) {
+//     let newBoard = _createBoard(board)
+//     return save(newBoard)
+// }
 
 // localStorage.clear()
 

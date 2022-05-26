@@ -67,7 +67,29 @@
         margin-top: 30px;
 
     }
-   
+   .label-container {
+       display: flex;
+       flex-direction: column;
+
+       .label-detail-container{
+           display: flex;
+           flex-direction: row;
+        }
+        
+        .label-details {
+            border-radius: 3px;
+            letter-spacing: 1px;
+            font-weight: 600;
+            height: 32px;
+            line-height: 32px;
+            margin: 0 4px 4px 0;
+            min-width: 40px;
+            width: fit-content;
+            padding: 0 12px;
+            color: #fefefe;
+        }
+
+   }
 
     & .box-title {
         letter-spacing: 0.5px;
