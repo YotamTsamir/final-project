@@ -11,7 +11,7 @@ export const BoxPreview = ({ box, board, onAddTask }) => {
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const dispatch = useDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         // window.addEventListener('mousedown',onDown)
     })
 
@@ -27,17 +27,17 @@ export const BoxPreview = ({ box, board, onAddTask }) => {
         ev.preventDefault()
         ev.stopPropagation()
         console.log(newBoxTitle.title)
-        const newBox = {...box,title:newBoxTitle.title}
+        const newBox = { ...box, title: newBoxTitle.title }
         // const newBoard = await boardService.editBoxTitle(board._id, box, newBoxTitle.title)
         onEdit()
-        dispatch(editBox(board._id,newBox))
+        dispatch(editBox(board._id, newBox))
     }
 
 
     if (!box) return <h1>Loading</h1>
     return <div className="box">
-        {(!isEdit) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> : 
-        <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
+        {(!isEdit) && <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2>}
+        {isEdit && <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
         <TaskList board={board} onAddTask={onAddTask} box={box} tasks={box.tasks} />
     </div>
 }
