@@ -5,7 +5,7 @@ export const AppHeader = () => {
     return <div className="app-header">
         <div className="logo-container">
             <img className="logo" src={logo}/>
-            <h1>Traillo</h1>
+            <h1>Tredux</h1>
         </div>
        
         <div className="app-header-links">
