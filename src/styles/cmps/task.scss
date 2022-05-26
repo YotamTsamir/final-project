@@ -4,33 +4,86 @@
     height: fit-content;
     padding: 6px 8px 2px;
     border-radius: 5px;
-    
+
     & p {
         margin-left: 5px;
     }
 }
-.task:hover{
-    .edit-fav{
+
+.task:hover {
+    .edit-fav {
         display: inline;
     }
-    .edit-fav:hover{
+
+    .edit-fav:hover {
         background-color: $clr5;
     }
 }
 
+.labels {
+    display: flex;
+    gap: 4px;
+}
 
-.task-link{
+.label {
+    height: 10px;
+    width: 50px;
+    border-radius: 4px;
+}
+
+.task-link {
     text-decoration: none;
 }
-.add-card{
+
+.add-card {
     text-align: center;
     margin: 2px 0 8px 8px;
 }
-.add-card:hover{
+
+.edit-task-nav{
+    position: absolute;
+    transform: translateX(190px);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.edit-task-nav-btn{
+    background-color: $clr7;
+    color: $clr4;
+    margin: 0 0 4px 8px;
+    padding: 6px 12px 6px 8px;
+    border-radius: 3px;
+    border: none;
+    transition: transform 85ms ease-in;
+    &:hover{
+        background-color: #000c;
+        transform: translateX(5px);
+    }
+}
+
+.label-manu{
+    background-color: $clr4;
+    border-radius: 3px;
+    position: absolute;
+    transform: translateX(190px);
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    gap: 5px;
+    margin-top: 80px;
+    text-align: center;
+}
+
+.add-card:hover {
     cursor: pointer;
 }
-.edit-fav{
-    // transform: translateY(15px);
+
+.task-edit {
+    border: none;
+    outline: none;
+}
+
+.edit-fav {
     position: relative;
     top: 0;
     right: 0;

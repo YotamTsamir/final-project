@@ -72,6 +72,10 @@ export const Board = () => {
 
     const onAddBox = async (ev,boardId) => {
         ev.preventDefault()
+        if(!newBoxTitle.title) {
+            setIsAdd(false)
+            return
+        }
         const box = { id: utilService.makeId(4), tasks: [], title:newBoxTitle.title }
         const newBoard = await boardService.addBox(boardId, box)
         setIsAdd(false)
@@ -82,6 +86,7 @@ export const Board = () => {
 
     if (!board.boxes) return <h1>Loading...</h1>
     return <div className="board">
+        <h1 className="board-title">{board.title}</h1>
         <BoxList board={board} boxes={board.boxes} />
         {(!isAdd) ? <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>:
         <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev,board._id) }}><input {...register('title')} /></form></div>}

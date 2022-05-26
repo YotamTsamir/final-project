@@ -15,7 +15,9 @@ export const boardService = {
     addBox,
     editBoxTitle,
     editTaskTitle,
-    editTaskDesc,
+    getLabelById,
+    addLabelToTask,
+    editTaskDesc
 }
 
 const BOARD = {
@@ -37,7 +39,23 @@ const BOARD = {
     //     "color": "#61bd4f"
     // }
 
-    "labels": [],
+    "labels": [
+        {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        },
+        {
+            "id": "l103",
+            "title": "In progress",
+            "color": "red"
+        },
+        {
+            "id": "l102",
+            "title": "shlaga",
+            "color": "#212121"
+        }
+    ],
     "members": [],
     "boxes": [
         {
@@ -120,6 +138,16 @@ const BOARD = {
 
 }
 
+function addLabelToTask(task,labelId,board){
+    task.labelIds.push(labelId)
+    return save(board)
+}
+
+function getLabelById(labelId, board) {
+    const label = board.labels.find(label => label.id === labelId)
+    return label
+}
+
 
 const defaultBgs = {
     image:[
@@ -168,10 +196,12 @@ async function editTaskTitle(boardId, box, task, newTitle) {
     return save(board)
 }
 async function editTaskDesc(boardId, box, task, newDesc) {
+    console.log('SH>>AGA');
     let board = await getById(boardId)
-    let currBox = board.boxes.find(currBox => currBox.id === box.id)
-    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
-    currTask.description = newDesc
+    let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
+    let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
+    board.boxes[boxIdx].tasks[taskIdx].description = newDesc
+    console.log(board.boxes[boxIdx].tasks[taskIdx].description)
     return save(board)
 }
 
@@ -237,7 +267,21 @@ function _createBoard(userBoard) {
         "createdAt": Date.now(),
         "createdBy": {},
         "style": userBoard.style,
-        "labels": [],
+        "labels": [  {
+            "id": "l101",
+            "title": "Done",
+            "color": "#61bd4f"
+        },
+        {
+            "id": "l103",
+            "title": "In progress",
+            "color": "red"
+        },
+        {
+            "id": "l102",
+            "title": "shlaga",
+            "color": "#212121"
+        }],
         "members": [],
         "boxes": [],
     }
@@ -246,7 +290,7 @@ function _createBoard(userBoard) {
 // localStorage.clear()
 
 // TEST DATA
-// storageService.post(STORAGE_KEY, board)
+// storageService.post(STORAGE_KEY, BOARD)
 
 
 
