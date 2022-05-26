@@ -1,16 +1,15 @@
 const initialState = {
     board: {},
-    task:{},
-    box: {}
+    task: {},
+    box: {},
+    boards: [],
 }
 export function boardReducer(state = initialState, action) {
     var newState = state;
     switch (action.type) {
         case 'SET_BOARDS':
-            return {
-                ...state,
-                boards: action.boards
-            }
+            newState = { ...state, boards: action.boards }
+            break;
         case 'SET_BOARD':
             newState = { ...state, board: action.board }
             break;
@@ -18,7 +17,7 @@ export function boardReducer(state = initialState, action) {
             // newState = { ...board, }
             break;
         case 'SET_TASK':
-            newState = {...state, task: action.task, box: action.box}
+            newState = { ...state, task: action.task, box: action.box }
         default:
     }
 

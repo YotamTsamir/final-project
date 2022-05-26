@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { loadBoards } from '../store/action/board-action'
 import { BoardAdd } from '../cmps/board-add.jsx'
-import { NavLink } from "react-router-dom"
+import { BoardThumbnailPreview } from '../cmps/board-thumbnail-preview.jsx'
 
 export const BoardList = () => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
@@ -18,9 +18,15 @@ export const BoardList = () => {
         setIsAddBoardOpen(!isAddBoardOpen)
     }
 
-    const onAddBoard = (board) => {
-        boardService.addBoard(board)
+    const onAddBoard = async (board) => {
+        await boardService.addBoard(board)
         setIsAddBoardOpen(!isAddBoardOpen)
+        dispatch(loadBoards())
+    }
+
+    const onRemoveBoard = async (boardId) => {
+        await boardService.remove(boardId)
+        dispatch(loadBoards())
     }
 
 
@@ -30,22 +36,16 @@ export const BoardList = () => {
         <div className="boards-container">
             <div className="board-prev board-new"
                 onClick={() => setIsAddBoardOpen(!isAddBoardOpen)}>
-               <p> ➕ New board </p>
+                <p> ➕ New board </p>
             </div>
-            {isAddBoardOpen ? <BoardAdd
-                onToggleAddBoard={onToggleAddBoard} 
+            {isAddBoardOpen && <BoardAdd
+                onToggleAddBoard={onToggleAddBoard}
                 onAddBoard={onAddBoard}
-                dfBgs={boardService.getDefaultBgs()}/> : ''}
+                dfBgs={boardService.getDefaultBgs()} />}
 
-            {boards.map(board => {
-                return <NavLink to={`/b/${board._id}`}
-                key={board._id}
-                    className="board-prev"
-                    style={board.style}>
-                    <div>
-                        <p>{board.title}</p>
-                    </div>
-                </NavLink>
+            {boards.map((board, idx) => {
+                return <BoardThumbnailPreview board={board}
+                    onRemove={onRemoveBoard} />
             })}
         </div>
     </div>

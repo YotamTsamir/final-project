@@ -191,9 +191,9 @@ async function addTask(boardId, task, boxId) {
 
 
 
-function query() {
-
-    return storageService.query(STORAGE_KEY)
+async function query() {
+    const boards = await storageService.query(STORAGE_KEY)
+    return boards
 }
 
 function getById(boardId) {
@@ -221,11 +221,8 @@ async function save(board) {
 }
 
 async function addBoard(board) {
-
     let newBoard = _createBoard(board)
-
-    save(newBoard)
-    return newBoard
+    return save(newBoard)
 }
 
 function getDefaultBgs(){
