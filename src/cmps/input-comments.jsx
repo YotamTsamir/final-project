@@ -48,7 +48,7 @@ export const InputComments = () => {
   return (
     <div className="comment-cmps">
       {isEditShownCom() && (
-        <form
+        <form className="form-comment-details"
           onSubmit={(ev) => {
             onEditTaskEntity(ev);
           }}
@@ -58,7 +58,7 @@ export const InputComments = () => {
             className="comment-input"
             {...register("comments")}
           />
-          <button className="save-btn-comment">Save</button>
+          <button className="save-btn">Save</button>
         </form>
       )}
       {!isEditShownCom() && (

@@ -57,10 +57,12 @@ export const InputDesc = () => {
             className="desc-input"
             {...register("description")}
           />
+          <div className="desc-btn-container">
           <button className="save-btn">Save</button>
           <button className="cancel-btn" type="button">
             Cancel
           </button>
+          </div>
         </form>
       )}
       {!isEditShownDesc() && (

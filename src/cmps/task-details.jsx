@@ -11,15 +11,15 @@ export const TaskDetails = () => {
   const [fieldsEdit, setFieldsEdit] = useState({
     isComments: false,
   });
-  const [labels, setLabels] = useState([])
+  const [labels, setLabels] = useState([]);
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
   );
 
-  const [register, entity, editEntity] = useFormRegister({
-    description: task?.description || "",
-    comments: task?.comment || "",
-  });
+  // const [register, entity, editEntity] = useFormRegister({
+  //   description: task?.description || "",
+  //   comments: task?.comment || "",
+  // });
 
   const navigate = useNavigate();
   const params = useParams();
@@ -32,29 +32,40 @@ export const TaskDetails = () => {
       const box = await boardService.findBoxByTaskId(boardId, taskId);
       const task = await boardService.getTaskById(boardId, box.id, taskId);
       dispatch(setTask(task, box));
-      setLabels(getLabels)
+      setLabels(getLabels);
     })();
   }, []);
   const getLabels = () => {
-    if (!task.labelIds) return
+    if (!task.labelIds) return;
     // console.log(task.labelIds)
-    const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
-    console.log(taskLabels)
-    return taskLabels
-}
+    const taskLabels = task.labelIds.map((labelId) =>
+      boardService.getLabelById(labelId, board)
+    );
+    console.log(taskLabels);
+    return taskLabels;
+  };
 
   const onToggleDetails = () => {
     navigate(`/b/${board._id}`);
   };
 
   const isCommentsLength = () => {
-
     return comments.length > 0;
   };
 
-  const { comments, labelIds } = task;
+  const { comments, labelIds, color } = task;
   return (
     <div className="task-details">
+      <div className="color-cover-details">
+        {/* {(topic === 'Cover') && (colors.map(color => {
+                return ( onClick={() => onChangeColor(color)} */}
+        <div
+          key={color}
+          className="cover-menu-color-detail"
+          style={{ backgroundColor: color }}
+        ></div>
+      </div>
+      <div className="detail-container">
       <div className="detail-header-container">
         <h1>{task?.title}</h1>
         <button
@@ -70,15 +81,21 @@ export const TaskDetails = () => {
         in list <span className="box-title-details">{box.title}</span>
       </h1>
       <div className="label-container">
-      <div className="labels-header"> Labels</div> 
+        <div className="labels-header"> Labels</div>
         <div className="label-detail-container">
-          {labels.map(label => {
-            return <div key={label.id} style={{ backgroundColor: label.color }} className="label-details">
-              {label.title}
+          {labels.map((label) => {
+            return (
+              <div
+                key={label.id}
+                style={{ backgroundColor: label.color }}
+                className="label-details"
+              >
+                {label.title}
               </div>
+            );
           })}
-          </div>
-          </div>
+        </div>
+      </div>
       <div className="task-description">
         <div className="description">Description</div>
         <InputDesc />
@@ -86,13 +103,14 @@ export const TaskDetails = () => {
           <div className="activity">Activity</div>
           <InputComments />
           <ul>
-            {isCommentsLength() &&(
-             comments.map((comment, idx) => {
-                 return <li key={idx}>{comment}</li>;
-              }))}
+            {isCommentsLength() &&
+              comments.map((comment, idx) => {
+                return <li key={idx}>{comment}</li>;
+              })}
           </ul>
         </div>
       </div>
+    </div>
     </div>
   );
 };

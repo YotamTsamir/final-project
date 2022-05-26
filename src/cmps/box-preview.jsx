@@ -24,7 +24,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), title: input, labelIds: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), title: input, labelIds: [], comments: [], description: '', color: '' }
         if (!input) {
             setAddNewTask('')
             return
