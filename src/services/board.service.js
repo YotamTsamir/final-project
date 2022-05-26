@@ -208,10 +208,12 @@ async function editTaskTitle(boardId, box, task, newTitle, labelId) {
     return save(board)
 }
 async function editTaskDesc(boardId, box, task, newDesc) {
+    console.log('SH>>AGA');
     let board = await getById(boardId)
-    let currBox = board.boxes.find(currBox => currBox.id === box.id)
-    let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
-    currTask.description = newDesc
+    let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
+    let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
+    board.boxes[boxIdx].tasks[taskIdx].description = newDesc
+    console.log(board.boxes[boxIdx].tasks[taskIdx].description)
     return save(board)
 }
 
@@ -231,9 +233,9 @@ async function addTask(boardId, task, boxId) {
 
 
 
-function query() {
-
-    return storageService.query(STORAGE_KEY)
+async function query() {
+    const boards = await storageService.query(STORAGE_KEY)
+    return boards
 }
 
 function getById(boardId) {
@@ -261,11 +263,8 @@ async function save(board) {
 }
 
 async function addBoard(board) {
-
     let newBoard = _createBoard(board)
-
-    save(newBoard)
-    return newBoard
+    return save(newBoard)
 }
 
 function getDefaultBgs() {
@@ -303,7 +302,7 @@ function _createBoard(userBoard) {
 // localStorage.clear()
 
 // TEST DATA
-// storageService.post(STORAGE_KEY, board)
+// storageService.post(STORAGE_KEY, BOARD)
 
 
 

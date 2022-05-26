@@ -40,7 +40,6 @@ export const TaskPreview = ({ task, board, box }) => {
 
     const onSetTask = (box) => {
         dispatch(setTask(task, box))
-        console.log(box)
         navigate(`task/${task.id}`)
     }
 

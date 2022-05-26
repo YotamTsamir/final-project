@@ -1,9 +1,9 @@
-import { boardService } from "../services/board.service"
 import { useState } from 'react'
+import { boardService } from "../services/board.service"
 
 export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
-    const [board, setBoard] = useState({
+    const [board, setNewBoard] = useState({
         title: 'Hello',
         style: {
             backgroundImage: "url(https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360)",
@@ -27,20 +27,19 @@ export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
         const value = target.value
 
         if (target.type === 'button') {
-            return setBoard((prevState) => ({
+            return setNewBoard((prevState) => ({
                 ...prevState,
                 style: { [field]: value }
             }))
         }
-        setBoard((prevState) =>
+        setNewBoard((prevState) =>
             ({ ...prevState, [field]: value }))
 
         // console.log(board)
     }
 
     return <form className="board-add"
-        onSubmit={onCreateBoard}
-        onClick={(ev) => ev.stopPropagation()}>
+        onSubmit={(ev) => onCreateBoard(ev)}>
         <input type="text" placeholder="Board name"
             value={board.title}
             name="title"

@@ -11,8 +11,8 @@ export function getBoard(boardId) {
 export function loadBoards() {
     return async (dispatch, getState) => {
         try {
-            // const { filterBy } = getState().robotModule
             const boards = await boardService.query()
+            // console.log(boards)
             dispatch({ type: 'SET_BOARDS', boards })
         } catch (err) {
             console.log('err:', err)

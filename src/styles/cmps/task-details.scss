@@ -6,12 +6,35 @@
     left: 50%;
     top: 50%;
     height: 600px;
-    width: 500px;
+    width: 650px;
     transform: translate(-50%, -50%);
     background-color: #f3efef;
     padding: 1rem 2rem;
     border-radius: 0.5rem;
 
+    & .x-btn {
+        display: flex;
+        width: fit-content;
+        float: right;
+        cursor: pointer;
+        height: fit-content;
+    }
+    & input:focus {
+        border: 1px solid $clr6;
+    }
+    input {
+        border-radius: 2px;
+        outline: none;
+        border: none;
+        padding: 5px;
+        width: 600px;
+    }
+    .detail-header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
     &.hidden {
         display: none;
     }
@@ -22,20 +45,34 @@
         flex-direction: column;
     }
     & .desc-input{
+        margin-top:10px;
         height: 150px;
-        width: 200px;
-        border: none;
+        margin-left: 40px;
+    }
+    .activity {
+        font-weight: 600;
+        letter-spacing: 1.8px;
+        font-size: 16px ;
+        margin-top: 8px;
+    }
+    .comment-input{
+        margin: 20px 0 0 40px;
+        height: 40px;
+    }
+
+    .description  {
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        font-size: 16px ;
+        margin-top: 30px;
 
     }
-    & .desc-input:focus{
-        border: 2px solid $clr6;
-    }
-    // & input:focus{
-    //     border: 3px solid $clr6;
-    // }
+   
+
     & .box-title {
         letter-spacing: 0.5px;
         color: rgb(97, 96, 96);
+        margin-top: 0px;
         font-weight: 500;
         font-size: 14px;
 
@@ -45,33 +82,43 @@
 
         } 
     }
-
- 
-
-    & button {
-        letter-spacing: 1.5px;
+    & .task-description {
         font-weight: 600;
+        letter-spacing: 1.5px;
+        font-size: 16px ;
 
-        &.save-btn {
-            background-color: $clr6;
-            margin-top: 10px;
-            color: #fefefe;
-            padding: 6px 8px;
-            border: none;
-            border-radius: 2px;
-            justify-content: center;
-        }
-        &.cancel-btn {
-            background-color: transparent;
-            border: none;
-            color: $clr6;
-        }
-        &.x-btn {
-            display: flex;
-            width: fit-content;
-            right: 0;
+        .curr-desc {
+            font-size: 14px;
+            font-weight: 400;
+            margin-top: 20px;
+            margin-left: 40px;
         }
 
+        button {
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            cursor: pointer;
+            
+            &.save-btn {
+                background-color: $clr6;
+                margin: 10px 8px 0 40px;
+                margin-left: 40px;
+                color: #fefefe;
+                padding: 6px 8px;
+                border: none;
+                border-radius: 2px;
+                justify-content: center;
+            }
+            &.save-btn:hover {
+                background-color: #00578a;
+            }
+            &.cancel-btn {
+                background-color: transparent;
+                border: none;
+                color: $clr6;
+            }
+        }
 
+        
     }
 }
