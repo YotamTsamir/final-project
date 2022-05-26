@@ -73,7 +73,7 @@ export const TaskDetails = () => {
       <div className="labels-header"> Labels</div> 
         <div className="label-detail-container">
           {labels.map(label => {
-            return <div style={{ backgroundColor: label.color }} className="label-details">
+            return <div key={label.id} style={{ backgroundColor: label.color }} className="label-details">
               {label.title}
               </div>
           })}
