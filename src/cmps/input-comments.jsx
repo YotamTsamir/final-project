@@ -30,7 +30,7 @@ export const InputComments = () => {
   const { comments } = task;
 
   const isEditShownCom = () => {
-    // return !comments.length || !fieldsEdit.isComments;
+    return !comments.length || !fieldsEdit.isComments;
   };
   const onEditField = () => {
     setFieldsEdit({ ...fieldsEdit, isComments: true });
