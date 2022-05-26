@@ -108,7 +108,7 @@ async function save(board) {
     return savedBoard
 }
 
-async function addBoard(board) {
+async function addNewBoard(board) {
     let newBoard = _createBoard(board)
     return save(newBoard)
 }
