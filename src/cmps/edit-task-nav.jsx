@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { LabelManu } from './label-manu'
 
-export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit }) => {
+export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit,openTask }) => {
     const [labelMenu, setLabelMenu] = useState(false)
 
     const openLabelMenu = () => {
@@ -9,7 +9,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit }) =>
     }
 
     const menuBtns = [
-        { txt: 'Open card', func: '' },
+        { txt: 'Open card', func: openTask },
         { txt: 'Edit label', func: openLabelMenu },
         { txt: 'Change members', func: '' },
         { txt: 'Change cover', func: '' },

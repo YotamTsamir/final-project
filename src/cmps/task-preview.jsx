@@ -44,6 +44,11 @@ export const TaskPreview = ({ task, board, box }) => {
         navigate(`task/${task.id}`)
     }
 
+    const openTask = () => {
+        navigate(`task/${task.id}`)
+        setIsEdit(false)
+    }
+
     const onOpenEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
@@ -77,7 +82,7 @@ export const TaskPreview = ({ task, board, box }) => {
                 </div>
                 <form onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><input className="task-edit" {...register('title')} />
                     <button className="save-btn-edit">save</button></form>
-                <EditTaskNav setIsEdit={setIsEdit} box={box} task={task} board={board} />
+                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} box={box} task={task} board={board} />
             </div>
         </div>}
 
