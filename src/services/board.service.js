@@ -8,7 +8,7 @@ export const boardService = {
     save,
     remove,
     addTask,
-    addBoard,
+    addNewBoard,
     addBox,
     getDefaultBgs,
     editTask,
@@ -242,7 +242,6 @@ async function addTask(boardId, task, boxId) {
 }
 
 
-
 async function query() {
     const boards = await storageService.query(STORAGE_KEY)
     return boards
@@ -272,7 +271,7 @@ async function save(board) {
     return savedBoard
 }
 
-async function addBoard(board) {
+async function addNewBoard(board) {
     let newBoard = _createBoard(board)
     return save(newBoard)
 }
