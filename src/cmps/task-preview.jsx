@@ -50,7 +50,7 @@ export const TaskPreview = ({ task, board, box }) => {
 
     const getLabels = () => {
         if (!task.labelIds) return
-        console.log(task.labelIds)
+        // console.log(task.labelIds)
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
         return taskLabels
     }

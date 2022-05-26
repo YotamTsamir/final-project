@@ -83,8 +83,7 @@ export const Board = () => {
         dispatch(setNewBoard(newBoard))
     }
     
-
-    if (!board.boxes) return <h1>Loading...</h1>
+    if (!board || board && !board.boxes) return <h1>Loading...</h1>
     return <div className="board">
         <h1 className="board-title">{board.title}</h1>
         <BoxList board={board} boxes={board.boxes} />

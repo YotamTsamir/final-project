@@ -17,7 +17,7 @@ export const TaskList = ({ tasks, board, box }) => {
 
     const onAddTask = async (ev,boardId, boxId,input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), title:input,labelIds:[], description:'' }
+        const task = { id: utilService.makeId(4), title:input,labelIds:[], description:'', comments: [] }
         if(!input) {
             setAddTask()
             return

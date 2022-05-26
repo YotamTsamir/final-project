@@ -44,7 +44,7 @@ export const BoardList = () => {
                 dfBgs={boardService.getDefaultBgs()} />}
 
             {boards.map((board, idx) => {
-                return <BoardThumbnailPreview board={board}
+                return <BoardThumbnailPreview key={idx} board={board}
                     onRemove={onRemoveBoard} />
             })}
         </div>

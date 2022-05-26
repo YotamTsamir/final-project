@@ -18,7 +18,8 @@ export const boardService = {
     // editTaskTitle,
     getLabelById,
     addLabelToTask,
-    editTaskDesc
+    getTaskById,
+    findBoxByTaskId
 }
 
 const BOARD = {
@@ -197,10 +198,12 @@ async function editBoxTitle(boardId, box, newTitle) {
 }
 
 async function editTask(boardId, boxId, task) {
+    console.log(boxId)
     let board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === boxId)
     let currTaskIdx = currBox.tasks.findIndex(currTask => currTask.id === task.id)
     currBox.tasks[currTaskIdx] = task
+    
     return save(board)
 }
 
@@ -217,15 +220,15 @@ async function editTask(boardId, boxId, task) {
 //     }
 //     return save(board)
 // }
-async function editTaskDesc(boardId, box, task, newDesc) {
-    console.log('SH>>AGA');
-    let board = await getById(boardId)
-    let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
-    let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
-    board.boxes[boxIdx].tasks[taskIdx].description = newDesc
-    console.log(board.boxes[boxIdx].tasks[taskIdx].description)
-    return save(board)
-}
+// async function editTaskDesc(boardId, box, task, newDesc) {
+//     console.log('SH>>AGA');
+//     let board = await getById(boardId)
+//     let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
+//     let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
+//     board.boxes[boxIdx].tasks[taskIdx].description = newDesc
+//     console.log(board.boxes[boxIdx].tasks[taskIdx].description)
+//     return save(board)
+// }
 
 async function addBox(boardId, box) {
     let board = await getById(boardId)
@@ -244,13 +247,31 @@ async function addTask(boardId, task, boxId) {
 
 
 async function query() {
-    const boards = await storageService.query(STORAGE_KEY)
-    return boards
+    return await storageService.query(STORAGE_KEY)
 }
 
 function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
     // return axios.get(`/api/car/${carId}`)
+}
+
+async function getTaskById(boardId, boxId, taskId){
+    const board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === boxId)
+    return currBox.tasks.find(t => t.id === taskId)
+}
+
+async function findBoxByTaskId(boardId, taskId) {
+    const board = await getById(boardId)
+    let foundBox = null
+    board.boxes.forEach((box) => {
+        const task = box.tasks.find((task) => task.id === taskId)
+        if (task) {
+            foundBox = box
+            return
+        }
+    })
+    return foundBox
 }
 
 async function remove(boardId) {
