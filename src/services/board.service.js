@@ -18,7 +18,8 @@ export const boardService = {
     // editTaskTitle,
     getLabelById,
     addLabelToTask,
-    editTaskDesc
+    getTaskById,
+    findBoxByTaskId
 }
 
 
@@ -289,6 +290,144 @@ const BOARD = {
     ]
 
 }
+
+async function addLabelToTask(task, box, labelId, boardId) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    let currTask = currBox.tasks.find(t => t.id === task.id)
+    currTask.labelIds.push(labelId)
+    return save(board)
+}
+
+function getLabelById(labelId, board) {
+    const label = board.labels.find(label => label.id === labelId)
+    return label
+}
+
+
+
+
+
+function editTaskLabel(){
+
+}
+
+// async function addBox(boardId, box) {
+async function editBoxTitle(boardId, box, newTitle) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    currBox.title = newTitle
+
+    // console.log(box.title)
+    return save(board)
+}
+
+async function editTask(boardId, boxId, task) {
+    console.log(boxId)
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === boxId)
+    let currTaskIdx = currBox.tasks.findIndex(currTask => currTask.id === task.id)
+    currBox.tasks[currTaskIdx] = task
+    
+    return save(board)
+}
+
+// async function editTaskTitle(boardId, box, task, newTitle, labelId) {
+//     let board = await getById(boardId)
+//     let currBox = board.boxes.find(currBox => currBox.id === box.id)
+//     let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
+//     if (newTitle) currTask.title = newTitle
+//     if (labelId){
+//         if(currTask.labelIds.includes(labelId)) {
+//             let labelIdx = currTask.labelIds.findIndex(currLabelId => currLabelId === labelId)
+//             currTask.labelIds.splice(labelIdx,1)
+//         } else currTask.labelIds.push(labelId)
+//     }
+//     return save(board)
+// }
+// async function editTaskDesc(boardId, box, task, newDesc) {
+//     console.log('SH>>AGA');
+//     let board = await getById(boardId)
+//     let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
+//     let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
+//     board.boxes[boxIdx].tasks[taskIdx].description = newDesc
+//     console.log(board.boxes[boxIdx].tasks[taskIdx].description)
+//     return save(board)
+// }
+
+async function addBox(boardId, box) {
+    let board = await getById(boardId)
+    console.log(board)
+    board.boxes.push(box)
+    return save(board)
+}
+
+async function addTask(boardId, task, boxId) {
+    let board = await getById(boardId)
+    let box = board.boxes.find(box => box.id === boxId)
+    box.tasks.push(task)
+    return save(board)
+}
+
+
+
+async function query() {
+    return await storageService.query(STORAGE_KEY)
+}
+
+function getById(boardId) {
+    return storageService.get(STORAGE_KEY, boardId)
+    // return axios.get(`/api/car/${carId}`)
+}
+
+async function getTaskById(boardId, boxId, taskId){
+    const board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === boxId)
+    return currBox.tasks.find(t => t.id === taskId)
+}
+
+async function findBoxByTaskId(boardId, taskId) {
+    const board = await getById(boardId)
+    let foundBox = null
+    board.boxes.forEach((box) => {
+        const task = box.tasks.find((task) => task.id === taskId)
+        if (task) {
+            foundBox = box
+            return
+        }
+    })
+    return foundBox
+}
+
+async function remove(boardId) {
+    // return new Promise((resolve, reject) => {
+    //     setTimeout(reject, 2000)
+    // })
+    // return Promise.reject('Not now!');
+    await storageService.remove(STORAGE_KEY, boardId)
+}
+async function save(board) {
+    var savedBoard
+    if (board._id) {
+        savedBoard = await storageService.put(STORAGE_KEY, board)
+    } else {
+        // Later, owner is set by the backend
+        savedBoard = await storageService.post(STORAGE_KEY, board)
+    }
+
+    return savedBoard
+}
+
+async function addBoard(board) {
+    let newBoard = _createBoard(board)
+    return save(newBoard)
+}
+
+function getDefaultBgs() {
+    return defaultBgs
+}
+
+
 // localStorage.clear()
 
 // TEST DATA

@@ -38,7 +38,7 @@ export const Board = () => {
     }
 
     const onDown = (ev) => {
-        setIsAdd(false)
+        // setIsAdd(false)
         isClick = true
         posX = ev.pageX
     }
