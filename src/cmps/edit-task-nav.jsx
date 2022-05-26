@@ -1,25 +1,32 @@
 import { useState } from 'react'
 import { LabelManu } from './label-manu'
 
-export const EditTaskNav = ({board,task}) => {
+export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit }) => {
     const [labelManu, setLabelManu] = useState(false)
 
     const openLabelManu = () => {
         setLabelManu(!labelManu)
     }
 
-    return <section>
+    const manuBtns = [
+        { txt: 'Open card', func: '' },
+        { txt: 'Edit label', func: openLabelManu },
+        { txt: 'Change members', func: '' },
+        { txt: 'Change cover', func: '' },
+        { txt: 'Move', func: '' },
+        { txt: 'Copy', func: '' },
+        { txt: 'Edit dates', func: '' },
+        { txt: 'Archive', func: '' },
+    ]
 
+    return <section>
         <div className="edit-task-nav">
-            <button className="edit-task-nav-btn">Open card</button>
-            <button onClick={() => { openLabelManu() }} className="edit-task-nav-btn">Edit label</button>
-            <button className="edit-task-nav-btn">Change members</button>
-            <button className="edit-task-nav-btn">Change cover</button>
-            <button className="edit-task-nav-btn">Move</button>
-            <button className="edit-task-nav-btn">Copy</button>
-            <button className="edit-task-nav-btn">Edit dates</button>
-            <button className="edit-task-nav-btn">Archive</button>
+            {manuBtns.map(btn => {
+                return (
+                    <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>{btn.txt}</button>
+                )
+            })}
         </div>
-        {(labelManu) && <LabelManu task={task} board={board}/> }
+        {(labelManu) && <LabelManu setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
     </section>
 }

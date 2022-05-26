@@ -11,7 +11,7 @@ export const boardService = {
     addBoard,
     addBox,
     getDefaultBgs,
-    
+
     addBox,
     editBoxTitle,
     editTaskTitle,
@@ -138,8 +138,11 @@ const BOARD = {
 
 }
 
-function addLabelToTask(task,labelId,board){
-    task.labelIds.push(labelId)
+async function addLabelToTask(task, box, labelId, boardId) {
+    let board = await getById(boardId)
+    let currBox = board.boxes.find(currBox => currBox.id === box.id)
+    let currTask = currBox.tasks.find(t => t.id === task.id)
+    currTask.labelIds.push(labelId)
     return save(board)
 }
 
@@ -150,7 +153,7 @@ function getLabelById(labelId, board) {
 
 
 const defaultBgs = {
-    image:[
+    image: [
         "https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360",
         "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95d2d9f93.png",
         "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/103834-simple_background-748x421.jpg",
@@ -178,21 +181,30 @@ const defaultBgs = {
 }
 
 
+function editTaskLabel(){
 
+}
 
 // async function addBox(boardId, box) {
 async function editBoxTitle(boardId, box, newTitle) {
     let board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
     currBox.title = newTitle
+
     // console.log(box.title)
     return save(board)
 }
-async function editTaskTitle(boardId, box, task, newTitle) {
+async function editTaskTitle(boardId, box, task, newTitle, labelId) {
     let board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
     let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
-    currTask.title = newTitle
+    if (newTitle) currTask.title = newTitle
+    if (labelId){
+        if(currTask.labelIds.includes(labelId)) {
+            let labelIdx = currTask.labelIds.findIndex(currLabelId => currLabelId === labelId)
+            currTask.labelIds.splice(labelIdx,1)
+        } else currTask.labelIds.push(labelId)
+    }
     return save(board)
 }
 async function editTaskDesc(boardId, box, task, newDesc) {
@@ -256,7 +268,7 @@ async function addBoard(board) {
     return newBoard
 }
 
-function getDefaultBgs(){
+function getDefaultBgs() {
     return defaultBgs
 }
 
@@ -268,7 +280,7 @@ function _createBoard(userBoard) {
         "createdAt": Date.now(),
         "createdBy": {},
         "style": userBoard.style,
-        "labels": [  {
+        "labels": [{
             "id": "l101",
             "title": "Done",
             "color": "#61bd4f"

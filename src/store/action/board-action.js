@@ -20,11 +20,18 @@ export function loadBoards() {
     }
 }
 
+export function editTask(task){
+    return dispatch => {
+        dispatch({type:'EDIT_TASK',task})
+    }
+}
+
 export function setTask(task, box){
     return (dispatch) => {
         dispatch({type: 'SET_TASK', task, box})
     }
 }
+
 export function setNewBoard(board) {
     return async (dispatch) => {
         dispatch({ type: 'SET_BOARD', board })
