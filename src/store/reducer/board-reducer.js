@@ -10,6 +10,12 @@ export function boardReducer(state = initialState, action) {
         case 'SET_BOARDS':
             newState = { ...state, boards: action.boards }
             break;
+        case 'ADD_BOARD':
+            newState = { ...state, boards: [...state.boards, action.board] }
+            break;
+        case 'REMOVE_BOARD':
+            newState = { ...state, boards: state.boards.filter(board => board._id !== action.boardId) }
+            break;
         case 'SET_BOARD':
             newState = { ...state, board: action.board }
             break;
@@ -19,8 +25,11 @@ export function boardReducer(state = initialState, action) {
         case 'SET_TASK':
             newState = {...state, task: action.task, box: action.box}
         break;
+        case 'EDIT_BOX':
+            newState = {...state, box: action.box}
+        break;
         case 'EDIT_TASK':
-            newState = {...state, task: action.task}
+            newState = { ...state, task: action.task }
         default:
     }
 

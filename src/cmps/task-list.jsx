@@ -1,7 +1,7 @@
 import { TaskPreview } from "./task-preview"
 import { utilService } from '../services/util.service'
 import { boardService } from "../services/board.service"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch } from "react-redux"
 import { setNewBoard } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
@@ -10,6 +10,16 @@ export const TaskList = ({ tasks, board, box }) => {
     const [isAddTask, setIsAddTask] = useState(false)
     const [register, newTask, EditTask] = useFormRegister({ title: '' })
     const dispatch = useDispatch()
+
+    useEffect(()=>{
+        // window.addEventListener('mousedown',onDown)
+        // window.addEventListener('keydown',onDown)
+    })
+
+    const onDown = (ev) => {
+        // if(ev.key !== 'Escape') return
+        setIsAddTask(false)
+    }
 
     const setAddTask = () => {
         isAddTask ? setIsAddTask(false) : setIsAddTask(true)

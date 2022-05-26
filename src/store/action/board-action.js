@@ -10,19 +10,34 @@ export function getBoard(boardId) {
 // console.log(loadBoards())
 export function loadBoards() {
     return async (dispatch, getState) => {
-        try {
-            const boards = await boardService.query()
-            // console.log(boards)
-            dispatch({ type: 'SET_BOARDS', boards })
-        } catch (err) {
-            console.log('err:', err)
-        }
+        const boards = await boardService.query()
+        dispatch({ type: 'SET_BOARDS', boards })
+    }
+}
+
+export function addBoard(newBoard) {
+    return async (dispatch) => {
+        const board = await boardService.addNewBoard(newBoard)
+        dispatch({ type: 'ADD_BOARD', board })
+    }
+}
+
+export function deleteBoard(boardId) {
+    return async (dispatch) => {
+        await boardService.remove(boardId)
+        dispatch({ type: 'REMOVE_BOARD', boardId })
     }
 }
 
 export function editTask(boardId, boxId, task) {
     return async dispatch => {
         const board = await boardService.editTask(boardId, boxId, task)
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
+export function editBox(boardId, box) {
+    return async dispatch => {
+        const board = await boardService.editBox(boardId, box)
         dispatch({ type: 'SET_BOARD', board })
         console.log(board)
     }

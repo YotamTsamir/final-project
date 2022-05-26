@@ -4,10 +4,25 @@
     height: fit-content;
     padding: 6px 8px 2px;
     border-radius: 5px;
-
+    // pointer-events: none;
     & p {
         margin-left: 5px;
     }
+}
+
+.task-edited{
+    position: relative;
+    z-index: 100;
+}
+
+.the-great-one {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.44);
 }
 
 .task:hover {
@@ -40,14 +55,15 @@
     margin: 2px 0 8px 8px;
 }
 
-.edit-task-nav{
+.edit-task-nav {
     position: absolute;
     transform: translateX(190px);
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
-.edit-task-nav-btn{
+
+.edit-task-nav-btn {
     background-color: $clr7;
     color: $clr4;
     margin: 0 0 4px 8px;
@@ -55,13 +71,23 @@
     border-radius: 3px;
     border: none;
     transition: transform 85ms ease-in;
-    &:hover{
+
+    &:hover {
         background-color: #000c;
         transform: translateX(5px);
     }
 }
 
-
+.save-btn-edit {
+    background-color: #0065ff;
+    transform: translateY(46px);
+    margin: 10px 8px 0 0;
+    color: #fefefe;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 2px;
+    justify-content: center;
+}
 
 .add-card:hover {
     cursor: pointer;

@@ -6,9 +6,15 @@ import { setNewBoard,editTask } from "../store/action/board-action"
 export const LabelManu = ({ board, task, box,onEditTaskTitle,setIsEdit }) => {
     const dispatch = useDispatch()
     const onAddLabel = async (ev, labelId) => {
-    //   const newBoard = await boardService.editTaskTitle(board._id,box,task,false,labelId)
-    //   dispatch(setNewBoard(newBoard))
-    const newTask = {...task,labelIds:[...task.labelIds,labelId]}
+        let newTask;
+    if(task.labelIds.includes(labelId)) {
+    const labelIdx = task.labelIds.findIndex(label => label === labelId)
+    task.labelIds.splice(labelIdx,1)
+    newTask = {...task,labelIds:task.labelIds}
+    console.log(newTask)
+    } else {
+    newTask = {...task,labelIds:[...task.labelIds,labelId]}
+    }
     dispatch(editTask(board._id,box.id,newTask))
     }
 
