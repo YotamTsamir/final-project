@@ -1,7 +1,7 @@
-import { boardService } from "../services/board.service"
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { loadBoards, addBoard, deleteBoard as deleteBoard } from '../store/action/board-action'
+import { boardService } from "../services/board.service"
+import { loadBoards, addBoard, deleteBoard } from '../store/action/board-action'
 import { BoardAdd } from '../cmps/board-add.jsx'
 import { BoardThumbnailPreview } from '../cmps/board-thumbnail-preview.jsx'
 
@@ -42,7 +42,7 @@ export const BoardList = () => {
                 dfBgs={boardService.getDefaultBgs()} />}
 
             {boards.map((board, idx) => {
-                return <BoardThumbnailPreview board={board}
+                return <BoardThumbnailPreview key={idx} board={board}
                     onRemove={onRemoveBoard} />
             })}
         </div>

@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormRegister } from "../hooks/useFormRegister";
 import {
-  loadBoards,
-  setNewBoard,
+  editTask,
   getBoard,
+  setTask
 } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 
 export const TaskDetails = () => {
   const [fieldsEdit, setFieldsEdit] = useState({
     isDescription: false,
-    isComment: false,
+    isComments: false,
   });
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
@@ -24,33 +24,46 @@ export const TaskDetails = () => {
     description: task?.description || "",
   });
 
-  useEffect(() => {
-    console.log(task);
-  }, []);
   const navigate = useNavigate();
+  const params = useParams();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    (async () => {
+      const { boardId, taskId } = params
+      dispatch(getBoard(boardId))
+      const box = await boardService.findBoxByTaskId(boardId, taskId)
+      const task = await boardService.getTaskById(boardId, box.id, taskId)
+      dispatch(setTask(task, box))
+    })()
+  }, [])
+
   const onToggleDetails = () => {
-    navigate(`/b/${board._id}`);
+    navigate(`/b/${board._id}`)
   };
 
   const onEditTaskDesc = async (ev) => {
-    ev.preventDefault();
-    const newBoard = await boardService.editTaskDesc(
-      board._id,
-      box,
-      task,
-      newDesc.description
-    );
-    dispatch(setNewBoard(newBoard));
-    setFieldsEdit({ ...fieldsEdit, description: false });
+    ev.preventDefault()
+    const newTask = {...task, description: newDesc.description}
+    dispatch(editTask(board._id, box.id, newTask))
+    dispatch(getBoard())
+    setFieldsEdit({ ...fieldsEdit, isDescription: false })
+  }
+
+  const onEditTaskComments = async (ev) => {
+    ev.preventDefault()
+    const newTask = {...task, comments: newComment.comments}
+    console.log('dandan', box.id);
+    dispatch(editTask(board._id, box.id, newTask))
+    dispatch(getBoard())
+    setFieldsEdit({ ...fieldsEdit, isComments: false })
   };
 
   const onEditField = (field, value) => {
-    setFieldsEdit({ ...fieldsEdit, description: true });
-    editDesc((prevFields) => ({ ...prevFields, [field]: value }));
+    setFieldsEdit({ ...fieldsEdit, isDescription: true })
+    editDesc((prevFields) => ({ ...prevFields, [field]: value }))
   };
-
+  // const { comments } = task
   return (
     <div className="task-details">
       <div className="detail-header-container">
@@ -65,12 +78,13 @@ export const TaskDetails = () => {
         </button>
       </div>
       <h1 className="box-title">
-        in list <span className="box-title-details">{box?.title}</span>
+        in list <span className="box-title-details">{box.title}</span>
       </h1>
 
       <div className="task-description">
         <div className="description">Description</div>
-        {!task?.description || fieldsEdit.description ? (
+        {/* <button onClick={onEditTaskDesc()}>Edit</button> */}
+        {(!task.description || fieldsEdit.isDescription) ? (
           <form
             onSubmit={(ev) => {
               onEditTaskDesc(ev, board._id, box?.id, newDesc.description);
@@ -80,7 +94,7 @@ export const TaskDetails = () => {
               placeholder="Add a more detailed descripton..."
               className="desc-input"
               {...register("description")}
-            />{" "}
+            />
             <button className="save-btn">Save</button>
             <button className="cancel-btn" type="button">
               Cancel
@@ -94,11 +108,38 @@ export const TaskDetails = () => {
             {task.description}
           </div>
         )}
-      </div>
-      <div className="activity">
+              <div className="activity-container">
         <div className="activity">Activity</div>
-        <input className="comment-input" placeholder="Add a comment..."></input>
+        
+
+
+
+        {(task.comments && !task.comments.length || fieldsEdit.isComments) ? (
+          <form
+            onSubmit={(ev) => {
+              onEditTaskComments(ev, board._id, box?.id, newComment.comments);
+            }}
+          >
+            <input
+              placeholder="Write a comment..."
+              className="comment-input"
+              {...registerComment("comment")}
+            />
+            <button className="save-btn-comment">Save</button>
+          </form>
+        ) : (
+          <div
+            className="curr-comment"
+            onClick={() => onEditField("comment", task.comments)}
+          >
+            {task.comments && task.comments.map(comment => {
+              return <h1>Comment</h1>
+          })}
+          
+        </div>
+        )}
       </div>
+    </div>
     </div>
   );
 };

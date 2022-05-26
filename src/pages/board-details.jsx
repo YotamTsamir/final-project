@@ -1,19 +1,26 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
-import { getBoard, setNewBoard } from '../store/action/board-action'
+import { getBoard, setNewBoard, deleteBoard } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { TaskDetails } from "../cmps/task-details"
+<<<<<<< HEAD
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { DragDropContext } from 'react-beautiful-dnd'
+=======
+import { BoardMenu } from '../cmps/board-menu.jsx'
+>>>>>>> ad3ec6e1d0d3e3cf7b5870a56019a60277da561a
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
+    const [isBoardMenu, setIsBoardMenu] = useState(false)
     const [windowPos, setWindowPos] = useState('')
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const params = useParams()
@@ -71,6 +78,13 @@ export const Board = () => {
     const setAddBox = () => {
         isAdd ? setIsAdd(false) : setIsAdd(true)
 
+    }
+
+    const onOpenMenu = () => {
+        setIsBoardMenu(!isBoardMenu)
+    }
+    const onDeleteBoard = async (boardId) => {
+        dispatch(deleteBoard(boardId))
     }
 
 
