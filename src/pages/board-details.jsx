@@ -10,8 +10,6 @@ import { boardService } from "../services/board.service"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { TaskDetails } from "../cmps/task-details"
 import { BoardMenu } from '../cmps/board-menu.jsx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { DragDropContext } from 'react-beautiful-dnd'
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
