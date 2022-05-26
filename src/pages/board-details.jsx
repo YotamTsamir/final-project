@@ -87,7 +87,7 @@ export const Board = () => {
     }
 
 
-    if (!board.boxes) return <h1>Loading...</h1>
+    if (!board || board && !board.boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <header >
         <h1 className="board-title">{board.title}</h1>

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { LabelMenu } from './label-menu'
 
-export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit,openTask }) => {
+export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit,openTask }) => {
     const [labelMenu, setLabelMenu] = useState(false)
 
     const openLabelMenu = () => {

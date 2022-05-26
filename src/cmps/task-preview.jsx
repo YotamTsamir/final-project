@@ -76,7 +76,8 @@ export const TaskPreview = ({ task, board, box }) => {
             </div>
         </div>}
         {(isEdit) && <div>
-            <div onClick={() => { onDown() }} className="the-great-one"></div><div className="task-link task task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
+            <div onClick={() => { onDown() }} className="the-great-one"></div>
+            <div className="task-link task task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>

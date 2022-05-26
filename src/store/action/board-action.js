@@ -30,9 +30,13 @@ export function deleteBoard(boardId) {
 }
 
 export function editTask(boardId, boxId, task) {
+    
     return async dispatch => {
         const board = await boardService.editTask(boardId, boxId, task)
+        const box = board.boxes.find(box => box.id === boxId)
         dispatch({ type: 'SET_BOARD', board })
+
+        dispatch({ type: 'SET_TASK', task, box})
     }
 }
 export function editBox(boardId, box) {
