@@ -140,7 +140,11 @@ function _createBoard(userBoard) {
             "title": "shlaga",
             "color": "#212121"
         }],
-        "members": [],
+        "members": [
+            {userName:'puki bomba',init:'PB'},
+            {userName:'shuki tomba',init:'ST'},
+            {userName:'muki koka',init:'MK'}
+        ,],
         "boxes": [],
     }
 }

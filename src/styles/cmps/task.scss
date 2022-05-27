@@ -117,9 +117,51 @@
 .edit-fav {
     position: relative;
     top: 0;
+    margin-left: 38px;
     right: 0;
     display: none;
     border-radius: 12px;
     height: fit-content;
     padding: 5px;
+}
+
+.date-preview{
+    background-color: $clr8;
+    display: inline-block;
+    margin: 0 4px 4px 0;
+    max-width: 100%;
+    min-height: 20px;
+    overflow: hidden;
+    padding: 2px;
+    border-radius: 3px;
+    color: #fff;
+}
+
+.font-square{
+    display: none;
+}
+.date-preview:hover{
+background-color: $clr9;
+.font-clock{
+    display: none;
+}
+.font-square{
+    display: inline;
+}
+}
+.complete{
+    background-color: $clr10;
+}
+.complete:hover{
+    background-color: $clr11;
+}
+.fa{
+    margin-right: 3px;
+}
+
+.task-members{
+    display: flex;
+}
+.task-member{
+    // background-color: red;
 }

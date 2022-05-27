@@ -1,10 +1,10 @@
 import { useState } from 'react'
 import { LabelMenu } from './label-menu'
 
-export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit,openTask }) => {
+export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, openTask }) => {
     const [labelMenu, setLabelMenu] = useState(false)
     const [coverMenu, setCoverMenu] = useState(false)
-    
+
     const openLabelMenu = () => {
         setLabelMenu(!labelMenu)
     }
@@ -12,10 +12,14 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit,op
         setCoverMenu(!coverMenu)
     }
 
+    const onOpenUserMenu = () => {
+        setUserMenu(!userMenu)
+    }
+
     const menuBtns = [
         { txt: 'Open card', func: openTask },
         { txt: 'Edit label', func: openLabelMenu },
-        { txt: 'Change members', func: '' },
+        { txt: 'Change members', func: openCoverMenu},
         { txt: 'Change cover', func: openCoverMenu },
         { txt: 'Move', func: '' },
         { txt: 'Copy', func: '' },
@@ -32,6 +36,6 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit,op
             })}
         </div>
         {(labelMenu) && <LabelMenu setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
-        {(coverMenu) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board}/>}
+        {(coverMenu) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
     </section>
 }
