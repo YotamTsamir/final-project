@@ -37,9 +37,7 @@ export const TaskDetails = () => {
   }, []);
   const getLabels = () => {
     if (!task.labelIds) return
-    // console.log(task.labelIds)
     const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
-    console.log(taskLabels)
     return taskLabels
 }
 
