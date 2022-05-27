@@ -5,7 +5,7 @@ import { setNewBoard, editTask } from "../store/action/board-action"
 
 export const LabelMenu = ({ topic, board, task, box, colors }) => {
     const dispatch = useDispatch()
-    console.log('hhahahahha')
+
     const onAddLabel = async (ev, labelId) => {
         let newTask;
         if (task.labelIds.includes(labelId)) {
