@@ -26,7 +26,8 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit })
         { txt: 'Archive'},
     ]
 
-    const colors=['red','blue','grey','black','yellow','orange']
+    const colors=['#7BC86C','#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF','#29CCE5','#6DECA9','orange','#FF8ED4', '#8675A9']
+
     return <section>
         <div className='add-to-card'>Add to card</div>
         <div className="details-task-nav">

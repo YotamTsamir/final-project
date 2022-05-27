@@ -124,21 +124,43 @@ function _createBoard(userBoard) {
         "createdAt": Date.now(),
         "createdBy": {},
         "style": userBoard.style,
-        "labels": [{
-            "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
-        },
-        {
-            "id": "l103",
-            "title": "In progress",
-            "color": "red"
-        },
-        {
-            "id": "l102",
-            "title": "shlaga",
-            "color": "#212121"
-        }],
+        "labels": [
+            {
+                "id": "l107",
+                "title": "Get team leaders approval ",
+                "color": "#54E346"
+            },
+            {
+                "id": "l101",
+                "title": "Copy Request",
+                "color": "#F5DD29"
+            },
+            {
+                "id": "l103",
+                "title": "Priority",
+                "color": "#eb5a46"
+            },
+            {
+                "id": "l102",
+                "title": "One more step",
+                "color": "orange"
+            },
+            {
+                "id": "l104",
+                "title": "Design Team",
+                "color": "#c377e0"
+            },
+            {
+                "id": "l105",
+                "title": "Product Marketing",
+                "color": "#0079bf"
+            },
+            {
+                "id": "l106",
+                "title": "Tredux Tip",
+                "color": "#00c2e0"
+            },
+        ],
         "members": [],
         "boxes": [],
     }
@@ -192,20 +214,40 @@ const BOARD = {
 
     "labels": [
         {
+            "id": "l107",
+            "title": "Get team leaders approval ",
+            "color": "#54E346"
+        },
+        {
             "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
+            "title": "Copy Request",
+            "color": "#f2d600",
         },
         {
             "id": "l103",
-            "title": "In progress",
-            "color": "red"
+            "title": "Priority",
+            "color": "#eb5a46"
         },
         {
             "id": "l102",
-            "title": "shlaga",
-            "color": "#212121"
-        }
+            "title": "One more step",
+            "color": "orange"
+        },
+        {
+            "id": "l104",
+            "title": "Design Team",
+            "color": "#c377e0"
+        },
+        {
+            "id": "l105",
+            "title": "Product Marketing",
+            "color": "#0079bf"
+        },
+        {
+            "id": "l106",
+            "title": "Tredux Tip",
+            "color": "#00c2e0"
+        },
     ],
     "members": [],
     "boxes": [
