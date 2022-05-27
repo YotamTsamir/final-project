@@ -28,9 +28,8 @@ export const InputComments = () => {
   const [fieldsEdit, setFieldsEdit] = useState({ isComments: false });
 
   const { comments } = task;
-
   const isEditShownCom = () => {
-    return !comments.length || !fieldsEdit.isComments;
+    return !comments.length > 0 || !fieldsEdit.isComments;
   };
   const onEditField = () => {
     setFieldsEdit({ ...fieldsEdit, isComments: true });
@@ -45,6 +44,8 @@ export const InputComments = () => {
     entity.comments = "";
   };
 
+
+  if(!comments) return <h1>Loading...</h1>
   return (
     <div className="comment-cmps">
       {isEditShownCom() && (
