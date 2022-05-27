@@ -16,6 +16,10 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit })
         setMenuState(newMenuState)
     }
 
+    const onOpenUserMenu = () => {
+        setUserMenu(!userMenu)
+    }
+
     const menuBtns = [
         { txt: 'Edit label'},
         { txt: 'Change members'},

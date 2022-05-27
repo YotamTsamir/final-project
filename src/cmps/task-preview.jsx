@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { boardService } from "../services/board.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 import { Route, Outlet } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { setTask, toggleDetails, editTask } from "../store/action/board-action"
@@ -12,8 +13,10 @@ import { EditTaskNav } from "./edit-task-nav"
 
 export const TaskPreview = ({ task, board, box, index }) => {
     const [isEdit, setIsEdit] = useState(false)
+    const [isComplete, setIsComplete] = useState(task.date.isComplete)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
+    console.log(board)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
@@ -21,6 +24,21 @@ export const TaskPreview = ({ task, board, box, index }) => {
         setLabels(getLabels)
     }, [task])
 
+
+    const toggleComplete = (ev) => {
+        ev.stopPropagation()
+        if (isComplete) {
+            const newTask = { ...task, date: { ...task.date, isComplete: '' } }
+            dispatch(editTask(board._id, box.id, newTask))
+            setIsComplete('')
+        }
+        else {
+            const newTask = { ...task, date: { ...task.date, isComplete: 'complete' } }
+            dispatch(editTask(board._id, box.id, newTask))
+            setIsComplete('complete')
+        }
+        console.log(isComplete)
+    }
     // const onToggleDetails = (task) => {
     //     dispatch(toggleDetails(task))
     // }
@@ -68,9 +86,27 @@ export const TaskPreview = ({ task, board, box, index }) => {
                 {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
             </div>
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
-                <p >{task.title}</p>
-                <div className="edit-fav">
-                    <FontAwesomeIcon onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
+                <div>
+                    <p >{task.title}</p>
+                    {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isComplete}`}>
+                        {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
+                        {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
+                        <FontAwesomeIcon className="fa font-clock" icon={faClock} />
+                        <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
+                </div>
+                <div>
+
+                    <div className="edit-fav">
+                        <FontAwesomeIcon onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
+                    </div>
+                    <div className="task-members">
+                    {(task.members) && task.members.map(member => {
+                        return (
+                            <div className="task-member"><p>{member.init}</p></div>
+                            )
+                        })
+                    }
+                    </div>
                 </div>
             </div>
         </div>

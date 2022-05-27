@@ -11,7 +11,6 @@ import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { TaskDetails } from "../cmps/task-details"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
-import { BoardMenu } from '../cmps/board-menu.jsx'
 import { DragDropContext } from 'react-beautiful-dnd'
 
 export const Board = () => {
@@ -33,12 +32,13 @@ export const Board = () => {
         const { boardId } = params
         addMouseListeners()
         dispatch(getBoard(boardId))
-        onFilterBoxes()
     }, [])
 
     useEffectUpdate(() => {
         if (!board._id) navigate('/boards')
+        onFilterBoxes({})
     }, [board])
+
 
     const addMouseListeners = () => {
         window.addEventListener('mousemove', onMove)
@@ -76,8 +76,15 @@ export const Board = () => {
         isAdd ? setIsAdd(false) : setIsAdd(true)
     }
 
-    const onFilterBoxes = (filter) => {
-        setBoxes(board.boxes)
+    const onFilterBoxes = async (filter) => {
+        let boxList = board.boxes
+        if (filter.filterBy) {
+            boxList = boxList.filter(box => {
+                return box.title.includes(filter.value)
+            })
+        }
+        setBoxes(boxList)
+        console.log(boxList)
     }
 
     const onToggleMenu = () => {
@@ -90,7 +97,6 @@ export const Board = () => {
     }
     const onDeleteBoard = async (boardId) => {
         dispatch(deleteBoard(boardId))
-
     }
     const onEditBoard = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
@@ -114,7 +120,9 @@ export const Board = () => {
 
     }
 
-    if (!board.boxes) return <h1>Loading...</h1>
+
+
+    if (!boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <header >
             <h1 className="board-title">{board.title}</h1>
@@ -126,37 +134,18 @@ export const Board = () => {
                 onToggleMenu={onToggleMenu}
                 isBoardMenu={isBoardMenu}
                 onToggleFilter={onToggleFilter}
-                isFilter={isFilter} />
+                isFilter={isFilter}
+                onFilterBoxes={onFilterBoxes} />
         </header>
 
-        <DragDropContext onDragEnd={onDragEnd}>
-       <div className="board">
-            <BoxList board={board} boxes={board.boxes} />
-            {(!isAdd) && <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>}
-            {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
-
-        </div>
-        </DragDropContext>
-        </div>
-
-    {/* if (!board || board && !board.boxes) return <h1>Loading...</h1>
-    return <div className="board-container" style={board.style}>
-        <header >
-            <h1 className="board-title">{board.title}</h1>
-            <div className="board-bar">
-                <button className="menu-btn">
-                    <FontAwesomeIcon icon={faBars} />
-                </button>
-            </div>
-        </header>
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="board">
-                <BoxList board={board} boxes={board.boxes} />
-                {(!isAdd) ? <div className="add-box" onClick={() => setAddBox()}>+ add another list</div> :
-                <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
+                <BoxList board={board} boxes={boxes} />
+                {(!isAdd) && <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>}
+                {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
             </div>
         </DragDropContext>
-    </div> */}
+    </div>
 }
 
 

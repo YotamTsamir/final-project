@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX, faFilter } from '@fortawesome/free-solid-svg-icons'
 import { BoardMenu } from '../cmps/board-menu.jsx'
 
-export const BoardHeaderBar = ({ onToggleFilter, isFilter, isBoardMenu, onToggleMenu, deleteBoard, dfBgs, board, onEditBoard }) => {
+export const BoardHeaderBar = ({ onFilterBoxes, onToggleFilter, isFilter, isBoardMenu, onToggleMenu, deleteBoard, dfBgs, board, onEditBoard }) => {
     const [filter, setFilter] = useState({
         filterBy: '',
         value: ''
@@ -13,9 +13,11 @@ export const BoardHeaderBar = ({ onToggleFilter, isFilter, isBoardMenu, onToggle
         const field = target.name
         const value = target.value
 
-        setFilter((prevState) => (
-            { ...prevState, [field]: value }
-        ))
+        setFilter({
+            filterBy: field,
+            value: value
+        })
+        onFilterBoxes(filter)
     }
 
 
