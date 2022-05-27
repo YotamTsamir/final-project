@@ -28,9 +28,8 @@ export const InputComments = () => {
   const [fieldsEdit, setFieldsEdit] = useState({ isComments: false });
 
   const { comments } = task;
-
   const isEditShownCom = () => {
-    return !comments.length || !fieldsEdit.isComments;
+    return !comments.length > 0 || !fieldsEdit.isComments;
   };
   const onEditField = () => {
     setFieldsEdit({ ...fieldsEdit, isComments: true });
@@ -45,10 +44,12 @@ export const InputComments = () => {
     entity.comments = "";
   };
 
+
+  if(!comments) return <h1>Loading...</h1>
   return (
     <div className="comment-cmps">
       {isEditShownCom() && (
-        <form
+        <form className="form-comment-details"
           onSubmit={(ev) => {
             onEditTaskEntity(ev);
           }}
@@ -58,7 +59,7 @@ export const InputComments = () => {
             className="comment-input"
             {...register("comments")}
           />
-          <button className="save-btn-comment">Save</button>
+          <button className="save-btn">Save</button>
         </form>
       )}
       {!isEditShownCom() && (

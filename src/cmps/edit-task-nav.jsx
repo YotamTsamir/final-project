@@ -5,10 +5,13 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
     const [labelMenu, setLabelMenu] = useState(false)
     const [coverMenu, setCoverMenu] = useState(false)
     const [dateMenu, setDateMenu] = useState(false)
+    const [userMenu, setUserMenu] = useState(false)
+
 
     const openLabelMenu = () => {
         setLabelMenu(!labelMenu)
     }
+    
     const openCoverMenu = () => {
         setCoverMenu(!coverMenu)
     }
@@ -16,10 +19,14 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
         setDateMenu(!dateMenu)
     }
 
+    const openUserMenu = () => {
+        setUserMenu(!userMenu)
+    }
+
     const menuBtns = [
         { txt: 'Open card', func: openTask },
         { txt: 'Edit label', func: openLabelMenu },
-        { txt: 'Change members', func: '' },
+        { txt: 'Change members', func: openUserMenu },
         { txt: 'Change cover', func: openCoverMenu },
         { txt: 'Move', func: '' },
         { txt: 'Copy', func: '' },
@@ -40,5 +47,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
         {(labelMenu) && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
         {(coverMenu) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board}/>}
         {(dateMenu) && <LabelMenu topic={'Date'} task={task} box={box} board={board}/>}
+        {(userMenu) && <LabelMenu topic={'Change members'} task={task} box={box} board={board} />}
+
     </section>
 }

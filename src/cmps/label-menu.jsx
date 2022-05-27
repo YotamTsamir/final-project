@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
 import { setNewBoard, editTask } from "../store/action/board-action"
+import DatePicker from 'react-date-picker';
+import { utilService } from "../services/util.service";
+
 // dispatch(setNewBoard(newBoard))
 
 export const LabelMenu = ({ topic, board, task, box, colors }) => {
+    const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
     const onAddLabel = async (ev, labelId) => {
         let newTask;
@@ -18,9 +23,24 @@ export const LabelMenu = ({ topic, board, task, box, colors }) => {
         dispatch(editTask(board._id, box.id, newTask))
     }
 
+    const onChangeDate = (value) => {
+        onChange(value)
+        const newTask = {
+            ...task, date: {
+                month: utilService.getMonthName(value.getMonth()),
+                day: value.getDate(), isComplete: ''
+            }
+        }
+        dispatch(editTask(board._id, box.id, newTask))
+    }
+
+    const onAddMember = (member) => {
+        const newTask = { ...task, members: [...task.members, member]}
+        dispatch(editTask(board._id, box.id, newTask))
+    }
+
     const onChangeColor = async (color) => {
         let newTask;
-        console.log(color)
         newTask = { ...task, color: color }
         dispatch(editTask(board._id, box.id, newTask))
     }
@@ -42,6 +62,17 @@ export const LabelMenu = ({ topic, board, task, box, colors }) => {
                 )
             }))}
         </div>
-        {(topic === 'Date') }
+        {(topic === 'Date') && <div>
+            <DatePicker
+                isOpen={true} closeCalendar={false} onChange={onChangeDate} value={value}
+            />
+        </div>}
+        {(topic === 'Change members') && <div>
+            {board.members.map(member => {
+                return(
+                    <div onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
+                )
+            })}
+        </div>}
     </div>
 }

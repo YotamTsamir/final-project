@@ -34,8 +34,7 @@ async function addLabelToTask(task, box, labelId, boardId) {
 }
 
 function getLabelById(labelId, board) {
-    const label = board.labels.find(label => label.id === labelId)
-    return label
+    return board.labels.find(label => label.id === labelId)
 }
 
 
@@ -140,7 +139,11 @@ function _createBoard(userBoard) {
             "title": "shlaga",
             "color": "#212121"
         }],
-        "members": [],
+        "members": [
+            {userName:'puki bomba',init:'PB'},
+            {userName:'shuki tomba',init:'ST'},
+            {userName:'muki koka',init:'MK'}
+        ,],
         "boxes": [],
     }
 }
