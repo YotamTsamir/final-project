@@ -98,11 +98,11 @@ export const Board = () => {
             let oldBoxNew = [...oldBox.tasks]
             let currBoxNew = [...currBox.tasks]
             let oldIdx = source.index
-            currBoxNew.splice(destination.index,1,oldBox.tasks[oldIdx])
-            oldBoxNew.splice(oldIdx,1)
+            currBoxNew.splice(destination.index, 1, oldBox.tasks[oldIdx])
+            oldBoxNew.splice(oldIdx, 1)
             oldBox.tasks = oldBoxNew
             currBox.tasks = currBoxNew
-            dispatch(editBox(board._id,oldBox))
+            dispatch(editBox(board._id, oldBox))
             dispatch(editBox(board._id, currBox))
             return
         }
@@ -115,7 +115,6 @@ export const Board = () => {
                 if (index < destination.index) return newBox[index] = currBox.tasks[index + 1]
                 if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
                 if (index === currBox.tasks.length - 1) return newBox[index] = currBox.tasks[index]
-                // console.log(index)
             })
         } else if ((source.index - destination.index) >= 1) {
             currBox.tasks.map((task, index) => {
@@ -129,31 +128,33 @@ export const Board = () => {
         currBox.tasks = newBox
         console.log('new box is', newBox)
         dispatch(editBox(board._id, currBox))
-        // console.log(board)
     }
 
 
 
     if (!boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
-        <header >
-            <h1 className="board-title">{board.title}</h1>
-            <BoardHeaderBar
-                board={board}
-                deleteBoard={onDeleteBoard}
-                dfBgs={boardService.getDefaultBgs()}
-                onEditBoard={onEditBoard}
-                onToggleMenu={onToggleMenu}
-                isBoardMenu={isBoardMenu}
-                onToggleFilter={onToggleFilter}
-                isFilter={isFilter} />
-        </header>
-
+        <div className="board-page-header-container">
+                <header className="board-header-container">
+                    <h1 className="board-title">{board.title}</h1>
+                    <BoardHeaderBar
+                        board={board}
+                        deleteBoard={onDeleteBoard}
+                        dfBgs={boardService.getDefaultBgs()}
+                        onEditBoard={onEditBoard}
+                        onToggleMenu={onToggleMenu}
+                        isBoardMenu={isBoardMenu}
+                        onToggleFilter={onToggleFilter}
+                        isFilter={isFilter}
+                        onFilterBoxes={onFilterBoxes} />
+                </header>
+            
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="board">
-                <BoxList board={board} boxes={board.boxes} />
-                {(!isAdd) && 
-                <div className="add-box before-click" onClick={() => setAddBox()}>+ Add another list</div>}
+                <BoxList board={board} boxes={boxes} />
+                {(!isAdd) &&
+                    <div className="add-box before-click" onClick={() => setAddBox()}>+ Add another list</div>}
                 {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
                     <input className="add-box-input" {...register('title')} />
                     <button className="save-btn list-save">Add list</button>

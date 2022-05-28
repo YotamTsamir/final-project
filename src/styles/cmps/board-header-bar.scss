@@ -3,14 +3,23 @@
     display: flex;
     flex-direction: row-reverse;
     gap: 2px;
-    margin-right: 22px;
+    margin-right: 8px;
     padding-right: 10px;
 
 
-    .menu-btn{
+    .menu-btn {
         width: 60px;
         justify-content: space-between;
+        height: 2em;
+        width: 5em;
     }
+
+    .filter-btn {
+        justify-content: space-around;
+        height: 2em;
+        width: 5em;
+    }
+
     button {
         background: none;
         border: none;
@@ -19,7 +28,8 @@
         display: flex;
         align-items: center;
 
-        p{
+
+        p {
             margin: 0;
         }
     }
@@ -31,8 +41,8 @@
 
     .board-menu {
         position: absolute;
-        right: 0;
-        top: 25px;
+        right: 10px;
+        top: 30px;
         background-color: $clr4;
         border: none;
         outline: none;
@@ -41,11 +51,12 @@
         width: 200px;
         box-sizing: border-box;
 
+
         display: flex;
         flex-direction: column;
         animation: fadeIn 0.5s 1;
 
-        .close-board-menu-btn{
+        .close-board-menu-btn {
             position: absolute;
             right: 10px;
             top: 0;
@@ -90,8 +101,8 @@
         .bg-container {
             background-color: inherit;
             border-radius: 3px;
-            
-            ul{
+
+            ul {
                 height: 40px;
                 padding-bottom: 10px;
                 margin: 0;
@@ -101,8 +112,8 @@
 
     .filter-container {
         position: absolute;
-        right: 4.56em;
-        top: 25px;
+        right: 5.8em;
+        top: 30px;
         background-color: $clr4;
         border: none;
         outline: none;
@@ -116,7 +127,8 @@
         .filter-header {
             margin: 0;
         }
-        h6{
+
+        h6 {
             margin: 0;
             padding-bottom: 5px;
             font-size: 0.9em;
@@ -137,50 +149,52 @@
 
                 * {
                     margin: 0;
+                    color: white;
                 }
 
                 label {
                     flex-grow: 1;
                     text-align: center;
-                    border-radius: 3px;
+                    border-radius: 3px; 
                 }
             }
         }
     }
 }
 
-.board-page-header-container{
+.board-page-header-container {
     margin-top: 60px;
     font-size: 30px;
     height: 10vh;
     position: relative;
-    
+
     .board-header-container {
         position: fixed;
         width: 97vw;
-        
-        
+
+
         >* {
             padding-bottom: 10px;
         }
-        
+
         .board-title {
             margin: 0;
             font-size: 30px;
             height: fit-content;
             width: 400px;
-            padding-left: 100px;
+            padding-left: 40px;
             padding-bottom: 0;
         }
     }
 }
 
 @keyframes fadeIn {
-    0%{
+    0% {
         opacity: 0;
         right: -200px;
     }
-    100%{
+
+    100% {
         opacity: 1;
     }
 }

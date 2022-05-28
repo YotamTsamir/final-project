@@ -25,7 +25,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
     const menuBtns = [
         { txt: 'Open card', func: openTask },
         { txt: 'Edit label', func: openLabelMenu },
-        { txt: 'Change members', func: openUserMenu,fa:<FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
+        { txt: 'Change members',fa:<FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
         { txt: 'Change cover', func: openCoverMenu },
         { txt: 'Move', func: '',fa:<FontAwesomeIcon className="fa font-clock" icon={faArrowRight} /> },
         { txt: 'Copy', func: '' },
