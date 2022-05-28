@@ -22,10 +22,6 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
         setDateMenu(!dateMenu)
     }
 
-    const openUserMenu = () => {
-        setUserMenu(!userMenu)
-    }
-
     const menuBtns = [
         { txt: 'Open card', func: openTask },
         { txt: 'Edit label', func: openLabelMenu },
@@ -37,7 +33,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
         { txt: 'Archive', func: '' },
     ]
 
-    const colors=['red','blue','grey','black','yellow','orange']
+    const colors=['#7BC86C','#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF','#29CCE5','#6DECA9','orange','#FF8ED4', '#8675A9']
 
     return <section>
         <div className="edit-task-nav">
@@ -50,7 +46,5 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
         {(labelMenu) && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
         {(coverMenu) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board}/>}
         {(dateMenu) && <LabelMenu topic={'Date'} task={task} box={box} board={board}/>}
-        {(userMenu) && <LabelMenu topic={'Change members'} task={task} box={box} board={board} />}
-
     </section>
 }

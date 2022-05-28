@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { DetailsTaskNav } from "./details-task-nav";
-
+import { LabelMenu } from './label-menu'
 
 
 export const TaskDetails = () => {
@@ -19,10 +19,10 @@ export const TaskDetails = () => {
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
   );
-
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
+  const [menuState, setMenuState] = useState(false)
 
   useEffect(() => {
     (async () => {
@@ -57,12 +57,16 @@ export const TaskDetails = () => {
     return comments.length > 0;
   };
 
+
   const isLabelsLength = () => {
     if (!labels) return
     return labels.length > 0;
   };
-
+  const colors=['#7BC86C','#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF','#29CCE5','#6DECA9','orange','#FF8ED4', '#8675A9']
   
+  const toggleMenu = () => {
+    setMenuState(!menuState)
+}
 
   const { comments, labelIds, color } = task;
   return (
@@ -75,6 +79,7 @@ export const TaskDetails = () => {
           className={`cover-menu-color-detail ${color ? '' : 'no-color'}`}
           style={{ backgroundColor: color }}
         >
+          <div className="x-btn-cover">
           <button
           className="x-btn"
           onClick={() => {
@@ -83,17 +88,22 @@ export const TaskDetails = () => {
         >
           <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
         </button>
+        {task.color && <button className="details-task-cover-btn" onClick={() => {toggleMenu()}}>
+                        Cover
+        {(menuState) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board}/>}
+        </button>}
+        </div>
         </div>
       </div>
-      <div className="detail-menu-container">
-      <div className="detail-container">
       <div className="detail-header-container">
         <h1>{task?.title}</h1>
-        
-      </div>
+
       <h1 className="box-title">
         in list <span className="box-title-details">{box.title}</span>
       </h1>
+      </div>
+      <div className="detail-menu-container">
+      <div className="detail-container">
       <div className="label-container">
         <div className="labels-header"> Labels</div>
         <div className="label-detail-container">
@@ -113,16 +123,18 @@ export const TaskDetails = () => {
         </div>
       </div>
       <div className="task-description">
+        <div className="icon-description">
       <FontAwesomeIcon className='fa-solid fa-align-left' icon={faAlignLeft} />
         <div className="description">Description</div>
+        </div>
         <InputDesc />
         <div className="activity-container">
           <div className="activity">Activity</div>
           <InputComments />
-          <ul>
+          <ul className="comments">
             {isCommentsLength() &&
               comments.map((comment, idx) => {
-                return <li key={idx}>{comment}</li>;
+                return <li className="comment" key={idx}>{comment}</li>;
               })}
           </ul>
         </div>

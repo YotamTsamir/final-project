@@ -36,7 +36,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
             dispatch(editTask(board._id, box.id, newTask))
             setIsComplete('complete')
         }
-        console.log(isComplete)
     }
     // const onToggleDetails = (task) => {
     //     dispatch(toggleDetails(task))

@@ -6,14 +6,10 @@ export const useFormRegister = (initialFields, cb) => {
     const [fields, setFields] = useState(initialFields)
 
     const handleChange = ({ target }) => {
-        console.log('target', target)
+        console.log(target.value)
         const field = target.name
-        let value
-        if (target.nodeName === 'TEXTAREA') {
-            value = target.value
-        } else {
-            value = target.type === 'number' ? (+target.value || '') : target.value
-        }
+        const value = target.type === 'number' ? (+target.value || '') : target.value
+        
         setFields((prevFields) => ({ ...prevFields, [field]: value }))
     }
 

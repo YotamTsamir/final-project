@@ -45,7 +45,6 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onEditBoxTitle = async (ev) => {
         ev.preventDefault()
-        console.log(newBoxTitle.title)
         const newBox = { ...box, title: newBoxTitle.title }
         setEditTitleId('')
         dispatch(editBox(board._id, newBox))
@@ -63,7 +62,6 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
                         {...provided.droppableProps}>
 
                         <TaskList
-
                             board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>
                         {provided.placeholder}

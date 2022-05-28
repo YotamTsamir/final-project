@@ -13,6 +13,7 @@ export const boardService = {
     getDefaultBgs,
     editTask,
     editBoardStyle,
+    boxFilterByTaskAtt,
 
     addBox,
     editBox,
@@ -55,18 +56,15 @@ async function editTask(boardId, boxId, task) {
 }
 
 async function editTaskDesc(boardId, box, task, newDesc) {
-    console.log('SH>>AGA');
     let board = await getById(boardId)
     let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
     let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
     board.boxes[boxIdx].tasks[taskIdx].description = newDesc
-    console.log(board.boxes[boxIdx].tasks[taskIdx].description)
     return save(board)
 }
 
 async function addBox(boardId, box) {
     let board = await getById(boardId)
-    console.log(board)
     board.boxes.push(box)
     return save(board)
 }
@@ -124,26 +122,44 @@ function _createBoard(userBoard) {
         "createdAt": Date.now(),
         "createdBy": {},
         "style": userBoard.style,
-        "labels": [{
-            "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
-        },
-        {
-            "id": "l103",
-            "title": "In progress",
-            "color": "red"
-        },
-        {
-            "id": "l102",
-            "title": "shlaga",
-            "color": "#212121"
-        }],
-        "members": [
-            {userName:'puki bomba',init:'PB'},
-            {userName:'shuki tomba',init:'ST'},
-            {userName:'muki koka',init:'MK'}
-        ,],
+        "labels": [
+            {
+                "id": "l107",
+                "title": "Get team leaders approval ",
+                "color": "#54E346"
+            },
+            {
+                "id": "l101",
+                "title": "Copy Request",
+                "color": "#F5DD29"
+            },
+            {
+                "id": "l103",
+                "title": "Priority",
+                "color": "#eb5a46"
+            },
+            {
+                "id": "l102",
+                "title": "One more step",
+                "color": "orange"
+            },
+            {
+                "id": "l104",
+                "title": "Design Team",
+                "color": "#c377e0"
+            },
+            {
+                "id": "l105",
+                "title": "Product Marketing",
+                "color": "#0079bf"
+            },
+            {
+                "id": "l106",
+                "title": "Tredux Tip",
+                "color": "#00c2e0"
+            },
+        ],
+        "members": [{userName: 'Rotem Spivak', init: 'RS'},{userName: 'Yotam Tsamir', init: 'YT'},{userName: 'Shachar Cohen', init: 'SC'},{userName: 'Tommy Irmia', init: 'TI'}],
         "boxes": [],
     }
 }
@@ -196,20 +212,40 @@ const BOARD = {
 
     "labels": [
         {
+            "id": "l107",
+            "title": "Get team leaders approval ",
+            "color": "#54E346"
+        },
+        {
             "id": "l101",
-            "title": "Done",
-            "color": "#61bd4f"
+            "title": "Copy Request",
+            "color": "#f2d600",
         },
         {
             "id": "l103",
-            "title": "In progress",
-            "color": "red"
+            "title": "Priority",
+            "color": "#eb5a46"
         },
         {
             "id": "l102",
-            "title": "shlaga",
-            "color": "#212121"
-        }
+            "title": "One more step",
+            "color": "orange"
+        },
+        {
+            "id": "l104",
+            "title": "Design Team",
+            "color": "#c377e0"
+        },
+        {
+            "id": "l105",
+            "title": "Product Marketing",
+            "color": "#0079bf"
+        },
+        {
+            "id": "l106",
+            "title": "Tredux Tip",
+            "color": "#00c2e0"
+        },
     ],
     "members": [],
     "boxes": [
@@ -313,6 +349,17 @@ async function editBoxTitle(boardId, box, newTitle) {
 
     // console.log(box.title)
     return save(board)
+}
+
+async function boxFilterByTaskAtt(boxes, filter = {}) {
+    const filteredBoxes = boxes.filter(box => {
+        return box.tasks.some(task => {
+            if (filter.value) {
+                return task[filter.filterBy].includes(filter.value)
+            } else return true
+        })
+    })
+    return filteredBoxes
 }
 
 

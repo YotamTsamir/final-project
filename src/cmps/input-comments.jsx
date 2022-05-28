@@ -37,13 +37,13 @@ export const InputComments = () => {
   const onEditTaskEntity = async (ev) => {
     ev.preventDefault();
     const newTask = { ...task, comments: [...task.comments, entity.comments] };
-    console.log("new task", newTask);
     dispatch(editTask(board._id, box.id, newTask));
     dispatch(setTask(task, box));
     setFieldsEdit({ isComments: false });
     entity.comments = "";
   };
 
+  const {text, ...rest} = register("comments")
 
   if(!comments) return <h1>Loading...</h1>
   return (
@@ -54,11 +54,13 @@ export const InputComments = () => {
             onEditTaskEntity(ev);
           }}
         >
-          <input
+          <textarea
             placeholder="Write a comment..."
             className="comment-input"
-            {...register("comments")}
-          />
+            rows="2"
+            cols="50"
+            {...rest}
+          >{text}</textarea>
           <button className="save-btn">Save</button>
         </form>
       )}

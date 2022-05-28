@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRemove } from '@fortawesome/free-solid-svg-icons'
+import { faRemove, faX } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
 
-export const BoardMenu = ({ dfBgs, board, deleteBoard, onEditBoard }) => {
+export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard }) => {
     const [boardStyle, setBoardStyle] = useState({
         isOpen: false,
         style: board.style
@@ -33,6 +33,11 @@ export const BoardMenu = ({ dfBgs, board, deleteBoard, onEditBoard }) => {
     }
 
     return <div className="board-menu">
+        <button className='close-board-menu-btn'
+            title="close menu"
+            onClick={onToggleMenu}>
+            <FontAwesomeIcon icon={faX} />
+        </button>
         <h5 className="menu-header">Hello Menu
             <hr /></h5>
         <button
@@ -41,6 +46,7 @@ export const BoardMenu = ({ dfBgs, board, deleteBoard, onEditBoard }) => {
             <p>Delete Board</p>
             <p className="fa-remove"><FontAwesomeIcon icon={faRemove} /></p>
         </button>
+        <div><hr/></div>
         <button
             className="change-board-bg"
             onClick={toggleBgMenu}>
@@ -50,9 +56,9 @@ export const BoardMenu = ({ dfBgs, board, deleteBoard, onEditBoard }) => {
                 className="curr-bg-preview">
             </p>
         </button>
-        {boardStyle.isOpen && 
-        <BoardBgMenu dfBgs={dfBgs} 
-        handleChange={handleChange}>
+        {boardStyle.isOpen &&
+            <BoardBgMenu dfBgs={dfBgs}
+                handleChange={handleChange}>
             </BoardBgMenu>}
     </div>
 }
