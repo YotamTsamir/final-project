@@ -73,9 +73,9 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
             />
         </div>}
         {(topic === 'Members') && <div>
-            {board.members.map(member => {
+            {board.members.map((member,idx) => {
                 return(
-                    <div onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
+                    <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
                 )
             })}
         </div>}

@@ -92,22 +92,54 @@
         font-weight: 600;
         letter-spacing: 1.8px;
         font-size: 16px ;
-        margin-top: 8px;
+        padding-left: 8px ;
     }
     .comment-input{
-        margin: 20px 0 0 0;
-        width: 90%;
+        margin: 20px 0 10px 0;
+        width: 98%;
         height: 40px;
         box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.28);
 
     }
+    .members-labels {
+        display: flex;
+        justify-content: left;
+    }
+    .members-members-title {
+        padding-right: 20px;
+    }
+    .task-members {
+        height: min-content;
+        display: flex;
+        justify-content: center;
+        
+        .member-background{
 
+            border-radius: 50%;
+            margin: 2px;
+            padding: 2px;
+            height: 25px;
+            width: 25px;
+            // color: $clr3;
+            // opacity: 0.3;
+        }
+    }
+
+    .task-member p {
+        border-radius: 25em;
+        margin: 2px;
+        padding: 4px 6px;
+        height: 20px;
+        width: fit-content;
+
+        color: $clr3;
+    }
     .description  {
         font-weight: 600;
         letter-spacing: 1.5px;
         font-size: 16px ;
         width: 100%;
-        padding-left: 10px;
+        padding-left: 8px;
 
     }
     .color-cover-details {
@@ -133,14 +165,17 @@
            display: flex;
            flex-direction: row;
         }
-        
+        .labels-header {
+            margin-bottom: 5px;
+        }
         .label-details {
             border-radius: 3px;
             letter-spacing: 1px;
             font-weight: 600;
+            font-size: 12px;
             height: 32px;
             line-height: 32px;
-            margin: 0 4px 4px 0;
+            margin: 0 4px 10px 0;
             min-width: 40px;
             width: fit-content;
             padding: 0 12px;
@@ -178,6 +213,7 @@
         .desc-btn-container{
             display: flex;
             align-items: center;
+            margin-left: 0px;
         }
         button {
             letter-spacing: 1.5px;
@@ -187,7 +223,7 @@
             
             &.save-btn {
                 background-color: $clr6;
-                margin: 10px 8px 0 0;
+                margin: 10px 0 0 10px;
                 color: #fefefe;
                 padding: 6px 8px;
                 border: none;
@@ -238,17 +274,14 @@
         top: 28px;
         transform: unset;
     }
-    .icon-description{
+    .icon-desc-details{
         display: flex;
         align-items: center;
         margin-top: 10px;
-        justify-content: space-between;
     }
-    .fa-solid {
-        
-        &.fa-align-left{
-            color: red;
+    .icon-details-list{
+        display: flex;
+        align-items: center;
 
-        }
     }
 }
