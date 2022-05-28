@@ -142,12 +142,8 @@
         padding-left: 8px;
 
     }
-    .color-cover-details {
-        object-fit: cover;
-        padding: 0;
 
-    }
-    .cover-menu-color-detail{
+    .icon-desc-detailstail{
         display: flex;
         justify-content: flex-end;
         height: 116px;
@@ -285,3 +281,16 @@
 
     }
 }
+
+.cover-menu-color-detail {
+    border-radius: 3px;
+
+}
+.color-cover-details {
+    object-fit: cover;
+    padding: 0;
+}
+
+// .curr-desc {
+//     padding: ;
+// }
