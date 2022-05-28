@@ -19,6 +19,7 @@ export const boardService = {
     editBox,
     // editTaskTitle,
     getLabelById,
+    getMemberById,
     addLabelToTask,
     getTaskById,
     findBoxByTaskId
@@ -36,6 +37,9 @@ async function addLabelToTask(task, box, labelId, boardId) {
 
 function getLabelById(labelId, board) {
     return board.labels.find(label => label.id === labelId)
+}
+function getMemberById(memberId, board) {
+    return board.members.find(member => member.id === memberId)
 }
 
 
@@ -193,7 +197,7 @@ const defaultBgs = {
 
 const BOARD = {
     "_id": "b101",
-    "title": "my first board",
+    "title": "Project X",
     "archivedAt": null,
     "createdAt": Date.now(),
     // "createdBy": {

@@ -98,9 +98,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                         <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
                     <div className="task-members">
-                        {(task.members) && task.members.map(member => {
+                        {(task.members) && task.members.map((member, idx) => {
                             return (
-                                <div className="task-member"><p>{member.init}</p></div>
+                                <div key={idx} className="task-member"><p>{member.init}</p></div>
                             )
                         })
                         }

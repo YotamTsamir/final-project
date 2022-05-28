@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { LabelMenu } from './label-menu'
 import { setTask, toggleDetails, editTask } from "../store/action/board-action"
 import { useSelector, useDispatch } from 'react-redux'
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faClock,faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
     const [menuState, setMenuState] = useState({
         'Labels': false,
@@ -31,17 +33,16 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
     }
 
     const menuBtns = [
-        { txt: 'Labels' },
-        { txt: 'Cover' },
-        { txt: 'Members' },
-        { txt: 'Move' },
-        { txt: 'Copy' },
-        { txt: 'Dates' },
-        { txt: 'Archive' },
-    ].filter(({ txt }) => !(task.color && txt === 'Cover'))
+        { txt: 'Labels'},
+        { txt: 'Cover'},
+        { txt: 'Members',fa:<FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
+        { txt: 'Move',fa:<FontAwesomeIcon className="fa font-clock" icon={faArrowRight} /> },
+        { txt: 'Copy'},
+        { txt: 'Dates',fa:<FontAwesomeIcon className="fa font-clock" icon={faClock} /> },
+        { txt: 'Archive'},
+    ].filter(({txt}) => !(task.color && txt === 'Cover'))
 
-    const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
-
+    const colors=['#7BC86C','#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF','#29CCE5','#6DECA9','orange','#FF8ED4', '#8675A9']
     return <section>
         <div className='add-to-card'>Add to card</div>
         <div className="details-task-nav">
