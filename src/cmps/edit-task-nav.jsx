@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { LabelMenu } from './label-menu'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faClock,faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 
 export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, openTask }) => {
     const [labelMenu, setLabelMenu] = useState(false)
     const [coverMenu, setCoverMenu] = useState(false)
     const [dateMenu, setDateMenu] = useState(false)
     const [userMenu, setUserMenu] = useState(false)
-
+    const [editStuff,setEditStuff] = useState({label:'',cover:'',date:'',user:''})
 
     const openLabelMenu = () => {
         setLabelMenu(!labelMenu)
@@ -26,11 +29,11 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
     const menuBtns = [
         { txt: 'Open card', func: openTask },
         { txt: 'Edit label', func: openLabelMenu },
-        { txt: 'Change members', func: openUserMenu },
+        { txt: 'Change members', func: openUserMenu,fa:<FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
         { txt: 'Change cover', func: openCoverMenu },
-        { txt: 'Move', func: '' },
+        { txt: 'Move', func: '',fa:<FontAwesomeIcon className="fa font-clock" icon={faArrowRight} /> },
         { txt: 'Copy', func: '' },
-        { txt: 'Edit dates', func: openDateMenu },
+        { txt: 'Edit dates', func: openDateMenu,fa:<FontAwesomeIcon className="fa font-clock" icon={faClock} /> },
         { txt: 'Archive', func: '' },
     ]
 
@@ -40,7 +43,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
         <div className="edit-task-nav">
             {menuBtns.map(btn => {
                 return (
-                    <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>{btn.txt}</button>
+                    <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>{btn.fa} {btn.txt}</button>
                 )
             })}
         </div>
