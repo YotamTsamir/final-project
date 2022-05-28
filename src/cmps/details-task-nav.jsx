@@ -5,10 +5,9 @@ import { useSelector, useDispatch } from 'react-redux'
 
 export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle}) => {
     const [menuState, setMenuState] = useState({
-        'Edit label': false,
-        'Edit dates': false,
-        'Change members': false,
-        'Edit dates': false,
+        'Labels': false,
+        'Dates': false,
+        'Members': false,
         "Cover": false
     })
     const [dateValue, setDateValue] = useState(Date.now())
@@ -32,12 +31,12 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle}) => {
     }
 
     const menuBtns = [
-        { txt: 'Edit label'},
+        { txt: 'Labels'},
         { txt: 'Cover'},
-        { txt: 'Change members'},
+        { txt: 'Members'},
         { txt: 'Move'},
         { txt: 'Copy'},
-        { txt: 'Edit dates'},
+        { txt: 'Dates'},
         { txt: 'Archive'},
     ].filter(({txt}) => !(task.color && txt === 'Cover'))
 
@@ -50,15 +49,15 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle}) => {
                 return (
                     <button key={btn.txt} className="details-task-nav-btn" onClick={() => {toggleMenu(btn.txt)}}>
                         {btn.txt}
-                        {(menuState['Edit label']) && btn.txt === 'Edit label' && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
+                        {(menuState['Labels']) && btn.txt === 'Labels' && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
                         {(menuState['Cover']) && btn.txt === 'Cover' && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board}/>}
-                        { (menuState['Edit dates']) && btn.txt === 'Edit dates' && <LabelMenu topic={'Date'} task={task} box={box} board={board} emitDateValue={emitDateValue}/>}
-                        {(menuState['Change members']) && btn.txt === 'Change members' && <LabelMenu topic={'Change members'} task={task} box={box} board={board} />}
+                        { (menuState['Dates']) && btn.txt === 'Dates' && <LabelMenu topic={'Dates'} task={task} box={box} board={board} emitDateValue={emitDateValue}/>}
+                        {(menuState['Members']) && btn.txt === 'Members' && <LabelMenu topic={'Members'} task={task} box={box} board={board} />}
                     </button>
                 )
             })}
         </div>
-            {(menuState['Edit dates']) && 
+            {(menuState['Dates']) && 
             <button onClick={(ev) => { toggleEditTask()}}>Save</button>
         }
     </section>

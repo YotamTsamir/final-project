@@ -9,16 +9,14 @@ body{
     width: 100vw;
     padding: 20px;
     height: 50vh;
-    margin-left: 18%;
+    margin-left: 15%;
 
     & .home-texts{
         display: flex;
         flex-direction: column;
         align-items: left;
-        padding-top: 80px;
+        padding-top: 120px;
         margin-right: 80px;
-        
-
     }
     h1{
         font-size: 45px;  
@@ -46,10 +44,11 @@ body{
     }
     & .img-container{
         display: flex;
-        right: 0;
 
     }
     & .img-container img{
         height: 70vh;
+        padding-right: 520px;
+
     }
 }

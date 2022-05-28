@@ -14,7 +14,10 @@ import { LabelMenu } from './label-menu'
 
 
 export const TaskDetails = () => {
-  const [labels, setLabels] = useState([]);
+  const [entity, setEntity] = useState({
+    'labels': [], 
+    'members': [],
+  });
   const [isEdit, setIsEdit] = useState(false)
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
@@ -35,7 +38,7 @@ export const TaskDetails = () => {
   }, []);
 
   useEffect(() => {
-    setLabels(getLabels());
+    setEntity(getLabels());
   }, [task])
 
   const getLabels = () => {
@@ -62,12 +65,17 @@ export const TaskDetails = () => {
     if (!labels) return
     return labels.length > 0;
   };
+  const isMembersLength = () => {
+    if (!members) return
+    return members.length > 0;
+  };
   const colors=['#7BC86C','#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF','#29CCE5','#6DECA9','orange','#FF8ED4', '#8675A9']
   
   const toggleMenu = () => {
     setMenuState(!menuState)
 }
-
+const {labels, members} = entity
+console.log(members)
   const { comments, labelIds, color } = task;
   return (
     <div className="task-details">
@@ -107,6 +115,7 @@ export const TaskDetails = () => {
       <div className="label-container">
         <div className="labels-header"> Labels</div>
         <div className="label-detail-container">
+
           {isLabelsLength() &&(
           labels.map((label) => {
             return (
