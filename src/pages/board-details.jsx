@@ -80,11 +80,10 @@ export const Board = () => {
         let boxList = board.boxes
         if (filter.filterBy) {
             boxList = boxList.filter(box => {
-                return box.title.includes(filter.value)
+                return box[filter.filterBy].includes(filter.value)
             })
         }
         setBoxes(boxList)
-        console.log(boxList)
     }
 
     const onToggleMenu = () => {

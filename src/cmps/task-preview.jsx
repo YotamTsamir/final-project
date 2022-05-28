@@ -16,7 +16,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [isComplete, setIsComplete] = useState(task.date.isComplete)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
-    console.log(board)
+    // console.log(board)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
@@ -37,7 +37,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
             dispatch(editTask(board._id, box.id, newTask))
             setIsComplete('complete')
         }
-        console.log(isComplete)
+        // console.log(isComplete)
     }
     // const onToggleDetails = (task) => {
     //     dispatch(toggleDetails(task))
