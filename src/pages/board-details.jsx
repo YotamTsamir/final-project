@@ -3,7 +3,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
-import { getBoard, setNewBoard, deleteBoard } from '../store/action/board-action'
+import { getBoard, setNewBoard, deleteBoard, editBox } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
@@ -110,8 +110,26 @@ export const Board = () => {
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
-    const onDragEnd = () => {
-
+    const onDragEnd = (result) => {
+        const { destination, source, draggableId } = result
+        if (!destination) return
+        if (destination.droppableId === source.droppableId && destination.index === source.index) return
+        console.log('destination is', destination)
+        console.log('source is ', source)
+        let newBox = board.boxes.find(box => box.id === destination.droppableId)
+        // if ((source.index - destination.index) < 1) {
+        //    newBox = newBox.tasks.map((task,index)=>{return(
+        //         task = newBox.tasks[index+1]
+        //         // console.log(index)
+        //         )
+        //     })
+        // }
+        const droping = newBox.tasks[source.index]
+        newBox.tasks[source.index] = newBox.tasks[destination.index]
+        newBox.tasks[destination.index] = droping
+        console.log(newBox)
+        dispatch(editBox(board._id, newBox))
+        console.log(board)
     }
 
     if (!board.boxes) return <h1>Loading...</h1>
@@ -130,14 +148,14 @@ export const Board = () => {
         </header>
 
         <DragDropContext onDragEnd={onDragEnd}>
-       <div className="board">
-            <BoxList board={board} boxes={board.boxes} />
-            {(!isAdd) && <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>}
-            {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
+            <div className="board">
+                <BoxList board={board} boxes={board.boxes} />
+                {(!isAdd) && <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>}
+                {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
 
-        </div>
+            </div>
         </DragDropContext>
-        </div>
+    </div>
 
     {/* if (!board || board && !board.boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>

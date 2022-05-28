@@ -16,7 +16,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [isComplete, setIsComplete] = useState(task.date.isComplete)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
-    console.log(board)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
