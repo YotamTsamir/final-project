@@ -4,117 +4,6 @@
     padding: 10px;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-
-
-    header {
-        // position: relative;
-        margin-top: 100px;
-        font-size: 30px;
-        height: fit-content;
-
-        // width: 400px;
-        >* {
-            padding-bottom: 10px;
-        }
-
-        .board-title {
-            // position: absolute;
-            // margin-top: 100px;
-            margin: 0;
-            font-size: 30px;
-            height: fit-content;
-            width: 400px;
-        }
-    }
-
-    .board-bar {
-        position: relative;
-
-        button {
-            background: none;
-            border: none;
-            border-radius: 3px;
-
-        }
-
-        button:hover {
-            background-color: $clr5;
-            cursor: pointer;
-        }
-
-        .board-menu {
-            position: absolute;
-            left: 2em;
-            top: 0;
-            background-color: $clr4;
-            border: none;
-            outline: none;
-            padding: 10px;
-            border-radius: 3px;
-
-            display: flex;
-            flex-direction: column;
-
-            .menu-header {
-                margin: 0;
-            }
-
-            button {
-                border: none;
-                border-radius: 3px;
-                background-color: inherit;
-                padding: 0;
-                margin: 5px 0 5px 0;
-                display: flex;
-                gap: 5px;
-                justify-content: space-between;
-
-                >* {
-                    margin: 0;
-                }
-            }
-
-            button:hover {
-                transition: 0.5s;
-                filter: brightness(90%);
-                cursor: pointer;
-            }
-
-            .curr-bg-preview {
-                height: 20px;
-                width: 20px;
-                border-radius: 3px;
-                background-size: cover;
-                background-repeat: no-repeat;
-            }
-
-           .bg-container{
-               position: absolute;
-               max-width: 200px;
-               right: -201px;
-               background-color: inherit;
-               border-radius: 3px;
-           }
-        }
-
-        .filter-container{
-            position: absolute;
-            left: 3.5em;
-            top: 0;
-            background-color: $clr4;
-            border: none;
-            outline: none;
-            padding: 10px;
-            border-radius: 3px;
-
-            display: flex;
-            flex-direction: column;
-
-            .filter-header{
-                margin: 0;
-            }
-        }
-    }
 }
 
 .board {
@@ -125,13 +14,21 @@
 }
 
 .add-box {
-    margin-top: 200px;
     background-color: $clr5;
-    padding: 6px 8px;
+    padding: 14px 8px;
+    padding-bottom: 15px;
     height: fit-content;
     border-radius: 3px;
     cursor: pointer;
     width: max-content;
+    width: 222px;
+    color: rgb(255, 255, 255);
 
     // color: $clr4;
+}
+.before-click{
+    background-color: #ffffff3d;
+}
+.before-click:hover{
+    background-color: #ffffff52;
 }

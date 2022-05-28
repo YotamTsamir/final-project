@@ -22,6 +22,13 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
+    
+    const onAddMember = (member) => {
+        const newTask = { ...task, members: [...task.members, member]}
+        // let newTask;
+
+        dispatch(editTask(board._id, box.id, newTask))
+    }
 
     const onChangeDate = (value) => {
         onChange(value)
@@ -34,10 +41,7 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
-    const onAddMember = (member) => {
-        const newTask = { ...task, members: [...task.members, member]}
-        dispatch(editTask(board._id, box.id, newTask))
-    }
+   
 
     const onChangeColor = async (color) => {
         let newTask;

@@ -80,9 +80,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
             {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
-            <div className="labels">
+            {(labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
-            </div>
+            </div>}
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
                 <div>
                     <p >{task.title}</p>
@@ -95,15 +95,15 @@ export const TaskPreview = ({ task, board, box, index }) => {
                 <div>
 
                     <div className="edit-fav">
-                        <FontAwesomeIcon onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
+                        <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
                     <div className="task-members">
-                    {(task.members) && task.members.map((member, idx) => {
-                        return (
-                            <div key={idx} className="task-member"><p>{member.init}</p></div>
+                        {(task.members) && task.members.map(member => {
+                            return (
+                                <div className="task-member"><p>{member.init}</p></div>
                             )
                         })
-                    }
+                        }
                     </div>
                 </div>
             </div>
@@ -112,12 +112,13 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
 
         {(isEdit) && <div>
-            <div onClick={() => { onDown() }} className="the-great-one"></div><div className="task-link task task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
+            <div onClick={() => { onDown() }} className="the-great-one"></div>
+            <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
                 {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>
-                <form onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><input className="task-edit" {...register('title')} />
+                <form className="edit-task-form" onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><textarea className="task-edit" {...register('title')} />
                     <button className="save-btn-edit">save</button></form>
                 <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} box={box} task={task} board={board} />
             </div>

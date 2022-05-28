@@ -25,7 +25,7 @@ export const TaskList = ({ tasks, board, box }) => {
     
 
     // if (!tasks.length) return <h1>Loading...</h1>
-    return <div>
+    return <div className="task-list">
         {tasks.map((task, index) => <Draggable key={task.id} draggableId={task.id} index={index}>
             {provided => {
                 return <div  {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} index={index} >

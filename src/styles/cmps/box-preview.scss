@@ -15,17 +15,9 @@
     width: fit-content;
 }
 .close-new-task{
-    transform: translate3d(31px, -6px, 5px);
-}
-.new-task-input{
-    margin: 10px;
-    background-color: #FFFFFF;
-    height: -moz-fit-content;
-    height: fit-content;
-    padding: 6px 8px 2px;
     border: none;
-    border-radius: 5px;
-    &:focus{
-        outline: none;
-    }
+    transform: translate3d(19px, -6px, 5px);
+}
+.add-box-input{
+    width: 210px;
 }

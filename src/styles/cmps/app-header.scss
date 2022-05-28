@@ -1,41 +1,46 @@
-.app-header{
-    padding-bottom: 1rem ;
+.app-header {
+    padding-bottom: 1rem;
     position: fixed;
+    height: 50px;
     width: 100%;
     display: flex;
-    justify-content: space-between;
-    top:0;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.095);
 
     & .logo-container {
         display: flex;
         margin: 10px;
+        margin-top: 1.5%;
         justify-content: center;
+        // flex-grow: 1;
 
         & .logo {
-            height: 6vh;
+            height: 4.5vh;
+            object-fit: contain;
             margin-top: 2px;
         }
-        
-        & h1{
-        color: black;
-        font-weight: 9s00;
-        font-size: xx-large;
-        padding-left: 5px;
-        margin: 0 0 10px 0;
 
-        justify-content: center;
-    } 
+        & h1 {
+            color: black;
+            font-weight: 9s00;
+            font-size: xx-large;
+            padding-left: 5px;
+            margin: 0 0 10px 0;
+
+            justify-content: center;
+        }
+
     }
 
-
-    & .app-header-links{
+    & .app-header-links {
         padding: 10px;
         margin-right: 3%;
         margin: 1.5% 2.8%;
 
-    
+
     }
-    & .nav-link{
+
+    & .nav-link {
         padding: 8px;
         font-size: 1.25rem;
         font-weight: 500;
@@ -43,12 +48,46 @@
         text-decoration: none;
         border-radius: 3px;
     }
-    & .signup{
+
+    & .signup {
         background-color: $clr6;
         color: white;
     }
-    & .login{
+
+    & .login {
         color: $clr6;
+    }
+
+}
+
+.app-header-nav{
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 1.5%;
+    height: fit-content;
+    * {
+        font-size: 1.25rem;
+    }
+
+    .recent{
+        display: flex;
+        align-items: center;
+        gap:5px;
+        height: 26px;
+        padding: 10px;
+        border-radius: 3px;
+
+
+        p{
+            margin: 0;
+        }
+    }
+
+    .recent:hover{
+        cursor: pointer;
+        transition: 0.2s;
+        background-color: rgba(255, 255, 255, 0.2);
     }
 
 }
