@@ -45,7 +45,6 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onEditBoxTitle = async (ev) => {
         ev.preventDefault()
-        console.log(newBoxTitle.title)
         const newBox = { ...box, title: newBoxTitle.title }
         setEditTitleId('')
         dispatch(editBox(board._id, newBox))
@@ -63,7 +62,6 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
                         {...provided.droppableProps}>
 
                         <TaskList
-
                             board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>
                         {provided.placeholder}
@@ -74,7 +72,8 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ add a card</div> :
             <div><div className="task">
                 <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><input className="new-task-input" {...registery('title')} autoFocus /></form>
-            </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>
+            </div>  
+            <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>
 
                     <button className="close-new-task" onClick={() => setAddNewTask('')}>X</button></div>
             </div>}

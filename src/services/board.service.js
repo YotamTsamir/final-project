@@ -56,18 +56,15 @@ async function editTask(boardId, boxId, task) {
 }
 
 async function editTaskDesc(boardId, box, task, newDesc) {
-    console.log('SH>>AGA');
     let board = await getById(boardId)
     let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
     let taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
     board.boxes[boxIdx].tasks[taskIdx].description = newDesc
-    console.log(board.boxes[boxIdx].tasks[taskIdx].description)
     return save(board)
 }
 
 async function addBox(boardId, box) {
     let board = await getById(boardId)
-    console.log(board)
     board.boxes.push(box)
     return save(board)
 }
@@ -162,7 +159,7 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members": [],
+        "members": [{userName: 'Rotem Spivak', init: 'RS'},{userName: 'Yotam Tsamir', init: 'YT'},{userName: 'Shachar Cohen', init: 'SC'},{userName: 'Tommy Irmia', init: 'TI'}],
         "boxes": [],
     }
 }

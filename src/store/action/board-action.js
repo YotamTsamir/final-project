@@ -44,7 +44,6 @@ export function editBox(boardId, box) {
     return async dispatch => {
         const board = await boardService.editBox(boardId, box)
         dispatch({ type: 'SET_BOARD', board })
-        console.log(board)
     }
 }
 
