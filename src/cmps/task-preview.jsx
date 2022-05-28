@@ -16,7 +16,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [isComplete, setIsComplete] = useState(task.date.isComplete)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
-    console.log(board)
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
@@ -37,7 +36,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
             dispatch(editTask(board._id, box.id, newTask))
             setIsComplete('complete')
         }
-        console.log(isComplete)
     }
     // const onToggleDetails = (task) => {
     //     dispatch(toggleDetails(task))
@@ -100,9 +98,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                         <FontAwesomeIcon onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
                     <div className="task-members">
-                    {(task.members) && task.members.map(member => {
+                    {(task.members) && task.members.map((member, idx) => {
                         return (
-                            <div className="task-member"><p>{member.init}</p></div>
+                            <div key={idx} className="task-member"><p>{member.init}</p></div>
                             )
                         })
                     }

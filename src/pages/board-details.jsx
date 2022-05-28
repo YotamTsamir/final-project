@@ -84,7 +84,6 @@ export const Board = () => {
             })
         }
         setBoxes(boxList)
-        console.log(boxList)
     }
 
     const onToggleMenu = () => {

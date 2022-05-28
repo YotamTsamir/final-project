@@ -7,6 +7,7 @@ export const utilService = {
 }
 
 function getMonthName(month) {
+    console.log(month)
     switch (month) {
         case 0:
             month = 'Jan'
