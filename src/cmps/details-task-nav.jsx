@@ -17,7 +17,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit })
     }
 
     const onOpenUserMenu = () => {
-        setUserMenu(!userMenu)
+        // setUserMenu(!userMenu)
     }
 
     const menuBtns = [

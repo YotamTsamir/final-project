@@ -13,6 +13,7 @@ export const boardService = {
     getDefaultBgs,
     editTask,
     editBoardStyle,
+    boxFilterByTaskAtt,
 
     addBox,
     editBox,
@@ -351,6 +352,17 @@ async function editBoxTitle(boardId, box, newTitle) {
 
     // console.log(box.title)
     return save(board)
+}
+
+async function boxFilterByTaskAtt(boxes, filter = {}) {
+    const filteredBoxes = boxes.filter(box => {
+        return box.tasks.some(task => {
+            if (filter.value) {
+                return task[filter.filterBy].includes(filter.value)
+            } else return true
+        })
+    })
+    return filteredBoxes
 }
 
 

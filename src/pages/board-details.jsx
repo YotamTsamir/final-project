@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faX } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoard, setNewBoard, deleteBoard } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
@@ -9,7 +7,6 @@ import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
 import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
-import { TaskDetails } from "../cmps/task-details"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { DragDropContext } from 'react-beautiful-dnd'
 
@@ -23,14 +20,14 @@ export const Board = () => {
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    let isClick = false
-    let posX
-    let x = 0
+    // let isClick = false
+    // let posX
+    // let x = 0
 
 
     useEffect(() => {
         const { boardId } = params
-        addMouseListeners()
+        // addMouseListeners()
         dispatch(getBoard(boardId))
     }, [])
 
@@ -40,37 +37,37 @@ export const Board = () => {
     }, [board])
 
 
-    const addMouseListeners = () => {
-        window.addEventListener('mousemove', onMove)
-        window.addEventListener('mousedown', onDown)
-        window.addEventListener('mouseup', onUp)
-    }
+    // const addMouseListeners = () => {
+    //     window.addEventListener('mousemove', onMove)
+    //     window.addEventListener('mousedown', onDown)
+    //     window.addEventListener('mouseup', onUp)
+    // }
 
-    const onDown = (ev) => {
-        isClick = true
-        posX = ev.pageX
-    }
+    // const onDown = (ev) => {
+    //     isClick = true
+    //     posX = ev.pageX
+    // }
 
-    const onUp = () => {
-        isClick = false
-    }
+    // const onUp = () => {
+    //     isClick = false
+    // }
 
-    const onMove = (ev) => {
-        ev.preventDefault()
-        if (!isClick) {
-            return
-        }
-        else if (ev.pageX > posX) {
-            posX = ev.pageX
-            x -= 1
-            window.scroll(x, 0)
-        }
-        else {
-            posX = ev.pageX
-            x += 1
-            window.scroll(x, 0)
-        }
-    }
+    // const onMove = (ev) => {
+    //     ev.preventDefault()
+    //     if (!isClick) {
+    //         return
+    //     }
+    //     else if (ev.pageX > posX) {
+    //         posX = ev.pageX
+    //         x -= 1
+    //         window.scroll(x, 0)
+    //     }
+    //     else {
+    //         posX = ev.pageX
+    //         x += 1
+    //         window.scroll(x, 0)
+    //     }
+    // }
 
     const setAddBox = () => {
         isAdd ? setIsAdd(false) : setIsAdd(true)
@@ -79,10 +76,13 @@ export const Board = () => {
     const onFilterBoxes = async (filter) => {
         let boxList = board.boxes
         if (filter.filterBy) {
-            boxList = boxList.filter(box => {
-                return box[filter.filterBy].includes(filter.value)
-            })
+            boxList = await boardService.boxFilterByTaskAtt(boxList, filter)
         }
+        // if (filter.filterBy) {
+        //     boxList = boxList.filter(box => {
+        //         return box[filter.filterBy].includes(filter.value)
+        //     })
+        // }
         setBoxes(boxList)
     }
 
@@ -123,19 +123,22 @@ export const Board = () => {
 
     if (!boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
-        <header >
-            <h1 className="board-title">{board.title}</h1>
-            <BoardHeaderBar
-                board={board}
-                deleteBoard={onDeleteBoard}
-                dfBgs={boardService.getDefaultBgs()}
-                onEditBoard={onEditBoard}
-                onToggleMenu={onToggleMenu}
-                isBoardMenu={isBoardMenu}
-                onToggleFilter={onToggleFilter}
-                isFilter={isFilter}
-                onFilterBoxes={onFilterBoxes} />
-        </header>
+        <div className="board-page-header-container">
+            <header className="board-header-container">
+                <h1 className="board-title">{board.title}</h1>
+                <BoardHeaderBar
+                    board={board}
+                    deleteBoard={onDeleteBoard}
+                    dfBgs={boardService.getDefaultBgs()}
+                    onEditBoard={onEditBoard}
+                    onToggleMenu={onToggleMenu}
+                    isBoardMenu={isBoardMenu}
+                    onToggleFilter={onToggleFilter}
+                    isFilter={isFilter}
+                    onFilterBoxes={onFilterBoxes} />
+            </header>
+        </div>
+
 
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="board">
