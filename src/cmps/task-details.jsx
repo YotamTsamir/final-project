@@ -114,6 +114,7 @@ export const TaskDetails = () => {
         {(isMembers() && 
       <div className="task-members">
           {(task.members) && task.members.map((member, idx) => {
+
               return (<div key={idx} className="task-member">
                 <div className="member-background">
                   <p style={{ backgroundColor: color }}>{member.init}</p>

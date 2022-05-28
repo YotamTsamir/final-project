@@ -31,8 +31,9 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
     }
 
     const onChangeDate = (value) => {
+
         onChange(value)
-        emitDateValue && emitDateValue(value)
+        // emitDateValue && emitDateValue(value)
         const newTask = {
             ...task, date: {
                 month: utilService.getMonthName(value.getMonth()),
@@ -67,7 +68,6 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
             }))}
         </div>
         {(topic === 'Dates') && <div>
-            {console.log('this is date picker')}
             <DatePicker
                 isOpen={true} closeCalendar={false} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
             />
