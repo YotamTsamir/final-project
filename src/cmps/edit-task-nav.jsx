@@ -53,21 +53,21 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
 
 
     const menuBtns = [
-        { txt: 'Open card' ,fa: <FontAwesomeIcon style={{color:'#fefefe'}} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} /> },
+        { txt: 'Open card' ,fa: <FontAwesomeIcon style={{color:'#fefefe'}} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} inverse /> },
         { txt: 'Edit labels',fa:<FontAwesomeIcon className="icon-task-menu fa-solid fa-tag" icon={faTag}/> },
-        { txt: 'Change cover', fa: <FontAwesomeIcon className="icon-task-menufa-solid fa-fill-drip" icon={faFillDrip} />},
-        { txt: 'Change members', fa: <FontAwesomeIcon className="icon-task-menufa font-clock" icon={faUser} /> },
-        { txt: 'Move', fa: <FontAwesomeIcon className="icon-task-menufa font-clock" icon={faArrowRight} /> },
-        { txt: 'Copy' , fa: <FontAwesomeIcon className="icon-task-menufa-solid fa-copy" icon={faCopy}/>},
-        { txt: 'Edit dates', fa: <FontAwesomeIcon className="icon-task-menufa font-clock" icon={faClock} /> },
-        { txt: 'Archive', fa: <FontAwesomeIcon className="icon-task-menufa-solid fa-inbox" icon={faInbox} /> },
+        { txt: 'Change cover', fa: <FontAwesomeIcon className="icon-task-menu fa-solid fa-fill-drip" icon={faFillDrip} />},
+        { txt: 'Change members', fa: <FontAwesomeIcon className="icon-task-menu fa font-clock" icon={faUser} /> },
+        { txt: 'Move', fa: <FontAwesomeIcon className="icon-task-menu fa font-clock" icon={faArrowRight} /> },
+        { txt: 'Copy' , fa: <FontAwesomeIcon className="icon-task-menu fa-solid fa-copy" icon={faCopy}/>},
+        { txt: 'Edit dates', fa: <FontAwesomeIcon className="icon-task-menu fa font-clock" icon={faClock} /> },
+        { txt: 'Archive', fa: <FontAwesomeIcon className="icon-task-menu fa-solid fa-inbox" icon={faInbox} /> },
     ]
     const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
 
 
     return <section>
         {/* <div className='add-to-card'>Add to card</div> */}
-        <div className="edit-task-nav">
+        <div className="edit-task-nav white-icons">
             {menuBtns.map(btn => {
                 return (
                     <div>

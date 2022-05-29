@@ -15,6 +15,10 @@
         margin-top: 0px;
         z-index: 5;
     }
+
+    .white-icons {
+        color: white;
+    }
 }
 .label-choice{
     // position: absolute;
@@ -31,8 +35,7 @@
 .Members{
     transform: translateY(-210px);
 }
-.Labels{
-}
+
 .Cover{
     transform: translateY(-175px);
 }

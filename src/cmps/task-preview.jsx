@@ -106,7 +106,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
                 </div>
                 <div>
 
-                    <div className="edit-fav">
+                    <div className="edit-fav grey-icons">
                         <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
                

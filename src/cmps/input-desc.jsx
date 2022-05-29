@@ -70,12 +70,13 @@ export const InputDesc = () => {
           </div>
         </form>
       )}
+      <div className="left-details-container">
       {!isEditShownDesc() && (
         <div
-          className="curr-desc"
+          className="curr-desc left-details"
           onClick={() =>onEditField() }>{description}
         </div>
-      )}
+      )}</div>
     </div>
   );
 };

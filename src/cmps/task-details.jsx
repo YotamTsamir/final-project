@@ -11,7 +11,7 @@ import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons"
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { DetailsTaskNav } from "./details-task-nav";
 import { LabelMenu } from './label-menu'
-import windowImg from '../imgs/window.png'
+import windowImg from '../imgs/window-details.png'
 import coverImg from '../imgs/cover.png'
 export const TaskDetails = () => {
   const [labels, setLabels] = useState([]);
@@ -63,7 +63,9 @@ export const TaskDetails = () => {
     return true
   }
   const isMembers = () => {
-    if (!task.members) return
+    // console.log('bigger than 0', task.members.length > 0)
+    // console.log('members?', !task.members)
+    if (!task.members) return false
     if (task.members.length > 0) return true
   };
   const isLabelsLength = () => {
@@ -111,20 +113,22 @@ export const TaskDetails = () => {
             </div>
           </div>
         </div>
-        <div className="detail-header-container">
-          <div className="img-title">
+        <div className="left-details-container detail-header-container">
+          <div className="icon-desc-details">
           <img className="window-img-details" src={windowImg} />
-          <h1>{task?.title}</h1>
+          <h1 className="left-details" >{task?.title}</h1>
           </div>
-          <h1 className="box-title">
+          <h1 className="box-title left-details">
             in list <span className="box-title-details">{box.title}</span>
           </h1>
         </div>
         <div className="detail-menu-container">
           <div className="detail-container">
             <div className="members-labels">
-              <div className="members-members-title">
+            <div className={`members-members-title ${labels.length ? "members-with-labels" : "members-no-labels"}`}>
                 {(isMembers()) && (<div className="members-header"> Members</div>)}
+                {(!isMembers()) && (<div className="members-header" style={{display:"none"}}> Members</div>)}
+
                 {(isMembers() &&
                   <div className="task-members">
                     {(task.members) && task.members.map((member, idx) => {
@@ -157,23 +161,23 @@ export const TaskDetails = () => {
               </div>
             </div>
             <div className="task-description">
-              <div className="icon-desc-details">
+              <div className="icon-desc-details left-details-container">
                 <FontAwesomeIcon className='fa-solid fa-align-left' icon={faAlignLeft} />
-                <div className="is-desc">Description</div>
+                <div className="description left-details">Description</div>
 
               </div>
               {(isDesc()) &&  <InputDesc className="is-desc" />}
                 {(!isDesc()) &&  <InputDesc className="no-desc" />}
               <div className="activity-container">
-                <div className="icon-details-list">
+                <div className="left-details-container icon-details-list">
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
-                  <div className="activity">Activity</div>
+                  <div className="activity left-details">Activity</div>
                 </div>
                 <InputComments />
-                <ul className="comments">
+                <ul className="comments left-details-container">
                   {isCommentsLength() &&
                     comments.map((comment, idx) => {
-                      return <li className="comment" key={idx}>{comment}</li>;
+                      return <li className="comment left-details" key={idx}>{comment}</li>;
                     })}
                 </ul>
               </div>
