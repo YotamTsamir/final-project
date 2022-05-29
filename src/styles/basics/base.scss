@@ -4,8 +4,13 @@
     font-size: 14px;
 }
 
-
+html,
 body{
     height: 100%;
     overflow-y: hidden;
 }
+
+#root{
+    background-color: #fafbfc;
+}
+

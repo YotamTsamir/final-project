@@ -3,41 +3,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisVertical, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 
-export const BoardThumbnailPreview = ({ board, onRemove }) => {
-    // const [isMenuOpen, setIsMenuOpen] = useState(false)
+export const BoardThumbnailPreview = ({ board, onRemove, fourthChild }) => {
 
-    // const onToggleMenu = () => {
-    //     setIsMenuOpen(!isMenuOpen)
-    // }
-
-
-    // const onDelete = () => {
-    //     onRemove(board._id)
-    //     setIsMenuOpen(!isMenuOpen)
-    // }
-
-    return <div className="board-prev"
+    return <div className={`board-prev ${fourthChild}`}
         style={board.style}>
-        <NavLink to={`/b/${board._id}`}
-            key={board._id}
-            className="to-board">
-            <div>
-                <p>{board.title}</p>
-            </div>
-        </NavLink>
-        {/* <div className="boardmenu">
-            {!isMenuOpen &&
-                <button className="boardmenu-btn"
-                    onClick={onToggleMenu}>
-                    <FontAwesomeIcon
-                        icon={faEllipsisVertical} />
-                </button>}
-
-            {isMenuOpen && <div className="boardmenu-open"
-                onClick={onDelete}>
-                <FontAwesomeIcon icon={faTrashCan} />
-            </div>
-            }
-        </div> */}
-    </div>
+        <div className='bg-shadow'>
+            <NavLink to={`/b/${board._id}`}
+                key={board._id}
+                className="to-board">
+                <div>
+                    <div className='board-prev-title'>{board.title}</div>
+                </div>
+            </NavLink>
+        </div>
+    </div >
 }

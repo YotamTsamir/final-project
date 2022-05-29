@@ -1,7 +1,5 @@
 import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoard, setNewBoard, deleteBoard, editBox } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
