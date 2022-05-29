@@ -17,9 +17,25 @@
     }
 }
 .label-choice{
+    // position: absolute;
+    background-color: white;
+    text-align: center;
+    margin-left: 9px;
     padding: 2px;
     border-radius: 3px;
     cursor: pointer;
+    z-index: 100;
+    
+   
+}
+.Members{
+    transform: translateY(-210px);
+}
+.Labels{
+    transform: translateY(-210px);
+}
+.Cover{
+    transform: translateY(-175px);
 }
 
 
