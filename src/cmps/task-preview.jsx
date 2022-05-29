@@ -98,9 +98,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                         <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
                     <div className="task-members">
-                        {(task.members) && task.members.map(member => {
+                        {(task.members) && task.members.map((member, idx) => {
                             return (
-                                <div className="task-member"><p>{member.init}</p></div>
+                                <div key={idx} className="task-member"><p>{member.init}</p></div>
                             )
                         })
                         }
@@ -120,7 +120,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
                 </div>
                 <form className="edit-task-form" onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><textarea className="task-edit" {...register('title')} />
                     <button className="save-btn-edit">save</button></form>
-                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} box={box} task={task} board={board} />
+                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
             </div>
         </div>}
 

@@ -41,7 +41,8 @@ export const BoardHeaderBar = ({ onFilterBoxes, onToggleFilter, isFilter, isBoar
             deleteBoard={deleteBoard}
             dfBgs={dfBgs}
             onEditBoard={onEditBoard}
-            onToggleMenu={onToggleMenu} />}
+            onToggleMenu={onToggleMenu}
+        />}
 
         <button className="filter-btn"
             onClick={onToggleFilter}>
