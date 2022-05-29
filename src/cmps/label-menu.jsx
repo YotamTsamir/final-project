@@ -31,8 +31,9 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
     }
 
     const onChangeDate = (value) => {
+
         onChange(value)
-        emitDateValue && emitDateValue(value)
+        // emitDateValue && emitDateValue(value)
         const newTask = {
             ...task, date: {
                 month: utilService.getMonthName(value.getMonth()),
@@ -49,7 +50,7 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    return <div className={`label-menu ${topic}`}>
+    return <div className={`label-choice ${topic}`}>
         <h1 >{topic}</h1>
         <hr />
         <input type="text" />
@@ -66,8 +67,7 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
                 )
             }))}
         </div>
-        {(topic === 'Dates') && <div>
-            {console.log('this is date picker')}
+        {(topic === 'Date') && <div>
             <DatePicker
                 isOpen={true} closeCalendar={false} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
             />

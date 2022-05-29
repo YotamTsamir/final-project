@@ -80,7 +80,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
             {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
-            {(labels.length > 0) && <div className="labels">
+            {(labels && labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
             </div>}
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
@@ -120,7 +120,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
                 </div>
                 <form className="edit-task-form" onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><textarea className="task-edit" {...register('title')} />
                     <button className="save-btn-edit">save</button></form>
-                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} box={box} task={task} board={board} />
+                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
             </div>
         </div>}
 
