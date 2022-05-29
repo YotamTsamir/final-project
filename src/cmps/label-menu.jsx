@@ -24,8 +24,17 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
     }
     
     const onAddMember = (member) => {
-        const newTask = { ...task, members: [...task.members, member]}
-        // let newTask;
+        // const newTask = { ...task, members: [...task.members, member]}
+        let newTask;
+        console.log(member.userName)
+        console.log(task.members)
+        if(task.members.find(currMember=> currMember.userName === member.userName)){
+            const memberIdx = task.members.findIndex(currMember => currMember.userName === member.userName)
+            task.members.splice(memberIdx,1)
+            newTask={...task,members:task.members}
+        } else {
+            newTask= {...task,members:[...task.members,member]}
+        }
 
         dispatch(editTask(board._id, box.id, newTask))
     }
@@ -72,7 +81,7 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
                 isOpen={true} closeCalendar={false} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
             />
         </div>}
-        {(topic === 'Change members') && <div>
+        {(topic === 'Members') && <div>
             {board.members.map((member,idx) => {
                 return(
                     <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>

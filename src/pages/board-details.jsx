@@ -154,7 +154,7 @@ export const Board = () => {
             <div className="board">
                 <BoxList board={board} boxes={boxes} />
                 {(!isAdd) &&
-                    <div className="add-box before-click" onClick={() => setAddBox()}>+ Add another list</div>}
+                    <div className="add-box before-click" onClick={() => setAddBox()}><span className="plus-sign">+</span> Add another list</div>}
                 {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
                     <input className="add-box-input" {...register('title')} />
                     <button className="save-btn list-save">Add list</button>

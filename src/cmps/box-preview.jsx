@@ -3,12 +3,16 @@ import { useEffect, useState } from 'react'
 import { useFormRegister } from "../hooks/useFormRegister"
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons"
 import { editBox, setNewBoard, editTask } from '../store/action/board-action'
 import { Droppable } from "react-beautiful-dnd"
 import { utilService } from "../services/util.service"
+import { BoardExtrasMenu } from "./board-extras-menu"
 
 
 export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
+    const [boardExtrasMenu,setBoardExtrasMenu] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const [registery, newTask, EditTask] = useFormRegister({ title: '' })
 
@@ -53,8 +57,14 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     if (!box) return <h1>Loading</h1>
     return <div className="box">
+        <div className="box-header flex space-between">
         {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
             <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
+            <div onClick={()=>setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
+            <FontAwesomeIcon  icon={faEllipsis} />
+            </div>
+            {(boardExtrasMenu) && <BoardExtrasMenu/>}
+            </div>
         <Droppable droppableId={box.id}>
             {provided => {
                 return (

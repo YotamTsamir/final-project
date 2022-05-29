@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
+import desc from '../pngs/menu.png'
 import { boardService } from "../services/board.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
@@ -37,9 +38,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
             setIsComplete('complete')
         }
     }
-    // const onToggleDetails = (task) => {
-    //     dispatch(toggleDetails(task))
-    // }
+    
     const onDown = () => {
         setIsEdit(false)
     }
@@ -86,25 +85,31 @@ export const TaskPreview = ({ task, board, box, index }) => {
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
                 <div>
                     <p >{task.title}</p>
+                    <div className="flex space-between spacer-bottom-task">
+                    <div className="flex task-prev-date-desc">
                     {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isComplete}`}>
                         {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
                         {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
                         <FontAwesomeIcon className="fa font-clock" icon={faClock} />
                         <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
+                    {(task.description) && <div><img className="desc-png" src={desc}/></div>}
+                    </div>
+                    {(task.members) &&  <div className="task-members">
+                        {task.members.map((member, idx) => {
+                            return (
+                                <div key={idx} className="task-member"><p>{member.init}</p></div>
+                                )
+                            })}
+                    </div>
+                        }
+                        </div>
                 </div>
                 <div>
 
                     <div className="edit-fav">
                         <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
-                    <div className="task-members">
-                        {(task.members) && task.members.map((member, idx) => {
-                            return (
-                                <div key={idx} className="task-member"><p>{member.init}</p></div>
-                            )
-                        })
-                        }
-                    </div>
+               
                 </div>
             </div>
         </div>

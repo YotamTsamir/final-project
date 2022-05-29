@@ -24,25 +24,25 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
         }
         setMenuState(newMenuState)
     }
-    const toggleEditTask = () => {
-        setIsEdit(!isEdit)
-    }
-    const openLabelMenu = () => {
-        setLabelMenu(!labelMenu)
-    }
-    const openUserMenu = () => {
-        setUserMenu(!userMenu)
-    }
-    const openCoverMenu = () => {
-        setCoverMenu(!coverMenu)
-    }
-    const openDateMenu = () => {
-        setDateMenu(!dateMenu)
-    }
+    // const toggleEditTask = () => {
+    //     setIsEdit(!isEdit)
+    // }
+    // const openLabelMenu = () => {
+    //     setLabelMenu(!labelMenu)
+    // }
+    // const openUserMenu = () => {
+    //     setUserMenu(!userMenu)
+    // }
+    // const openCoverMenu = () => {
+    //     setCoverMenu(!coverMenu)
+    // }
+    // const openDateMenu = () => {
+    //     setDateMenu(!dateMenu)
+    // }
 
-    const openLabelMenu = () => {
-        setLabelMenu(!labelMenu)
-    }
+    // const openLabelMenu = () => {
+    //     setLabelMenu(!labelMenu)
+    // }
     
     const openCoverMenu = () => {
         setCoverMenu(!coverMenu)
@@ -84,7 +84,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
             })}
             {(menuState['Edit labels']) && <LabelMenu className="label-choice" topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
             {(menuState['Change cover']) && <LabelMenu className="cover-choice" topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
-            {(menuState['Edit dates']) && <LabelMenu topic={'Dates'} task={task} box={box} board={board} />}
+            {(menuState['Edit dates']) && <LabelMenu topic={'Date'} task={task} box={box} board={board} />}
             {(menuState['Change members']) && <LabelMenu topic={'Members'} task={task} box={box} board={board} />}
         </div>
     </section>

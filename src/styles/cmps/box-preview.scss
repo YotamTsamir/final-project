@@ -1,23 +1,104 @@
-.box{
+.box {
     // margin-top: 100px;
     background-color: $clr5;
     width: 272px;
     height: fit-content;
     border-radius: 5px;
-    & h2{
+
+    & h2 {
         margin-left: 15px;
     }
 }
 
-.box-title-edit{
-    margin-left: 10px;
-    margin-top: 10px;
-    width: fit-content;
+.box-title-edit {
+    margin-left: 8px;
+    width: 210px;
+    &:focus{
+        outline: blue;
+        border: 2px solid #0079bf;;
+        border-radius: 3px;
+    }
 }
-.close-new-task{
+
+.close-new-task {
     border: none;
     transform: translate3d(19px, -6px, 5px);
 }
-.add-box-input{
+
+.extras-menu {
+    display: flex;
+    align-items: center;
+    margin-right: 4px;
+    padding: 10px;
+}
+
+.extras-menu:hover {
+    border-radius: 3px;
+    color: #172b4d;
+    background-color: #091e4214;
+}
+
+.add-box-input {
     width: 210px;
+}
+
+.box-header {
+    position: relative;
+    align-items: center;
+}
+
+.board-extras-menu {
+    position: absolute;
+    background-color: white;
+    width: 276px;
+    border-radius: 3px;
+    left: 245px;
+    padding: 0 12px 12px;
+    top: 45px;
+    z-index: 10;
+
+    .extras-header {
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: center;
+        border-bottom: 1px solid #091e4221;
+        box-sizing: border-box;
+        color: #5e6c84;
+        display: block;
+        line-height: 40px;
+        margin: 0 12px;
+        overflow: hidden;
+        padding: 0 32px;
+        position: relative;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        z-index: 1;
+    }
+
+    .extras-btn {
+        cursor: pointer;
+        display: block;
+        font-weight: 400;
+        margin: 0 -12px;
+        padding: 6px 12px;
+        position: relative;
+        text-decoration: none;
+    }
+
+    .extras-btn:hover {
+        background-color: #091e420a;
+    }
+    .extras-add{
+        margin-top: 8px;
+    }
+    .extras-hr{
+        background-color: #091e4221;
+        border: 0;
+        height: 1px;
+        margin: 12px 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    // left: 0;
 }
