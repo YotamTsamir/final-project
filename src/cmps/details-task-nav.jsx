@@ -49,7 +49,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
             {menuBtns.map(btn => {
                 return (
                     <button key={btn.txt} className="details-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
-                        {btn.txt}
+                       {btn.fa} {btn.txt}
                         {(menuState['Labels']) && btn.txt === 'Labels' && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
                         {(menuState['Cover']) && btn.txt === 'Cover' && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
                         {(menuState['Dates']) && btn.txt === 'Dates' && <LabelMenu topic={'Dates'} task={task} box={box} board={board} emitDateValue={emitDateValue} />}

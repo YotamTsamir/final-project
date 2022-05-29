@@ -50,7 +50,7 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    return <div className={`label-menu ${topic}`}>
+    return <div className={`label-choice ${topic}`}>
         <h1 >{topic}</h1>
         <hr />
         <input type="text" />
