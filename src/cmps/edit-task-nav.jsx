@@ -14,7 +14,9 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, open
     const openLabelMenu = () => {
         setLabelMenu(!labelMenu)
     }
-    
+    const openUserMenu = () => {
+        setUserMenu(!userMenu)
+    }
     const openCoverMenu = () => {
         setCoverMenu(!coverMenu)
     }

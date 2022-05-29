@@ -146,6 +146,7 @@ export const Board = () => {
                 onToggleMenu={onToggleMenu}
                 isBoardMenu={isBoardMenu}
                 onToggleFilter={onToggleFilter}
+                onFilterBoxes={onFilterBoxes}
                 isFilter={isFilter} />
         </header>
 
