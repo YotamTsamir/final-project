@@ -4,7 +4,19 @@
     gap: 5px;
     margin-right: 20px;
     justify-content: flex-end;
-}
+
+        .details-label-menu {
+            
+            .label-choice {
+                position: absolute;
+            }
+
+        }
+        
+    }
+    .menu-imgs{
+        height: 14px;
+    }
 .detail-container{
     display: flex;
     flex-direction: column;

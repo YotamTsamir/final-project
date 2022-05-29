@@ -141,6 +141,10 @@
     position: absolute;
     display: flex;
     flex-direction: column;
+
+    .icon-task-menu{
+        color: white;
+    }
 }
 
 .edit-task-nav-btn {
