@@ -67,12 +67,12 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
                 )
             }))}
         </div>
-        {(topic === 'Dates') && <div>
+        {(topic === 'Date') && <div>
             <DatePicker
                 isOpen={true} closeCalendar={false} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
             />
         </div>}
-        {(topic === 'Members') && <div>
+        {(topic === 'Change members') && <div>
             {board.members.map((member,idx) => {
                 return(
                     <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
