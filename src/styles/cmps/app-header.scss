@@ -1,86 +1,146 @@
 .app-header {
-    padding-bottom: 1rem;
+    padding: 6px 4px;
     position: fixed;
-    height: 50px;
+    z-index: 100;
+    box-sizing: border-box;
+    height: 44px;
     width: 100%;
     display: flex;
     align-items: flex-start;
     top: 0;
-    background-color: #00000018;
+    background-color: #026aa7;
 
-    & .logo-container {
-        display: flex;
-        margin: 10px;
-        margin-top: 1.5%;
-        justify-content: center;
-        align-items: center;
-        padding-left: 40px;
-
-        & .logo {
-            height: 1rem;
-            object-fit: contain;
-            margin-top: 2px;
-        }
-
-        & h1 {
-            color: black;
-            padding-left: 5px;
-            margin: 0 0 10px 0;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin: 0;
-        }
-
+    >* {
+        height: 32px;
     }
 
-    & .app-header-links {
-        padding-right: 10px;
-        margin-right: 3%;
-        margin: 1.5% 2.8%;
-
-
-    }
-
-    & .nav-link {
-        padding: 8px;
-        font-size: 1.25rem;
-        font-weight: 500;
-        letter-spacing: 0.8px;
-        text-decoration: none;
-        border-radius: 3px;
-    }
-
-    & .signup {
-        background-color: $clr6;
+    * {
         color: white;
+        font-size: 14px;
     }
 
-    & .login {
-        color: $clr6;
+
+    .logo-and-nav {
+        flex-grow: 1;
+        display: flex;
+        align-items: center;
+
+        .logo-container {
+            width: 70px;
+            height: 15px;
+            margin: 0;
+            margin-top: 1px;
+            padding: 8px 6px 8px 12px;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+
+            .logo {
+                height: 100%;
+            }
+
+            h1 {
+                font-size: 18px;
+                margin: 0;
+                display: flex;
+                align-items: flex-end;
+                line-height: 14px;
+            }
+        }
+
+        .main-nav-container {
+            display: flex;
+        }
+
+        .nav-link {
+            height: 20;
+            padding: 6px 10px 6px 12px;
+            line-height: 14px;
+        }
     }
 
+    .user-nav-links {
+        position: relative;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row-reverse;
+
+        .toggle-login-bar {
+            margin: 0;
+            padding: 0;
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            border: none;
+            background-image: url('../../imgs/logo.png');
+            background-size: contain;
+
+            h1 {
+                margin: 0;
+            }
+        }
+
+        .signin-signup-links {
+            position: relative;
+            top: 40px;
+            right: -32px;
+            width: 304px;
+            height: fit-content;
+            border-radius: 3px;
+            box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+            display: flex;
+            flex-direction: column;
+
+
+            line-height: 40px;
+            box-sizing: border-box;
+            padding: 0 12px 18px 12px;
+
+            * {
+                color: #172b4d;
+            }
+
+            h2 {
+                text-align: center;
+            }
+
+            .nav-link {
+                line-height: 32px;
+            }
+
+            .nav-link:hover {
+                cursor: pointer;
+                background-color: #f4f5f7;
+            }
+        }
+        // .main-search-container{
+
+        // }
+    }
+}
+
+.nav-link {
+    text-decoration: none;
 }
 
 .app-header-nav {
     flex-grow: 1;
     display: flex;
     align-items: flex-end;
-    margin-top: 1.5%;
     height: fit-content;
+    padding: 2px 0 2px 0;
 
-    * {
-        font-size: 1.25rem;
-    }
 
     .recent {
         display: flex;
         align-items: center;
         gap: 5px;
         height: 11px;
-        padding: 10px;
         border-radius: 3px;
-        // margin-bottom: ;
 
+        height: 20;
+        padding: 6px 10px 6px 12px;
+        margin-right: 4px;
 
         p {
             margin: 0;
@@ -90,7 +150,7 @@
     .recent:hover {
         cursor: pointer;
         transition: 0.2s;
-        background-color: rgba(255, 255, 255, 0.2);
+        background-color: #ffffff33;
     }
 
 }

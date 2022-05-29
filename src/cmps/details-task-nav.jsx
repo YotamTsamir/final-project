@@ -5,6 +5,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
 import { faClock,faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
+import labelImg from '../imgs/label.png'
+import copyImg from '../imgs/copy.png'
+import archiveImg from '../imgs/archive.png'
+import coverImg from '../imgs/cover.png'
 export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
     const [menuState, setMenuState] = useState({
         'Labels': false,
@@ -33,13 +37,13 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
     }
 
     const menuBtns = [
-        { txt: 'Labels'},
-        { txt: 'Cover'},
+        { txt: 'Labels', fa: <img className="menu-imgs" src={labelImg}/>},
+        { txt: 'Cover', fa: <img className="menu-imgs" src={coverImg}/>},
         { txt: 'Members',fa:<FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
         { txt: 'Move',fa:<FontAwesomeIcon className="fa font-clock" icon={faArrowRight} /> },
-        { txt: 'Copy'},
+        { txt: 'Copy', fa: <img className="menu-imgs" src={copyImg}/>},
         { txt: 'Dates',fa:<FontAwesomeIcon className="fa font-clock" icon={faClock} /> },
-        { txt: 'Archive'},
+        { txt: 'Archive', fa: <img className="menu-imgs" src={archiveImg}/>},
     ].filter(({txt}) => !(task.color && txt === 'Cover'))
 
     const colors=['#7BC86C','#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF','#29CCE5','#6DECA9','orange','#FF8ED4', '#8675A9']
@@ -47,15 +51,16 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
         <div className='add-to-card'>Add to card</div>
         <div className="details-task-nav">
             {menuBtns.map(btn => {
-                return (
+                return (<div className='details-label-menu'>
                     <button key={btn.txt} className="details-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
                        {btn.fa} {btn.txt}
+                    </button>
+                    
                         {(menuState['Labels']) && btn.txt === 'Labels' && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
                         {(menuState['Cover']) && btn.txt === 'Cover' && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
                         {(menuState['Dates']) && btn.txt === 'Dates' && <LabelMenu topic={'Dates'} task={task} box={box} board={board} emitDateValue={emitDateValue} />}
                         {(menuState['Members']) && btn.txt === 'Members' && <LabelMenu topic={'Members'} task={task} box={box} board={board} />}
-                    </button>
-                )
+                        </div>)
             })}
         </div>
         {(menuState['Dates']) &&

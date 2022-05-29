@@ -11,8 +11,8 @@ import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons"
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { DetailsTaskNav } from "./details-task-nav";
 import { LabelMenu } from './label-menu'
-
-
+import windowImg from '../imgs/window.png'
+import coverImg from '../imgs/cover.png'
 export const TaskDetails = () => {
   const [labels, setLabels] = useState([]);
   const [isEdit, setIsEdit] = useState(false)
@@ -23,7 +23,8 @@ export const TaskDetails = () => {
   const params = useParams();
   const dispatch = useDispatch();
   const [menuState, setMenuState] = useState(false)
-
+  
+  const { comments, labelIds, color, decription } = task;
   useEffect(() => {
     (async () => {
       const { boardId, taskId } = params;
@@ -57,7 +58,10 @@ export const TaskDetails = () => {
     return comments.length > 0;
   };
 
-
+  const isDesc = () => {
+    if( !decription) return false
+    return true
+  }
   const isMembers = () => {
     if (!task.members) return
     if (task.members.length > 0) return true
@@ -72,7 +76,6 @@ export const TaskDetails = () => {
     setMenuState(!menuState)
   }
 
-  const { comments, labelIds, color } = task;
   return (
     <section>
 
@@ -86,27 +89,33 @@ export const TaskDetails = () => {
           <div
             key={color}
             className={`cover-menu-color-detail ${color ? '' : 'no-color'}`}
+            height={`${color ? '90px;' : ''}`}
             style={{ backgroundColor: color }}
           >
             <div className="x-btn-cover">
+              
               <button
                 className="x-btn"
                 onClick={() => {
                   onToggleDetails();
                 }}
+                
               >
                 <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
               </button>
               {task.color && <button className="details-task-cover-btn" onClick={() => { toggleMenu() }}>
+              <img className="menu-imgs" src={coverImg}/>
                 Cover
-                {(menuState) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
+                {(menuState) &&<LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
               </button>}
             </div>
           </div>
         </div>
         <div className="detail-header-container">
+          <div className="img-title">
+          <img className="window-img-details" src={windowImg} />
           <h1>{task?.title}</h1>
-
+          </div>
           <h1 className="box-title">
             in list <span className="box-title-details">{box.title}</span>
           </h1>
@@ -150,9 +159,11 @@ export const TaskDetails = () => {
             <div className="task-description">
               <div className="icon-desc-details">
                 <FontAwesomeIcon className='fa-solid fa-align-left' icon={faAlignLeft} />
-                <div className="description">Description</div>
+                <div className="is-desc">Description</div>
+
               </div>
-              <InputDesc />
+              {(isDesc()) &&  <InputDesc className="is-desc" />}
+                {(!isDesc()) &&  <InputDesc className="no-desc" />}
               <div className="activity-container">
                 <div className="icon-details-list">
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />

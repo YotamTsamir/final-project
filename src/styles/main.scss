@@ -6,6 +6,8 @@
 @import './basics/base.scss';
 //pages
 @import './pages/board-list.scss';
+//CMPS
+@import './cmps/new-board-create.scss';
 //PAGES
 @import './pages/board.scss';
 //CMPS
@@ -20,6 +22,6 @@
 @import './pages/home.scss';
 //CMPS
 @import './cmps/app-header.scss';
-@import './cmps/task-details.scss';
-@import './cmps/details-task-nav.scss';
+@import './cmps/task-details/details-task-nav.scss';
+@import './cmps/task-details/task-details.scss';
 

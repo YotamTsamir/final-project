@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { LabelMenu } from './label-menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight, faArrowUpRightFromSquare , faTag, faFillDrip, faCopy, faInbox} from '@fortawesome/free-solid-svg-icons'
 import { faClock, faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 
 export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEdit }) => {
@@ -44,28 +44,24 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
     //     setLabelMenu(!labelMenu)
     // }
     
-    const openCoverMenu = () => {
-        setCoverMenu(!coverMenu)
-    }
+ 
     const openDateMenu = () => {
         setDateMenu(!dateMenu)
     }
 
-    const openUserMenu = () => {
-        setUserMenu(!userMenu)
-    }
+   
 
 
     const menuBtns = [
-        { txt: 'Open card' },
-        { txt: 'Edit labels' },
-        { txt: 'Change cover' },
-        { txt: 'Change members', fa: <FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
-        { txt: 'Move', fa: <FontAwesomeIcon className="fa font-clock" icon={faArrowRight} /> },
-        { txt: 'Copy' },
-        { txt: 'Edit dates', fa: <FontAwesomeIcon className="fa font-clock" icon={faClock} /> },
-        { txt: 'Archive' },
-    ].filter(({ txt }) => !(task.color && txt === 'Cover'))
+        { txt: 'Open card' ,fa: <FontAwesomeIcon style={{color:'#fefefe'}} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} /> },
+        { txt: 'Edit labels',fa:<FontAwesomeIcon className="icon-task-menu fa-solid fa-tag" icon={faTag}/> },
+        { txt: 'Change cover', fa: <FontAwesomeIcon className="icon-task-menufa-solid fa-fill-drip" icon={faFillDrip} />},
+        { txt: 'Change members', fa: <FontAwesomeIcon className="icon-task-menufa font-clock" icon={faUser} /> },
+        { txt: 'Move', fa: <FontAwesomeIcon className="icon-task-menufa font-clock" icon={faArrowRight} /> },
+        { txt: 'Copy' , fa: <FontAwesomeIcon className="icon-task-menufa-solid fa-copy" icon={faCopy}/>},
+        { txt: 'Edit dates', fa: <FontAwesomeIcon className="icon-task-menufa font-clock" icon={faClock} /> },
+        { txt: 'Archive', fa: <FontAwesomeIcon className="icon-task-menufa-solid fa-inbox" icon={faInbox} /> },
+    ]
     const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
 
 
