@@ -19,21 +19,60 @@
     .white-icons {
         color: white;
     }
+    .members-container {
+        display: flex;
+        justify-content: center;
+        border: 1px solid rebeccapurple;
+    }
 }
+
+
 .label-choice{
-    // position: absolute;
-    background-color: white;
-    text-align: center;
-    margin-left: 9px;
-    padding: 2px;
-    border-radius: 3px;
-    cursor: pointer;
-    z-index: 100;
-    
-   
+    color: #fefefe;
+    font-size: 14px;
+    padding: 6px 12px;
+    margin: 0 0 4px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 1px;
+    z-index: 10;
+
+    input{
+        width: 98%;
+    }
+
+    p {
+        color: rgb(35, 34, 34);
+        padding: 6px;
+        margin-top: 16px;
+        line-height: 16px;
+        font-weight: 600;
+        font-size: 12px;
+        line-height: 16px;
+    }
+
 }
+.h1-topic-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.h1-topic {
+    align-items: center;
+}
+
+
+    .label-choice:hover{
+        filter: brightness(0.93);
+    }
+
 .Members{
     transform: translateY(-210px);
+
+    .label-choice:hover{
+        filter: brightness(1);
+    }
+
 }
 
 .Cover{
@@ -52,8 +91,18 @@
     height: 50px;
 
 }
+
+.members-container{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+   
+}
 .members-div{
     cursor: pointer;
-    height: 40px;
-    border: 1px black solid;
+    margin: 0 0 2px;
+    padding: 4px 28px 4px 4px ;
+    line-height: 32px;
+    white-space: nowrap;
+    color: rgb(7, 7, 153);
 }

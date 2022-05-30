@@ -60,15 +60,19 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
     }
 
     return <div className={`label-choice ${topic}`}>
-        <h1 >{topic}</h1>
+        <div className="h1-topic-container">
+        <h1 className="h1-topic">{topic}</h1>
+        </div>
         <hr />
         <input type="text" />
         <p>{topic}</p>
+        <div className="labels-container">
         {(topic === 'Labels') && (board.labels.map(label => {
             return (
                 <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
             )
         }))}
+        </div>
         <div className="color-grid">
             {(topic === 'Cover') && (colors.map(color => {
                 return (
@@ -81,7 +85,7 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
                 isOpen={true} closeCalendar={false} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
             />
         </div>}
-        {(topic === 'Members') && <div>
+        {(topic === 'Members') && <div className="members-contianer">
             {board.members.map((member,idx) => {
                 return(
                     <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>

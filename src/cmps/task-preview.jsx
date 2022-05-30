@@ -38,7 +38,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
             setIsComplete('complete')
         }
     }
-    
+
     const onDown = () => {
         setIsEdit(false)
     }
@@ -77,7 +77,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
 
     return <div>
-        {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
+        {(!isEdit) && <div className="task">
             {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
@@ -86,30 +86,30 @@ export const TaskPreview = ({ task, board, box, index }) => {
                 <div>
                     <p >{task.title}</p>
                     <div className="flex space-between spacer-bottom-task">
-                    <div className="flex task-prev-date-desc">
-                    {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isComplete}`}>
-                        {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
-                        {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
-                        <FontAwesomeIcon className="fa font-clock" icon={faClock} />
-                        <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
-                    {(task.description) && <div><img className="desc-png" src={desc}/></div>}
-                    </div>
-                    {(task.members) &&  <div className="task-members">
-                        {task.members.map((member, idx) => {
-                            return (
-                                <div key={idx} className="task-member"><p>{member.init}</p></div>
+                        <div className="flex task-prev-date-desc">
+                            {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isComplete}`}>
+                                {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
+                                {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
+                                <FontAwesomeIcon className="fa font-clock" icon={faClock} />
+                                <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
+                            {(task.description) && <div><img className="desc-png" src={desc} /></div>}
+                        </div>
+                        {(task.members) && <div className="task-members">
+                            {task.members.map((member, idx) => {
+                                return (
+                                    <div key={idx} className="task-member"><p>{member.init}</p></div>
                                 )
                             })}
-                    </div>
-                        }
                         </div>
+                        }
+                    </div>
                 </div>
                 <div>
 
                     <div className="edit-fav grey-icons">
                         <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
                     </div>
-               
+
                 </div>
             </div>
         </div>

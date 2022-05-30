@@ -22,7 +22,9 @@ export const boardService = {
     getMemberById,
     addLabelToTask,
     getTaskById,
-    findBoxByTaskId
+    findBoxByTaskId,
+    editComment,
+    removeComment,
 }
 
 
@@ -69,6 +71,8 @@ async function editTask(boardId, boxId, task) {
     return save(board)
 }
 
+
+
 async function editTaskDesc(boardId, box, task, newDesc) {
     let board = await getById(boardId)
     let boxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
@@ -76,6 +80,17 @@ async function editTaskDesc(boardId, box, task, newDesc) {
     board.boxes[boxIdx].tasks[taskIdx].description = newDesc
     return save(board)
 }
+
+async function editComment(boardId, boxId, taskId, comment){
+    const board = await getById(boardId)
+    const boxIdx = board.boxes.findIndex(currBox => currBox.id === boxId)
+    const taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === taskId)
+    const commentIdx = board.boxes[boxIdx].tasks[taskIdx].comments.findIndex(currComment => currComment.id === comment.id)
+    if(commentIdx===-1) return board
+    board.boxes[boxIdx].tasks[taskIdx].comments[commentIdx] = comment
+    return save(board)
+}
+
 
 async function addBox(boardId, box) {
     let board = await getById(boardId)
@@ -99,7 +114,18 @@ function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
     // return axios.get(`/api/car/${carId}`)
 }
+async function removeComment(boardId, boxId, taskId, commentId){
+    const board = await getById(boardId)
+    const boxIdx = board.boxes.findIndex(box => boxId === box.id)
+    const box = board.boxes[boxIdx]
+    const taskIdx = box.tasks.findIndex(task => taskId === task.id)
+    const task = box.tasks[taskIdx]
+    const commentIdx = task.comments.findIndex(comment => comment.id === commentId)
+    task.comments.splice(commentIdx,1) 
+    board.boxes[boxIdx].tasks[taskIdx] = task
+    return save(board)
 
+}
 async function remove(boardId) {
     // return new Promise((resolve, reject) => {
     //     setTimeout(reject, 2000)
