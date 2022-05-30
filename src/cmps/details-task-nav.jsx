@@ -39,10 +39,10 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
     const menuBtns = [
         { txt: 'Labels', fa: <img className="menu-imgs" src={labelImg}/>},
         { txt: 'Cover', fa: <img className="menu-imgs" src={coverImg}/>},
-        { txt: 'Members',fa:<FontAwesomeIcon className="fa font-clock" icon={faUser} /> },
-        { txt: 'Move',fa:<FontAwesomeIcon className="fa font-clock" icon={faArrowRight} /> },
+        { txt: 'Members',fa:<FontAwesomeIcon className="menu-imgs fa font-clock" icon={faUser} /> },
+        { txt: 'Move',fa:<FontAwesomeIcon className="menu-imgs fa font-clock" icon={faArrowRight} /> },
         { txt: 'Copy', fa: <img className="menu-imgs" src={copyImg}/>},
-        { txt: 'Dates',fa:<FontAwesomeIcon className="fa font-clock" icon={faClock} /> },
+        { txt: 'Dates',fa:<FontAwesomeIcon className="menu-imgs fa font-clock" icon={faClock} /> },
         { txt: 'Archive', fa: <img className="menu-imgs" src={archiveImg}/>},
     ].filter(({txt}) => !(task.color && txt === 'Cover'))
 
@@ -53,7 +53,10 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
             {menuBtns.map(btn => {
                 return (<div className='details-label-menu'>
                     <button key={btn.txt} className="details-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
+                        <div className='details-btn-txt-fa'>
+                            
                        {btn.fa} {btn.txt}
+                        </div>
                     </button>
                     
                         {(menuState['Labels']) && btn.txt === 'Labels' && <LabelMenu topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
