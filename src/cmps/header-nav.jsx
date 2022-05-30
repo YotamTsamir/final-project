@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
+import { NavLink } from 'react-router-dom'
 import { RecentBoards } from './recent-boards.jsx'
 
 
@@ -22,5 +23,7 @@ export const HeaderNav = () => {
         </div>
         {/* {isRecentOpen &&
                 <RecentBoards />} */}
+
+        <NavLink className="nav-link" to='/boards'>Boards</NavLink>
     </nav>
 }

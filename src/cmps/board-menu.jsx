@@ -38,22 +38,21 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
             onClick={onToggleMenu}>
             <FontAwesomeIcon icon={faX} />
         </button>
-        <h5 className="menu-header">Hello Menu
-            <hr /></h5>
+        <h5 className="menu-header">Menu</h5>
+        <div><hr /></div>
         <button
             className="delete-board-btn"
             onClick={deleteCurrBoard}>
             <p>Delete Board</p>
-            <p className="fa-remove"><FontAwesomeIcon icon={faRemove} /></p>
+            <p className="fa-remove  icon-btn"><FontAwesomeIcon icon={faRemove} /></p>
         </button>
-        <div><hr/></div>
         <button
             className="change-board-bg"
             onClick={toggleBgMenu}>
 
             <p>Change Background</p>
             <p style={boardStyle.style}
-                className="curr-bg-preview">
+                className="curr-bg-preview icon-btn">
             </p>
         </button>
         {boardStyle.isOpen &&

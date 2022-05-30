@@ -1,75 +1,133 @@
 .board-new {
     margin-right: 0;
     background-color: #091e420a;
-    & p {
+
+    p {
         margin: 0;
         height: 100%;
         width: 100%;
         display: grid;
         place-content: center;
+        font-weight: 400;
     }
 
-    & p:hover>* {
+    p:hover>* {
         cursor: pointer;
     }
 }
-.board-new:hover{
-    background-color: #bbbbbb;
+
+.board-new:hover {
+    background-color: #dddddd;
 }
+
 .board-add {
     background-color: $clr4 ;
     position: fixed;
+    top: 48px;
+    left: 50%;
+    transform: translate(-50%);
     z-index: 10;
-    will-change: top, left;
-    top: 30%;
-    left: 40%;
+    $height: calc(100% - 54px);
+    height: $height;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    padding: 5px;
-    // height: 200px;
-    max-width: 250px;
+    padding: 12px;
+    width: 280px;
+    box-sizing: border-box;
 
     border-radius: 3px;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
 
-    & input {
-        margin: 2px;
+    * {
+        color: #5e6c84;
     }
 
-    & .exit-add-btn {
+    h2 {
+        margin: 0;
+        line-height: 40px;
+        text-align: center;
+        font-weight: 400;
+    }
+
+    .bg-menu-header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    h3 {
+        margin: 12px 0 4px 0;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    input {
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        background-color: #fafbfc;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 400;
+        padding: 8px 12px;
+    }
+
+    .exit-add-btn {
         position: absolute;
         background-color: $clr4;
-        border-radius: 50%;
+        border-radius: 3px;
         border: 0 solid $clr3;
-        right: -21px;
-        top: 0;
+        right: 10px;
+        top: 12px;
         cursor: pointer;
     }
 
     .exit-add-btn:hover {
-        transition: 0.5s;
-        background-color: #9e9e9e;
+        *{
+            color:#3b4351;
+        }
     }
 
-    & .submit-btn {
+    .choose-bg {
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .submit-btn {
         width: 100%;
-        background-color: inherit;
+        background-color: #0079bf;
         border: none;
-        border-radius: 10px;
+        border-radius: 3px;
+        color: #ffffff;
+
+        margin: 16px 0 8px 0;
+        height: 32px;
+        padding: 6px 12px;
     }
 
-    & .submit-btn:hover {
-        background-color: rgb(221, 221, 221);
+    .submit-btn:hover {
+        background-color: #0067a3;
         cursor: pointer;
     }
 
-    & .newboard-prev-container {
+    .newboard-prev-container {
         display: flex;
         justify-content: center;
     }
 
-    & .newboard-prev {
-        min-width: 50%;
+    .newboard-prev {
+        width: 200px;
+        height: 120px;
+        display: flex;
+        flex-direction: column;
+
+        img {
+            width: 186px;
+        }
+    }
+    .place-holder{
+        flex-grow: 1;
     }
 }
 
@@ -94,23 +152,17 @@
         background-color: #7f7f7f;
     }
 
-    & ul {
+    ul {
         list-style: none;
-        padding: 0;
-        margin: 0 0 5px 0;
         display: flex;
-        justify-content: space-between;
-        height: 50px;
-        overflow: auto;
-        padding: 0 0 4px;
+        overflow-x: auto;
+        margin: 0;
 
-        & li {
-            margin: 0 2% 0 0;
-            min-width: 40px;
+        li {
             flex-grow: 1;
             border-radius: 3px;
 
-            & button {
+            button {
                 border-radius: inherit;
                 border: none;
                 height: 100%;
@@ -119,10 +171,32 @@
                 background-repeat: no-repeat;
             }
 
-            & button:hover {
+            button:hover {
                 filter: brightness(90%);
                 cursor: pointer;
             }
+        }
+    }
+
+    ul.bg-image {
+        height: 48px;
+        padding: 0;
+        gap: 4px;
+
+        >* {
+            min-width: 64px;
+            max-height: 40px;
+        }
+    }
+
+    ul.bg-color {
+        height: 40px;
+        padding: 0;
+        gap: 4px;
+
+        >* {
+            max-height: 32px;
+            min-width: 40px;
         }
     }
 }

@@ -7,9 +7,8 @@ export function getBoard(boardId) {
     }
 }
 
-// console.log(loadBoards())
 export function loadBoards() {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         const boards = await boardService.query()
         dispatch({ type: 'SET_BOARDS', boards })
     }
@@ -26,20 +25,19 @@ export function deleteBoard(boardId) {
     return async (dispatch) => {
         await boardService.remove(boardId)
         dispatch({ type: 'REMOVE_BOARD', boardId })
-        dispatch({type: 'SET_BOARD', board: {}})
+        dispatch({ type: 'SET_BOARD', board: {} })
     }
 }
 
 
-
 export function editTask(boardId, boxId, task) {
-    
+
     return async dispatch => {
         const board = await boardService.editTask(boardId, boxId, task)
         const box = board.boxes.find(box => box.id === boxId)
         dispatch({ type: 'SET_BOARD', board })
 
-        dispatch({ type: 'SET_TASK', task, box})
+        dispatch({ type: 'SET_TASK', task, box })
     }
 }
 export function editBox(boardId, box) {
@@ -60,6 +58,11 @@ export function setNewBoard(board) {
         dispatch({ type: 'SET_BOARD', board })
     }
 }
-// export function setNewBoard(dispatch, board) {
-//     dispatch({ type: 'SET_BOARD', board })
-// }
+
+export function toggleFavourite(boardId) {
+    return async dispatch => {
+        const board = await boardService.toggleBoardStarred(boardId)
+        dispatch({ type: 'UPDATE_BOARD', board })
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}

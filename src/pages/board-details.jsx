@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { getBoard, setNewBoard, deleteBoard, editBox } from '../store/action/board-action'
+import { getBoard, setNewBoard, deleteBoard, editBox, toggleFavourite } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
@@ -46,11 +46,6 @@ export const Board = () => {
         if (filter.filterBy) {
             boxList = await boardService.boxFilterByTaskAtt(boxList, filter)
         }
-        // if (filter.filterBy) {
-        //     boxList = boxList.filter(box => {
-        //         return box[filter.filterBy].includes(filter.value)
-        //     })
-        // }
         setBoxes(boxList)
     }
 
@@ -68,6 +63,10 @@ export const Board = () => {
     const onEditBoard = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
         dispatch(setNewBoard(newBoard))
+    }
+
+    const onToggleStarBoard = async () => {
+         dispatch(toggleFavourite(board._id))
     }
 
 
@@ -132,22 +131,17 @@ export const Board = () => {
 
     if (!boxes) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
-        <div className="board-page-header-container">
-                <header className="board-header-container">
-                    <h1 className="board-title">{board.title}</h1>
-                    <BoardHeaderBar
-                        board={board}
-                        deleteBoard={onDeleteBoard}
-                        dfBgs={boardService.getDefaultBgs()}
-                        onEditBoard={onEditBoard}
-                        onToggleMenu={onToggleMenu}
-                        isBoardMenu={isBoardMenu}
-                        onToggleFilter={onToggleFilter}
-                        isFilter={isFilter}
-                        onFilterBoxes={onFilterBoxes} />
-                </header>
-            
-        </div>
+        <BoardHeaderBar
+            board={board}
+            deleteBoard={onDeleteBoard}
+            dfBgs={boardService.getDefaultBgs()}
+            onEditBoard={onEditBoard}
+            onToggleMenu={onToggleMenu}
+            isBoardMenu={isBoardMenu}
+            onToggleFilter={onToggleFilter}
+            isFilter={isFilter}
+            onFilterBoxes={onFilterBoxes}
+            onToggleStarBoard={onToggleStarBoard} />
         <DragDropContext onDragEnd={onDragEnd}>
             <div className="board">
                 <BoxList board={board} boxes={boxes} />
