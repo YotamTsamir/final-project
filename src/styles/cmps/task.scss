@@ -1,7 +1,7 @@
 .task-list {
     // flex: 1 1 auto;
-    // overflow-x: hidden;
-    // overflow-y: auto;
+    // overflow-x: ;
+    overflow-y: auto;
     max-height: 65vh;
     margin: 0 4px;
     min-height: 0;
@@ -15,25 +15,25 @@
     overflow: -moz-hidden-unscrollable;
 }
 
-// .task-list::-webkit-scrollbar {
-//     width: 5px;
-// }
+.task-list::-webkit-scrollbar {
+    width: 5px;
+}
 
-// .task-list::-webkit-scrollbar-thumb {
-//     background-color: #7f7f7f;
-//     border-radius: 10px;
-// }
+.task-list::-webkit-scrollbar-thumb {
+    background-color: #7f7f7f;
+    border-radius: 10px;
+}
 
-// .task-list::-webkit-scrollbar-track {
-// border-radius: 10px;
-// }
+.task-list::-webkit-scrollbar-track {
+border-radius: 10px;
+}
 
-// .task-list:hover::-webkit-scrollbar-track {
-// background-color: #f3f3f3;
-// }
-// .task-list:hover::-webkit-scrollbar-thumb {
-// background-color: #7f7f7f;
-// }
+.task-list:hover::-webkit-scrollbar-track {
+background-color: #f3f3f3;
+}
+.task-list:hover::-webkit-scrollbar-thumb {
+background-color: #7f7f7f;
+}
 
 
 .task {
@@ -58,7 +58,7 @@
         word-break: break-all;
         color: #172b4d;
         display: block;
-        margin: 0 0 4px;
+        margin: 0 0 6px;
         overflow: hidden;
         text-decoration: none;
     }
@@ -85,7 +85,8 @@
 // }
 
 .task-edited {
-    position: relative;
+    position: absolute;
+    width: 235px;
     z-index: 100;
 }
 
@@ -304,7 +305,7 @@
 .date-preview {
     background-color: $clr8;
     display: inline-block;
-    margin: 0 4px 4px 0;
+    margin: 0 6px 6px 0;
     max-width: 100%;
     min-height: 20px;
     overflow: hidden;

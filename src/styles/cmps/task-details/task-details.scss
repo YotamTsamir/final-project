@@ -27,6 +27,8 @@
 
         textarea, .comments{
             margin-left: 30px;
+            display: flex;
+            flex-direction: column;
             
         }
 

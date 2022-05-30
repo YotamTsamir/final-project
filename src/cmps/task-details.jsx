@@ -94,10 +94,10 @@ export const TaskDetails = () => {
             height={`${color ? '90px;' : ''}`}
             style={{ backgroundColor: color }}
           >
-            <div className="x-btn-cover">
+            <div className=" x-btn-cover">
               
               <button
-                className="x-btn"
+                className="x-btn "
                 onClick={() => {
                   onToggleDetails();
                 }}
