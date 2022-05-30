@@ -83,22 +83,16 @@ export const Board = () => {
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
-    const onDragEnd = (result) => {
-        console.log('result is ', result)
-        const { destination, source, draggableId } = result
+    const onDragEnd = (res) => {
+        console.log('result is ', res)
+        const { destination, source, draggableId } = res
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
         console.log(source)
-        if (result.type === 'box') {
+        if (res.type === 'box') {
             let currBoard = { ...board }
             let newBoxes = [...currBoard.boxes]
-            // newBoard.boxes[source.index] = {...newBoard.boxes[destination.index]}
-            // newBoard.boxes[source.index] = {...newBoard.boxes[destination.index]}
-
-            // const newTask = board.boxes[source.index]
-            // const oldTask = board.boxes[destination.index]
-            // newBoard.boxes.splice(destination.index, 0, newTask)
-            // newBoard.boxes.splice(source.index, 1)
+           
             if ((source.index - destination.index) < 1) {
                 currBoard.boxes.map((box, index) => {
                     if (index < source.index) return

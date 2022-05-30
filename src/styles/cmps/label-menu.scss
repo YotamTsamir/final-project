@@ -34,10 +34,12 @@
 }
 .Members{
     transform: translateY(-210px);
+    padding: 0 12px 12px;
 }
 
 .Cover{
     transform: translateY(-175px);
+    padding: 0 12px 12px;
 }
 
 
@@ -48,12 +50,46 @@
 }
 
 .cover-menu-color{
+    border-radius: 3px;
     width: 50px;
-    height: 50px;
-
+    height: 32px;
 }
 .members-div{
     cursor: pointer;
     height: 40px;
     border: 1px black solid;
+}
+
+.react-calendar__navigation__next2-button{
+    display: none;
+}
+.react-calendar__navigation__prev2-button{
+    display: none;
+}
+
+.cover-menu{
+    .bg-image{
+        width: fit-content;
+        display: grid;
+        overflow-x: hidden;
+        grid-template-columns: 1fr 1fr 1fr;
+        overflow-y: hidden;
+        height: fit-content;
+        gap: 8px;
+        margin-top: 6px;
+        button{
+            width: 90px;
+            height: 50px;
+        }
+    }
+    
+}
+.cover-menu-h4{
+    color: #5e6c84;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    margin-top: 16px;
+    margin-bottom: 4px;
 }

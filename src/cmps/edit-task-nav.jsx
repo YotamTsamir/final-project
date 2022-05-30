@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import {TaskDetails} from './task-details'
 import { LabelMenu } from './label-menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowUpRightFromSquare , faTag, faFillDrip, faCopy, faInbox} from '@fortawesome/free-solid-svg-icons'
@@ -78,6 +79,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
                     </div>
                 )
             })}
+
             {(menuState['Edit labels']) && <LabelMenu className="label-choice" topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
             {(menuState['Change cover']) && <LabelMenu className="cover-choice" topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
             {(menuState['Edit dates']) && <LabelMenu topic={'Date'} task={task} box={box} board={board} />}
