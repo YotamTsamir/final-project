@@ -4,7 +4,7 @@ import { useFormRegister } from "../hooks/useFormRegister";
 import { editTask, getBoard, setTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 import { useNavigate, useParams } from "react-router-dom";
-
+import { utilService } from '../services/util.service.js'
 export const InputComments = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -36,7 +36,12 @@ export const InputComments = () => {
   };
   const onEditTaskEntity = async (ev) => {
     ev.preventDefault();
-    const newTask = { ...task, comments: [...task.comments, entity.comments] };
+    const newTask = { ...task, comments: [...task.comments, {
+      txt: entity.comments,
+      id: utilService.makeId(),
+      createdAt: Date.now(),
+    
+    }] };
     dispatch(editTask(board._id, box.id, newTask));
     dispatch(setTask(task, box));
     setFieldsEdit({ isComments: false });

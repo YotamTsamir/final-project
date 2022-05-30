@@ -66,7 +66,7 @@ export function signup(credentials) {
             })
             .catch((err) => {
                 console.error('Error:', err)
-                setUserMsg('Cannot signup', 'bad')
+                // setUserMsg('Cannot signup', 'bad')
             })
     }
 }

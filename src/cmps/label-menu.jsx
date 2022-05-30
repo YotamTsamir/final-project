@@ -69,15 +69,19 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
     }
 
     return <div className={`label-choice ${topic}`}>
-        <h1 >{topic}</h1>
+        <div className="h1-topic-container">
+        <h1 className="h1-topic">{topic}</h1>
+        </div>
         <hr />
         {(topic === 'Members' && topic === 'Labels') && <input type="text" />}
         {(topic === 'Members') && <p>Board members</p>}
+        <div className="labels-container">
         {(topic === 'Labels') && (board.labels.map(label => {
+            
             return (
                 <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
             )
-        }))}
+        }))}</div>
         <div >
             {(topic === 'Cover') && <div>
                 <div className="color-grid">
@@ -103,9 +107,9 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
                wrapperClassName="datePicker"  isOpen={true} closeCalendar={true} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
             /> */}
         </div>}
-        {(topic === 'Members') && <div>
-            {board.members.map((member, idx) => {
-                return (
+        {(topic === 'Members') && <div className="members-contianer">
+            {board.members.map((member,idx) => {
+                return(
                     <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
                 )
             })}

@@ -6,7 +6,6 @@ export const useFormRegister = (initialFields, cb) => {
     const [fields, setFields] = useState(initialFields)
 
     const handleChange = ({ target }) => {
-        console.log(target.value)
         const field = target.name
         const value = target.type === 'number' ? (+target.value || '') : target.value
         

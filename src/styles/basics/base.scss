@@ -9,7 +9,9 @@ body{
     height: 100%;
     overflow-y: hidden;
 }
-
+.vsc-initialized {
+    background-color: #fafcfd;
+}
 #root{
     background-color: #fafbfc;
 }

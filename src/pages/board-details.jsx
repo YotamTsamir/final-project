@@ -83,11 +83,9 @@ export const Board = () => {
         dispatch(setNewBoard(newBoard))
     }
     const onDragEnd = (res) => {
-        console.log('result is ', res)
         const { destination, source, draggableId } = res
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
-        console.log(source)
         if (res.type === 'box') {
             let currBoard = { ...board }
             let newBoxes = [...currBoard.boxes]
@@ -146,11 +144,9 @@ export const Board = () => {
         }
 
         currBox.tasks = newBox
-        console.log('new box is', newBox)
         dispatch(editBox(board._id, currBox))
     }
 
-    console.log(board)
 
     if (!boxes || !board._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
