@@ -145,10 +145,11 @@ background-color: #7f7f7f;
 }
 
 .add-card {
+    transform: translateY(-5px);
     color: #5e6c84;
     text-align: left;
     max-width: 240px;
-    padding: 6px 8px 2px;
+    padding: 4px 8px;
     margin: 2px 0 8px 8px;
 }
 .add-card:hover{

@@ -122,7 +122,7 @@ console.log(task.bg)
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
             <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
-                {(task.bg !== '') ? <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
+                {(task.bg) ? <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>
