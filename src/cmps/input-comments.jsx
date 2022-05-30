@@ -49,14 +49,14 @@ export const InputComments = () => {
   return (
     <div className="comment-cmps">
       {isEditShownCom() && (
-        <form className="form-comment-details"
+        <form className="left-details-container form-comment-details"
           onSubmit={(ev) => {
             onEditTaskEntity(ev);
           }}
         >
           <textarea
             placeholder="Write a comment..."
-            className="comment-input"
+            className="comment-input left-details"
             rows="2"
             cols="50"
             {...rest}
