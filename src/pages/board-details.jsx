@@ -1,14 +1,14 @@
 import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { getBoard, setNewBoard, deleteBoard, editBox } from '../store/action/board-action'
+import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
 import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
-import { DragDropContext } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { useDraggable } from "react-use-draggable-scroll"
 
 export const Board = () => {
@@ -84,31 +84,60 @@ export const Board = () => {
         dispatch(setNewBoard(newBoard))
     }
     const onDragEnd = (result) => {
+        console.log('result is ', result)
         const { destination, source, draggableId } = result
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
-        console.log('destination is', destination)
-        console.log('source is ', source)
-        let currBox = board.boxes.find(box => box.id === destination.droppableId)
-        if (destination.droppableId !== source.droppableId) {
-            console.log(currBox)
-            let oldBox = board.boxes.find(box => box.id === source.droppableId)
-            let oldBoxNew = [...oldBox.tasks]
-            let currBoxNew = [...currBox.tasks]
-            let oldIdx = source.index
-            currBoxNew.splice(destination.index, 1, oldBox.tasks[oldIdx])
-            oldBoxNew.splice(oldIdx, 1)
-            oldBox.tasks = oldBoxNew
-            currBox.tasks = currBoxNew
-            dispatch(editBox(board._id, oldBox))
-            dispatch(editBox(board._id, currBox))
+        console.log(source)
+        if (result.type === 'box') {
+            let currBoard = { ...board }
+            let newBoxes = [...currBoard.boxes]
+            // newBoard.boxes[source.index] = {...newBoard.boxes[destination.index]}
+            // newBoard.boxes[source.index] = {...newBoard.boxes[destination.index]}
+
+            // const newTask = board.boxes[source.index]
+            // const oldTask = board.boxes[destination.index]
+            // newBoard.boxes.splice(destination.index, 0, newTask)
+            // newBoard.boxes.splice(source.index, 1)
+            if ((source.index - destination.index) < 1) {
+                currBoard.boxes.map((box, index) => {
+                    if (index < source.index) return
+                    if (index < destination.index) return newBoxes[index] = currBoard.boxes[index + 1]
+                    if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
+                    if (index === currBoard.boxes.length - 1) return newBoxes[index] = currBoard.boxes[index]
+                })
+            } else if ((source.index - destination.index) >= 1) {
+                currBoard.boxes.map((box, index) => {
+                    if (index > source.index) return
+                    if (index > destination.index) return newBoxes[index] = currBoard.boxes[index - 1]
+                    if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
+                    if (index === 0) return newBoxes[index] = currBoard.boxes[index]
+                })
+            }
+            currBoard.boxes = [...newBoxes]
+
+
+            // newBoard.boxes.splice(oldIdx, 1)
+            // console.log('new board is', newBoard)
+            // newBoard.boxes.splice(source.index,1,source.index)
+
+            dispatch(editBoard(currBoard))
             return
         }
-        console.log(destination.droppableId, source.droppableId)
+        let currBox = board.boxes.find(box => box.id === destination.droppableId)
+        if (destination.droppableId !== source.droppableId) {
+            let oldBox = board.boxes.find(box => box.id === source.droppableId)
+            const oldIdx = source.index
+            currBox.tasks.splice(destination.index, 0, oldBox.tasks[oldIdx])
+            oldBox.tasks.splice(oldIdx, 1)
+            let oldBoxNew = { ...oldBox, tasks: [...oldBox.tasks] }
+            let currBoxNew = { ...currBox, tasks: [...currBox.tasks] }
+            dispatch(editBoxes(board._id, [currBoxNew, oldBoxNew]))
+            return
+        }
         let newBox = [...currBox.tasks]
         if ((source.index - destination.index) < 1) {
             currBox.tasks.map((task, index) => {
-                console.log('yesssss')
                 if (index < source.index) return
                 if (index < destination.index) return newBox[index] = currBox.tasks[index + 1]
                 if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
@@ -128,38 +157,51 @@ export const Board = () => {
         dispatch(editBox(board._id, currBox))
     }
 
+    console.log(board)
 
-
-    if (!boxes) return <h1>Loading...</h1>
+    if (!boxes || !board._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <div className="board-page-header-container">
-                <header className="board-header-container">
-                    <h1 className="board-title">{board.title}</h1>
-                    <BoardHeaderBar
-                        board={board}
-                        deleteBoard={onDeleteBoard}
-                        dfBgs={boardService.getDefaultBgs()}
-                        onEditBoard={onEditBoard}
-                        onToggleMenu={onToggleMenu}
-                        isBoardMenu={isBoardMenu}
-                        onToggleFilter={onToggleFilter}
-                        isFilter={isFilter}
-                        onFilterBoxes={onFilterBoxes} />
-                </header>
-            
+            <header className="board-header-container">
+                <h1 className="board-title">{board.title}</h1>
+                <BoardHeaderBar
+                    board={board}
+                    deleteBoard={onDeleteBoard}
+                    dfBgs={boardService.getDefaultBgs()}
+                    onEditBoard={onEditBoard}
+                    onToggleMenu={onToggleMenu}
+                    isBoardMenu={isBoardMenu}
+                    onToggleFilter={onToggleFilter}
+                    isFilter={isFilter}
+                    onFilterBoxes={onFilterBoxes} />
+            </header>
+
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className="board">
-                <BoxList board={board} boxes={boxes} />
-                {(!isAdd) &&
-                    <div className="add-box before-click" onClick={() => setAddBox()}><span className="plus-sign">+</span> Add another list</div>}
-                {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
-                    <input className="add-box-input" {...register('title')} />
-                    <button className="save-btn list-save">Add list</button>
-                    <button onClick={() => setAddBox()} className="close-new-task list-close">X</button>
-                </form></div>}
+            <Droppable type="box" droppableId={board._id} direction="horizontal">
+                {provided => {
+                    return (
+                        <div ref={provided.innerRef}
+                            {...provided.droppableProps}>
+                            <div className="board">
+                                <BoxList board={board} boxes={boxes} />
+                                {(!isAdd) &&
+                                    <div className="add-box before-click" onClick={() => setAddBox()}><span className="plus-sign">+</span> Add another list</div>}
+                                {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
+                                    <input className="add-box-input" {...register('title')} />
+                                    <button className="save-btn list-save">Add list</button>
+                                    <button onClick={() => setAddBox()} className="close-new-task list-close">X</button>
+                                </form></div>}
 
-            </div>
+                            </div>
+
+
+                            {provided.placeholder}
+                        </div>
+                    )
+                }}
+            </Droppable>
+
         </DragDropContext>
     </div>
 
@@ -207,7 +249,21 @@ export const Board = () => {
 // let isClick = false
 // let posX
 // let x = 0
-
+// if ((source.index - destination.index) < 1) {
+//     currBoard.boxes.map((box, index) => {
+//         if (index < source.index) return
+//         if (index < destination.index) return currBoard.boxes[index] = board.boxes[index + 1]
+//         if (index === destination.index) return currBoard.boxes[index] = board.boxes[source.index]
+//         if (index === board.boxes.length - 1) return currBoard.boxes[index] = board.boxes[index]
+//     })
+// } else if ((source.index - destination.index) >= 1) {
+//     currBoard.boxes.map((box, index) => {
+//         if (index > source.index) return
+//         if (index > destination.index) return currBoard.boxes[index] = board.boxes[index - 1]
+//         if (index === destination.index) return currBoard.boxes[index] = board.boxes[source.index]
+//         if (index === 0) return currBoard.boxes[index] = board.boxes[index]
+//     })
+// }
 
 
 

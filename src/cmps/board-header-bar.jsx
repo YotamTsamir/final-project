@@ -32,7 +32,7 @@ export const BoardHeaderBar = ({ onFilterBoxes, onToggleFilter, isFilter, isBoar
     return <div className="board-bar">
         <button className="menu-btn"
             onClick={onToggleMenu}>
-            {!isBoardMenu && <FontAwesomeIcon icon={faBars} />}
+            {!isBoardMenu && <FontAwesomeIcon icon={faBars}  />}
             {isBoardMenu && <FontAwesomeIcon icon={faX} />}
             <p>Menu</p>
         </button>
