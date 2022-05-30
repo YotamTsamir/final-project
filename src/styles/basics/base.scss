@@ -14,3 +14,35 @@ body{
     background-color: #fafbfc;
 }
 
+.white-icons path {
+    color: #fefefe;
+}
+.extras-menu-btn {
+    border-radius: 3px;
+    fill: #172b4d;
+    background-color: #EBECF0;
+    opacity: 1;
+
+}
+.grey-icons path {
+    color: rgb(176, 175, 175);
+    opacity: 0.8;
+    background-color: #F4F5F7;
+}
+
+.grey-icons:hover {
+    fill: #172b4d;
+    background-color: #EBECF0;
+    opacity: 1;
+}
+// path{
+//     background-color: #fafbfc8d;
+
+// }
+.fa-ellipsis .grey-icons:hover {
+    background-color: none;
+    opacity: 0.8;
+}
+
+
+

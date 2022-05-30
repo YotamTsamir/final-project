@@ -61,7 +61,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
             <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
             <div onClick={()=>setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
-            <FontAwesomeIcon  icon={faEllipsis} />
+            <FontAwesomeIcon  className="extra-menu-btn" icon={faEllipsis} />
             </div>
             {(boardExtrasMenu) && <BoardExtrasMenu/>}
             </div>

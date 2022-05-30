@@ -30,12 +30,28 @@
     align-items: center;
     margin-right: 4px;
     padding: 10px;
+    text-align: center;
+    line-height: 20px;
+    border-radius: 3px;
+
+   
+
+    .extras-menu:hover {
+        opacity: 1;
+        background-color: #0079bf;
+        .grey-icons:hover{
+            background-color: rebeccapurple;
+        }
+    }
+
 }
 
 .extras-menu:hover {
     border-radius: 3px;
     color: #172b4d;
     background-color: #091e4214;
+    .grey-icons {
+    }
 }
 
 .add-box-input {
@@ -45,6 +61,8 @@
 .box-header {
     position: relative;
     align-items: center;
+    
+
 }
 
 .board-extras-menu {

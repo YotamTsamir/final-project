@@ -110,12 +110,14 @@
 .task:hover {
     .edit-fav {
         display: inline;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.22rem;
+
     }
 
-    .edit-fav:hover {
-        // background-color: #f4f5f7;
-        background-color: $clr5;
-    }
 }
 
 .labels {
@@ -161,8 +163,8 @@
     flex-direction: column;
 
     .icon-task-menu{
-        color: white;
     }
+
 }
 
 .edit-task-nav-btn {
