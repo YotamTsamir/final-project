@@ -1,17 +1,21 @@
-.board-list-page {
+.board-lists-page{
+    display: flex;
+    
+}
+
+.board-list-preview {
     margin: auto;
-    // margin-top: 50px;
     max-width: 1266px;
     position: relative;
     height: 100vh;
+    display: flex;
+    justify-content: center;
 
     .board-list {
-        height: 100%;
+        height: fit-content;
+        margin-top: 44px;
+        padding-top: 29px;
         width: 825px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -19,15 +23,16 @@
         .board-list-header {
             display: flex;
             align-items: center;
-            padding: 11px;
+            padding: 11px 11px 11px 6px;
 
             * {
                 margin: 0;
-                font-size: 2em;
+                font-size: 16px;
             }
 
             h2 {
                 margin-left: 10px;
+                font-weight: 700;
             }
         }
     }
@@ -64,19 +69,49 @@
     .bg-shadow {
         height: 100%;
         width: 100%;
-        // background-image: linear-gradient(#0000004d, #00000000);
         background-color: #0000004d;
         border-radius: inherit;
+        text-align: left;
+
 
         .to-board {
             text-decoration: none;
-            text-align: left;
+        }
 
-            .board-prev-title {
-                color: #ffffff;
-                margin: 8px 0 0 8px;
-                height: 88px;
-                line-height: 12px;
+        .board-prev-title {
+            color: #ffffff;
+            margin: 8px 0 0 8px;
+            height: 88px;
+            line-height: 12px;
+        }
+
+        .toggle-fav-board {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            padding: 8px 6.68px 8px 8px;
+
+            path {
+                color: white;
+            }
+        }
+
+        .toggle-fav-board:hover {
+            transition: 0.2s;
+            bottom: -1px;
+            right: -1px;
+
+            * {
+                transition: 0.2s;
+                font-size: 16px;
+            }
+        }
+
+        .is-starred {
+            svg {
+                * {
+                    fill: #f2d600;
+                }
             }
         }
     }
@@ -93,11 +128,11 @@
         background: none;
     }
 
-    & .boardmenu-btn:hover {
+    .boardmenu-btn:hover {
         cursor: pointer;
     }
 
-    & .boardmenu-open {
+    .boardmenu-open {
         position: absolute;
         z-index: 10;
         top: 0;
@@ -115,5 +150,5 @@
 }
 
 .bg-shadow:hover {
-    background-image: linear-gradient(#2121219a, #21212130);
+    background-color: #21212189;
 }

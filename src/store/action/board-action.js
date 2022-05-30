@@ -7,9 +7,8 @@ export function getBoard(boardId) {
     }
 }
 
-// console.log(loadBoards())
 export function loadBoards() {
-    return async (dispatch, getState) => {
+    return async (dispatch) => {
         const boards = await boardService.query()
         dispatch({ type: 'SET_BOARDS', boards })
     }
@@ -37,7 +36,6 @@ export function editBoard(board) {
         await boardService.save(board)
     }
 }
-
 
 
 export function editTask(boardId, boxId, task) {
@@ -74,6 +72,11 @@ export function setNewBoard(board) {
         dispatch({ type: 'SET_BOARD', board })
     }
 }
-// export function setNewBoard(dispatch, board) {
-//     dispatch({ type: 'SET_BOARD', board })
-// }
+
+export function toggleFavourite(boardId) {
+    return async dispatch => {
+        const board = await boardService.toggleBoardStarred(boardId)
+        dispatch({ type: 'UPDATE_BOARD', board })
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}

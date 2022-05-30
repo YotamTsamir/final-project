@@ -1,46 +1,53 @@
 .details-task-nav {
     display: flex;
     flex-direction: column;
-    gap: 5px;
     margin-right: 20px;
     justify-content: flex-end;
 
-        .details-label-menu {
-            
-            .label-choice {
-                position: absolute;
-            }
+    .details-label-menu {
 
+        .label-choice {
+            position: absolute;
         }
-        
+
     }
-    .menu-imgs{
-        height: 14px;
-    }
-.detail-container{
+
+}
+
+.menu-imgs {
+    height: 14px;
+    margin: 0 6px 0 -6px;
+}
+
+.detail-container {
     display: flex;
     flex-direction: column;
 }
-.detail-menu-container{
+
+.detail-menu-container {
     display: flex;
     justify-content: space-between;
 }
-.add-to-card{
+
+.add-to-card {
     display: flex;
     justify-content: center;
     width: fit-content;
-    margin-right:20px 0 0 0;
+    margin-right: 20px 0 0 0;
     padding: 5px;
 }
-.x-btn-cover{
+
+.x-btn-cover {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 5px;
     align-items: flex-end;
 
-    .details-task-cover-btn{
+    .details-task-cover-btn {
         position: relative;
+        display: flex;
+        align-items: center;
         background-color: $clr12;
         color: $clr3;
         margin: 18px 0 4px 8px;
@@ -51,7 +58,7 @@
         text-align: left;
         background-color: $clr13;
 
-        
+
         &:hover {
             background-color: rgba(0, 0, 0, 0.127);
         }
@@ -62,9 +69,10 @@
 .details-task-nav-btn {
     background-color: $clr12;
     color: $clr3;
-    margin: 4px 0 4px 8px;
-    padding: 6px 40px 6px 10px;
-    border-radius: 4px;
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 3px;
+    height: 32px;
     border: none;
     cursor: pointer;
     position: relative;
@@ -78,12 +86,17 @@
         background-color: rgba(0, 0, 0, 0.127);
         // transform: translateX(5px);
     }
+    .details-btn-txt-fa {
+        display: flex;
+        align-items: center;
+        justify-content: left;
+    }
 
-   
-        & .Cover {
-            box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.28);
-        }
-    
+
+    & .Cover {
+        box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.28);
+    }
+
     .label-menu {
         position: absolute;
         margin: 0;
@@ -94,7 +107,7 @@
 
 
         &.Labels {
-            box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.28);
+            box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.28);
             padding: 0 10px;
             width: 250px;
 
@@ -106,7 +119,7 @@
                 text-align: left;
                 font-weight: 600;
                 letter-spacing: 1px;
-                
+
             }
 
         }
