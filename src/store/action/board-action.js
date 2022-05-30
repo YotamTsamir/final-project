@@ -26,25 +26,39 @@ export function deleteBoard(boardId) {
     return async (dispatch) => {
         await boardService.remove(boardId)
         dispatch({ type: 'REMOVE_BOARD', boardId })
-        dispatch({type: 'SET_BOARD', board: {}})
+        dispatch({ type: 'SET_BOARD', board: {} })
+    }
+}
+
+export function editBoard(board) {
+    return async (dispatch) => {
+        // const board = await boardService.getById(currBoard._id)
+        dispatch({ type: 'SET_BOARD', board })
+        await boardService.save(board)
     }
 }
 
 
 
 export function editTask(boardId, boxId, task) {
-    
+
     return async dispatch => {
         const board = await boardService.editTask(boardId, boxId, task)
         const box = board.boxes.find(box => box.id === boxId)
         dispatch({ type: 'SET_BOARD', board })
 
-        dispatch({ type: 'SET_TASK', task, box})
+        dispatch({ type: 'SET_TASK', task, box })
     }
 }
 export function editBox(boardId, box) {
     return async dispatch => {
         const board = await boardService.editBox(boardId, box)
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
+export function editBoxes(boardId, boxes) {
+    return async dispatch => {
+        const board = await boardService.editBoxes(boardId, boxes)
         dispatch({ type: 'SET_BOARD', board })
     }
 }

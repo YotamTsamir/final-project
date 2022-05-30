@@ -14,7 +14,7 @@ export const boardService = {
     editTask,
     editBoardStyle,
     boxFilterByTaskAtt,
-
+    editBoxes,
     addBox,
     editBox,
     // editTaskTitle,
@@ -47,6 +47,16 @@ async function editBox(boardId, box) {
     let board = await getById(boardId)
     let currBoxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
     board.boxes[currBoxIdx] = box
+    // currBox.title = newTitle
+    return save(board)
+}
+
+async function editBoxes(boardId, boxes) {
+    let board = await getById(boardId)
+    boxes.map(box=>{
+        let currBoxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
+        board.boxes[currBoxIdx] = box
+    })
     // currBox.title = newTitle
     return save(board)
 }

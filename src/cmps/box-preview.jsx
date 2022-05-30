@@ -6,13 +6,13 @@ import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons"
 import { editBox, setNewBoard, editTask } from '../store/action/board-action'
-import { Droppable } from "react-beautiful-dnd"
+import { Droppable, Draggable } from "react-beautiful-dnd"
 import { utilService } from "../services/util.service"
 import { BoardExtrasMenu } from "./board-extras-menu"
 
 
-export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
-    const [boardExtrasMenu,setBoardExtrasMenu] = useState(false)
+export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId, index }) => {
+    const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const [registery, newTask, EditTask] = useFormRegister({ title: '' })
 
@@ -28,7 +28,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4),members:[], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), members: [], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
         if (!input) {
             setAddNewTask('')
             return
@@ -54,26 +54,26 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         dispatch(editBox(board._id, newBox))
     }
 
-
     if (!box) return <h1>Loading</h1>
     return <div className="box">
         <div className="box-header flex space-between">
-        {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
-            <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
-            <div onClick={()=>setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
-            <FontAwesomeIcon  icon={faEllipsis} />
+            {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
+                <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
+            <div onClick={() => setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
+                <FontAwesomeIcon icon={faEllipsis} />
             </div>
-            {(boardExtrasMenu) && <BoardExtrasMenu/>}
-            </div>
-        <Droppable droppableId={box.id}>
+            {(boardExtrasMenu) && <BoardExtrasMenu board={board} box={box} setBoardExtrasMenu={setBoardExtrasMenu} setAddTask={setAddTask} />}
+        </div>
+        <Droppable type="task" droppableId={box.id}>
             {provided => {
                 return (
                     <div ref={provided.innerRef}
                         {...provided.droppableProps}>
-
                         <TaskList
                             board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>
+
+
                         {provided.placeholder}
                     </div>
                 )
@@ -87,4 +87,5 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
                     <button className="close-new-task" onClick={() => setAddNewTask('')}>X</button></div>
             </div>}
     </div>
+
 }

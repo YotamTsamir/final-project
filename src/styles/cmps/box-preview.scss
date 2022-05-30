@@ -38,6 +38,12 @@
     background-color: #091e4214;
 }
 
+.fa-extras-back{
+    cursor: pointer;
+    position: absolute;
+    left: 8px;
+}
+
 .add-box-input {
     width: 210px;
 }
@@ -45,6 +51,33 @@
 .box-header {
     position: relative;
     align-items: center;
+}
+
+.extras-copy-menu{
+    .save-btn{
+        transform: translate3d(10px, 5px, 10px);
+    }
+    .task-edit{
+        height: 72px;
+        margin: 4px 0 12px;
+        width: 100%;
+        border:solid 2px #dfe1e6;
+        background-color: #fafbfc;
+        &:focus{
+            border:solid 2px #0079bf;
+            background-color: #fff;
+        }
+    }
+}
+
+.extras-copy-name{
+    margin-top: 4px;
+    color: #5e6c84;
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    margin-bottom: 4px;
 }
 
 .board-extras-menu {
