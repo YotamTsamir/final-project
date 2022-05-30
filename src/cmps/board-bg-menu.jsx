@@ -14,8 +14,8 @@ export const BoardBgMenu = ({ dfBgs, handleChange }) => {
             dfBgs={dfBgs}
             onChange={onChange} />
 
-        <BgClrList 
-        dfBgs={dfBgs}
-        onChange={onChange}/>
+        <BgClrList
+            dfBgs={dfBgs}
+            onChange={onChange} />
     </div>
 }

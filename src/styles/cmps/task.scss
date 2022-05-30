@@ -290,6 +290,17 @@ background-color: #7f7f7f;
     height: fit-content;
     width: 220px;
 }
+.react-date-picker__calendar .react-calendar{
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 305px;
+}
+
+.react-calendar, .react-calendar *, .react-calendar *:before, .react-calendar *:after {
+    box-sizing: border-box;
+    text-decoration: none;
+}
 
 .edit-fav {
     background-color: #f4f5f7;
@@ -303,7 +314,7 @@ background-color: #7f7f7f;
 }
 
 .date-preview {
-    background-color: $clr8;
+    // background-color: $clr8;
     display: inline-block;
     margin: 0 6px 6px 0;
     max-width: 100%;
@@ -311,15 +322,11 @@ background-color: #7f7f7f;
     overflow: hidden;
     padding: 2px;
     border-radius: 3px;
-    color: #fff;
-}
-
-.font-square {
-    display: none;
+ 
 }
 
 .date-preview:hover {
-    background-color: $clr9;
+    background-color: $clr5;
 
     .font-clock {
         display: none;
@@ -330,11 +337,31 @@ background-color: #7f7f7f;
     }
 }
 
+
+.passed{
+    background-color: $clr8;
+    color: #fff;
+
+}
+.passed:hover{
+    background-color: $clr9;
+    color: #fff;
+
+}
+
+
+.font-square {
+    display: none;
+}
+
+
 .complete {
     background-color: $clr10;
+    color: #fff;
 }
 
 .complete:hover {
+    color: #fff;
     background-color: $clr11;
 }
 

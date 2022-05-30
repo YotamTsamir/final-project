@@ -15,13 +15,16 @@ import { EditTaskNav } from "./edit-task-nav"
 export const TaskPreview = ({ task, board, box, index }) => {
     const [isEdit, setIsEdit] = useState(false)
     const [isComplete, setIsComplete] = useState(task.date.isComplete)
+    const [isPassed, setIsPassed] = useState()
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
     const navigate = useNavigate()
     const dispatch = useDispatch()
     useEffect(() => {
-        // window.addEventListener('mousedown', onDown)
-        setLabels(getLabels)
+        if ((Date.now() - task.date.timeStamp) >= 0) {
+            console.log('yes')
+            setIsPassed('passed')}
+            setLabels(getLabels)
     }, [task])
 
 
@@ -74,11 +77,11 @@ export const TaskPreview = ({ task, board, box, index }) => {
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
         return taskLabels
     }
-
+console.log(task.bg)
 
     return <div>
-        {(!isEdit) && <div className="task">
-            {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
+        {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
+            {(task.bg) ? <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
             </div>}
@@ -87,7 +90,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     <p >{task.title}</p>
                     <div className="flex space-between spacer-bottom-task">
                         <div className="flex task-prev-date-desc">
-                            {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isComplete}`}>
+                            {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isPassed} ${isComplete}`}>
                                 {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
                                 {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
                                 <FontAwesomeIcon className="fa font-clock" icon={faClock} />
@@ -119,7 +122,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
             <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
-                {(task.color !== '') ? <div className="task-preview-color" style={{ backgroundColor: task.color }}></div> : ''}
+                {(task.bg !== '') ? <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>

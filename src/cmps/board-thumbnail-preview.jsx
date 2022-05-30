@@ -1,9 +1,15 @@
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisVertical, faTrashCan } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { faStar } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 
-export const BoardThumbnailPreview = ({ board, onRemove, fourthChild }) => {
+export const BoardThumbnailPreview = ({ board, fourthChild, onToggleFavourite }) => {
+
+    const toggleFavourite = (ev) => {
+        ev.preventDefault()
+        onToggleFavourite(board._id)
+    }
+
 
     return <div className={`board-prev ${fourthChild}`}
         style={board.style}>
@@ -13,6 +19,14 @@ export const BoardThumbnailPreview = ({ board, onRemove, fourthChild }) => {
                 className="to-board">
                 <div>
                     <div className='board-prev-title'>{board.title}</div>
+                    <div className={`toggle-fav-board ${board.isStarred ? 'is-starred' : ''
+                        }`}
+                        onClick={toggleFavourite}>
+                        {!board.isStarred &&
+                            <FontAwesomeIcon icon={faStarRegular} />}
+                        {board.isStarred &&
+                            <FontAwesomeIcon icon={faStar} />}
+                    </div>
                 </div>
             </NavLink>
         </div>

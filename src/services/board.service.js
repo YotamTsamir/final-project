@@ -14,6 +14,8 @@ export const boardService = {
     editTask,
     editBoardStyle,
     boxFilterByTaskAtt,
+    toggleBoardStarred,
+
     editBoxes,
     addBox,
     editBox,
@@ -107,6 +109,15 @@ async function addTask(boardId, task, boxId) {
 
 async function query() {
     const boards = await storageService.query(STORAGE_KEY)
+    return boards
+}
+
+async function getStarredBoards(boards) {
+
+    boards = boards.filter(board => {
+        if(board.isStarred) return board
+    })
+    console.log(boards)
     return boards
 }
 
@@ -392,6 +403,7 @@ function _createBoard(userBoard) {
     return {
         "_id": "",
         "title": userBoard.title,
+        "isStarred": false,
         "archivedAt": null,
         "createdAt": Date.now(),
         "createdBy": {},
@@ -440,168 +452,30 @@ function _createBoard(userBoard) {
 }
 const defaultBgs = {
     image: [
-        "https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360",
-        "https://storage.pixteller.com/designs/designs-images/2019-03-27/05/simple-background-backgrounds-passion-simple-1-5c9b95d2d9f93.png",
-        "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/103834-simple_background-748x421.jpg",
-        "https://static.vecteezy.com/system/resources/thumbnails/000/378/561/small/geometric-pastel-01.jpg",
-        "https://thumbs.dreamstime.com/b/blue-white-simple-background-162530250.jpg",
-        "https://thumbs.dreamstime.com/b/vintage-style-brick-wall-textured-simple-background-wallpaper-pattern-vintage-style-brick-wall-textured-simple-background-175877314.jpg",
-        "https://hdwallpaperim.com/wp-content/uploads/2017/08/24/100192-simple_background-748x421.jpg",
-        "https://wallup.net/wp-content/uploads/2018/09/25/632758-simple_background-blue_background-hexagon.jpg",
+        "https://images.unsplash.com/photo-1653819305873-c3abd024d89f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1653641563300-742183619684?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1653592328269-09c14b3628f9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDR8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1653419831613-56ed2a1c8ea8?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDV8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1653450283266-c788c2ca4ab2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDZ8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1653496905343-b1fc1277e3fa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDh8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1652543549421-ea252bd209f0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDd8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
+        "https://images.unsplash.com/photo-1653216977227-fa2ae9547f96?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDEyfDMxNzA5OXx8fHx8Mnx8MTY1MzkzNjc2MA&ixlib=rb-1.2.1&q=80&w=2000",
     ],
     color: [
-        "#FF5733",
-        "#EF8D12",
-        "#D3F330",
-        "#8EF130",
-        "#30F1B2",
-        "#30F1EC",
-        "#3081F1",
-        "#6B73E1",
-        "#906BE1",
+        "rgb(0, 121, 191)",
+        "rgb(210, 144, 52)",
+        "rgb(81, 152, 57)",
+        "rgb(176, 70, 50)",
+        "rgb(137, 96, 158)",
+        "rgb(205, 90, 145)",
+        "rgb(75, 191, 107)",
+        "rgb(0, 174, 204)",
+        "rgb(131, 140, 145)",
         "#4500DD",
         "#A736D8",
         "#CE36D8",
         "#D836CC",
     ]
-}
-
-const BOARD = {
-    "_id": "b101",
-    "title": "Project X",
-    "archivedAt": null,
-    "createdAt": Date.now(),
-    // "createdBy": {
-    //     "_id": "u101",
-    //     "fullname": "Abi Abambi",
-    //     "imgUrl": "http://some-img"
-    // }
-    "createdBy": {},
-    "style": {},
-    // label should look like this
-    // {
-    //     "id": "l101",
-    //     "title": "Done",
-    //     "color": "#61bd4f"
-    // }
-
-    "labels": [
-        {
-            "id": "l107",
-            "title": "Get team leaders approval ",
-            "color": "#54E346"
-        },
-        {
-            "id": "l101",
-            "title": "Copy Request",
-            "color": "#f2d600",
-        },
-        {
-            "id": "l103",
-            "title": "Priority",
-            "color": "#eb5a46"
-        },
-        {
-            "id": "l102",
-            "title": "One more step",
-            "color": "orange"
-        },
-        {
-            "id": "l104",
-            "title": "Design Team",
-            "color": "#c377e0"
-        },
-        {
-            "id": "l105",
-            "title": "Product Marketing",
-            "color": "#0079bf"
-        },
-        {
-            "id": "l106",
-            "title": "Tredux Tip",
-            "color": "#00c2e0"
-        },
-    ],
-    "members": [],
-    "boxes": [
-        {
-            "id": "b101",
-            "title": "Bugs",
-            "archivedAt": null,
-            "tasks": [
-                //basic task
-                {
-                    "id": "c101",
-                    "title": "Div wont render",
-                    "description": "Dont forget to update Yotam",
-                    "comments": []
-                },
-                //image task
-                {
-                    "id": "c102",
-                    "title": "feed cat",
-                    "imageUrl": "http/gazibozibo.com",
-                    "attachments": [],
-                    "isDueDate": null,
-                    "description": "",
-                    "comments": []
-
-                },
-            ]
-        }, {
-            "id": "b102",
-            "title": "In Progress",
-            "archivedAt": null,
-            "tasks": [{
-                "id": "c104",
-                "title": "Task Details",
-                "status": "in-progress",
-                "description": "",
-                "comments": [
-                    {
-                        "id": "ZdPnm",
-                        "txt": "i like to write gazibo",
-                        "createdAt": 1590999817436.0,
-                        "byMember": {
-                            "_id": "u101",
-                            "fullname": "Tal Tarablus",
-                            "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                        }
-                    }
-                ],
-                "checklists": [
-                    {
-                        "id": "YEhmF",
-                        "title": "Checklist",
-                        "comments": [],
-                        "description": "",
-                        "todos": [
-                            {
-                                "id": "212jX",
-                                "title": "To Do 1",
-                                "isDone": false
-                            }
-                        ]
-                    }
-                ],
-                "memberIds": ["u101"],
-                "labelIds": ["l101", "l102"],
-                "createdAt": 1590999730348,
-                "dueDate": 16156215211,
-                "byMember": {
-                    "_id": "u101",
-                    "username": "Tal",
-                    "fullname": "Tal Tarablus",
-                    "imgUrl": "http://res.cloudinary.com/shaishar9/image/upload/v1590850482/j1glw3c9jsoz2py0miol.jpg"
-                },
-                "style": {
-                    "bgColor": "#26de81"
-                }
-            }]
-        }
-
-    ]
-
 }
 
 
@@ -610,6 +484,12 @@ async function editBoardStyle(boardId, field, change) {
     board.style = {
         [field]: change
     }
+    return save(board)
+}
+
+async function toggleBoardStarred(boardId){
+    const board = await getById(boardId)
+    board.isStarred = !board.isStarred
     return save(board)
 }
 
@@ -669,17 +549,6 @@ async function findBoxByTaskId(boardId, taskId) {
     return foundBox
 }
 
-async function addBoard(board) {
-    let newBoard = _createBoard(board)
-    return save(newBoard)
-}
-
-
-
-// async function addBoard(board) {
-//     let newBoard = _createBoard(board)
-//     return save(newBoard)
-// }
 
 // localStorage.clear()
 

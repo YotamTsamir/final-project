@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard } from '../store/action/board-action'
+import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard, toggleFavourite } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
 import { boardService } from "../services/board.service"
@@ -46,11 +46,6 @@ export const Board = () => {
         if (filter.filterBy) {
             boxList = await boardService.boxFilterByTaskAtt(boxList, filter)
         }
-        // if (filter.filterBy) {
-        //     boxList = boxList.filter(box => {
-        //         return box[filter.filterBy].includes(filter.value)
-        //     })
-        // }
         setBoxes(boxList)
     }
 
@@ -70,6 +65,10 @@ export const Board = () => {
         dispatch(setNewBoard(newBoard))
     }
 
+    const onToggleStarBoard = async () => {
+        dispatch(toggleFavourite(board._id))
+    }
+
 
     const onAddBox = async (ev, boardId) => {
         ev.preventDefault()
@@ -83,21 +82,14 @@ export const Board = () => {
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
-    const onDragEnd = (result) => {
-        console.log('result is ', result)
-        const { destination, source, draggableId } = result
+    const onDragEnd = (res) => {
+        const { destination, source, draggableId } = res
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
-        if (result.type === 'box') {
+        if (res.type === 'box') {
             let currBoard = { ...board }
             let newBoxes = [...currBoard.boxes]
-            // newBoard.boxes[source.index] = {...newBoard.boxes[destination.index]}
-            // newBoard.boxes[source.index] = {...newBoard.boxes[destination.index]}
-
-            // const newTask = board.boxes[source.index]
-            // const oldTask = board.boxes[destination.index]
-            // newBoard.boxes.splice(destination.index, 0, newTask)
-            // newBoard.boxes.splice(source.index, 1)
+           
             if ((source.index - destination.index) < 1) {
                 currBoard.boxes.map((box, index) => {
                     if (index < source.index) return
@@ -158,22 +150,17 @@ export const Board = () => {
 
     if (!boxes || !board._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
-        <div className="board-page-header-container">
-            <header className="board-header-container">
-                <h1 className="board-title">{board.title}</h1>
-                <BoardHeaderBar
-                    board={board}
-                    deleteBoard={onDeleteBoard}
-                    dfBgs={boardService.getDefaultBgs()}
-                    onEditBoard={onEditBoard}
-                    onToggleMenu={onToggleMenu}
-                    isBoardMenu={isBoardMenu}
-                    onToggleFilter={onToggleFilter}
-                    isFilter={isFilter}
-                    onFilterBoxes={onFilterBoxes} />
-            </header>
-
-        </div>
+        <BoardHeaderBar
+            board={board}
+            deleteBoard={onDeleteBoard}
+            dfBgs={boardService.getDefaultBgs()}
+            onEditBoard={onEditBoard}
+            onToggleMenu={onToggleMenu}
+            isBoardMenu={isBoardMenu}
+            onToggleFilter={onToggleFilter}
+            isFilter={isFilter}
+            onFilterBoxes={onFilterBoxes}
+            onToggleStarBoard={onToggleStarBoard} />
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable type="box" droppableId={board._id} direction="horizontal">
                 {provided => {
@@ -200,7 +187,7 @@ export const Board = () => {
             </Droppable>
 
         </DragDropContext>
-    </div>
+    </div >
 
 
     //     <DragDropContext onDragEnd={onDragEnd}>

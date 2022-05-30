@@ -3,12 +3,19 @@ const initialState = {
     task: {},
     box: {},
     boards: [],
+
 }
 export function boardReducer(state = initialState, action) {
     var newState = state;
     switch (action.type) {
         case 'SET_BOARDS':
             newState = { ...state, boards: action.boards }
+            break;
+        case 'UPDATE_BOARD':
+            newState = {
+                ...state, boards: state.boards.map(board =>
+                    board._id === action.board._id ? action.board : board)
+            }
             break;
         case 'ADD_BOARD':
             newState = { ...state, boards: [...state.boards, action.board] }
@@ -23,11 +30,11 @@ export function boardReducer(state = initialState, action) {
             // newState = { ...board, }
             break;
         case 'SET_TASK':
-            newState = {...state, task: action.task, box: action.box}
-        break;
+            newState = { ...state, task: action.task, box: action.box }
+            break;
         case 'EDIT_BOX':
-            newState = {...state, box: action.box}
-        break;
+            newState = { ...state, box: action.box }
+            break;
         case 'EDIT_TASK':
             newState = { ...state, task: action.task }
         default:

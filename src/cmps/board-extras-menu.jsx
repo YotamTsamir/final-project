@@ -19,13 +19,11 @@ export const BoardExtrasMenu = ({ setAddTask, setBoardExtrasMenu, box, board }) 
 
     const onCopyBox = (ev) => {
         ev.preventDefault()
-        let newBoxTasks = box.tasks.map(task => {
-            task.id = utilService.makeId(4)
-            return (
-                task
-            )
+        let newTasks = [...box.tasks]
+        let newBoxTasks = newTasks.map(task => {
+            task = { ...task, id: utilService.makeId(4) }
+            return task
         })
-        console.log(newBoxTasks)
         let sentBox = { ...box, title: newBox.title, tasks: newBoxTasks, id: utilService.makeId(4) }
         const newBoard = { ...board }
         const newBoxIdx = newBoard.boxes.findIndex(currBox => currBox.id === box.id)
