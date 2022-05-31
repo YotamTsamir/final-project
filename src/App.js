@@ -8,7 +8,7 @@ import { SignUp } from './pages/signup.jsx';
 import { AppHeader } from './cmps/app-header.jsx';
 import { TaskDetails } from './cmps/task-details.jsx';
 import './styles/main.scss';
-
+import {Avatar} from './pages/avatar.jsx'
 function App() {
   return (
     <Router>
@@ -23,6 +23,7 @@ function App() {
         </Route>
         <Route path='/login'element={<Login />}/>
         <Route path='/signup' element={<SignUp />}/>
+        <Route path='/avatar' element={<Avatar />}/>
       </Routes>
     </Router>
   );

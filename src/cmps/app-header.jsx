@@ -42,6 +42,7 @@ export const AppHeader = () => {
             {isLoginBarOpen &&
                 <div className="signin-signup-links">
                     <h2>Account<hr /></h2>
+                    <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
                     <NavLink className="nav-link login" to='/login'>Login</NavLink>
                     <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
                 </div>

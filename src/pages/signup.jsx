@@ -18,10 +18,11 @@ export const SignUp = () => {
         repassword: '',
         fullname: '',
         email : '',
+        avatar : '',
         isSignUp : false, 
     })
 
-    const { isSignUp,username, password, repassword, fullname, email } = newSignUp
+    const { isSignUp,username, password, repassword, fullname, email, avatar } = newSignUp
 
     const isDisabled = () => {
         if (email && username && password && fullname) return false
@@ -30,7 +31,7 @@ export const SignUp = () => {
     const onSignUp = (ev) => {
         ev.preventDefault()
         if(!email || !username || !password || !fullname) return 
-        dispatch(signup({email,username,fullname,password}))
+        dispatch(signup({email,username,fullname,password,avatar}))
         navigate('/boards')
     }
 
@@ -86,6 +87,7 @@ export const SignUp = () => {
                             placeholder="Password"
                             required
                         />
+                        <div {...registerSignUp('avatar')}></div>
                         {isDisabled() ? <button   
                         className="signup-btn"
                         disabled

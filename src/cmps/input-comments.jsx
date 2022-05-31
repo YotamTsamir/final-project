@@ -13,15 +13,7 @@ export const InputComments = () => {
     (storeState) => storeState.boardModule
   );
 
-  useEffect(() => {
-    (async () => {
-      const { boardId, taskId } = params;
-      dispatch(getBoard(boardId));
-      const box = await boardService.findBoxByTaskId(boardId, taskId);
-      const task = await boardService.getTaskById(boardId, box.id, taskId);
-      dispatch(setTask(task, box));
-    })();
-  }, []);
+
 
   const [register, entity, editEntity] = useFormRegister({ comment: "" });
 
@@ -34,6 +26,7 @@ export const InputComments = () => {
   const onEditField = () => {
     setFieldsEdit({ ...fieldsEdit, isComments: true });
   };
+
   const onEditTaskEntity = async (ev) => {
     ev.preventDefault();
     const newTask = { ...task, comments: [...task.comments, {
@@ -64,8 +57,8 @@ export const InputComments = () => {
             className="comment-input left-details"
             rows="2"
             cols="50"
-            {...rest}
-          >{text}</textarea>
+            {...register("comments")}
+          ></textarea>
           <button className="save-btn">Save</button>
         </form>
       )}

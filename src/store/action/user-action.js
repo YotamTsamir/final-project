@@ -70,6 +70,20 @@ export function signup(credentials) {
             })
     }
 }
+export function setUserAvatar(user, imageUrl) {
+    return async (dispatch) => {
+        try {
+            user.avatar = imageUrl
+            await userService.updateUser(user)
+            dispatch({
+                type: 'SET_USER',
+                user,
+            })
+        } catch (err) {
+            console.log('error')
+        }
+    }
+}
 
 export function setUserMsg(msg, indication) {
     let fullMsg = { msg, indication }
