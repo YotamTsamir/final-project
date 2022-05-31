@@ -50,9 +50,9 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
     return <section>
         <div className='add-to-card'>Add to card</div>
         <div className="details-task-nav">
-            {menuBtns.map(btn => {
+            {menuBtns.map((btn, idx) => {
                 return (<div className='details-label-menu'>
-                    <button key={btn.txt} className="details-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
+                    <button key={idx} className="details-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
                         <div className='details-btn-txt-fa'>
                             
                        {btn.fa} {btn.txt}
