@@ -24,6 +24,7 @@ export const TaskDetails = () => {
   );
   const [labels, setLabels] = useState([]);
   const [isEdit, setIsEdit] = useState(false)
+  const { comments, labelIds, bg, decription } = task;
   const [editCommentId, setEditCommentId] = useState('')
 
   const [register, newComment, editNewComment] = useFormRegister({ comments: comments })
@@ -32,7 +33,6 @@ export const TaskDetails = () => {
   const dispatch = useDispatch();
   const [menuState, setMenuState] = useState(false)
   
-  const { comments, labelIds, bg, decription } = task;
   useEffect(() => {
     (async () => {
       const { boardId, taskId } = params;

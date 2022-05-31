@@ -162,7 +162,7 @@ export const Board = () => {
             onFilterBoxes={onFilterBoxes}
             onToggleStarBoard={onToggleStarBoard} />
         <DragDropContext onDragEnd={onDragEnd}>
-            <Droppable type="box" droppableId={board._id} direction="horizontal">
+            <Droppable className="board-cont" type="box" droppableId={board._id} direction="horizontal">
                 {provided => {
                     return (
                         <div ref={provided.innerRef}
