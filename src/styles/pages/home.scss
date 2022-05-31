@@ -5,7 +5,7 @@ body {
 
 .home {
     flex: 1;
-    padding-bottom: 80px;
+    padding-bottom: 100px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,7 +23,7 @@ body {
     h1 {
         font-size: 45px;
         color: rgb(24, 24, 24);
-        margin-bottom: 0;
+        margin-bottom: 20px;
     }
 
     p {
@@ -31,6 +31,7 @@ body {
         color: rgb(24, 24, 24);
         max-width: 45ch;
         margin-top: 10px;
+        line-height: 45px;
 
     }
 
@@ -49,6 +50,7 @@ body {
 
     & .img-container {
         display: flex;
+        height: 600px;
 
     }
 

@@ -4,7 +4,7 @@
     flex-direction: column;
     z-index: 50;
     left: 50%;
-    top: 53%;
+    top: 52%;
     width: 48%;
     transform: translate(-50%, -50%);
     background-color: #f3efef;
@@ -24,20 +24,16 @@
     .detail-container{
         padding-top: 0;
         width: 100%;
+        display: flex;
+        flex-direction: column;
 
         textarea, .comments{
             margin-left: 30px;
+            width: 98%;
             display: flex;
             flex-direction: column;
-            
-        }
-        .comment{
-            word-break: break-word;
-            overflow: wrap;
-            padding: 8px 12px;
-            color: grey;
-            font-weight: 400;
-            margin: 0%;
+
+
         }
         .comment-edit-delete-container{
             display: flex;
@@ -114,11 +110,12 @@
     }
     .left-details-container{
         display: flex;
-        justify-content: left;
+        width: 100%;
 
     }
     .detail-container{
         padding-left: 20px;
+        
 
     }
     .left-details{
@@ -210,6 +207,7 @@
        display: flex;
        flex-direction: column;
        padding-left: 11px;
+       margin-left: 20px;
 
        .label-detail-container{
            display: flex;
@@ -270,7 +268,7 @@
             cursor: pointer;
 
             
-            &.save-btn {
+            &.save-btn  {
                 background-color: $clr6;
                 margin: 10px 0 0 20px;
                 color: #fefefe;
@@ -291,11 +289,10 @@
                 border: none;
                 color: black;
                 font-weight: 550;
-                margin: 10px 0 13px 0;
+                margin: 10px 10px 13px 0px;
                 padding: 6px 15px;
                 border: none;
                 border-radius: 2px;
-                width: fit-content;
                 // background-color: rgb(220, 216, 216);
 
                 &:hover{
@@ -363,5 +360,83 @@
 
 .the-medium{
     background-color:rgba(0, 0, 0, 0.142);
+}
+
+.edit-x-btn {
+    background: transparent;
+    border: none;
+    color: #42526e;
+    width: 24px;
+    font-size: xx-large;
+    height: 24px;
+    line-height: 24px;
+    
+    .svg-inline--fa{
+        font-weight: 500;
+        height: 24px;
+    }
+
+    &:hover {
+        color: black;
+    }
+
+}
+.edit-save-btn {
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    cursor: pointer;
+    background-color: $clr6;
+    color: #fefefe;
+    padding: 6px 8px;
+    border: none;
+    border-radius: 2px;
+    width: fit-content;
+
+    &.edit-save-btn:hover {
+        background-color: $clr20;
+
+    }
+}
+.comment-container {
+    width: 100%;
+    .edit-comment-container{
+        display: flex;
+        background-color: #fff;
+        border-radius: 3px;
+        box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
+        box-sizing: border-box;
+        clear: both;
+        display: inline-block;
+        margin: 4px 2px 4px 0;
+        width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+        
+        .save-x-btn-container{
+            display: flex;
+            align-items: center;
+            border: none;
+            margin: 10px;
+        }
+        .edit-comment-txt{
+            margin: 0;
+            word-break: break-word;
+            overflow: wrap;
+            padding: 8px 12px;
+            height: 20px;
+            color: grey;
+            font-weight: 400;
+            border: none;
+        }
+        &.comment{
+            word-break: break-word;
+            overflow: wrap;
+            padding: 8px 12px;
+            color: grey;
+            font-weight: 400;
+            margin: 0;
+        }
+    }
 }
 

@@ -1,14 +1,73 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTrello } from "@fortawesome/free-brands-svg-icons"
+import { useState } from "react"
+// import { signup } from "../store/action/user-action"
+import { useDispatch, useSelector } from 'react-redux'
+import logo from "../imgs/logo.png"
+import { useFormRegister } from "../hooks/useFormRegister"
+import { isSunday } from "date-fns"
+import { signup } from "../store/action/user-action"
+import { useNavigate, useParams } from "react-router-dom"
+import { userService } from "../services/user-service"
 
 export const Login = () => {
-    return <div className="login">
-        <div className="login-name-logo">
-            <div className="login-logo fa-trello">
-                <FontAwesomeIcon icon={faTrello}/>
-            </div>
+    const { user } = useSelector((storeState) => storeState.userModule)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [signUp, editSignUp] = useState(false)
+    const [registerSignUp, newSignUp, setSignUp] = useFormRegister({
+        username: '',
+        password: '',
+    })
+
+    const { isSignUp, username, password, repassword, fullname, email } = newSignUp
+
+    const isDisabled = () => {
+        if (username && password) return false
+        return true
+    }
+
+    const onSignUp = (ev) => {
+        ev.preventDefault()
+        if (!username || !password) return
+        userService.login(newSignUp)
+        // dispatch(signup({ email, username, fullname, password }))
+        // navigate('/boards')
+    }
+
+    return <div className="signup">
+        <div className="signup-name-logo">
+            <img className="logo" src={logo} />
             <div className="name">Tredux</div>
         </div>
-        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus reprehenderit cumque quam pariatur ab neque nostrum iusto voluptates atque, consequatur minima corporis. Et, distinctio assumenda at inventore tempora nobis delectus. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officiis, recusandae incidunt sit ipsum nostrum corporis quasi aliquam eum aliquid debitis harum facilis ut repellendus vitae. Expedita perspiciatis tempore repellat repellendus!</p>
+        <div className="signup-section">
+            <form className="signup-form" onSubmit={(ev) => (onSignUp(ev))}>
+                <div className="signup-title">Log in for your account </div>
+                <div className="signup-input-container">
+                    <input
+                        autoComplete='off'
+                        className="signup-input"
+                        placeholder="Username"
+                        required
+                        {...registerSignUp('username')}
+                    />
+                    <input
+                        autoComplete='off'
+                        {...registerSignUp('password')}
+                        className="signup-input"
+                        type="password"
+                        placeholder="Password"
+                        required
+                    />
+                    {isDisabled() ? <button
+                        className="signup-btn"
+                        disabled
+                    >Login!</button> : <button
+                        className="signup-btn"
+                    >Login!</button>}
+                </div>
+            </form>
+        </div>
+
+        {/* <footer className="signup-footer">hello</footer> */}
+
     </div>
 }

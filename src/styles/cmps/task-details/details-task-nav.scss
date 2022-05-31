@@ -42,21 +42,23 @@
     .label-choice.Cover:hover {
         filter: brightness(1);
     }
-
+}
     .menu-imgs {
         height: 14px;
         margin: 0 6px 0 -6px;
+        padding-left: 8px;
+        padding-right: 8px;
     }
-
+    .details-task-nav-contianer{
+        display: flex;
+        flex-direction: column;
+    }
     .detail-container {
         display: flex;
         flex-direction: column;
     }
 
-    .detail-menu-container {
-        display: flex;
-        justify-content: space-between;
-    }
+
 
     .add-to-card {
         display: flex;
@@ -66,38 +68,11 @@
         padding: 5px;
     }
 
-    .x-btn-cover {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 5px;
-        align-items: flex-end;
-
-        .details-task-cover-btn {
-            position: relative;
-            display: flex;
-            align-items: center;
-            background-color: $clr12;
-            color: $clr3;
-            margin: 18px 0 4px 8px;
-            padding: 6px 12px 6px 8px;
-            border-radius: 3px;
-            border: none;
-            cursor: pointer;
-            text-align: left;
-            background-color: $clr13;
-
-
-            &:hover {
-                background-color: rgba(0, 0, 0, 0.127);
-            }
-        }
-    }
-
-
+    
     .details-task-nav-btn {
         background-color: $clr12;
-        color: $clr3;
+        color: blue;
+        font-weight: 500;
         margin-top: 8px;
         padding: 6px 12px;
         border-radius: 3px;
@@ -107,7 +82,8 @@
         position: relative;
         text-align: left;
         text-overflow: ellipsis;
-        width: 150px;
+        width: 100%;
+        padding-right: 80px;
 
         // transition: transform 85ms ease-in;
 
@@ -120,6 +96,11 @@
             display: flex;
             align-items: center;
             justify-content: left;
+            letter-spacing: 1.5px;
+
+            img {
+                padding-right: 10px;
+            }
         }
 
 
@@ -158,4 +139,38 @@
         }
 
     }
+
+.detail-menu-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
+
+.x-btn-cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px;
+    align-items: flex-end;
+
+}
+.details-task-cover-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: $clr12;
+    color: $clr3;
+    margin: 18px 0 4px 8px;
+    padding: 6px 12px 6px 8px;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    background-color: $clr13;
+
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.127);
+    }
+}
+

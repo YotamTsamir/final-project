@@ -13,6 +13,7 @@ import { setNewBoard } from "../store/action/board-action"
 import { EditTaskNav } from "./edit-task-nav"
 
 export const TaskPreview = ({ task, board, box, index }) => {
+    const [labelOpen, setLabelOpen] = useState('')
     const [isEdit, setIsEdit] = useState(false)
     const [isComplete, setIsComplete] = useState(task.date.isComplete)
     const [isPassed, setIsPassed] = useState()
@@ -23,8 +24,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
     useEffect(() => {
         if ((Date.now() - task.date.timeStamp) >= 0) {
             console.log('yes')
-            setIsPassed('passed')}
-            setLabels(getLabels)
+            setIsPassed('passed')
+        }
+        setLabels(getLabels)
     }, [task])
 
 
@@ -72,18 +74,26 @@ export const TaskPreview = ({ task, board, box, index }) => {
         setIsEdit(!isEdit)
     }
 
+    const onOpenLabel = (ev) => {
+        ev.stopPropagation()
+        console.log('baga')
+        if (!labelOpen) setLabelOpen('label-open')
+        else setLabelOpen('')
+    }
+
     const getLabels = () => {
         if (!task.labelIds) return
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
         return taskLabels
     }
-// console.log(task.bg)
 
+    if (task.archivedAt !== '') return
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
             {(task.bg) ? <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
-                {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
+                {(labels) ? labels.map(label => <div key={label.id} className={`label `} onClick={(ev) => onOpenLabel(ev)}
+                    style={{ backgroundColor: label.color }}></div>) : ''}
             </div>}
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
                 <div>

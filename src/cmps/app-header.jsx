@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faTrello } from '@fortawesome/free-brands-svg-icons'
 import { boardService } from '../services/board.service'
+import { userService } from '../services/user-service'
 
 
 export const AppHeader = () => {
@@ -104,21 +105,14 @@ export const AppHeader = () => {
                 {isLoginBarOpen &&
                     <div className="signin-signup-links">
                         <h2>Account<hr /></h2>
-                        <NavLink className="nav-link nav-login" to='/login'>Login</NavLink>
-                        <NavLink className="nav-link nav-signup" to='/signup'>Sign up</NavLink>
+                        <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                        <NavLink className="nav-link login" to='/login'>Login</NavLink>
+                        <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                        <button onClick={() => userService.logout()}>Logout</button>
                     </div>
                 }
             </div>
-            {(location.pathname !== '/') &&
-                <div className='main-search-container'>
-                    <span>
-                        <FontAwesomeIcon icon={faSearch} />
-                    </span>
-                    <input type="text"
-                        className='main-search'
-                        placeholder="Search" />
-                </div>
-            }
+
         </div>
     </div>
 }   

@@ -6,7 +6,8 @@ import { faTrello } from "@fortawesome/free-brands-svg-icons"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { isSunday } from "date-fns"
 import { signup } from "../store/action/user-action"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { userService } from "../services/user-service"
 
 export const SignUp = () => {
     const { user } = useSelector((storeState) => storeState.userModule)
@@ -19,10 +20,11 @@ export const SignUp = () => {
         repassword: '',
         fullname: '',
         email : '',
+        avatar : '',
         isSignUp : false, 
     })
 
-    const { isSignUp,username, password, repassword, fullname, email } = newSignUp
+    const { isSignUp,username, password, repassword, fullname, email, avatar } = newSignUp
 
     const isDisabled = () => {
         if (email && username && password && fullname) return false
@@ -31,6 +33,8 @@ export const SignUp = () => {
     const onSignUp = (ev) => {
         ev.preventDefault()
         if(!email || !username || !password || !fullname) return 
+        const user = {username,password,fullname,email}
+        userService.signup(user)
         dispatch(signup({email,username,fullname,password}))
         navigate('/boards')
     }
@@ -89,6 +93,7 @@ export const SignUp = () => {
                             placeholder="Password"
                             required
                         />
+                        <div {...registerSignUp('avatar')}></div>
                         {isDisabled() ? <button   
                         className="signup-btn"
                         disabled

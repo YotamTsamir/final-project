@@ -26,14 +26,15 @@ export const Board = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-
     useEffect(() => {
         const { boardId } = params
         dispatch(getBoard(boardId))
     }, [])
 
     useEffectUpdate(() => {
-        if (!board._id) navigate('/boards')
+        if (!board._id){
+             navigate('/boards')
+            }
         onFilterBoxes({})
     }, [board])
 
@@ -78,7 +79,7 @@ export const Board = () => {
             return
         }
         const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
-        const newBoard = await boardService.addBox(boardId, box)
+        const newBoard = await boardService.updateBox(boardId, box)
         setIsAdd(false)
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
@@ -90,29 +91,26 @@ export const Board = () => {
         if (res.type === 'box') {
             let currBoard = { ...board }
             let newBoxes = [...currBoard.boxes]
+<<<<<<< HEAD
 
+=======
+>>>>>>> 32b8df80fca6b433cb27f4bd7abf40666249879c
             if ((source.index - destination.index) < 1) {
                 currBoard.boxes.map((box, index) => {
                     if (index < source.index) return
-                    if (index < destination.index) return newBoxes[index] = currBoard.boxes[index + 1]
-                    if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
-                    if (index === currBoard.boxes.length - 1) return newBoxes[index] = currBoard.boxes[index]
+                    else if (index < destination.index) return newBoxes[index] = currBoard.boxes[index + 1]
+                    else if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
+                    else if (index === currBoard.boxes.length - 1) return newBoxes[index] = currBoard.boxes[index]
                 })
             } else if ((source.index - destination.index) >= 1) {
                 currBoard.boxes.map((box, index) => {
                     if (index > source.index) return
-                    if (index > destination.index) return newBoxes[index] = currBoard.boxes[index - 1]
-                    if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
-                    if (index === 0) return newBoxes[index] = currBoard.boxes[index]
+                    else if (index > destination.index) return newBoxes[index] = currBoard.boxes[index - 1]
+                    else if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
+                    else if (index === 0) return newBoxes[index] = currBoard.boxes[index]
                 })
             }
             currBoard.boxes = [...newBoxes]
-
-
-            // newBoard.boxes.splice(oldIdx, 1)
-            // console.log('new board is', newBoard)
-            // newBoard.boxes.splice(source.index,1,source.index)
-
             dispatch(editBoard(currBoard))
             return
         }
@@ -131,23 +129,21 @@ export const Board = () => {
         if ((source.index - destination.index) < 1) {
             currBox.tasks.map((task, index) => {
                 if (index < source.index) return
-                if (index < destination.index) return newBox[index] = currBox.tasks[index + 1]
-                if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
-                if (index === currBox.tasks.length - 1) return newBox[index] = currBox.tasks[index]
+                else if (index < destination.index) return newBox[index] = currBox.tasks[index + 1]
+                else if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
+                else if (index === currBox.tasks.length - 1) return newBox[index] = currBox.tasks[index]
             })
         } else if ((source.index - destination.index) >= 1) {
             currBox.tasks.map((task, index) => {
                 if (index > source.index) return
-                if (index > destination.index) return newBox[index] = currBox.tasks[index - 1]
-                if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
-                if (index === 0) return newBox[index] = currBox.tasks[index]
+                else if (index > destination.index) return newBox[index] = currBox.tasks[index - 1]
+                else if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
+                else if (index === 0) return newBox[index] = currBox.tasks[index]
             })
         }
-
         currBox.tasks = newBox
         dispatch(editBox(board._id, currBox))
     }
-
 
     if (!boxes || !board._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
@@ -177,81 +173,12 @@ export const Board = () => {
                                     <button className="save-btn list-save">Add list</button>
                                     <button onClick={() => setAddBox()} className="close-new-task list-close">X</button>
                                 </form></div>}
-
                             </div>
-
-
                             {provided.placeholder}
                         </div>
                     )
                 }}
             </Droppable>
-
         </DragDropContext>
     </div >
-
-
-    //     <DragDropContext onDragEnd={onDragEnd}>
-    //         <div className="board">
-    //             <BoxList board={board} boxes={boxes} />
-    //             {(!isAdd) && <div className="add-box" onClick={() => setAddBox()}>+ add another list</div>}
-    //             {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}><input {...register('title')} /></form></div>}
-    //         </div>
-    //     </DragDropContext>
-    // </div>
 }
-
-// const onDown = (ev) => {
-//     isClick = true
-//     posX = ev.pageX
-// }
-
-// const onUp = () => {
-//     isClick = false
-// }
-
-// const onMove = (ev) => {
-//     ev.preventDefault()
-//     if (!isClick) {
-//         return
-//     }
-//     else if (ev.pageX > posX) {
-//         posX = ev.pageX
-//         x -= 1
-//         window.scroll(x, 0)
-//     }
-//     else {
-//         posX = ev.pageX
-//         x += 1
-//         window.scroll(x, 0)
-//     }
-// }
-// const addMouseListeners = () => {
-//     window.addEventListener('mousemove', onMove)
-//     window.addEventListener('mousedown', onDown)
-//     window.addEventListener('mouseup', onUp)
-// }
-// let isClick = false
-// let posX
-// let x = 0
-// if ((source.index - destination.index) < 1) {
-//     currBoard.boxes.map((box, index) => {
-//         if (index < source.index) return
-//         if (index < destination.index) return currBoard.boxes[index] = board.boxes[index + 1]
-//         if (index === destination.index) return currBoard.boxes[index] = board.boxes[source.index]
-//         if (index === board.boxes.length - 1) return currBoard.boxes[index] = board.boxes[index]
-//     })
-// } else if ((source.index - destination.index) >= 1) {
-//     currBoard.boxes.map((box, index) => {
-//         if (index > source.index) return
-//         if (index > destination.index) return currBoard.boxes[index] = board.boxes[index - 1]
-//         if (index === destination.index) return currBoard.boxes[index] = board.boxes[source.index]
-//         if (index === 0) return currBoard.boxes[index] = board.boxes[index]
-//     })
-// }
-
-
-
-
-
-

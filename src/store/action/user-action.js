@@ -55,19 +55,27 @@ export function logout() {
 export function signup(credentials) {
     // Action Creator
 
-    return (dispatch) => {
-        userService
-            .signup(credentials)
-            .then((user) => {
-                dispatch({
-                    type: 'SET_USER',
-                    user,
-                })
+    return async (dispatch) => {
+        const user = await userService.signup(credentials)
+        dispatch({
+            type: 'SET_USER',
+            user,
+        })
+          
+    }
+}
+export function setUserAvatar(user, imageUrl) {
+    return async (dispatch) => {
+        try {
+            user.avatar = imageUrl
+            await userService.updateUser(user)
+            dispatch({
+                type: 'SET_USER',
+                user,
             })
-            .catch((err) => {
-                console.error('Error:', err)
-                // setUserMsg('Cannot signup', 'bad')
-            })
+        } catch (err) {
+            console.log('error')
+        }
     }
 }
 

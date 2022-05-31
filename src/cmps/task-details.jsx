@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { editTask, getBoard, setTask, onRemoveComment, editComment } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
+
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,9 +12,11 @@ import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons"
 import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { DetailsTaskNav } from "./details-task-nav";
 import { LabelMenu } from './label-menu'
+import { CommentList } from "./details-comments/comment-list";
+import { CommentPreview } from "./details-comments/comment-preview";
+
 import windowImg from '../imgs/window-details.png'
 import coverImg from '../imgs/cover.png'
-
 
 
 
@@ -22,20 +25,19 @@ export const TaskDetails = () => {
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
   );
-  const [labels, setLabels] = useState([]);
-  const [isEdit, setIsEdit] = useState(false)
-  const { comments, labelIds, bg, decription } = task;
-  const [editCommentId, setEditCommentId] = useState('')
 
-  const [register, newComment, editNewComment] = useFormRegister({ comments: comments })
+  const [isEdit, setIsEdit] = useState(false)
+  const {bg, decription } = task;
+
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   const [menuState, setMenuState] = useState(false)
-  
+
   useEffect(() => {
     (async () => {
       const { boardId, taskId } = params;
+      if (boardId === board._id) return
       dispatch(getBoard(boardId));
     })();
   }, []);
@@ -47,11 +49,8 @@ export const TaskDetails = () => {
       const task = await boardService.getTaskById(boardId, box.id, taskId);
       dispatch(setTask(task, box));
     })()
-  },[board])
+  }, [board])
 
-  useEffect(() => {
-    setLabels(getLabels());
-  }, [task])
 
   const getLabels = () => {
     if (!task.labelIds) return;
@@ -63,27 +62,10 @@ export const TaskDetails = () => {
   const onToggleDetails = () => {
     navigate(`/b/${board._id}`);
   };
+
   const openTask = () => {
     navigate(`task/${task.id}`)
     setIsEdit(false)
-  }
-  const isCommentsLength = () => {
-    if (!comments) return
-    return comments.length > 0;
-  };
-
-  const onEditComment = async (comment) => {
-    comment.txt = newComment.comments
-    dispatch(editComment(board._id, box.id, task.id, comment))
-    setEditCommentId('')
-
-  }
-  const onToggleEditComment = (commentId) => {
-    setEditCommentId((editCommentId)? '': commentId)
-  }
-
-  const onDeleteComment = (ev, commentId) => {
-    dispatch(onRemoveComment(board._id, box.id, task.id, commentId))
   }
 
   const isDesc = () => {
@@ -91,22 +73,22 @@ export const TaskDetails = () => {
     return true
   }
   const isMembers = () => {
-    // console.log('bigger than 0', task.members.length > 0)
-    // console.log('members?', !task.members)
     if (!task.members) return false
+    if (!task.members.length) return false
     if (task.members.length > 0) return true
   };
 
-  const isLabelsLength = () => {
-    if (!labels) return
-    if (labels.length > 0) return true
-  };
   const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
 
   const toggleMenu = () => {
     setMenuState(!menuState)
-  }
 
+  }
+  const labels = getLabels()
+  const isLabelsLength = () => {
+    if (!labels) return
+    if (labels.length > 0) return true
+  };
   return (
     <section>
 
@@ -131,7 +113,7 @@ export const TaskDetails = () => {
               >
                 <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
               </button>
-              {task.color && <button className="details-task-cover-btn" onClick={() => { toggleMenu() }}>
+              {task.bg && <button className="details-task-cover-btn" onClick={() => { toggleMenu() }}>
                 <img className="menu-imgs" src={coverImg} />
                 Cover
                 {(menuState) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
@@ -151,22 +133,21 @@ export const TaskDetails = () => {
         <div className="detail-menu-container">
           <div className="detail-container">
             <div className="members-labels">
-              <div className={`members-members-title ${labels && labels.length ? "members-with-labels" : "members-no-labels"}`}>
-                {(isMembers()) && (<div className="members-header"> Members</div>)}
-                {(!isMembers()) && (<div className="members-header" style={{ display: "none" }}> Members</div>)}
-
-                {(isMembers() &&
+              {(isMembers() &&
+                <div className={`members-members-title ${labels && labels.length ? "members-with-labels" : "members-no-labels"}`}>
+                  <div className="members-header"> Members</div>
                   <div className="task-members">
-                    {(task.members) && task.members.map((member, idx) => {
-
-                      return (<div key={idx} className="task-member">
-                        <div className="member-background">
-                          <p style={{ backgroundColor: bg }}>{member.init}</p>
-                        </div>
-                      </div>)
-                    })
+                    {(task.members) &&
+                      task.members.map((member, idx) => {
+                        return (<div key={idx} className="task-member">
+                          <div className="member-background">
+                            <p style={{ backgroundColor: bg }}>{member.init}</p>
+                          </div>
+                        </div>)
+                      })
                     }
-                  </div>)}</div>
+                  </div>
+                </div>)}
               <div className="label-container">
                 {isLabelsLength() && <div className="labels-header"> Labels</div>}
                 <div className="label-detail-container">
@@ -199,31 +180,8 @@ export const TaskDetails = () => {
                   <div className="activity left-details">Activity</div>
                 </div>
                 <InputComments />
-                <ul className="comments left-details-container">
-
-                  {isCommentsLength() &&
-                    comments.map((comment, idx) => {
-                      return <div key={idx} className="comment-container">
-                        {(comment.id !== editCommentId) ?
-                        <div>
-                          <li className="comment left-details" key={idx}>
-                            {comment.txt}
-                              </li> 
-                            <div className="comment-edit-delete-container">
-                              <div className="comment-edit" onClick={()=>(onToggleEditComment(comment.id))}>Edit</div><div className="edit-delete--">-</div>
-                              <div className="comment-delete"
-                                onClick={(ev) => onDeleteComment(ev, comment.id)}>Delete</div>
-                            </div>
-                            </div>:
-                          <div>
-                            <textarea className="comment-isEdit" {...register('comments')} > </textarea>
-                            <button onClick={()=> (onEditComment(comment))}>Save</button>
-                            <button onClick={()=> (onToggleEditComment(comment.id))}>X</button>
-                          </div>}
-                      </div>
-                    })}
-
-                </ul>
+                <CommentPreview board={board} box={box} task={task} />
+                <CommentList board={board} box={box} task={task}/>
               </div>
             </div>
           </div>
