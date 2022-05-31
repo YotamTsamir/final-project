@@ -54,7 +54,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
 
 
     const menuBtns = [
-        { txt: 'Open card' ,fa: <FontAwesomeIcon style={{color:'#fefefe'}} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} inverse /> },
+        { txt: 'Open card',func:openDateMenu ,fa: <FontAwesomeIcon style={{color:'#fefefe'}} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} inverse /> },
         { txt: 'Edit labels',fa:<FontAwesomeIcon className="icon-task-menu fa-solid fa-tag" icon={faTag}/> },
         { txt: 'Change cover', fa: <FontAwesomeIcon className="icon-task-menu fa-solid fa-fill-drip" icon={faFillDrip} />},
         { txt: 'Change members', fa: <FontAwesomeIcon className="icon-task-menu fa font-clock" icon={faUser} /> },
@@ -73,9 +73,12 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
                 return (
                     <div>
 
-                        <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
+                      {(btn.txt !== 'Archive' && btn.txt !== 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
                             {btn.fa} {btn.txt}
-                        </button>
+                        </button>}
+                        {(btn.txt === 'Archive' || btn.txt === 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>
+                            {btn.fa} {btn.txt}
+                        </button>}
                     </div>
                 )
             })}

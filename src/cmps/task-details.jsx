@@ -24,6 +24,7 @@ export const TaskDetails = () => {
   );
   const [labels, setLabels] = useState([]);
   const [isEdit, setIsEdit] = useState(false)
+  const { comments, labelIds, bg, decription } = task;
   const [editCommentId, setEditCommentId] = useState('')
 
   const { comments, labelIds, bg, decription } = task;

@@ -57,7 +57,7 @@ async function editBox(boardId, box) {
 
 async function editBoxes(boardId, boxes) {
     let board = await getById(boardId)
-    boxes.map(box=>{
+    boxes.map(box => {
         let currBoxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
         board.boxes[currBoxIdx] = box
     })
@@ -83,12 +83,12 @@ async function editTaskDesc(boardId, box, task, newDesc) {
     return save(board)
 }
 
-async function editComment(boardId, boxId, taskId, comment){
+async function editComment(boardId, boxId, taskId, comment) {
     const board = await getById(boardId)
     const boxIdx = board.boxes.findIndex(currBox => currBox.id === boxId)
     const taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === taskId)
     const commentIdx = board.boxes[boxIdx].tasks[taskIdx].comments.findIndex(currComment => currComment.id === comment.id)
-    if(commentIdx===-1) return board
+    if (commentIdx === -1) return board
     board.boxes[boxIdx].tasks[taskIdx].comments[commentIdx] = comment
     return save(board)
 }
@@ -115,7 +115,7 @@ async function query() {
 async function getStarredBoards(boards) {
 
     boards = boards.filter(board => {
-        if(board.isStarred) return board
+        if (board.isStarred) return board
     })
     console.log(boards)
     return boards
@@ -125,14 +125,14 @@ function getById(boardId) {
     return storageService.get(STORAGE_KEY, boardId)
     // return axios.get(`/api/car/${carId}`)
 }
-async function removeComment(boardId, boxId, taskId, commentId){
+async function removeComment(boardId, boxId, taskId, commentId) {
     const board = await getById(boardId)
     const boxIdx = board.boxes.findIndex(box => boxId === box.id)
     const box = board.boxes[boxIdx]
     const taskIdx = box.tasks.findIndex(task => taskId === task.id)
     const task = box.tasks[taskIdx]
     const commentIdx = task.comments.findIndex(comment => comment.id === commentId)
-    task.comments.splice(commentIdx,1) 
+    task.comments.splice(commentIdx, 1)
     board.boxes[boxIdx].tasks[taskIdx] = task
     return save(board)
 
@@ -214,7 +214,7 @@ const board = {
             {id: 'u103',fullname: 'Shachar Cohen',userName: 'Shachar Cohen', init: 'SC', avatar: ''},
             {fullname: 'Tommy Irmia',id: 'u104',userName: 'Tommy Irmia', init: 'TI', avatar: ''}
         ],
-    }
+}
         
             // {
             //     "id": "b101",
@@ -498,7 +498,7 @@ async function editBoardStyle(boardId, field, change) {
     return save(board)
 }
 
-async function toggleBoardStarred(boardId){
+async function toggleBoardStarred(boardId) {
     const board = await getById(boardId)
     board.isStarred = !board.isStarred
     return save(board)
@@ -525,22 +525,6 @@ async function boxFilterByTaskAtt(boxes, filter = {}) {
     return filteredBoxes
 }
 
-
-
-// async function editTaskTitle(boardId, box, task, newTitle, labelId) {
-//     let board = await getById(boardId)
-//     let currBox = board.boxes.find(currBox => currBox.id === box.id)
-//     let currTask = currBox.tasks.find(currTask => currTask.id === task.id)
-//     if (newTitle) currTask.title = newTitle
-//     if (labelId){
-//         if(currTask.labelIds.includes(labelId)) {
-//             let labelIdx = currTask.labelIds.findIndex(currLabelId => currLabelId === labelId)
-//             currTask.labelIds.splice(labelIdx,1)
-//         } else currTask.labelIds.push(labelId)
-//     }
-//     return save(board)
-// }
-
 async function getTaskById(boardId, boxId, taskId) {
     const board = await getById(boardId)
     let currBox = board.boxes.find(currBox => currBox.id === boxId)
@@ -565,6 +549,7 @@ async function findBoxByTaskId(boardId, taskId) {
 
 // TEST DATA
 // storageService.post(STORAGE_KEY, BOARD)
+
 
 
 
