@@ -5,7 +5,8 @@ import logo from "../imgs/logo.png"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { isSunday } from "date-fns"
 import { signup } from "../store/action/user-action"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
+import { userService } from "../services/user-service"
 
 export const SignUp = () => {
     const { user } = useSelector((storeState) => storeState.userModule)
@@ -31,7 +32,9 @@ export const SignUp = () => {
     const onSignUp = (ev) => {
         ev.preventDefault()
         if(!email || !username || !password || !fullname) return 
-        dispatch(signup({email,username,fullname,password,avatar}))
+        const user = {username,password,fullname,email}
+        userService.signup(user)
+        dispatch(signup({email,username,fullname,password}))
         navigate('/boards')
     }
 

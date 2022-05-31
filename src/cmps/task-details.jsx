@@ -68,7 +68,6 @@ export const TaskDetails = () => {
     setIsEdit(false)
   }
 
-
   const isDesc = () => {
     if (!decription) return false
     return true
