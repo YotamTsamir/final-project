@@ -26,13 +26,13 @@ export const TaskDetails = () => {
   const [isEdit, setIsEdit] = useState(false)
   const [editCommentId, setEditCommentId] = useState('')
 
+  const { comments, labelIds, bg, decription } = task;
   const [register, newComment, editNewComment] = useFormRegister({ comments: comments })
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   const [menuState, setMenuState] = useState(false)
   
-  const { comments, labelIds, bg, decription } = task;
   useEffect(() => {
     (async () => {
       const { boardId, taskId } = params;
@@ -68,6 +68,7 @@ export const TaskDetails = () => {
     setIsEdit(false)
   }
   const isCommentsLength = () => {
+    console.log(comments)
     if (!comments) return
     return comments.length > 0;
   };
@@ -203,6 +204,7 @@ export const TaskDetails = () => {
 
                   {isCommentsLength() &&
                     comments.map((comment, idx) => {
+                      {console.log('text', comment.txt)}
                       return <div key={idx} className="comment-container">
                         {(comment.id !== editCommentId) ?
                         <div>
@@ -216,7 +218,7 @@ export const TaskDetails = () => {
                             </div>
                             </div>:
                           <div>
-                            <textarea className="comment-isEdit" {...register('comments')} > </textarea>
+                            <textarea value={comment.txt} className="comment-isEdit" {...register('comments')} > </textarea>
                             <button onClick={()=> (onEditComment(comment))}>Save</button>
                             <button onClick={()=> (onToggleEditComment(comment.id))}>X</button>
                           </div>}
