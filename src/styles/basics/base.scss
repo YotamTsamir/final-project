@@ -1,27 +1,28 @@
-*{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color:$clr1;
+* {
+    font-family: 'Segoe UI', Roboto, Tahoma, Geneva, Verdana, sans-serif;
+    color: $clr1;
     font-size: 14px;
 }
 
 html,
-body{
+body {
     height: 100%;
 }
 
 .vsc-initialized {
     background-color: #fafcfd;
 }
-#root{
+
+#root {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    background-color: #fafbfc;
+    height: 100vh;
 }
 
 .white-icons path {
     color: #fefefe;
 }
+
 .extras-menu-btn {
     border-radius: 3px;
     fill: #172b4d;
@@ -29,6 +30,7 @@ body{
     opacity: 1;
 
 }
+
 .grey-icons path {
     color: rgb(176, 175, 175);
     opacity: 0.8;
@@ -40,6 +42,7 @@ body{
     background-color: #EBECF0;
     opacity: 1;
 }
+
 // path{
 //     background-color: #fafbfc8d;
 
@@ -48,6 +51,3 @@ body{
     background-color: none;
     opacity: 0.8;
 }
-
-
-

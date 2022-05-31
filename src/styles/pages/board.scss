@@ -1,15 +1,39 @@
 .board-container {
-    min-width: fit-content;
+    max-width: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    flex: 1;
-    overflow: hidden;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+    padding: 0 4px;
+
+    >div {
+        max-width: 100%;
+        $height: calc(100% - 52px);
+        max-height: $height;
+        overflow-x: auto;
+        flex-grow: 1;
+        margin-bottom: 4px;
+    }
+
+    >div::-webkit-scrollbar {
+        height: 15px;
+    }
+
+    >div::-webkit-scrollbar-track {
+        background: none;
+        border-radius: 3px;
+    }
+
+    >div::-webkit-scrollbar-thumb {
+        background-color: #ffffff47;
+        border-radius: 3px;
+    }
 }
 
-.board-cont{
+.board-cont {
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -17,12 +41,15 @@
 
 .board {
     max-height: 100%;
+    max-width: 100%;
     flex: 1;
     display: flex;
     gap: 8px;
-    margin-left: 40px;
-    padding: 70px 8px 0 8px;
-    width: fit-content;
+
+    >div {
+        min-height: 100%;
+        width: fit-content;
+    }
 }
 
 .plus-sign {}
@@ -34,8 +61,8 @@
     height: fit-content;
     border-radius: 3px;
     cursor: pointer;
-    width: max-content;
-    width: 222px;
+    // width: max-content;
+    min-width: 222px;
     color: rgb(255, 255, 255);
 
     // color: $clr4;

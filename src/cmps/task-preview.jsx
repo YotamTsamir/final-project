@@ -77,7 +77,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
         return taskLabels
     }
-console.log(task.bg)
+// console.log(task.bg)
 
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
