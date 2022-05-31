@@ -24,15 +24,15 @@ export const TaskDetails = () => {
   );
   const [labels, setLabels] = useState([]);
   const [isEdit, setIsEdit] = useState(false)
+  const { comments, labelIds, bg, decription } = task;
   const [editCommentId, setEditCommentId] = useState('')
 
-  const { comments, labelIds, color, decription } = task;
   const [register, newComment, editNewComment] = useFormRegister({ comments: comments })
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
   const [menuState, setMenuState] = useState(false)
-
+  
   useEffect(() => {
     (async () => {
       const { boardId, taskId } = params;
@@ -115,10 +115,10 @@ export const TaskDetails = () => {
           {/* {(topic === 'Cover') && (colors.map(color => {
                 return ( onClick={() => onChangeColor(color)} */}
           <div
-            key={color}
-            className={`cover-menu-color-detail ${color ? '' : 'no-color'}`}
-            height={`${color ? '90px;' : ''}`}
-            style={{ backgroundColor: color }}
+            key={bg}
+            className={`cover-menu-color-detail ${bg ? '' : 'no-color'}`}
+            height={`${bg ? '90px;' : ''}`}
+            style={{ background: bg }}
           >
             <div className=" x-btn-cover">
 
@@ -161,7 +161,7 @@ export const TaskDetails = () => {
 
                       return (<div key={idx} className="task-member">
                         <div className="member-background">
-                          <p style={{ backgroundColor: color }}>{member.init}</p>
+                          <p style={{ backgroundColor: bg }}>{member.init}</p>
                         </div>
                       </div>)
                     })
