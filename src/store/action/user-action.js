@@ -55,19 +55,13 @@ export function logout() {
 export function signup(credentials) {
     // Action Creator
 
-    return (dispatch) => {
-        userService
-            .signup(credentials)
-            .then((user) => {
-                dispatch({
-                    type: 'SET_USER',
-                    user,
-                })
-            })
-            .catch((err) => {
-                console.error('Error:', err)
-                // setUserMsg('Cannot signup', 'bad')
-            })
+    return async (dispatch) => {
+        const user = await userService.signup(credentials)
+        dispatch({
+            type: 'SET_USER',
+            user,
+        })
+          
     }
 }
 

@@ -28,12 +28,12 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), members: [], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), archivedAt: '', members: [], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
         if (!input) {
             setAddNewTask('')
             return
         }
-        const newBoard = await boardService.addTask(boardId, task, boxId)
+        const newBoard = await boardService.updateTask(boardId, task, boxId)
         setAddNewTask(boxId)
         newTask.title = ''
         EditTask('')
@@ -57,10 +57,10 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
     if (!box) return <h1>Loading</h1>
     return <div className="box">
         <div className="box-header flex space-between">
-        {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
-            <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
-            <div onClick={()=>setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
-            <FontAwesomeIcon  className="extra-menu-btn" icon={faEllipsis} />
+            {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
+                <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
+            <div onClick={() => setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
+                <FontAwesomeIcon className="extra-menu-btn" icon={faEllipsis} />
             </div>
             {(boardExtrasMenu) && <BoardExtrasMenu board={board} box={box} setBoardExtrasMenu={setBoardExtrasMenu} setAddTask={setAddTask} />}
         </div>

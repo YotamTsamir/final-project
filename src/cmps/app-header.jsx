@@ -4,6 +4,7 @@ import logo from "../imgs/logo.png"
 import { HeaderNav } from "./header-nav.jsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
+import { userService } from '../services/user-service'
 
 
 export const AppHeader = () => {
@@ -44,6 +45,7 @@ export const AppHeader = () => {
                     <h2>Account<hr /></h2>
                     <NavLink className="nav-link login" to='/login'>Login</NavLink>
                     <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                    <button onClick={()=>userService.logout()}>Logout</button>
                 </div>
             }
         </div>

@@ -48,7 +48,6 @@ export const InputDesc = () => {
 
   return (
     <div className="desc-cmp">
-      {/* <button onClick={onEditTaskDesc()}>Edit</button> */}
       {isEditShownDesc() && (
         <form
           onSubmit={(ev) => {

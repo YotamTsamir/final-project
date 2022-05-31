@@ -52,9 +52,9 @@ export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
         <div className="choose-bg">
             <div className='bg-menu-header'>
                 <h3>Background:</h3>
-                <buttom className="more-bgs">
+                <button className="more-bgs">
                     <FontAwesomeIcon icon={faEllipsis} />
-                </buttom>
+                </button>
             </div>
             <BoardBgMenu dfBgs={dfBgs}
                 handleChange={handleChange} />

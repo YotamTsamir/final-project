@@ -10,21 +10,7 @@ import { Draggable } from "react-beautiful-dnd"
 
 export const TaskList = ({ tasks, board, box }) => {
   
-    const dispatch = useDispatch()
 
-    useEffect(() => {
-        // window.addEventListener('mousedown',onDown)
-        // window.addEventListener('keydown',onDown)
-    })
-
-    const onDown = (ev) => {
-        // if(ev.key !== 'Escape') return
-        // setIsAddTask(false)
-    }
-
-    
-
-    // if (!tasks.length) return <h1>Loading...</h1>
     return <div className="task-list">
         {tasks.map((task, index) => <Draggable key={task.id} draggableId={task.id} index={index}>
             {provided => {

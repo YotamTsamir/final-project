@@ -27,7 +27,6 @@ export const TaskDetails = () => {
   const { comments, labelIds, bg, decription } = task;
   const [editCommentId, setEditCommentId] = useState('')
 
-  const { comments, labelIds, bg, decription } = task;
   const [register, newComment, editNewComment] = useFormRegister({ comments: comments })
   const navigate = useNavigate();
   const params = useParams();
@@ -69,7 +68,6 @@ export const TaskDetails = () => {
     setIsEdit(false)
   }
   const isCommentsLength = () => {
-    console.log(comments)
     if (!comments) return
     return comments.length > 0;
   };
@@ -85,7 +83,7 @@ export const TaskDetails = () => {
   }
 
   const onDeleteComment = (ev, commentId) => {
-    dispatch(onRemoveComment(board._id, box.id, task.id, commentId))
+    dispatch(onRemoveComment(board._id, box.id, task, commentId))
   }
 
   const isDesc = () => {
