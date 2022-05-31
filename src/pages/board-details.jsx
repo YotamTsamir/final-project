@@ -91,10 +91,6 @@ export const Board = () => {
         if (res.type === 'box') {
             let currBoard = { ...board }
             let newBoxes = [...currBoard.boxes]
-<<<<<<< HEAD
-
-=======
->>>>>>> 32b8df80fca6b433cb27f4bd7abf40666249879c
             if ((source.index - destination.index) < 1) {
                 currBoard.boxes.map((box, index) => {
                     if (index < source.index) return
