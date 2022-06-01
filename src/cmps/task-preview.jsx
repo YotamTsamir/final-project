@@ -7,7 +7,7 @@ import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faClock, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 import { Outlet } from "react-router-dom"
 import { useDispatch } from 'react-redux'
-import { setTask, toggleDetails, editTask } from "../store/action/board-action"
+import { setTask, editTask } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { EditTaskNav } from "./edit-task-nav"
 
@@ -85,14 +85,13 @@ export const TaskPreview = ({ task, board, box, index }) => {
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
         return taskLabels
     }
-
     if (task.archivedAt !== '') return
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
-            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg }}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
+            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg + 'round' }}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
-                {(labels) ? labels.map(label => <div key={label.id} className={`label `} onClick={(ev) => onOpenLabel(ev)}
-                    style={{ backgroundColor: label.color }}></div>) : ''}
+                {(labels) ? labels.map(label => <div key={label.id} className={`label ${labelOpen}`} onClick={(ev) => onOpenLabel(ev)}
+                    style={{ backgroundColor: label.color }}>{(labelOpen) && label.title}</div>) : ''}
             </div>}
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
                 <div>
@@ -131,7 +130,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
             <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
-            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
+                {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg + 'round' }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>

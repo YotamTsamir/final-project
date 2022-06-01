@@ -27,7 +27,6 @@ export function boardReducer(state = initialState, action) {
             newState = { ...state, board: action.board }
             break;
         case 'ADD_TASK':
-            // newState = { ...board, }
             break;
         case 'SET_TASK':
             newState = { ...state, task: action.task, box: action.box }

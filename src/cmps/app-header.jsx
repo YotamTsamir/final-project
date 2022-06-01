@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, useLocation } from "react-router-dom"
 import { HeaderNav } from "./header-nav.jsx"
@@ -10,7 +10,9 @@ import { userService } from '../services/user-service'
 import { useNavigate, useParams } from "react-router-dom"
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
+    const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
+    const [scroll, setScroll] = useState(0)
     const [headerTheme, setHeaderTheme] = useState({
         style: {
             backgroundColor: '#026aa7'
@@ -20,6 +22,9 @@ export const AppHeader = () => {
     const location = useLocation()
     const navigate = useNavigate()
 
+    useEffect(() => {
+        scrollListener()
+    }, [])
 
     useEffect(() => {
         getIsDarkTheme()
@@ -32,6 +37,17 @@ export const AppHeader = () => {
     const onToggleLoginBar = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
     }
+
+    const scrollListener = () => {
+        document.addEventListener("scroll", () => {
+            const scrollCheck = window.scrollY < 100
+            if (scrollCheck !== scroll) {
+                setScroll(scrollCheck)
+                setHeaderTheme({})
+            }
+        })
+    }
+
 
     const getIsDarkTheme = async () => {
         if (!board || !board.style) return
@@ -62,6 +78,7 @@ export const AppHeader = () => {
                 },
                 isDark: true,
             })
+            setIsHomePage(false)
         } else if (location.pathname === '/') {
             setHeaderTheme({
                 style: {
@@ -69,6 +86,7 @@ export const AppHeader = () => {
                 },
                 isDark: false,
             })
+            setIsHomePage(true)
         }
     }
 
@@ -82,8 +100,9 @@ export const AppHeader = () => {
     return <div className={`app-header 
     ${headerTheme.isDark ? 'is-dark' : 'is-light'
         } 
-        ${(location.pathname !== '/') ? '' : 'home-page-header'
-        }`}
+        ${!isHomePage ? '' : ' home-page-header'
+        } 
+        ${(!scroll && isHomePage) ? ' scrolled' : ''}`}
         style={headerTheme.style}>
         <div className="logo-and-nav">
             <NavLink to="/" className="logo-container">
@@ -117,7 +136,7 @@ export const AppHeader = () => {
                     </div>
                 }
             </div>
-
+            }
         </div>
     </div>
 }   
