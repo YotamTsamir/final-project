@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, useLocation } from "react-router-dom"
 import { HeaderNav } from "./header-nav.jsx"
@@ -11,7 +11,9 @@ import { userService } from '../services/user-service'
 
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
+    const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
+    const [scroll, setScroll] = useState(0)
     const [headerTheme, setHeaderTheme] = useState({
         style: {
             backgroundColor: '#026aa7'
@@ -20,6 +22,9 @@ export const AppHeader = () => {
     })
     const location = useLocation()
 
+    useEffect(() => {
+        scrollListener()
+    }, [])
 
     useEffect(() => {
         getIsDarkTheme()
@@ -32,6 +37,17 @@ export const AppHeader = () => {
     const onToggleLoginBar = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
     }
+
+    const scrollListener = () => {
+        document.addEventListener("scroll", () => {
+            const scrollCheck = window.scrollY < 100
+            if (scrollCheck !== scroll) {
+                setScroll(scrollCheck)
+                setHeaderTheme({})
+            }
+        })
+    }
+
 
     const getIsDarkTheme = async () => {
         if (!board || !board.style) return
@@ -62,6 +78,7 @@ export const AppHeader = () => {
                 },
                 isDark: true,
             })
+            setIsHomePage(false)
         } else if (location.pathname === '/') {
             setHeaderTheme({
                 style: {
@@ -69,6 +86,7 @@ export const AppHeader = () => {
                 },
                 isDark: false,
             })
+            setIsHomePage(true)
         }
     }
 
@@ -78,8 +96,9 @@ export const AppHeader = () => {
     return <div className={`app-header 
     ${headerTheme.isDark ? 'is-dark' : 'is-light'
         } 
-        ${(location.pathname !== '/') ? '' : 'home-page-header'
-        }`}
+        ${!isHomePage ? '' : ' home-page-header'
+        } 
+        ${(!scroll && isHomePage) ? ' scrolled' : ''}`}
         style={headerTheme.style}>
         <div className="logo-and-nav">
             <NavLink to="/" className="logo-container">
@@ -96,24 +115,29 @@ export const AppHeader = () => {
         </div>
 
         <div className='header-right-side'>
-            <div className="user-nav-links">
-                <button className='toggle-login-bar'
-                    onClick={onToggleLoginBar}>
-                    <h1>
-                        <FontAwesomeIcon icon={faUser} />
-                    </h1>
-                </button>
-                {isLoginBarOpen &&
-                    <div className="signin-signup-links">
-                        <h2>Account<hr /></h2>
-                        <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                        <NavLink className="nav-link login" to='/login'>Login</NavLink>
-                        <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                        <button onClick={() => userService.logout()}>Logout</button>
-                    </div>
-                }
+            {!isHomePage &&
+                <div className="user-nav-links">
+                    <button className='toggle-login-bar'
+                        onClick={onToggleLoginBar}>
+                        <h1>
+                            <FontAwesomeIcon icon={faUser} />
+                        </h1>
+                    </button>
+                    {isLoginBarOpen &&
+                        <div className="signin-signup-links">
+                            <h2>Account<hr /></h2>
+                            <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                            <NavLink className="nav-link login" to='/login'>Login</NavLink>
+                            <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                            <button onClick={() => userService.logout()}>Logout</button>
+                        </div>}
+                </div>
+            }
+            {isHomePage && <div className="user-nav-links-home">
+                <NavLink className="nav-link-home login" to='/login'>Log in</NavLink>
+                <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
             </div>
-
+            }
         </div>
     </div>
 }   

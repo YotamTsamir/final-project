@@ -38,6 +38,7 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
     }
 
     const onOpenFilterOrMenu = (val) => {
+        if(val === isFilterOrMenuOpen) val = false
         setIsFilterOrMenuOpen(val)
     }
 
@@ -55,6 +56,8 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
     const resizeInput = (txt) => {
         setInputWidth({ width: txt.length + 'ch' })
     }
+
+    
 
 
     return <header className={`board-header-container 
@@ -83,6 +86,18 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
                 {board.isStarred &&
                     <FontAwesomeIcon icon={faStar} />}
             </button>
+            {board.members &&
+                <div className="board-members">
+                    {board.members.map((member, idx) => {
+                        return <div 
+                        className={`member-preview ${idx}`} 
+                        key={idx}
+                        style={{ background: (member.avatar) ? member.avatar : 'blue'}}>
+                            {member.init}
+                        </div>
+                    })}
+                </div>
+            }
         </div>
         <div className="header-btn-contianer">
             {(isFilterOrMenuOpen !== 'menu') && <button className="menu-btn"
