@@ -17,6 +17,7 @@ export const boardService = {
     boxFilterByTaskAtt,
     toggleBoardStarred,
     getBoardColorTheme,
+    editBoardTitle,
 
     editBoxes,
     getLabelById,
@@ -36,13 +37,13 @@ async function addLabelToTask(task, box, labelId, boardId) {
     let currBox = board.boxes.find(currBox => currBox.id === box.id)
     let currTask = currBox.tasks.find(t => t.id === task.id)
     currTask.labelIds.push(labelId)
-    
+
     return save(board)
 }
 
 
 async function updateBox(boardId, box) {
-    return await httpService.put(`board/updateBox/${boardId}`,box)
+    return await httpService.put(`board/updateBox/${boardId}`, box)
 }
 
 async function editBoxes(boardId, boxes) {
@@ -51,7 +52,7 @@ async function editBoxes(boardId, boxes) {
         let currBoxIdx = board.boxes.findIndex(currBox => currBox.id === box.id)
         board.boxes[currBoxIdx] = box
     })
-    return await httpService.put(`board/${boardId}`,board)
+    return await httpService.put(`board/${boardId}`, board)
 }
 
 async function editTaskDesc(boardId, box, task, newDesc) {
@@ -72,14 +73,14 @@ async function editComment(boardId, boxId, taskId, comment) {
     return save(board)
 }
 
-async function deleteTask(boardId,boxId,taskId){
-   await httpService.delete(`board/${boardId}/${boxId}/${taskId}`)
-   const newBoard = await getById(boardId)
-   save(newBoard)
+async function deleteTask(boardId, boxId, taskId) {
+    await httpService.delete(`board/${boardId}/${boxId}/${taskId}`)
+    const newBoard = await getById(boardId)
+    save(newBoard)
 }
 
 async function updateTask(boardId, task, boxId) {
-    return await httpService.put(`board/updateTask/${boardId}/${boxId}`,task)
+    return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
 }
 
 async function query() {
@@ -117,10 +118,10 @@ async function save(board) {
     }
 }
 
-async function removeComment(boardId, boxId,task, commentId) {
+async function removeComment(boardId, boxId, task, commentId) {
     const commentIdx = task.comments.findIndex(comment => comment.id === commentId)
     task.comments.splice(commentIdx, 1)
-    return await httpService.put(`board/updateTask/${boardId}/${boxId}`,task)
+    return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
 
 
 
@@ -209,6 +210,13 @@ async function editBoardStyle(boardId, field, change) {
     return save(board)
 }
 
+async function editBoardTitle(boardId, field, change) {
+    let board = await getById(boardId)
+    board = { ...board, [field]: change }
+    console.log(field, change, board)
+    return save(board)
+}
+
 async function toggleBoardStarred(boardId) {
     const board = await getById(boardId)
     board.isStarred = !board.isStarred
@@ -247,12 +255,12 @@ async function findBoxByTaskId(boardId, taskId) {
 
 
 async function getBoardColorTheme(img, isColor = false) {
-    
+
     const cleanUrl = img.substring(4, img.length - 1)
     const rgb = await getAverageColor(cleanUrl)
     const isDark = _isColorDark(rgb)
 
-    return {rgb, isDark}
+    return { rgb, isDark }
 }
 
 function _isColorDark({ r, b, g }) {
@@ -425,7 +433,7 @@ const defaultBgs = {
 //             }
 //         ],
 //         "memberIds": ["u101"],
-//         "labels": [         
+//         "labels": [
 //             {
 //             "id": "l107",
 //             "title": "Get team leaders approval ",

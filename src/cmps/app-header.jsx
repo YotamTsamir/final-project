@@ -35,6 +35,7 @@ export const AppHeader = () => {
 
     const getIsDarkTheme = async () => {
         if (!board || !board.style) return
+        if (location.pathname === '/boards') return
         if (board.style.backgroundColor) {
             setHeaderTheme(() => ({
                 style: {
