@@ -1,17 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useFormRegister } from "../hooks/useFormRegister";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setUserAvatar } from "../store/action/user-action";
+
 export const Avatar = () => {
     const dispatch = useDispatch()
     const { user } = useSelector(
         (storeState) => storeState.userModule
-      );
-      
-      const [fileInputState, setFileInputState] = useState('');
-      const [previewSource, setPreviewSource] = useState('');
-      const [selectedFile, setSelectedFile] = useState();
+    );
 
+    const [fileInputState, setFileInputState] = useState('');
+    const [previewSource, setPreviewSource] = useState('');
+    const [selectedFile, setSelectedFile] = useState();
+        console.log('USER', user)
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
         previewFile(file);
@@ -40,6 +40,7 @@ export const Avatar = () => {
             console.error('AHHHHHHHH!!');
         };
     };
+
     const uploadImage = async (imageUrl) => {
         const UPLOAD_PRESET = 'uzukqpqj' 
         const CLOUD_NAME = 'ddlztsqql'
@@ -47,7 +48,6 @@ export const Avatar = () => {
         const FORM_DATA = new FormData();
         FORM_DATA.append('file', imageUrl)
         FORM_DATA.append('upload_preset', UPLOAD_PRESET)
-
         try {
             const res = await fetch(UPLOAD_URL, {
                 method: 'POST',
@@ -62,11 +62,12 @@ export const Avatar = () => {
             console.error(err);
         }
     };
-    
-
+    console.log(user)
+    if(!user) return <h1>Loading...</h1>
     return <div className="avatar">
+        
         <div className="avatar-header">           
-            <img className="avatar-img" src={user.avatar}/> 
+            <img className="avatar-img" src={user.img}/> 
             <div className="avatar-fullname">
             {user.fullname} 
             </div>
@@ -74,7 +75,6 @@ export const Avatar = () => {
             {user.email} 
             </div>
         </div>
-    
 
         <input onChange={handleFileInputChange} value={fileInputState} type="file"/>
         <button onClick={handleSubmitFile}>Submit</button>
@@ -87,22 +87,4 @@ export const Avatar = () => {
             )}
         </div>
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

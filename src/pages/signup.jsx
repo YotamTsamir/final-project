@@ -34,7 +34,7 @@ export const SignUp = () => {
         if(!email || !username || !password || !fullname) return 
         const user = {username,password,fullname,email}
         userService.signup(user)
-        dispatch(signup({email,username,fullname,password}))
+        dispatch(signup({email,username,fullname,password,img:''}))
         navigate('/boards')
     }
 

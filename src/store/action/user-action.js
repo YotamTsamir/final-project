@@ -67,7 +67,7 @@ export function signup(credentials) {
 export function setUserAvatar(user, imageUrl) {
     return async (dispatch) => {
         try {
-            user.avatar = imageUrl
+            user.img = imageUrl
             await userService.updateUser(user)
             dispatch({
                 type: 'SET_USER',

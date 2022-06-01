@@ -5,10 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 
 
-export const CommentPreview = () => {
-    const { board, box, task } = useSelector(
-        (storeState) => storeState.boardModule
-    );
+export const CommentPreview = ({board, box, task}) => {
+
     const [editCommentId, setEditCommentId] = useState('')
     const dispatch = useDispatch()
     const { comments } = task;
@@ -18,13 +16,11 @@ export const CommentPreview = () => {
     };
     
     const handleChange = ({ target }) => {
-        console.log(target.value)
         const field = target.name
         const value = target.type === 'text'
         setEditCommentId((prevFields) => ({ ...prevFields, [field]: value }))
     }
     const onEditComment = async (comment) => {
-        console.log('edit')
         // comment.txt = newComment.comments
         dispatch(editComment(board._id, box.id, task.id, comment))
         setEditCommentId('')

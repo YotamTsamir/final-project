@@ -1,5 +1,5 @@
 
-.label-menu{
+.action-menu{
     background-color: $clr4;
     border-radius: 3px;
     position: absolute;
@@ -75,6 +75,7 @@
 
 .Members{
     transform: translateY(-210px);
+    background-color: $clr4;
 
     .label-choice:hover{
         filter: brightness(1);
