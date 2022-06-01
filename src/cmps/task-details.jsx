@@ -25,7 +25,7 @@ export const TaskDetails = () => {
   );
 
   const [isEdit, setIsEdit] = useState(false)
-  const {bg, decription } = task;
+  const {bg, description } = task;
 
   const navigate = useNavigate();
   const params = useParams();
@@ -67,7 +67,7 @@ export const TaskDetails = () => {
   }
 
   const isDesc = () => {
-    if (!decription) return false
+    if (!description) return false
     return true
   }
   const isMembers = () => {
@@ -87,6 +87,7 @@ export const TaskDetails = () => {
     if (!labels) return
     if (labels.length > 0) return true
   };
+  
   return (
     <section>
       <div className="task-details">
@@ -136,7 +137,7 @@ export const TaskDetails = () => {
                       task.members.map((member, idx) => {
                         return (<div key={idx} className="task-member">
                           <div className="member-background">
-                            <p style={{ backgroundColor: bg }}>{member.init}</p>
+                            <p style={{ backgroundColor: member.img }}>{member.init}</p>
                           </div>
                         </div>)
                       })
