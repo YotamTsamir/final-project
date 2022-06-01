@@ -1,10 +1,16 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
-
-export const BoxFilterMenu = ({ handleChange, filter, board, }) => {
+export const BoxFilterMenu = ({ onToggleMenu, board }) => {
 
 
 
     return <div className="filter-container">
+        <button className='close-board-menu-btn'
+            title="close menu"
+            onClick={() => onToggleMenu(false)}>
+            <FontAwesomeIcon icon={faX} />
+        </button>
         <h5 className="filter-header">Filter</h5>
         <div><hr /></div>
         <div className="filter-by-kw">
@@ -12,13 +18,11 @@ export const BoxFilterMenu = ({ handleChange, filter, board, }) => {
             <input type="text"
                 name="title"
                 placeholder="search by keywords..."
-                value={filter.filterBy === "title" ?
-                    filter.value : ''}
-                onChange={handleChange} />
+            />
             <div><hr /></div>
         </div>
         <div className="filter-by-label">
-        <h6>Label</h6>
+            <h6>Label</h6>
             {board.labels.map(label => {
                 return <div
                     className="label-picker-container"
@@ -26,8 +30,7 @@ export const BoxFilterMenu = ({ handleChange, filter, board, }) => {
                     <input type="checkbox"
                         name="labelIds"
                         id={`check-label-${label.id}`}
-                        value={label.id}
-                        onClick={handleChange} />
+                    />
                     <label
                         htmlFor={`check-label-${label.id}`}
                         style={{ backgroundColor: label.color }}>

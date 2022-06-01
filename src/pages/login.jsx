@@ -1,14 +1,12 @@
 import { useState } from "react"
-// import { signup } from "../store/action/user-action"
 import { useDispatch, useSelector } from 'react-redux'
-// import logo from "../imgs/logo.png"
 import { useFormRegister } from "../hooks/useFormRegister"
-import { isSunday } from "date-fns"
-import { signup } from "../store/action/user-action"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrello } from "@fortawesome/free-brands-svg-icons"
 import { useNavigate, useParams } from "react-router-dom"
 import { userService } from "../services/user-service"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {faTrello} from "@fortawesome/free-brands-svg-icons"
+import { faTrello } from '@fortawesome/free-brands-svg-icons'
 
 export const Login = () => {
     const { user } = useSelector((storeState) => storeState.userModule)
@@ -29,6 +27,7 @@ export const Login = () => {
 
     const onSignUp = (ev) => {
         ev.preventDefault()
+        console.log('username login', username)
         if (!username || !password) return
         userService.login(newSignUp)
         // dispatch(signup({ email, username, fullname, password }))
@@ -37,7 +36,9 @@ export const Login = () => {
 
     return <div className="signup">
         <div className="signup-name-logo">
-            <div><FontAwesomeIcon icon={faTrello}/></div>
+            <div>
+                <FontAwesomeIcon icon={faTrello} />
+            </div>
             <div className="name">Tredux</div>
         </div>
         <div className="signup-section">

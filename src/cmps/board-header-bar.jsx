@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { setNewBoard } from '../store/action/board-action'
 import { boardService } from "../services/board.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX, faFilter, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -7,35 +6,43 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { BoardMenu } from '../cmps/board-menu.jsx'
 import { BoxFilterMenu } from './box-filter-menu.jsx'
 
-export const BoardHeaderBar = ({ onToggleStarBoard, onFilterBoxes, onToggleFilter, isFilter, isBoardMenu, onToggleMenu, deleteBoard, dfBgs, board, onEditBoard }) => {
+export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoard, board, onEditBoardStyle }) => {
     const [isDark, setIsDark] = useState(false)
-    const [filter, setFilter] = useState({
-        filterBy: '',
-        value: ''
+    const [isEditTitle, setIsEditTitle] = useState(false)
+    const [isFilterOrMenuOpen, setIsFilterOrMenuOpen] = useState(false)
+    const [inputWidth, setInputWidth] = useState({ width: '100%' })
+    const [boardTitleEdit, setBoardTitleEdit] = useState({
+        title: board.title
     })
+
 
     useEffect(() => {
         getIsDarkTheme()
     }, [board])
 
-    useEffect(() => {
-        onFilterBoxes(filter);
-    }, [filter])
-
-    const handleChange = ({ target }) => {
+    const handleTitleChange = ({ target }) => {
         const field = target.name
         const value = target.value
-        if (target.value === filter.value) {
-            return setFilter({
-                filterBy: '',
-                value: ''
-            })
-        }
+        resizeInput(value)
+        setBoardTitleEdit((prevState) => ({
+            ...prevState, [field]: value
+        }))
+    }
 
-        setFilter({
-            filterBy: field,
-            value: value
-        })
+    const onChangeTitle = (ev) => {
+        ev.preventDefault()
+        const field = ev.target.name
+        const value = boardTitleEdit.title
+        onEditBoardTitle(board._id, field, value)
+        onToggleEditTitle()
+    }
+
+    const onOpenFilterOrMenu = (val) => {
+        setIsFilterOrMenuOpen(val)
+    }
+
+    const onToggleEditTitle = () => {
+        setIsEditTitle(!isEditTitle)
     }
 
     const getIsDarkTheme = async () => {
@@ -45,21 +52,32 @@ export const BoardHeaderBar = ({ onToggleStarBoard, onFilterBoxes, onToggleFilte
         return colorTheme.isDark
     }
 
-  
-
-
-    const toggleStarBoard = () => {
-        onToggleStarBoard()
+    const resizeInput = (txt) => {
+        setInputWidth({ width: txt.length + 'ch' })
     }
 
 
     return <header className={`board-header-container 
     ${isDark ? 'is-dark' : 'is-light'}`}>
         <div className="left-side-container">
-            <h1 className="board-title">{board.title}</h1>
+            {!isEditTitle &&
+                <h1 className="board-title" onClick={onToggleEditTitle}>{board.title}</h1>
+            }
+            {isEditTitle &&
+                <form className="board-title form" onSubmit={onChangeTitle} name="title">
+                    <input type="text"
+                        value={boardTitleEdit.title}
+                        name="title"
+                        onBlur={onChangeTitle}
+                        onChange={handleTitleChange}
+                        autoFocus
+                        onFocus={handleTitleChange}
+                        style={inputWidth} />
+                </form>
+            }
             <button
                 className={`fav-btn ${board.isStarred ? "starred-board" : "star-board"}`}
-                onClick={toggleStarBoard}>
+                onClick={onToggleStarBoard}>
                 {!board.isStarred &&
                     <FontAwesomeIcon icon={faStarRegular} />}
                 {board.isStarred &&
@@ -67,33 +85,31 @@ export const BoardHeaderBar = ({ onToggleStarBoard, onFilterBoxes, onToggleFilte
             </button>
         </div>
         <div className="header-btn-contianer">
-            {!isBoardMenu && <button className="menu-btn"
-                onClick={onToggleMenu}>
+            {(isFilterOrMenuOpen !== 'menu') && <button className="menu-btn"
+                onClick={() => onOpenFilterOrMenu('menu')}>
                 <span>
                     <FontAwesomeIcon icon={faBars} />
                 </span>
                 <p>Show Menu</p>
             </button>}
-            {isBoardMenu && <BoardMenu
+            {(isFilterOrMenuOpen === 'menu') && <BoardMenu
                 board={board}
                 deleteBoard={deleteBoard}
-                dfBgs={dfBgs}
-                onEditBoard={onEditBoard}
-                onToggleMenu={onToggleMenu}
+                onEditBoardStyle={onEditBoardStyle}
+                onToggleMenu={onOpenFilterOrMenu}
             />}
             <button className="filter-btn"
-                onClick={onToggleFilter}>
+                onClick={() => onOpenFilterOrMenu('filter')}>
                 <span>
-                    {!isFilter && <FontAwesomeIcon icon={faFilter} />}
-                    {isFilter && <FontAwesomeIcon icon={faX} />}
+                    {(isFilterOrMenuOpen !== 'filter') && <FontAwesomeIcon icon={faFilter} />}
+                    {(isFilterOrMenuOpen === 'filter') && <FontAwesomeIcon icon={faX} />}
                 </span>
                 <p>Filter</p>
             </button>
-            {isFilter &&
+            {(isFilterOrMenuOpen === 'filter') &&
                 <BoxFilterMenu
-                    handleChange={handleChange}
-                    filter={filter}
-                    board={board} />}
+                    board={board}
+                    onToggleMenu={onOpenFilterOrMenu} />}
         </div>
     </header>
 }

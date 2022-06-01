@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { LabelMenu } from './label-menu'
+import { ActionMenu } from './action-menu'
 import { setTask, toggleDetails, editTask } from "../store/action/board-action"
 import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,7 +9,7 @@ import labelImg from '../imgs/label.png'
 import copyImg from '../imgs/copy.png'
 import archiveImg from '../imgs/archive.png'
 import coverImg from '../imgs/cover.png'
-export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
+export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setIsEdit }) => {
     const [menuState, setMenuState] = useState({
         'Labels': false,
         'Dates': false,
@@ -19,7 +19,6 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
 
     const [dateValue, setDateValue] = useState(Date.now())
     const dispatch = useDispatch()
-    const [isEdit, setIsEdit] = useState(false)
 
     const toggleMenu = (menuName) => {
         const newMenuState = {}
@@ -53,7 +52,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
         <div className='add-to-card'>Add to card</div>
         <div className="details-task-nav">
             {menuBtns.map((btn, idx) => {
-                return (<div key={idx} className='details-label-menu'>
+                return (<div key={idx} className='details-action-menu'>
                     <button key={idx} className="details-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
                         <div className='details-btn-txt-fa'>
 
@@ -61,19 +60,19 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle }) => {
                         </div>
                     </button>
 
-                    {(menuState['Labels']) && btn.txt === 'Labels' && <LabelMenu
+                    {(menuState['Labels']) && btn.txt === 'Labels' && <ActionMenu
                         topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle}
                         task={task} box={box} board={board} />}
 
-                    {(menuState['Cover']) && btn.txt === 'Cover' && <LabelMenu
+                    {(menuState['Cover']) && btn.txt === 'Cover' && <ActionMenu
                         topic={'Cover'} colors={colors}
                         task={task} box={box} board={board} />}
 
-                    {(menuState['Dates']) && btn.txt === 'Dates' && <LabelMenu
+                    {(menuState['Dates']) && btn.txt === 'Dates' && <ActionMenu
                         topic={'Dates'} task={task}
                         box={box} board={board} emitDateValue={emitDateValue} />}
 
-                    {(menuState['Members']) && btn.txt === 'Members' && <LabelMenu
+                    {(menuState['Members']) && btn.txt === 'Members' && <ActionMenu
                         topic={'Members'} task={task} box={box} board={board} />}
                 </div>)
             })}

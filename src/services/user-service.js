@@ -34,6 +34,8 @@ async function updateUser(user) {
     return user;
 }
 
+
+
 async function signup(userInfo) {
     console.log(userInfo)
     await httpService.post('auth/signup', userInfo)

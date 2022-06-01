@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useFormRegister } from "../hooks/useFormRegister";
-import { editTask, getBoard, setTask, onRemoveComment, editComment } from "../store/action/board-action";
+import {  getBoard, setTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { DetailsTaskNav } from "./details-task-nav";
-import { LabelMenu } from './label-menu'
+import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
 import { CommentPreview } from "./details-comments/comment-preview";
 
@@ -25,11 +23,9 @@ export const TaskDetails = () => {
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
   );
-  //DECRIPTION
-  const {bg, decription } = task;
-  const [menuState, setMenuState] = useState(false)
-  const [isEdit, setIsEdit] = useState(false)
 
+  const [isEdit, setIsEdit] = useState(false)
+  const {bg, description } = task;
 
   const navigate = useNavigate();
   const params = useParams();
@@ -65,7 +61,7 @@ export const TaskDetails = () => {
   };
 //CHANGE NO NEED FOR THIS FUNC
   const isDesc = () => {
-    if (!decription) return false
+    if (!description) return false
     return true
   }
   const isMembers = () => {
@@ -84,9 +80,9 @@ export const TaskDetails = () => {
     if (!labels) return
     if (labels.length > 0) return true
   };
+  
   return (
     <section>
-
       <div className="task-details">
         <div className="color-cover-details">
           <div
@@ -109,7 +105,7 @@ export const TaskDetails = () => {
               {task.bg && <button className="details-task-cover-btn" onClick={() => { toggleMenu() }}>
                 <img className="menu-imgs" src={coverImg} />
                 Cover
-                {(menuState) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
+                {(menuState) && <ActionMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
               </button>}
             </div>
           </div>
@@ -136,7 +132,7 @@ export const TaskDetails = () => {
                       task.members.map((member, idx) => {
                         return (<div key={idx} className="task-member">
                           <div className="member-background">
-                            <p style={{ backgroundColor: bg }}>{member.init}</p>
+                            <p style={{ backgroundColor: member.img }}>{member.init}</p>
                           </div>
                         </div>)
                       })
@@ -182,7 +178,7 @@ export const TaskDetails = () => {
             </div>
           </div>
 
-          <DetailsTaskNav className="details-menu" setIsEdit={setIsEdit} box={box} task={task} board={board} />
+          <DetailsTaskNav className="details-menu" openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
 
         </div>
 

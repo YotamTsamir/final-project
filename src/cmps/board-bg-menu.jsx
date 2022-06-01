@@ -1,21 +1,22 @@
 import { BgImgList } from "./bg-image-list.jsx"
 import { BgClrList } from "./bg-color-list.jsx"
+import { boardService } from '../services/board.service'
 
 
-export const BoardBgMenu = ({ dfBgs, handleChange }) => {
+export const BoardBgMenu = ({ handleChange }) => {
 
 
-    const onChange = ({ target }) => {
-        handleChange({ target })
-    }
+    // const onChange = ({ target }) => {
+    //     handleChange({ target })
+    // }
 
     return <div className="bg-container">
         <BgImgList
-            dfBgs={dfBgs}
-            onChange={onChange} />
+            dfBgs={boardService.getDefaultBgs()}
+            onChange={handleChange} />
 
         <BgClrList
-            dfBgs={dfBgs}
-            onChange={onChange} />
+            dfBgs={boardService.getDefaultBgs()}
+            onChange={handleChange} />
     </div>
 }

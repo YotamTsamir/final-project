@@ -10,7 +10,9 @@ import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-
+// import { useDraggable } from "react-use-draggable-scroll"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
@@ -31,7 +33,6 @@ export const Board = () => {
         if (!board._id) {
             navigate('/boards')
         }
-        onFilterBoxes({})
     }, [board])
 
 
@@ -39,29 +40,15 @@ export const Board = () => {
         setIsAdd(!isAdd)
     }
 
-    const onFilterBoxes = async (filter) => {
-        let boxList = board.boxes
-        if (filter.filterBy) {
-            boxList = await boardService.boxFilterByTaskAtt(boxList, filter)
-        }
-    }
-    //CONNECT THESE TO 1 FUNC
-    const onToggleMenu = () => {
-        setIsBoardMenu(!isBoardMenu)
-        if (isMenuFilterOpen) setIsMenuFilterOpen(!isMenuFilterOpen)
-    }
-
-    const onToggleFilter = () => {
-        setIsMenuFilterOpen(!isMenuFilterOpen)
-        if (isBoardMenu) setIsBoardMenu(!isBoardMenu)
-    }
-
     const onDeleteBoard = async (boardId) => {
         dispatch(deleteBoard(boardId))
     }
-    //INSERT TO THE ACTION
-    const onEditBoard = async (boardId, field, change) => {
+    const onEditBoardStyle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
+        dispatch(setNewBoard(newBoard))
+    }
+    const onEditBoardTitle = async (boardId, field, change) => {
+        const newBoard = await boardService.editBoardTitle(boardId, field, change)
         dispatch(setNewBoard(newBoard))
     }
 
@@ -105,14 +92,9 @@ export const Board = () => {
         <BoardHeaderBar
             board={board}
             deleteBoard={onDeleteBoard}
-            dfBgs={boardService.getDefaultBgs()}
-            onEditBoard={onEditBoard}
-            onToggleMenu={onToggleMenu}
-            isBoardMenu={isBoardMenu}
-            onToggleFilter={onToggleFilter}
-            isFilter={isMenuFilterOpen}
-            onFilterBoxes={onFilterBoxes}
-            onToggleStarBoard={onToggleStarBoard} />
+            onEditBoardStyle={onEditBoardStyle}
+            onToggleStarBoard={onToggleStarBoard}
+            onEditBoardTitle={onEditBoardTitle} />
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable className="board-cont" type="box" droppableId={board._id} direction="horizontal">
                 {provided => {
@@ -129,7 +111,9 @@ export const Board = () => {
                                 {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
                                     <input className="add-box-input" {...register('title')} />
                                     <button className="save-btn list-save">Add list</button>
-                                    <button onClick={() => setAddBox()} className="close-new-task list-close">X</button>
+                                    <button onClick={() => setAddBox()} className="close-new-task list-close">
+                                        <FontAwesomeIcon icon={faX} />
+                                    </button>
                                 </form></div>}
                             </div>
                             {provided.placeholder}

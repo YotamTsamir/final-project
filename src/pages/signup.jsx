@@ -1,5 +1,5 @@
 import { useState } from "react"
-// import { signup } from "../store/action/user-action"
+import { getRandomColor, utilService } from '../services/util.service.js'
 import { useDispatch, useSelector } from 'react-redux'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrello } from "@fortawesome/free-brands-svg-icons"
@@ -20,7 +20,7 @@ export const SignUp = () => {
         repassword: '',
         fullname: '',
         email : '',
-        avatar : '',
+        avatar : utilService.getRandomColor(),
         isSignUp : false, 
     })
 
@@ -31,11 +31,13 @@ export const SignUp = () => {
         return true
     }
     const onSignUp = (ev) => {
+        console.log('ev', ev)
         ev.preventDefault()
         if(!email || !username || !password || !fullname) return 
         const user = {username,password,fullname,email}
+        console.log(user)
         userService.signup(user)
-        dispatch(signup({email,username,fullname,password}))
+        dispatch(signup({email,username,fullname,password,img:''}))
         navigate('/boards')
     }
 
@@ -46,26 +48,7 @@ export const SignUp = () => {
             </div>
         <div className="name">Tredux</div>
         </div>
-                {/* {!isSignUp && <form className="login-form" onSubmit={this.onLogin}>
-                    <input
-                        type="text"
-                        name="username"
-                        value={username}
-                        placeholder="Username"
-                        onChange={this.handleChange}
-                        required
-                        autoFocus
-                    />
-                    <input
-                        type="password"
-                        name="password"
-                        value={password}
-                        placeholder="Password"
-                        onChange={this.handleChange}
-                        required
-                    />
-                    <button>Login!</button>
-                </form>} */}
+
                 <div className="signup-section">
                     <form className="signup-form" onSubmit={(ev) => (onSignUp(ev))}> 
                     <div className="signup-title">Sign up for your account </div>
@@ -104,7 +87,6 @@ export const SignUp = () => {
                     </form>
                 </div>
 
-                {/* <footer className="signup-footer">hello</footer> */}
 
     </div>
 }
