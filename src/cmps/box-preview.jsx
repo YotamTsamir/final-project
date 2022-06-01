@@ -9,7 +9,7 @@ import { editBox, setNewBoard, editTask } from '../store/action/board-action'
 import { Droppable, Draggable } from "react-beautiful-dnd"
 import { utilService } from "../services/util.service"
 import { BoardExtrasMenu } from "./board-extras-menu"
-
+import { socketService,SOCKET_EVENT_CHANGE_BOARD } from "../services/socket.service"
 
 export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
     const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
@@ -32,6 +32,8 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         }
         const newBoard = await boardService.updateTask(boardId, task, boxId)
         setAddNewTask(boxId)
+        let berg
+        socketService.emit(SOCKET_EVENT_CHANGE_BOARD,newBoard)
         newTask.title = ''
         EditTask('')
         dispatch(setNewBoard(newBoard))
