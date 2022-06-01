@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {TaskDetails} from './task-details'
-import { LabelMenu } from './label-menu'
+import { ActionMenu } from './action-menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowUpRightFromSquare , faTag, faFillDrip, faCopy, faInbox} from '@fortawesome/free-solid-svg-icons'
 import { faClock, faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
@@ -9,11 +9,8 @@ import { useDispatch } from 'react-redux'
 import { editTask } from '../store/action/board-action'
 
 export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEdit }) => {
-    const [labelMenu, setLabelMenu] = useState(false)
-    const [coverMenu, setCoverMenu] = useState(false)
+
     const [dateMenu, setDateMenu] = useState(false)
-    const [userMenu, setUserMenu] = useState(false)
-    const [editStuff, setEditStuff] = useState({ label: '', cover: '', date: '', user: '' })
     const [menuState, setMenuState] = useState({
         'Edit labels': false,
         'Edit dates': false,
@@ -72,10 +69,10 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
                 )
             })}
 
-            {(menuState['Edit labels']) && <LabelMenu className="label-choice" topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
-            {(menuState['Change cover']) && <LabelMenu className="cover-choice" topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
-            {(menuState['Edit dates']) && <LabelMenu topic={'Date'} task={task} box={box} board={board} />}
-            {(menuState['Change members']) && <LabelMenu topic={'Members'} task={task} box={box} board={board} />}
+            {(menuState['Edit labels']) && <ActionMenu className="label-choice" topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
+            {(menuState['Change cover']) && <ActionMenu className="cover-choice" topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
+            {(menuState['Edit dates']) && <ActionMenu topic={'Date'} task={task} box={box} board={board} />}
+            {(menuState['Change members']) && <ActionMenu topic={'Members'} task={task} box={box} board={board} />}
         </div>
     </section>
 }

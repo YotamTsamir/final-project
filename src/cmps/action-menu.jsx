@@ -9,7 +9,7 @@ import { utilService } from "../services/util.service";
 
 // dispatch(setNewBoard(newBoard))
 
-export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
+export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
@@ -29,8 +29,6 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
     const onAddMember = (member) => {
         // const newTask = { ...task, members: [...task.members, member]}
         let newTask;
-        console.log(member.userName)
-        console.log(task.members)
         if (task.members.find(currMember => currMember.userName === member.userName)) {
             const memberIdx = task.members.findIndex(currMember => currMember.userName === member.userName)
             task.members.splice(memberIdx, 1)

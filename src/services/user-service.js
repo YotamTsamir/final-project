@@ -34,10 +34,12 @@ async function logout() {
 }
 
 async function updateUser(user) {
-    const currUser = await storageService.put(STORAGE_KEY, user)
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-    return currUser
+    
+    return await httpService.put(`user/${user.id}`, user)
+
 }
+
+
 
 async function signup(userInfo) {
     console.log(userInfo)

@@ -1,17 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { useFormRegister } from "../hooks/useFormRegister";
-import { editTask, getBoard, setTask, onRemoveComment, editComment } from "../store/action/board-action";
+import {  getBoard, setTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons";
-import { useEffectUpdate } from "../hooks/useEffectUpdate";
 import { DetailsTaskNav } from "./details-task-nav";
-import { LabelMenu } from './label-menu'
+import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
 import { CommentPreview } from "./details-comments/comment-preview";
 
@@ -36,7 +34,7 @@ export const TaskDetails = () => {
 
   useEffect(() => {
     (async () => {
-      const { boardId, taskId } = params;
+      const { boardId } = params;
       if (boardId === board._id) return
       dispatch(getBoard(boardId));
     })();
@@ -91,11 +89,8 @@ export const TaskDetails = () => {
   };
   return (
     <section>
-
       <div className="task-details">
         <div className="color-cover-details">
-          {/* {(topic === 'Cover') && (colors.map(color => {
-                return ( onClick={() => onChangeColor(color)} */}
           <div
             key={bg}
             className={`cover-menu-color-detail ${bg ? '' : 'no-color'}`}
@@ -116,7 +111,7 @@ export const TaskDetails = () => {
               {task.bg && <button className="details-task-cover-btn" onClick={() => { toggleMenu() }}>
                 <img className="menu-imgs" src={coverImg} />
                 Cover
-                {(menuState) && <LabelMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
+                {(menuState) && <ActionMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
               </button>}
             </div>
           </div>
@@ -186,7 +181,7 @@ export const TaskDetails = () => {
             </div>
           </div>
 
-          <DetailsTaskNav className="details-menu" openTask={openTask} setIsEdit={setIsEdit} box={box} task={task} board={board} />
+          <DetailsTaskNav className="details-menu" openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
 
         </div>
 
