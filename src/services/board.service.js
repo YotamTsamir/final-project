@@ -11,7 +11,7 @@ export const boardService = {
     remove,
     updateTask,
     addNewBoard,
-    updateBox,
+    updateBox: saveBox,
     getDefaultBgs,
     editBoardStyle,
     boxFilterByTaskAtt,
@@ -42,8 +42,8 @@ async function addLabelToTask(task, box, labelId, boardId) {
 }
 
 
-async function updateBox(boardId, box) {
-    return await httpService.put(`board/updateBox/${boardId}`, box)
+async function saveBox(boardId, box) {
+    return await httpService.put(`board/updateBox/${boardId}`,box)
 }
 
 async function editBoxes(boardId, boxes) {

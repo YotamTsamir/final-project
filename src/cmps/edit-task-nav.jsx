@@ -55,9 +55,9 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
     return <section>
         {/* <div className='add-to-card'>Add to card</div> */}
         <div className="edit-task-nav white-icons">
-            {menuBtns.map(btn => {
+            {menuBtns.map((btn,idx) => {
                 return (
-                    <div>
+                    <div key={idx}>
 
                       {(btn.txt !== 'Archive' && btn.txt !== 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
                             {btn.fa} {btn.txt}

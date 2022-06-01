@@ -18,12 +18,6 @@ export const ArchivedTasks = ({ board }) => {
 
     const sendToBoard = (task,box,taskIdx) => {
         const newTask = {...task,archivedAt:''}
-        // let tasks = []
-        // board.boxes.map(box => {
-        //     box.tasks.map(task => {
-        //         if (task.archivedAt) tasks.push({task,inBox:box})
-        //     })
-        // })
         setTasks(tasks.splice(taskIdx,1))
         dispatch(editTask(board._id, box.id, newTask))
     }

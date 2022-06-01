@@ -14,53 +14,43 @@ export const userService = {
 
 window.us = userService
 
-function login(credentials) {
-    return httpService.post('auth/login', credentials)
-
-    // return storageService.query(STORAGE_KEY).then(users => {
-    //     const user = users.find(user => user.username === credentials.username &&
-    //         user.password === credentials.password)
-    //     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-    //     return user
-    // })
+async function login(credentials) {
+    const user = await httpService.post('auth/login', credentials)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
 
 
 }
 
 async function logout() {
-    // sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
+
     // socketService.emit('unset-user-socket');
+    sessionStorage.clear(STORAGE_KEY_LOGGEDIN)
     return await httpService.post('auth/logout')
 }
 
 async function updateUser(user) {
-    
-    return await httpService.put(`user/${user.id}`, user)
-
+    await storageService.put('user', user)
+    user = await httpService.put(`user/${user._id}`, user)
+    return user;
 }
 
 
 
 async function signup(userInfo) {
     console.log(userInfo)
-    return await httpService.post('auth/signup', userInfo)
+    await httpService.post('auth/signup', userInfo)
     const user = await storageService.post(STORAGE_KEY, userInfo)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return user
 }
-// function logout() {
-//     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, null)
-//     return Promise.resolve()
-// }
+
 
 function getLoggedinUser() {
     const user = (sessionStorage.getItem(STORAGE_KEY_LOGGEDIN)) ? sessionStorage.getItem(STORAGE_KEY_LOGGEDIN) : null
     return JSON.parse(user || null)
 }
 
-// Test Data
-// userService.signup({username: 'muki', password: 'muki1', fullname: 'Muki Noya', score: 22})
-// userService.login({ username: 'muki', password: 'muki1' })
+
 
 
 
