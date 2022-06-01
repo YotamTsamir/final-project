@@ -23,7 +23,7 @@ export const TaskDetails = () => {
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
   );
-
+  const [menuState, setMenuState] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
   const {bg, description } = task;
 
@@ -178,7 +178,7 @@ export const TaskDetails = () => {
             </div>
           </div>
 
-          <DetailsTaskNav className="details-menu" openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
+          <DetailsTaskNav className="details-menu" setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
 
         </div>
 

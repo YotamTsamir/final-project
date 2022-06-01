@@ -5,8 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrello } from "@fortawesome/free-brands-svg-icons"
 import { useNavigate, useParams } from "react-router-dom"
 import { userService } from "../services/user-service"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTrello } from '@fortawesome/free-brands-svg-icons'
 
 export const Login = () => {
     const { user } = useSelector((storeState) => storeState.userModule)
