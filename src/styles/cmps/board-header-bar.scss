@@ -3,23 +3,22 @@
     height: 52px;
     display: flex;
     justify-content: space-between;
-    padding: 8px 4px;
+    padding: 8px 0;
     width: 100%;
 
-    * {
-        color: #172b4d;
-    }
 
-    .left-side-container{
+
+    .left-side-container {
         display: flex;
     }
+
     .board-title {
         height: 32px;
         font-size: 18px;
         font-weight: 700;
         line-height: 32px;
         margin: 0;
-        padding: 0 12px;
+        padding-right: 12px;
         border-radius: 3px;
     }
 
@@ -28,7 +27,7 @@
         background-color: #00000032;
     }
 
-    .fav-btn{
+    .fav-btn {
         border: none;
         background-color: #00000014;
         border-radius: 3px;
@@ -37,17 +36,20 @@
         padding: 6px;
         margin-left: 4px;
     }
-    .starred-board{
-        *{
-            color:#f2d600;
+
+    .starred-board {
+        * {
+            color: #f2d600;
         }
     }
-    .fav-btn:hover{
+
+    .fav-btn:hover {
         transition: 0.2;
         background-color: #00000032;
         cursor: pointer;
-        *{
-            color:#f2d600;
+
+        * {
+            color: #f2d600;
         }
     }
 
@@ -110,7 +112,7 @@
         position: relative;
         z-index: 100;
         top: -8px;
-        right: 0;
+        right: -4px;
         width: 339px;
         box-sizing: border-box;
         display: flex;
@@ -198,10 +200,11 @@
         height: 593px;
         position: absolute;
         z-index: 100;
-        top: 52px;
+        top: 86px;
         background-color: #f4f5f7;
         border-radius: 3px;
         padding: 12px;
+
 
         * {
             color: #5e6c84;
@@ -274,7 +277,25 @@
     }
 }
 
+.board-header-container.is-light {
 
+    .board-title,
+    .fav-btn,
+    .menu-btn,
+    .filter-btn {
+        color: #172b4d;
+    }
+}
+
+.board-header-container.is-dark {
+
+    .board-title,
+    .fav-btn,
+    .menu-btn *,
+    .filter-btn * {
+        color: #ffffff;
+    }
+}
 
 
 @keyframes fadeIn {
@@ -285,5 +306,6 @@
 
     100% {
         opacity: 1;
+        right: -4px;
     }
 }

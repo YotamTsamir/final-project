@@ -68,7 +68,8 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
             {provided => {
                 return (
                     <div ref={provided.innerRef}
-                        {...provided.droppableProps}>
+                        {...provided.droppableProps}
+                        className="task-list-wraper">
                         <TaskList
                             board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>

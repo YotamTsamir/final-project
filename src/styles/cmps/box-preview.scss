@@ -1,21 +1,47 @@
 .box {
-    // margin-top: 100px;
     background-color: $clr5;
-    width: 272px;
+    width: 270px;
+    margin: 0;
     height: fit-content;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    max-height: 100%;
 
     & h2 {
         margin-left: 15px;
+    }
+
+    .task-list-wraper {
+        flex-grow: 1;
+        margin-right: 2px;
+
+        max-height: inherit;
+        overflow-y: auto;
+    }
+
+    .task-list-wraper::-webkit-scrollbar {
+        width: 5px;
+    }
+
+    .task-list-wraper::-webkit-scrollbar-track {
+        background: none;
+    }
+
+    .task-list-wraper::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        background-color: #8c8c8c;
     }
 }
 
 .box-title-edit {
     margin-left: 8px;
     width: 210px;
-    &:focus{
+
+    &:focus {
         outline: blue;
-        border: 2px solid #0079bf;;
+        border: 2px solid #0079bf;
+        ;
         border-radius: 3px;
     }
 }
@@ -34,12 +60,13 @@
     line-height: 20px;
     border-radius: 3px;
 
-   
+
 
     .extras-menu:hover {
         opacity: 1;
         background-color: #0079bf;
-        .grey-icons:hover{
+
+        .grey-icons:hover {
             background-color: rebeccapurple;
         }
     }
@@ -50,11 +77,11 @@
     border-radius: 3px;
     color: #172b4d;
     background-color: #091e4214;
-    .grey-icons {
-    }
+
+    .grey-icons {}
 }
 
-.fa-extras-back{
+.fa-extras-back {
     cursor: pointer;
     position: absolute;
     left: 8px;
@@ -67,28 +94,30 @@
 .box-header {
     position: relative;
     align-items: center;
-    
+
 
 }
 
-.extras-copy-menu{
-    .save-btn{
+.extras-copy-menu {
+    .save-btn {
         transform: translate3d(10px, 5px, 10px);
     }
-    .task-edit{
+
+    .task-edit {
         height: 72px;
         margin: 4px 0 12px;
         width: 100%;
-        border:solid 2px #dfe1e6;
+        border: solid 2px #dfe1e6;
         background-color: #fafbfc;
-        &:focus{
-            border:solid 2px #0079bf;
+
+        &:focus {
+            border: solid 2px #0079bf;
             background-color: #fff;
         }
     }
 }
 
-.extras-copy-name{
+.extras-copy-name {
     margin-top: 4px;
     color: #5e6c84;
     display: block;
@@ -139,10 +168,12 @@
     .extras-btn:hover {
         background-color: #091e420a;
     }
-    .extras-add{
+
+    .extras-add {
         margin-top: 8px;
     }
-    .extras-hr{
+
+    .extras-hr {
         background-color: #091e4221;
         border: 0;
         height: 1px;

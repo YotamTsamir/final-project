@@ -7,6 +7,7 @@ import { BoardThumbnailPreview } from '../cmps/board-thumbnail-preview.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { faTrello } from '@fortawesome/free-brands-svg-icons'
 
 export const BoardList = () => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
@@ -43,6 +44,18 @@ export const BoardList = () => {
     })
     if (!boards) return <div>Loading...</div>
     return <div className='board-lists-page'>
+        <div className="list-page-menu">
+            <aside className='menu-container'>
+                <div className="to-boards to-all">
+                    <span><FontAwesomeIcon icon={faTrello} /></span>
+                    <h2>All boards</h2>
+                </div>
+                <div className="to-boards to-fav">
+                    <span><FontAwesomeIcon icon={faStar} /></span>
+                    <h2>Favourites</h2>
+                </div>
+            </aside>
+        </div>
         <div className="board-list-preview">
             <div className='board-list'>
                 <div className="boards-container">

@@ -1,4 +1,5 @@
 import { storageService } from './async-storage.service'
+import getAverageColor from 'get-average-color'
 import { httpService } from './http.service'
 
 const STORAGE_KEY = 'board'
@@ -15,6 +16,8 @@ export const boardService = {
     editBoardStyle,
     boxFilterByTaskAtt,
     toggleBoardStarred,
+    getBoardColorTheme,
+
     editBoxes,
     getLabelById,
     getMemberById,
@@ -241,6 +244,32 @@ async function findBoxByTaskId(boardId, taskId) {
     })
     return foundBox
 }
+
+
+async function getBoardColorTheme(img, isColor = false) {
+    
+    const cleanUrl = img.substring(4, img.length - 1)
+    const rgb = await getAverageColor(cleanUrl)
+    const isDark = _isColorDark(rgb)
+
+    return {rgb, isDark}
+}
+
+function _isColorDark({ r, b, g }) {
+    const hsp = Math.sqrt(
+        0.299 * (r * r) +
+        0.587 * (g * g) +
+        0.114 * (b * b)
+    )
+
+    return (hsp < 127.5)
+}
+
+
+// localStorage.clear()
+
+// TEST DATA
+// storageService.post(STORAGE_KEY, BOARD)
 
 
 const board = {

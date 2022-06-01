@@ -10,6 +10,7 @@ import { useFormRegister } from "../hooks/useFormRegister"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { useDraggable } from "react-use-draggable-scroll"
+// import { useRef } from "react";
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)

@@ -6,7 +6,7 @@ import { faX, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
     const [board, setNewBoard] = useState({
-        title: 'Hello',
+        title: 'My Board',
         style: {
             backgroundImage: "url(https://img.freepik.com/free-vector/gradient-background-vector-spring-colors_53876-117271.jpg?w=360)",
         }

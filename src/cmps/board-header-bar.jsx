@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react"
+import { setNewBoard } from '../store/action/board-action'
+import { boardService } from "../services/board.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX, faFilter, faStar } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { BoardMenu } from '../cmps/board-menu.jsx'
 import { BoxFilterMenu } from './box-filter-menu.jsx'
 
-export const BoardHeaderBar = ({onToggleStarBoard , onFilterBoxes, onToggleFilter, isFilter, isBoardMenu, onToggleMenu, deleteBoard, dfBgs, board, onEditBoard }) => {
+export const BoardHeaderBar = ({ onToggleStarBoard, onFilterBoxes, onToggleFilter, isFilter, isBoardMenu, onToggleMenu, deleteBoard, dfBgs, board, onEditBoard }) => {
+    const [isDark, setIsDark] = useState(false)
     const [filter, setFilter] = useState({
         filterBy: '',
         value: ''
     })
+
     useEffect(() => {
-        onFilterBoxes(filter)
+        getIsDarkTheme()
+    }, [board])
+
+    useEffect(() => {
+        onFilterBoxes(filter);
     }, [filter])
 
     const handleChange = ({ target }) => {
@@ -30,16 +38,28 @@ export const BoardHeaderBar = ({onToggleStarBoard , onFilterBoxes, onToggleFilte
         })
     }
 
-    const toggleStarBoard = () =>{
+    const getIsDarkTheme = async () => {
+        if (board.style.backgroundColor) return
+        const colorTheme = await boardService.getBoardColorTheme(board.style.backgroundImage)
+        setIsDark(colorTheme.isDark)
+        return colorTheme.isDark
+    }
+
+  
+
+
+    const toggleStarBoard = () => {
         onToggleStarBoard()
     }
 
-    return <header className="board-header-container">
+
+    return <header className={`board-header-container 
+    ${isDark ? 'is-dark' : 'is-light'}`}>
         <div className="left-side-container">
             <h1 className="board-title">{board.title}</h1>
-            <button 
-            className={`fav-btn ${board.isStarred ? "starred-board" : "star-board"}`}
-            onClick={toggleStarBoard}>
+            <button
+                className={`fav-btn ${board.isStarred ? "starred-board" : "star-board"}`}
+                onClick={toggleStarBoard}>
                 {!board.isStarred &&
                     <FontAwesomeIcon icon={faStarRegular} />}
                 {board.isStarred &&

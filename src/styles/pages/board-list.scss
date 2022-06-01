@@ -1,23 +1,69 @@
 .board-lists-page{
-    display: flex;   
-}
+    flex-grow: 1;  
+    align-self: center;
+    display: flex;
+    align-items: center;
+    // padding: 0 124px;
+    max-width: 1129px;
+    gap: 32px;
 
+    .list-page-menu{
+        align-self: flex-start;
+        flex-grow: 1;
+        max-width: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .menu-container{
+            width: fit-content;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 44px ;
+            gap: 4px;
+
+            .to-boards{
+                display: flex;
+                align-items: center;
+                width: 240px;
+                height: 32px;
+                padding: 6px 8px 8px 0;
+                border-radius: 3px;
+                background-color: #E4F0F6;
+                box-sizing: border-box;
+
+                *{
+                    margin: 0;
+                    color: #0079BF;
+                }
+
+                span{
+                    min-width: 32px;
+                    text-align: center;
+                }
+
+                h2{
+                    flex-grow: 1;
+                }
+            }
+        }
+    }
+}
 .board-list-preview {
     margin: auto;
-    max-width: 1266px;
-    position: relative;
-    height: 100vh;
     display: flex;
     justify-content: center;
+    margin-top: 40px;
+    flex-grow:1;
+    width: 825px;
 
     .board-list {
         height: fit-content;
-        margin-top: 44px;
-        padding-top: 29px;
-        width: 825px;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        width: 100%;
 
         .board-list-header {
             display: flex;

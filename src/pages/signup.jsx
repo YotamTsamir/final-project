@@ -1,7 +1,8 @@
 import { useState } from "react"
 // import { signup } from "../store/action/user-action"
 import { useDispatch, useSelector } from 'react-redux'
-import logo from "../imgs/logo.png" 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrello } from "@fortawesome/free-brands-svg-icons"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { isSunday } from "date-fns"
 import { signup } from "../store/action/user-action"
@@ -40,7 +41,9 @@ export const SignUp = () => {
 
     return <div className="signup">
         <div className="signup-name-logo">
-        <img className="logo" src={logo} />
+        <div className="signup-logo fa-trello">
+                <FontAwesomeIcon icon={faTrello}/>
+            </div>
         <div className="name">Tredux</div>
         </div>
                 {/* {!isSignUp && <form className="login-form" onSubmit={this.onLogin}>
