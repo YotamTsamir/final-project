@@ -4,13 +4,20 @@
     display: flex;
     flex-direction: column;
 
-    .Labels {
-        
-        position: absolute;
-        transform: translate(5%,18%);
+    h1 {
+        font-size: 24px;
     }
 
+    .Labels {
+        height: 80vh;
+        width: 20vw;
+        position: absolute;
+        transform: translateY(-20%);
+        margin-top: 5px;
+        padding: 10px, 18px;
+    }
 }
+
 
 .edit-task-nav-btn {
     background-color: $clr7;
@@ -27,4 +34,3 @@
         transform: translateX(5px);
     }
 }
-
