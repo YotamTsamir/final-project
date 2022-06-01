@@ -9,11 +9,8 @@ import { useDispatch } from 'react-redux'
 import { editTask } from '../store/action/board-action'
 
 export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEdit }) => {
-    const [labelMenu, setLabelMenu] = useState(false)
-    const [coverMenu, setCoverMenu] = useState(false)
+
     const [dateMenu, setDateMenu] = useState(false)
-    const [userMenu, setUserMenu] = useState(false)
-    const [editStuff, setEditStuff] = useState({ label: '', cover: '', date: '', user: '' })
     const [menuState, setMenuState] = useState({
         'Edit labels': false,
         'Edit dates': false,

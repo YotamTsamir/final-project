@@ -98,14 +98,8 @@ export const LabelMenu = ({ topic, board, task, box, colors, emitDateValue }) =>
             </div>}
         </div>
 
-        {/* // (images.image.map(image=>{ */}
-        {/* //     <div ></div> */}
-        {/* // }))                 */}
         {(topic === 'Date') && <div>
             <Calendar onChange={onChangeDate} value={value} />
-            {/* <DatePicker
-               wrapperClassName="datePicker"  isOpen={true} closeCalendar={true} onChange={onChangeDate} value={value} onClick={(ev) => {ev.stopPropagation()}}
-            /> */}
         </div>}
 
         {(topic === 'Members') && <div className="members-contianer">

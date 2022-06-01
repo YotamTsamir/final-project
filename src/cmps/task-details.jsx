@@ -25,23 +25,24 @@ export const TaskDetails = () => {
   const { board, box, task } = useSelector(
     (storeState) => storeState.boardModule
   );
-
-  const [isEdit, setIsEdit] = useState(false)
+  //DECRIPTION
   const {bg, decription } = task;
+  const [menuState, setMenuState] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
+
 
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-  const [menuState, setMenuState] = useState(false)
 
   useEffect(() => {
     (async () => {
-      const { boardId, taskId } = params;
+      const { boardId } = params;
       if (boardId === board._id) return
       dispatch(getBoard(boardId));
     })();
   }, []);
-
+  // CHANGE FUNC IN SERVICE FROM GETBYID TO FIND
   useEffect(() => {
     (async () => {
       const { boardId, taskId } = params;
@@ -62,12 +63,7 @@ export const TaskDetails = () => {
   const onToggleDetails = () => {
     navigate(`/b/${board._id}`);
   };
-
-  const openTask = () => {
-    navigate(`task/${task.id}`)
-    setIsEdit(false)
-  }
-
+//CHANGE NO NEED FOR THIS FUNC
   const isDesc = () => {
     if (!decription) return false
     return true
@@ -79,10 +75,9 @@ export const TaskDetails = () => {
   };
 
   const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
-
+// NO NEED JUST USE THE INSIDE FUNC
   const toggleMenu = () => {
     setMenuState(!menuState)
-
   }
   const labels = getLabels()
   const isLabelsLength = () => {
@@ -94,8 +89,6 @@ export const TaskDetails = () => {
 
       <div className="task-details">
         <div className="color-cover-details">
-          {/* {(topic === 'Cover') && (colors.map(color => {
-                return ( onClick={() => onChangeColor(color)} */}
           <div
             key={bg}
             className={`cover-menu-color-detail ${bg ? '' : 'no-color'}`}
@@ -121,6 +114,7 @@ export const TaskDetails = () => {
             </div>
           </div>
         </div>
+
         <div className="left-details-container detail-header-container">
           <div className="icon-desc-details">
             <img className="window-img-details" src={windowImg} />
@@ -130,6 +124,7 @@ export const TaskDetails = () => {
             in list <span className="box-title-details">{box.title}</span>
           </h1>
         </div>
+
         <div className="detail-menu-container">
           <div className="detail-container">
             <div className="members-labels">
@@ -167,6 +162,7 @@ export const TaskDetails = () => {
                 </div>
               </div>
             </div>
+            
             <div className="task-description">
               <div className="icon-desc-details left-details-container">
                 <FontAwesomeIcon className='fa-solid fa-align-left' icon={faAlignLeft} />
@@ -186,7 +182,7 @@ export const TaskDetails = () => {
             </div>
           </div>
 
-          <DetailsTaskNav className="details-menu" openTask={openTask} setIsEdit={setIsEdit} box={box} task={task} board={board} />
+          <DetailsTaskNav className="details-menu" setIsEdit={setIsEdit} box={box} task={task} board={board} />
 
         </div>
 

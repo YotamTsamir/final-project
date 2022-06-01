@@ -1,26 +1,22 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard, toggleFavourite } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
+import {dragService} from "../services/drag-service"
 import { boardService } from "../services/board.service"
 import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import { useDraggable } from "react-use-draggable-scroll"
-// import { useRef } from "react";
+
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
-    // const ref = useRef()
-    // const { events } = useDraggable(ref)
-
     const [isBoardMenu, setIsBoardMenu] = useState(false)
-    const [isFilter, setIsFilter] = useState(false)
-    const [boxes, setBoxes] = useState([])
+    const [isMenuFilterOpen, setIsMenuFilterOpen] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const params = useParams()
     const dispatch = useDispatch()
@@ -32,9 +28,9 @@ export const Board = () => {
     }, [])
 
     useEffectUpdate(() => {
-        if (!board._id){
-             navigate('/boards')
-            }
+        if (!board._id) {
+            navigate('/boards')
+        }
         onFilterBoxes({})
     }, [board])
 
@@ -48,20 +44,22 @@ export const Board = () => {
         if (filter.filterBy) {
             boxList = await boardService.boxFilterByTaskAtt(boxList, filter)
         }
-        setBoxes(boxList)
     }
-
+    //CONNECT THESE TO 1 FUNC
     const onToggleMenu = () => {
         setIsBoardMenu(!isBoardMenu)
-        if (isFilter) setIsFilter(!isFilter)
+        if (isMenuFilterOpen) setIsMenuFilterOpen(!isMenuFilterOpen)
     }
+
     const onToggleFilter = () => {
-        setIsFilter(!isFilter)
+        setIsMenuFilterOpen(!isMenuFilterOpen)
         if (isBoardMenu) setIsBoardMenu(!isBoardMenu)
     }
+
     const onDeleteBoard = async (boardId) => {
         dispatch(deleteBoard(boardId))
     }
+    //INSERT TO THE ACTION
     const onEditBoard = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
         dispatch(setNewBoard(newBoard))
@@ -70,8 +68,7 @@ export const Board = () => {
     const onToggleStarBoard = async () => {
         dispatch(toggleFavourite(board._id))
     }
-
-
+    // CHANGE UPDATE TO SAVE AND INSERT TO ACTION
     const onAddBox = async (ev, boardId) => {
         ev.preventDefault()
         if (!newBoxTitle.title) {
@@ -79,69 +76,31 @@ export const Board = () => {
             return
         }
         const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
-        const newBoard = await boardService.updateBox(boardId, box)
+        const newBoard = await boardService.saveBox(boardId, box)
         setIsAdd(false)
         EditBoxTitle('')
         dispatch(setNewBoard(newBoard))
     }
+
     const onDragEnd = (res) => {
         const { destination, source, draggableId } = res
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
         if (res.type === 'box') {
-            let currBoard = { ...board }
-            let newBoxes = [...currBoard.boxes]
-            if ((source.index - destination.index) < 1) {
-                currBoard.boxes.map((box, index) => {
-                    if (index < source.index) return
-                    else if (index < destination.index) return newBoxes[index] = currBoard.boxes[index + 1]
-                    else if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
-                    else if (index === currBoard.boxes.length - 1) return newBoxes[index] = currBoard.boxes[index]
-                })
-            } else if ((source.index - destination.index) >= 1) {
-                currBoard.boxes.map((box, index) => {
-                    if (index > source.index) return
-                    else if (index > destination.index) return newBoxes[index] = currBoard.boxes[index - 1]
-                    else if (index === destination.index) return newBoxes[index] = currBoard.boxes[source.index]
-                    else if (index === 0) return newBoxes[index] = currBoard.boxes[index]
-                })
-            }
-            currBoard.boxes = [...newBoxes]
+          const currBoard =  dragService.changeBoxesPos(board,source,destination)
             dispatch(editBoard(currBoard))
             return
         }
-        let currBox = board.boxes.find(box => box.id === destination.droppableId)
         if (destination.droppableId !== source.droppableId) {
-            let oldBox = board.boxes.find(box => box.id === source.droppableId)
-            const oldIdx = source.index
-            currBox.tasks.splice(destination.index, 0, oldBox.tasks[oldIdx])
-            oldBox.tasks.splice(oldIdx, 1)
-            let oldBoxNew = { ...oldBox, tasks: [...oldBox.tasks] }
-            let currBoxNew = { ...currBox, tasks: [...currBox.tasks] }
-            dispatch(editBoxes(board._id, [currBoxNew, oldBoxNew]))
+            const newOrder = dragService.moveTaskToOtherBox(board,source,destination)
+            dispatch(editBoxes(board._id, newOrder))
             return
         }
-        let newBox = [...currBox.tasks]
-        if ((source.index - destination.index) < 1) {
-            currBox.tasks.map((task, index) => {
-                if (index < source.index) return
-                else if (index < destination.index) return newBox[index] = currBox.tasks[index + 1]
-                else if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
-                else if (index === currBox.tasks.length - 1) return newBox[index] = currBox.tasks[index]
-            })
-        } else if ((source.index - destination.index) >= 1) {
-            currBox.tasks.map((task, index) => {
-                if (index > source.index) return
-                else if (index > destination.index) return newBox[index] = currBox.tasks[index - 1]
-                else if (index === destination.index) return newBox[index] = currBox.tasks[source.index]
-                else if (index === 0) return newBox[index] = currBox.tasks[index]
-            })
-        }
-        currBox.tasks = newBox
+        const currBox = dragService.moveTaskInBox(board,source,destination)
         dispatch(editBox(board._id, currBox))
     }
-
-    if (!boxes || !board._id) return <h1>Loading...</h1>
+    //CHECK IF CURRENT STATE IS NEEDED, MOVE TO BOARDHEADER STATE?
+    if (!board.boxes || !board._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar
             board={board}
@@ -151,7 +110,7 @@ export const Board = () => {
             onToggleMenu={onToggleMenu}
             isBoardMenu={isBoardMenu}
             onToggleFilter={onToggleFilter}
-            isFilter={isFilter}
+            isFilter={isMenuFilterOpen}
             onFilterBoxes={onFilterBoxes}
             onToggleStarBoard={onToggleStarBoard} />
         <DragDropContext onDragEnd={onDragEnd}>
@@ -161,9 +120,12 @@ export const Board = () => {
                         <div ref={provided.innerRef}
                             {...provided.droppableProps}>
                             <div className="board">
-                                <BoxList board={board} boxes={boxes} />
+                                <BoxList board={board} boxes={board.boxes} />
                                 {(!isAdd) &&
-                                    <div className="add-box before-click" onClick={() => setAddBox()}><span className="plus-sign">+</span> Add another list</div>}
+                                    <div className="add-box before-click" onClick={() => setAddBox()}>
+                                        <span className="plus-sign">+</span> Add another list
+                                    </div>}
+
                                 {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
                                     <input className="add-box-input" {...register('title')} />
                                     <button className="save-btn list-save">Add list</button>
