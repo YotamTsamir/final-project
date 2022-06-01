@@ -11,16 +11,13 @@ import { utilService } from "../services/util.service"
 import { BoardExtrasMenu } from "./board-extras-menu"
 
 
-export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId, index }) => {
+export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
     const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const [registery, newTask, EditTask] = useFormRegister({ title: '' })
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        // window.addEventListener('mousedown',onDown)
-    })
     const setAddTask = () => {
         if (editTitleId !== '') setEditTitleId('')
         setAddNewTask(box.id)
@@ -39,8 +36,6 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         EditTask('')
         dispatch(setNewBoard(newBoard))
     }
-    const onDown = () => {
-    }
 
     const onEdit = () => {
         if (newTaskId !== '') setAddNewTask('')
@@ -58,7 +53,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
     return <div className="box">
         <div className="box-header flex space-between">
             {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
-                <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
+            <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
             <div onClick={() => setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
                 <FontAwesomeIcon className="extra-menu-btn" icon={faEllipsis} />
             </div>
