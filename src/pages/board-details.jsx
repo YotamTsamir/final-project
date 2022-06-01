@@ -16,7 +16,6 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
-    const [boxes, setBoxes] = useState([])
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const params = useParams()
     const dispatch = useDispatch()
