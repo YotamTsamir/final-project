@@ -2,14 +2,14 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRemove, faX } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
-import {ArchivedTasks} from './archive'
+import { ArchivedTasks } from './archive'
 
-export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard }) => {
+export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoardStyle }) => {
     const [boardStyle, setBoardStyle] = useState({
         isOpen: false,
         style: board.style
     })
-    const [archiveMenu,setArchiveMenu] = useState(false)
+    const [archiveMenu, setArchiveMenu] = useState(false)
 
 
     const deleteCurrBoard = () => {
@@ -24,7 +24,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
             ...prevState,
             style: { [field]: value }
         }))
-        onEditBoard(board._id, field, value)
+        onEditBoardStyle(board._id, field, value)
     }
 
     const toggleBgMenu = () => {
@@ -41,7 +41,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
     return <div className="board-menu">
         <button className='close-board-menu-btn'
             title="close menu"
-            onClick={onToggleMenu}>
+            onClick={() => onToggleMenu(false)}>
             <FontAwesomeIcon icon={faX} />
         </button>
         <h5 className="menu-header">Menu</h5>
@@ -65,7 +65,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
             <BoardBgMenu dfBgs={dfBgs}
                 handleChange={handleChange}>
             </BoardBgMenu>}
-        <button onClick={()=>openArchive()} className="change-board-bg">Archive</button>
-        {archiveMenu && <ArchivedTasks board={board}/>}
+        <button onClick={() => openArchive()} className="change-board-bg">Archive</button>
+        {archiveMenu && <ArchivedTasks board={board} />}
     </div>
 }

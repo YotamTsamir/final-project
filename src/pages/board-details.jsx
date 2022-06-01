@@ -9,17 +9,13 @@ import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import { useDraggable } from "react-use-draggable-scroll"
-// import { useRef } from "react";
+// import { useDraggable } from "react-use-draggable-scroll"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
-    // const ref = useRef()
-    // const { events } = useDraggable(ref)
-
-    const [isBoardMenu, setIsBoardMenu] = useState(false)
-    const [isFilter, setIsFilter] = useState(false)
     const [boxes, setBoxes] = useState([])
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const params = useParams()
@@ -32,10 +28,9 @@ export const Board = () => {
     }, [])
 
     useEffectUpdate(() => {
-        if (!board._id){
-             navigate('/boards')
-            }
-        onFilterBoxes({})
+        if (!board._id) {
+            navigate('/boards')
+        }
     }, [board])
 
 
@@ -43,27 +38,15 @@ export const Board = () => {
         setIsAdd(!isAdd)
     }
 
-    const onFilterBoxes = async (filter) => {
-        let boxList = board.boxes
-        if (filter.filterBy) {
-            boxList = await boardService.boxFilterByTaskAtt(boxList, filter)
-        }
-        setBoxes(boxList)
-    }
-
-    const onToggleMenu = () => {
-        setIsBoardMenu(!isBoardMenu)
-        if (isFilter) setIsFilter(!isFilter)
-    }
-    const onToggleFilter = () => {
-        setIsFilter(!isFilter)
-        if (isBoardMenu) setIsBoardMenu(!isBoardMenu)
-    }
     const onDeleteBoard = async (boardId) => {
         dispatch(deleteBoard(boardId))
     }
-    const onEditBoard = async (boardId, field, change) => {
+    const onEditBoardStyle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
+        dispatch(setNewBoard(newBoard))
+    }
+    const onEditBoardTitle = async (boardId, field, change) => {
+        const newBoard = await boardService.editBoardTitle(boardId, field, change)
         dispatch(setNewBoard(newBoard))
     }
 
@@ -141,19 +124,14 @@ export const Board = () => {
         dispatch(editBox(board._id, currBox))
     }
 
-    if (!boxes || !board._id) return <h1>Loading...</h1>
+    if (!board || !board._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar
             board={board}
             deleteBoard={onDeleteBoard}
-            dfBgs={boardService.getDefaultBgs()}
-            onEditBoard={onEditBoard}
-            onToggleMenu={onToggleMenu}
-            isBoardMenu={isBoardMenu}
-            onToggleFilter={onToggleFilter}
-            isFilter={isFilter}
-            onFilterBoxes={onFilterBoxes}
-            onToggleStarBoard={onToggleStarBoard} />
+            onEditBoardStyle={onEditBoardStyle}
+            onToggleStarBoard={onToggleStarBoard}
+            onEditBoardTitle={onEditBoardTitle} />
         <DragDropContext onDragEnd={onDragEnd}>
             <Droppable className="board-cont" type="box" droppableId={board._id} direction="horizontal">
                 {provided => {
@@ -161,13 +139,15 @@ export const Board = () => {
                         <div ref={provided.innerRef}
                             {...provided.droppableProps}>
                             <div className="board">
-                                <BoxList board={board} boxes={boxes} />
+                                <BoxList board={board} boxes={board.boxes} />
                                 {(!isAdd) &&
                                     <div className="add-box before-click" onClick={() => setAddBox()}><span className="plus-sign">+</span> Add another list</div>}
                                 {isAdd && <div className="add-box"><form onSubmit={(ev) => { onAddBox(ev, board._id) }}>
                                     <input className="add-box-input" {...register('title')} />
                                     <button className="save-btn list-save">Add list</button>
-                                    <button onClick={() => setAddBox()} className="close-new-task list-close">X</button>
+                                    <button onClick={() => setAddBox()} className="close-new-task list-close">
+                                        <FontAwesomeIcon icon={faX} />
+                                    </button>
                                 </form></div>}
                             </div>
                             {provided.placeholder}

@@ -61,7 +61,6 @@ export function editTask(boardId, boxId, task) {
         const board = await boardService.updateTask(boardId, task, boxId)
         const box = board.boxes.find(box => box.id === boxId)
         dispatch({ type: 'SET_BOARD', board })
-        // dispatch({ type: 'SET_TASK', task, box })
     }
 }
 export function editBox(boardId, box) {
@@ -89,14 +88,8 @@ export function onRemoveComment(boardId, boxId, taskId, commentId) {
     }
 }
 
-// export function onEditComment(boardId, box, task, newComment){
-//     return (dispatch) => {
-//         const board = boardService.editComment(boardId, box, task, newComment)
-//         dispatch({ type: 'SET_BOARD', board })
-//     }
-// }
 export function setNewBoard(board) {
-    console.log('im setting a newboard ');
+    // console.log('im setting a newboard ');
     return async (dispatch) => {
         dispatch({ type: 'SET_BOARD', board })
     }
