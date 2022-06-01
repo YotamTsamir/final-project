@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard, toggleFavourite } from '../store/action/board-action'
 import { BoxList } from "../cmps/box-list"
 import { utilService } from "../services/util.service"
-import {dragService} from "../services/drag-service"
+import { dragService } from "../services/drag-service"
 import { boardService } from "../services/board.service"
 import { useEffectUpdate } from "../hooks/useEffectUpdate"
 import { useFormRegister } from "../hooks/useFormRegister"
@@ -72,16 +72,16 @@ export const Board = () => {
         if (!destination) return
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
         if (res.type === 'box') {
-          const currBoard =  dragService.changeBoxesPos(board,source,destination)
+            const currBoard = dragService.changeBoxesPos(board, source, destination)
             dispatch(editBoard(currBoard))
             return
         }
         if (destination.droppableId !== source.droppableId) {
-            const newOrder = dragService.moveTaskToOtherBox(board,source,destination)
+            const newOrder = dragService.moveTaskToOtherBox(board, source, destination)
             dispatch(editBoxes(board._id, newOrder))
             return
         }
-        const currBox = dragService.moveTaskInBox(board,source,destination)
+        const currBox = dragService.moveTaskInBox(board, source, destination)
         dispatch(editBox(board._id, currBox))
     }
     //CHECK IF CURRENT STATE IS NEEDED, MOVE TO BOARDHEADER STATE?

@@ -222,6 +222,9 @@
     padding: 16px;
     position: fixed;
     width: 100%;
+    background: none;
+    transition: background 1s ease 0s;
+    box-shadow: none;
 
 
 
@@ -232,19 +235,62 @@
             font-size: 30px;
             font-weight: 700;
         }
+
         svg * {
             color: #026aa7;
         }
 
-        h1{
+        h1 {
             margin-left: 4px;
         }
     }
-    .user-nav-links{
-        height: 36px;
-        width: 36px;
-    }
 
+    .user-nav-links-home {
+        display: flex;
+        align-items: center;
+
+        .nav-link-home {
+            flex-grow: 1;
+            margin: 0;
+            height: 36px;
+            border-radius: 0.2rem;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 4px 8px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-link-home.login {
+            background: none;
+            color: #0065ff;
+        }
+
+        .nav-link-home.signup {
+            background-color: #0065ff;
+        }
+
+        .nav-link-home.login:hover {
+            cursor: pointer;
+            text-decoration: underline;
+            color: #005eeb;
+        }
+
+        .nav-link-home.signup:hover {
+            cursor: pointer;
+            background-color: #005eeb;
+        }
+    }
+}
+
+.app-header.home-page-header.scrolled {
+    background: white;
+    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+    transition: background 1s ease 0s;
 }
 
 .nav-link {
