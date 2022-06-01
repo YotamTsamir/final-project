@@ -29,8 +29,9 @@ export const Login = () => {
         if (!username || !password) return
         userService.login(newSignUp)
         // dispatch(signup({ email, username, fullname, password }))
-        // navigate('/boards')
+        navigate('/boards')
     }
+
 
     return <div className="signup">
         <div className="signup-name-logo">

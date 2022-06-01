@@ -9,23 +9,23 @@ export const Avatar = () => {
     );
 
     const [fileInputState, setFileInputState] = useState('');
-    const [previewSource, setPreviewSource] = useState('');
+    // const [previewSource, setPreviewSource] = useState('');
     const [selectedFile, setSelectedFile] = useState();
-        console.log('USER', user)
+        
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
-        previewFile(file);
+        // previewFile(file);
         setSelectedFile(file);
         setFileInputState(e.target.value);
     };
 
-    const previewFile = (file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setPreviewSource(reader.result);
-        };
-    };
+    // const previewFile = (file) => {
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onloadend = () => {
+    //         setPreviewSource(reader.result);
+    //     };
+    // };
 
     const handleSubmitFile = (e) => {
         e.preventDefault();
@@ -48,26 +48,27 @@ export const Avatar = () => {
         const FORM_DATA = new FormData();
         FORM_DATA.append('file', imageUrl)
         FORM_DATA.append('upload_preset', UPLOAD_PRESET)
+        console.log(user.img)
         try {
             const res = await fetch(UPLOAD_URL, {
                 method: 'POST',
                 body: FORM_DATA
             })
-            setFileInputState('');
-            setPreviewSource('');
             const { url } = await res.json()
             dispatch(setUserAvatar(user, url))
             console.log(user)
+            setFileInputState('');
+            // setPreviewSource('');
         } catch (err) {
             console.error(err);
         }
     };
-    console.log(user)
     if(!user) return <h1>Loading...</h1>
     return <div className="avatar">
         
-        <div className="avatar-header">           
-            <img className="avatar-img" src={user.img}/> 
+        <div className="avatar-header">
+            {(user.img) &&     
+            <img className="avatar-img" src={user.img}/> } 
             <div className="avatar-fullname">
             {user.fullname} 
             </div>
@@ -78,13 +79,13 @@ export const Avatar = () => {
 
         <input onChange={handleFileInputChange} value={fileInputState} type="file"/>
         <button onClick={handleSubmitFile}>Submit</button>
-        {previewSource && (
+        {/* {user.img && previewSource && (
                 <img
                     src={previewSource}
                     className="avatar=upload"
                     style={{ height: '300px' }}
                 />
-            )}
+            )} */}
         </div>
 }
 

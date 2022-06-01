@@ -30,12 +30,13 @@
 .label-choice{
     color: #fefefe;
     font-size: 14px;
-    padding: 25px 18px;
-    margin: 0 0 12px;
+    padding: 10px 18px;
+    margin: 0 0 6px;
     text-align: left;
     font-weight: 600;
     letter-spacing: 1px;
     z-index: 10;
+    border-radius: 3px;
 
     
 
@@ -59,6 +60,12 @@
     &.Date {
         background-color: #fefefe;
 
+    }
+    &.Cover {
+        position: absolute;
+        bottom: -525px;
+        padding: 20px;
+        height: 30vh;
     }
 
 }
@@ -142,6 +149,7 @@
         button{
             width: 90px;
             height: 50px;
+            border-radius: 3px;
         }
     }
     

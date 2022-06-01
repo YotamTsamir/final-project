@@ -7,8 +7,7 @@ import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faTrello } from '@fortawesome/free-brands-svg-icons'
 import { boardService } from '../services/board.service'
 import { userService } from '../services/user-service'
-
-
+import { useNavigate, useParams } from "react-router-dom"
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
@@ -19,6 +18,7 @@ export const AppHeader = () => {
         isDark: false,
     })
     const location = useLocation()
+    const navigate = useNavigate()
 
 
     useEffect(() => {
@@ -72,7 +72,11 @@ export const AppHeader = () => {
         }
     }
 
-
+    const onLogOut = (ev) => {
+        ev.preventDefault()
+        userService.logout()
+        navigate('/')
+    }
 
 
     return <div className={`app-header 
@@ -109,7 +113,7 @@ export const AppHeader = () => {
                         <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
                         <NavLink className="nav-link login" to='/login'>Login</NavLink>
                         <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                        <button onClick={() => userService.logout()}>Logout</button>
+                        <button onClick={(ev)=> onLogOut()}>Logout</button>
                     </div>
                 }
             </div>

@@ -13,6 +13,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
+    console.log(board.memebrs)
 
     const onAddLabel = async (ev, labelId) => {
         let newTask;
@@ -52,7 +53,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
-
     const onChangeBgImg = async ({ target }) => {
         let newTask;
         console.log(target.value)
@@ -102,8 +102,10 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
         {(topic === 'Members') && <div className="members-contianer">
             {board.members.map((member, idx) => {
+            console.log(member)
+
                 return (
-                    <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
+                    <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName} ({member.fullname})</div>
                 )
             })}
         </div>}

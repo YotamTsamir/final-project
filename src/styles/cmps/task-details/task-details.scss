@@ -95,7 +95,10 @@
         flex-direction: column;
         align-items: left;
         padding: 0 0 10px 0px;
-        width: 100%
+        width: 100%;
+        margin-top: 12px 8px ;
+        margin-bottom: 8px ;
+
     }
     &.hidden {
         display: none;
@@ -136,6 +139,10 @@
         border: 1.5px solid $clr6;
 
     }
+
+    .desc-cmp {
+        margin-top: 20px;
+    }
     .activity {
         font-weight: 600;
         letter-spacing: 1.8px;
@@ -152,7 +159,8 @@
     }
     .members-labels {
         display: flex;
-        justify-content: left;
+        align-items: flex-start;
+        padding-bottom: 15px;
     }
     .members-members-title {
         padding-right: 20px;
@@ -199,9 +207,10 @@
         width: 100%;
         padding-left: 17px;
         color: $clr3;
-
+        margin-top: 15px;
 
     }
+
 
    .label-container {
        display: flex;

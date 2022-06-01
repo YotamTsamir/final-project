@@ -11,7 +11,6 @@ import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons"
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
-import { CommentPreview } from "./details-comments/comment-preview";
 
 import windowImg from '../imgs/window-details.png'
 import coverImg from '../imgs/cover.png'
@@ -26,7 +25,6 @@ export const TaskDetails = () => {
   const [menuState, setMenuState] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
   const {bg, description } = task;
-
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
@@ -80,7 +78,7 @@ export const TaskDetails = () => {
     if (!labels) return
     if (labels.length > 0) return true
   };
-  
+  if(!task) return <h1>Loading...</h1>
   return (
     <section>
       <div className="task-details">
@@ -171,8 +169,7 @@ export const TaskDetails = () => {
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
                   <div className="activity left-details">Activity</div>
                 </div>
-                <InputComments />
-                <CommentPreview board={board} box={box} task={task} />
+                <InputComments board={board} box={box} task={task} />
                 <CommentList board={board} box={box} task={task}/>
               </div>
             </div>

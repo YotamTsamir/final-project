@@ -27,6 +27,7 @@ export const boardService = {
     findBoxByTaskId,
     editComment,
     removeComment,
+    addComment,
     deleteTask
 }
 
@@ -63,16 +64,16 @@ async function editTaskDesc(boardId, box, task, newDesc) {
     return save(board)
 }
 
-async function editComment(boardId, boxId, taskId, comment) {
+async function editComment(boardId, boxId, task, comment) {
     const board = await getById(boardId)
     const boxIdx = board.boxes.findIndex(currBox => currBox.id === boxId)
-    const taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === taskId)
+    const taskIdx = board.boxes[boxIdx].tasks.findIndex(currTask => currTask.id === task.id)
     const commentIdx = board.boxes[boxIdx].tasks[taskIdx].comments.findIndex(currComment => currComment.id === comment.id)
     if (commentIdx === -1) return board
-    board.boxes[boxIdx].tasks[taskIdx].comments[commentIdx] = comment
+    board.boxes[boxIdx].tasks[taskIdx].comments[commentIdx].txt = comment.txt
+    console.log('box comment list', comment.txt)
     return save(board)
 }
-
 async function deleteTask(boardId, boxId, taskId) {
     await httpService.delete(`board/${boardId}/${boxId}/${taskId}`)
     const newBoard = await getById(boardId)
@@ -118,24 +119,14 @@ async function save(board) {
     }
 }
 
-async function removeComment(boardId, boxId, task, commentId) {
-    const commentIdx = task.comments.findIndex(comment => comment.id === commentId)
+async function addComment(boardId, boxId, task){
+    return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+}
+
+async function removeComment(boardId, boxId, task, comment) {
+    const commentIdx = task.comments.findIndex(currComment => currComment.id === comment)
     task.comments.splice(commentIdx, 1)
     return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
-
-
-
-
-    // const board = await getById(boardId)
-    // const boxIdx = board.boxes.findIndex(box => boxId === box.id)
-    // const box = board.boxes[boxIdx]
-    // const taskIdx = box.tasks.findIndex(task => taskId === task.id)
-    // const task = box.tasks[taskIdx]
-    // const commentIdx = task.comments.findIndex(comment => comment.id === commentId)
-    // task.comments.splice(commentIdx, 1)
-    // board.boxes[boxIdx].tasks[taskIdx] = task
-    // return save(board)
-
 }
 
 function getLabelById(labelId, board) {
@@ -193,10 +184,10 @@ function _createBoard(userBoard) {
             },
         ],
         "members": [
-            { "id": "u101", "fullname": "Rotem Spivak", "userName": "Rotem Spivak", "init": "RS", "avatar": "" },
-            { "id": "u102", "fullname": "Yotam Tsamir", "userName": "Yotam Tsamir", "init": "YT", "avatar": "" },
-            { "id": "u103", "fullname": "Shachar Cohen", "userName": "Shachar Cohen", "init": "SC", "avatar": "" },
-            { "id": "u104", "fullname": "Tommy Irmia", "userName": "Tommy Irmia", "init": "TI", "avatar": "" }
+            { "id": "u101", "fullname": "Rotem Spivak", "userName": "rotemspivak", "init": "RS", "avatar": "" },
+            { "id": "u102", "fullname": "Yotam Tsamir", "userName": "yotamtsamir", "init": "YT", "avatar": "" },
+            { "id": "u103", "fullname": "Shachar Cohen", "userName": "shacharcohen", "init": "SC", "avatar": "" },
+            { "id": "u104", "fullname": "Tommy Irmia", "userName": "tommyirmia", "init": "TI", "avatar": "" }
         ],
         "boxes": [],
     })

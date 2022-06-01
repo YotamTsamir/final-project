@@ -65,6 +65,7 @@ export function signup(credentials) {
     }
 }
 export function setUserAvatar(user, imageUrl) {
+    console.log('user action use', user)
     return async (dispatch) => {
         try {
             user.img = imageUrl
