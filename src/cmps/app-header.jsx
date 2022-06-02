@@ -41,7 +41,10 @@ export const AppHeader = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
 
     }
-
+    const findPath = () => {
+        console.log(location.pathname)
+        if(location.pathname === '/boards') return true
+    }
     const scrollListener = () => {
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY < 100
@@ -93,15 +96,15 @@ export const AppHeader = () => {
             setIsHomePage(true)
         }
     }
-    console.log(user)
     const onLogOut = (ev) => {
         ev.preventDefault()
         dispatch(logout())
-        console.log('null user?', user)
         navigate('/')
         onToggleLoginBar()
     }
-
+    const pathToHome = () => {
+        navigate('/')
+    }
     const getHeaderClassname = () => {
         return `${(location.pathname === '/boards') ? 'isDark' :
             headerTheme.isDark ? 'is-dark' : 'is-light'}        } 
@@ -127,15 +130,16 @@ export const AppHeader = () => {
                 </div>
             }
         </div>
-            {!user && 
+            {(!user && location.pathname === '/') && 
             <div className='home-signup-login'>
                 <NavLink className="nav-link login" to='/login'>Login</NavLink>
                 <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
                 </div>
             }
+            
         <div className='header-right-side'>
             <div className="user-nav-links">
-                {user &&
+                {((user) || findPath()) &&
                 <button className='toggle-login-bar'
                     onClick={onToggleLoginBar}>
                     <h1>
@@ -143,13 +147,18 @@ export const AppHeader = () => {
                     </h1>
                 </button> 
                 }
+                {(location.pathname === '/signup' || location.pathname === '/login') && 
+                    <button onClick={pathToHome}  >Back to home</button>
+                }
                 {isLoginBarOpen &&
                     <div className="signin-signup-links">
                         <h2>Account<hr /></h2>
+                        <div className='small-right-menu-container'>   
                         <NavLink  onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
                         <NavLink  onClick={onToggleLoginBar} className="nav-link login" to='/login'>Login</NavLink>
-                        <NavLink  onClick={onToggleLoginBar} className="nav-link signup" to='/signup'>Sign up</NavLink>
-                        <NavLink to='/' onClick={(ev)=> onLogOut(ev)}>Logout</NavLink>
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link signup-link" to='/signup'>Sign up</NavLink>
+                        <NavLink to='/' onClick={(ev)=> onLogOut(ev)} className="nav-link avatar">Logout</NavLink>
+                        </div>
                     </div> 
                 }
 

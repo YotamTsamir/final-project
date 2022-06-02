@@ -7,6 +7,10 @@
 
     display: flex;
     flex-direction: column;
+
+    .lower-task-container{
+        width: 100%;
+    }
 }
 
 .task-father {
@@ -41,7 +45,7 @@
 
 .task {
     position: relative;
-    padding: 6px 8px 2px;
+    padding: 6px 8px 7px;
     z-index: 10;
     background-color: #fff;
     border-radius: 3px;
@@ -54,6 +58,9 @@
     position: relative;
     text-decoration: none;
     z-index: 0;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 6px;
 
 
     & p {
@@ -179,7 +186,7 @@
         height:30px;
         width: 30px;
         border-radius: 50%;
-        margin: 0%;
+        margin-left: 4px;
         padding: 0;
     }
     
@@ -199,8 +206,10 @@
     transform: translateX(-9px);
 }
 
+.desc-png-container{
+    align-self: center;
+}
 .desc-png {
-    margin-top: 21px;
     height: 12px;
     width: 12px;
 }
@@ -388,19 +397,17 @@
     // background-color: $clr8;
     display: flex;
     align-items: center;
-    margin: 0 6px 4px 0;
     max-width: 100%;
     min-height: 20px;
-    margin-right: 20px ;
-    margin-top: 20px;
     overflow: hidden;
     max-height: 20px;
-    margin-top: 15px;
     padding: 2px;
     border-radius: 3px;
 
 }
-
+.spacer-bottom-task {
+    align-items: center;
+}
 .date-preview:hover {
     background-color: $clr5;
 
@@ -472,9 +479,7 @@
     display: flex;
 }
 
-.spacer-bottom-task {
-    width: 230px;
-}
+
 
 
 .task-add {

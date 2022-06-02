@@ -131,7 +131,7 @@ export const TaskDetails = () => {
                   <div className="task-members">
                     {(task.members) &&
                       task.members.map((member, idx) => {
-                        return <div 
+                        return <div key={idx}
                         className="board-members">
 
                         <div >
