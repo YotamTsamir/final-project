@@ -8,8 +8,11 @@ import { faTrello } from '@fortawesome/free-brands-svg-icons'
 import { boardService } from '../services/board.service'
 import { userService } from '../services/user-service'
 import { useNavigate, useParams } from "react-router-dom"
+import { logout } from '../store/action/user-action.js'
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
+    const { user } = useSelector((storeState) => storeState.userModule)
+    const [newUser, editNewUser] = useState(user)
     const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
     const [scroll, setScroll] = useState(0)
@@ -21,11 +24,11 @@ export const AppHeader = () => {
     })
     const location = useLocation()
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     useEffect(() => {
+        if(!user) navigate('/')
         scrollListener()
     }, [])
-
     useEffect(() => {
         getIsDarkTheme()
     }, [board])
@@ -36,8 +39,12 @@ export const AppHeader = () => {
 
     const onToggleLoginBar = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
-    }
 
+    }
+    const findPath = () => {
+        console.log(location.pathname)
+        if(location.pathname === '/boards') return true
+    }
     const scrollListener = () => {
         document.addEventListener("scroll", () => {
             const scrollCheck = window.scrollY < 100
@@ -89,13 +96,15 @@ export const AppHeader = () => {
             setIsHomePage(true)
         }
     }
-
     const onLogOut = (ev) => {
         ev.preventDefault()
-        userService.logout()
+        dispatch(logout())
+        navigate('/')
+        onToggleLoginBar()
+    }
+    const pathToHome = () => {
         navigate('/')
     }
-
     const getHeaderClassname = () => {
         return `${(location.pathname === '/boards') ? 'isDark' :
             headerTheme.isDark ? 'is-dark' : 'is-light'}        } 
@@ -121,35 +130,39 @@ export const AppHeader = () => {
                 </div>
             }
         </div>
-
+            {(!user && location.pathname === '/') && 
+            <div className='home-signup-login'>
+                <NavLink className="nav-link login" to='/login'>Login</NavLink>
+                <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                </div>
+            }
+            
         <div className='header-right-side'>
-            {!isHomePage &&
-                <div className="user-nav-links">
-                    <button className='toggle-login-bar'
-                        onClick={onToggleLoginBar}>
-                        <h1>
-                            <FontAwesomeIcon icon={faUser} />
-                        </h1>
-                    </button>
-                    {isLoginBarOpen &&
-                        <div className="signin-signup-links">
-                            <h2>Account<hr /></h2>
-                            <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                            <NavLink className="nav-link login" to='/login'>Login</NavLink>
-                            <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                            <button onClick={(ev) => onLogOut(ev)}>Logout</button>
+            <div className="user-nav-links">
+                {((user) || findPath()) &&
+                <button className='toggle-login-bar'
+                    onClick={onToggleLoginBar}>
+                    <h1>
+                        <FontAwesomeIcon icon={faUser} />
+                    </h1>
+                </button> 
+                }
+                {(location.pathname === '/signup' || location.pathname === '/login') && 
+                    <button onClick={pathToHome}  >Back to home</button>
+                }
+                {isLoginBarOpen &&
+                    <div className="signin-signup-links">
+                        <h2>Account<hr /></h2>
+                        <div className='small-right-menu-container'>   
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link login" to='/login'>Login</NavLink>
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link signup-link" to='/signup'>Sign up</NavLink>
+                        <NavLink to='/' onClick={(ev)=> onLogOut(ev)} className="nav-link avatar">Logout</NavLink>
                         </div>
-                    }
-                </div>
-            }
+                    </div> 
+                }
 
-            {isHomePage &&
-                <div className="user-nav-links-home">
-                    <NavLink className="nav-link-home login" to='/login'>Login</NavLink>
-                    <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
-                </div>
-            }
-
+            </div>
         </div>
     </div>
 }

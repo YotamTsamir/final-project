@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {  getBoard, setTask } from "../store/action/board-action";
+import { getBoard, setTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
@@ -10,6 +10,7 @@ import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons"
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
+import { CheckList } from "./task-check-list";
 
 import windowImg from '../imgs/window-details.png'
 import coverImg from '../imgs/cover.png'
@@ -24,7 +25,7 @@ export const TaskDetails = () => {
   );
   const [menuState, setMenuState] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
-  const {bg, description } = task;
+  const { bg, description } = task;
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export const TaskDetails = () => {
   const onToggleDetails = () => {
     navigate(`/b/${board._id}`);
   };
-//CHANGE NO NEED FOR THIS FUNC
+  //CHANGE NO NEED FOR THIS FUNC
   const isDesc = () => {
     if (!description) return false
     return true
@@ -67,12 +68,12 @@ export const TaskDetails = () => {
     if (!task.members.length) return false
     if (task.members.length > 0) return true
   };
-  const randomMemberColor=() => {
+  const randomMemberColor = () => {
     return utilService.getRandomColor()
-}
+  }
 
   const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
-// NO NEED JUST USE THE INSIDE FUNC
+  // NO NEED JUST USE THE INSIDE FUNC
   const toggleMenu = () => {
     setMenuState(!menuState)
   }
@@ -81,7 +82,7 @@ export const TaskDetails = () => {
     if (!labels) return
     if (labels.length > 0) return true
   };
-  if(!task) return <h1>Loading...</h1>
+  if (!task) return <h1>Loading...</h1>
   return (
     <section>
       <div className="task-details">
@@ -131,15 +132,15 @@ export const TaskDetails = () => {
                   <div className="task-members">
                     {(task.members) &&
                       task.members.map((member, idx) => {
-                        return <div 
+                        return <div key={idx}
                         className="board-members">
 
-                        <div >
-                            <img className={`member-preview ${idx}`}src={member.avatar}/>
-                        </div>
+                          <div >
+                            <img className={`member-preview ${idx}`} src={member.avatar} />
+                          </div>
 
                         </div>
-                  
+
                       })
                     }
                   </div>
@@ -163,7 +164,7 @@ export const TaskDetails = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="task-description">
               <div className="icon-desc-details left-details-container">
                 <FontAwesomeIcon className='fa-solid fa-align-left' icon={faAlignLeft} />
@@ -171,13 +172,14 @@ export const TaskDetails = () => {
               </div>
               {(isDesc()) && <InputDesc className="is-desc" />}
               {(!isDesc()) && <InputDesc className="no-desc" />}
+              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => {return <CheckList checkList={checkList} task={task} />}))}
               <div className="activity-container">
                 <div className="left-details-container icon-details-list">
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
                   <div className="activity left-details">Activity</div>
                 </div>
                 <InputComments board={board} box={box} task={task} />
-                <CommentList board={board} box={box} task={task}/>
+                <CommentList board={board} box={box} task={task} />
               </div>
             </div>
           </div>

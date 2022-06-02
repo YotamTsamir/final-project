@@ -5,11 +5,12 @@ import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons"
-import { editBox, setNewBoard, editTask } from '../store/action/board-action'
+import { editBox, addTask, setNewBoard, editTask } from '../store/action/board-action'
 import { Droppable, Draggable } from "react-beautiful-dnd"
 import { utilService } from "../services/util.service"
 import { BoardExtrasMenu } from "./board-extras-menu"
-import { socketService,SOCKET_EVENT_CHANGE_BOARD } from "../services/socket.service"
+import { socketService, SOCKET_EVENT_LOAD_BOARD } from "../services/socket.service"
+import { userService } from "../services/user-service"
 
 export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
     const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
@@ -25,18 +26,15 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), archivedAt: '', members: [], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
-        if (!input) {
-            setAddNewTask('')
-            return
-        }
-        const newBoard = await boardService.updateTask(boardId, task, boxId)
+        const task = { id: utilService.makeId(4), archivedAt: '',checkLists:[], members: [], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        if (!input) return setAddNewTask('')
         setAddNewTask(boxId)
-        let berg
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD,newBoard)
-        newTask.title = ''
-        EditTask('')
-        dispatch(setNewBoard(newBoard))
+        EditTask({ title: '' })
+        const board = await boardService.saveTask(boardId, task, boxId)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
+        const user = userService.getLoggedinUser()
+        const activity = { user: user || 'guest', action: `added `,id:utilService.makeId(), object:task , about: `to ${box.title}`, timeStamp: Date.now() }
+        dispatch(addTask(boardId, task, boxId, activity))
     }
 
     const onEdit = () => {
@@ -55,7 +53,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
     return <div className="box">
         <div className="box-header flex space-between">
             {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
-            <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
+                <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
             <div onClick={() => setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
                 <FontAwesomeIcon className="extra-menu-btn" icon={faEllipsis} />
             </div>
@@ -77,7 +75,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
                 )
             }}
         </Droppable>
-        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ add a card</div> :
+        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ Add a card</div> :
             <div><div className="task task-add">
                 <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><textarea className="task-edit" {...registery('title')} autoFocus /></form>
             </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>

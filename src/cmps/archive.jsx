@@ -32,7 +32,7 @@ export const ArchivedTasks = ({ board }) => {
         await boardService.deleteTask(board._id, box.id, task.id)
         dispatch(getBoard(board._id))
     }
-
+    if(!tasks) return <h1>Loading...</h1>
     return <div className="archived-tasks">
         {tasks.map((task, index) => {
             return (

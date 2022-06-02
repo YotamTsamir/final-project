@@ -144,9 +144,11 @@
     line-height: 32px;
     white-space: nowrap;
     color: rgb(7, 7, 153);
-    height: 50px;
-    align-items: center;
+    align-items: flex-end;
+    margin-bottom: 1px;
+    justify-content: end;
     display: flex;
+    margin-left: 8px;
 
 
 }

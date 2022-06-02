@@ -9,9 +9,13 @@ import { utilService } from "../services/util.service";
 import { TaskBgPreview } from '../cmps/task/task-bg-preview';
 //Need to implement the component and it's function
 import { TaskCoverMenu } from "./task/task-cover-menu";
+import { useFormRegister } from "../hooks/useFormRegister";
+
+// dispatch(setNewBoard(newBoard))
 
 export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
+    const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
 
@@ -55,7 +59,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
-
     const randomMemberColor = () => {
         return utilService.getRandomColor()
     }
@@ -72,6 +75,14 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         dispatch(editTask(board._id, box.id, newTask))
     }
 
+    const onCreateCheckList = async (ev) => {
+        ev.preventDefault()
+        const newCheckList = { title: newCheckListTitle.title, todos: [] }
+        const newTask = { ...task, checkLists: [...task.checkLists, newCheckList] }
+        setCheckListTitle({ title: '' })
+        await boardService.saveTask(board._id, newTask, box.id)
+    }
+    console.log(task)
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
@@ -123,6 +134,9 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                     {member.fullname} ({member.userName}) </div>
                 )
             })}
+        </div>}
+        {(topic === 'checkList') && <div>
+            <form onSubmit={(ev) => onCreateCheckList(ev)}>Title<input {...register('title')} /></form>
         </div>}
     </div>
 }

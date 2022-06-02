@@ -2,7 +2,7 @@ import { useState } from "react"
 import { BoxPreview } from "./box-preview"
 import { Draggable } from "react-beautiful-dnd"
 
-export const BoxList = ({ boxes, board, onAddTask }) => {
+export const BoxList = ({addActivity, boxes, board, onAddTask }) => {
     const [editTitleId, setEditTitleId] = useState('')
     const [newTaskId, setAddNewTask] = useState('')
     const [editStuff, setEditStuff] = useState({ editTitle: '', newTask: '' })

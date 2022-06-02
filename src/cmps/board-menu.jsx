@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRemove, faX, faArchive } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
 import { ArchivedTasks } from './archive'
+import { Activities } from './activities'
 
 export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoardStyle }) => {
     const [boardStyle, setBoardStyle] = useState({
@@ -10,6 +11,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
         style: board.style
     })
     const [archiveMenu, setArchiveMenu] = useState(false)
+    const [activitiesMenu,setActivitiesMenu] = useState(false)
 
 
     const deleteCurrBoard = () => {
@@ -25,6 +27,10 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
             style: { [field]: value }
         }))
         onEditBoardStyle(board._id, field, value)
+    }
+
+    const toggleActivies = () => {
+        
     }
 
     const toggleBgMenu = () => {
@@ -71,6 +77,8 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
                 <FontAwesomeIcon icon={faArchive} />
             </p>
         </button>
+        <button onClick={()=>setActivitiesMenu(!activitiesMenu)}>Activities</button>
         {archiveMenu && <ArchivedTasks board={board} />}
+        {activitiesMenu && <Activities board={board}/>}
     </div>
 }
