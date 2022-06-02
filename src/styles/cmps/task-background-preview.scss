@@ -1,0 +1,114 @@
+.task-bg-preview-container {
+    width: fit-content;
+
+    .bgc {
+        background-color: #5E6C84;
+        opacity: 0.3;
+    }
+
+
+
+    .line {
+        height: 4px;
+        border-radius: 2px;
+    }
+
+    h4 {
+        font-size: 12px;
+        font-weight: 600;
+        margin: 0 0 4px 0;
+    }
+
+    .task-bg-preview {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 4px;
+        margin: 0 -4px;
+        background-color: #ffffff;
+
+        .bg-preview {
+            margin: 0;
+            background-repeat: no-repeat;
+            background-position: center;
+            border-radius: 3px;
+            width: 134px;
+            border: 1px solid rgba(9, 30, 66, 0.08);
+        }
+
+        .semi-size {
+            height: 62px;
+
+            .img-area {
+                height: 28px;
+                border-radius: 3px 3px 0 0;
+            }
+
+            .task-area {
+                padding: 6px 4px 4px 6px;
+                position: relative;
+
+                .first-line {
+                    width: 122px;
+                }
+
+                .second-line {
+                    width: 98px;
+                    margin-top: 4px;
+                }
+
+                .left-bottom-line {
+                    display: flex;
+                    margin-top: 6px;
+
+                    .left-element {
+                        width: 16px;
+                        height: 6px;
+                        border-radius: 2px;
+                        margin-right: 2px;
+                    }
+
+                    .right-element {
+                        width: 16px;
+                        height: 6px;
+                        border-radius: 2px;
+                        margin-right: 2px;
+                    }
+                }
+
+                .right-bottom-line {
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    right: 4px;
+                    bottom: 4px;
+                    border-radius: 5px;
+                    margin-top: 6px;
+                }
+            }
+        }
+    }
+
+    .full-size {
+        position: relative;
+
+        .task-area {
+            position: absolute;
+            bottom: 4px;
+            padding: 6px 4px 4px 6px;
+
+            .first-line {
+                background: #FFFFFF;
+                width: 116px;
+                opacity: 1;
+            }
+
+            .second-line {
+                background: #FFFFFF;
+                opacity: 1;
+                width: 92px;
+                margin-top: 4px;
+            }
+        }
+    }
+}

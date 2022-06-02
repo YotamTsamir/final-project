@@ -6,8 +6,9 @@ import { setNewBoard, editTask } from "../store/action/board-action"
 import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
-
-// dispatch(setNewBoard(newBoard))
+import { TaskBgPreview } from '../cmps/task/task-bg-preview';
+//Need to implement the component and it's function
+import { TaskCoverMenu } from "./task/task-cover-menu";
 
 export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
@@ -43,7 +44,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onChangeDate = (value) => {
         onChange(value)
-        
+
 
         const newTask = {
             ...task, date: {
@@ -55,7 +56,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    const randomMemberColor=() => {
+    const randomMemberColor = () => {
         return utilService.getRandomColor()
     }
     const onChangeBgImg = async ({ target }) => {
@@ -87,6 +88,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
         <div >
             {(topic === 'Cover') && <div>
+                <TaskBgPreview />
                 <div className="color-grid">
                     {(colors.map(color => {
                         return (
@@ -111,14 +113,14 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                     {board.members &&
                         <div className="board-members">
 
-                                <div  >
-                                    
-                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
-                                </div>
-                            
+                            <div  >
+
+                                <img className={`member-preview ${idx}`} src={member.avatar} />
+                            </div>
+
                         </div>
                     }
-                     {member.fullname} ({member.userName}) </div>
+                    {member.fullname} ({member.userName}) </div>
                 )
             })}
         </div>}
