@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from 'react'
 import desc from '../pngs/menu.png'
 import { boardService } from "../services/board.service"
+import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
 import { faClock, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
@@ -73,6 +74,10 @@ export const TaskPreview = ({ task, board, box, index }) => {
         setIsEdit(!isEdit)
     }
 
+    const randomMemberColor=() => {
+        return utilService.getRandomColor()
+    }
+
     const onOpenLabel = (ev) => {
         ev.stopPropagation()
         console.log('baga')
@@ -105,11 +110,17 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                 <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
                             {(task.description) && <div><img className="desc-png" src={desc} /></div>}
                         </div>
-                        {(task.members) && <div className="task-members">
+                        {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {
-                                return (
-                                    <div key={idx} className="task-member"><p>{member.init}</p></div>
-                                )
+                                return <div 
+                                key={idx}
+                                 className="board-members">
+                                     
+                                <div >
+                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
+                                </div>
+
+                                </div>
                             })}
                         </div>
                         }

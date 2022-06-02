@@ -293,11 +293,13 @@
         .member-preview {
             height: 28px;
             width: 28px;
+            
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color:#fafbfc;
+            margin-right: 4px;
         }
         .member-preview:hover{
             height: 32px;

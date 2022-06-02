@@ -15,7 +15,13 @@ export function loadBoards() {
     }
 }
 
-    
+export function updateUserImgInBoards(user){
+    return async (dispatch) => {
+        const boards = await boardService.updateUserImgInBoards(user)
+        dispatch({ type: 'SET_BOARDS', boards})
+    }
+}
+
 
 export function addBoard(newBoard) {
     return async (dispatch) => {

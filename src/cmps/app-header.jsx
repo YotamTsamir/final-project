@@ -132,11 +132,11 @@ export const AppHeader = () => {
                         <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
                         <NavLink className="nav-link login" to='/login'>Login</NavLink>
                         <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                        <button onClick={(ev)=> onLogOut()}>Logout</button>
+                        <button onClick={(ev)=> onLogOut(ev)}>Logout</button>
                     </div>
                 }
             </div>
-            }
+            
         </div>
     </div>
 }   

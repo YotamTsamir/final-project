@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {  getBoard, setTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
-
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +13,7 @@ import { CommentList } from "./details-comments/comment-list";
 
 import windowImg from '../imgs/window-details.png'
 import coverImg from '../imgs/cover.png'
+import { utilService } from "../services/util.service";
 
 
 
@@ -67,6 +67,9 @@ export const TaskDetails = () => {
     if (!task.members.length) return false
     if (task.members.length > 0) return true
   };
+  const randomMemberColor=() => {
+    return utilService.getRandomColor()
+}
 
   const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
 // NO NEED JUST USE THE INSIDE FUNC
@@ -128,11 +131,15 @@ export const TaskDetails = () => {
                   <div className="task-members">
                     {(task.members) &&
                       task.members.map((member, idx) => {
-                        return (<div key={idx} className="task-member">
-                          <div className="member-background">
-                            <p style={{ backgroundColor: member.img }}>{member.init}</p>
-                          </div>
-                        </div>)
+                        return <div 
+                        className="board-members">
+
+                        <div >
+                            <img className={`member-preview ${idx}`}src={member.avatar}/>
+                        </div>
+
+                        </div>
+                  
                       })
                     }
                   </div>

@@ -1,31 +1,22 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { setUserAvatar } from "../store/action/user-action";
+import { updateUserImgInBoards } from "../store/action/board-action";
 
 export const Avatar = () => {
     const dispatch = useDispatch()
     const { user } = useSelector(
         (storeState) => storeState.userModule
     );
-
+        console.log(user)
     const [fileInputState, setFileInputState] = useState('');
-    // const [previewSource, setPreviewSource] = useState('');
     const [selectedFile, setSelectedFile] = useState();
         
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
-        // previewFile(file);
         setSelectedFile(file);
         setFileInputState(e.target.value);
     };
-
-    // const previewFile = (file) => {
-    //     const reader = new FileReader();
-    //     reader.readAsDataURL(file);
-    //     reader.onloadend = () => {
-    //         setPreviewSource(reader.result);
-    //     };
-    // };
 
     const handleSubmitFile = (e) => {
         e.preventDefault();
@@ -41,6 +32,7 @@ export const Avatar = () => {
         };
     };
 
+    
     const uploadImage = async (imageUrl) => {
         const UPLOAD_PRESET = 'uzukqpqj' 
         const CLOUD_NAME = 'ddlztsqql'
@@ -56,13 +48,14 @@ export const Avatar = () => {
             })
             const { url } = await res.json()
             dispatch(setUserAvatar(user, url))
+            dispatch(updateUserImgInBoards(user))
             console.log(user)
             setFileInputState('');
-            // setPreviewSource('');
         } catch (err) {
             console.error(err);
         }
     };
+    console.log(user)
     if(!user) return <h1>Loading...</h1>
     return <div className="avatar">
         
@@ -79,13 +72,7 @@ export const Avatar = () => {
 
         <input onChange={handleFileInputChange} value={fileInputState} type="file"/>
         <button onClick={handleSubmitFile}>Submit</button>
-        {/* {user.img && previewSource && (
-                <img
-                    src={previewSource}
-                    className="avatar=upload"
-                    style={{ height: '300px' }}
-                />
-            )} */}
+
         </div>
 }
 

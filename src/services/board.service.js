@@ -1,6 +1,10 @@
 import { storageService } from './async-storage.service'
 import getAverageColor from 'get-average-color'
 import { httpService } from './http.service'
+let tommyImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654117856/tommyImg_fcp4fb.png'
+let yotamImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119142/yotamImg_mddok7.png'
+let shaharImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119196/shaharImg_qlkyzl.png'
+let rotemImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119219/rotemImg_src4ts.png'
 
 const STORAGE_KEY = 'board'
 
@@ -27,7 +31,8 @@ export const boardService = {
     editComment,
     removeComment,
     addComment,
-    deleteTask
+    deleteTask,
+    updateUserImgInBoards,
 }
 
 
@@ -183,10 +188,10 @@ function _createBoard(userBoard) {
             },
         ],
         "members": [
-            { "id": "u101", "fullname": "Rotem Spivak", "userName": "rotemspivak", "init": "RS", "avatar": "" },
-            { "id": "u102", "fullname": "Yotam Tsamir", "userName": "yotamtsamir", "init": "YT", "avatar": "" },
-            { "id": "u103", "fullname": "Shachar Cohen", "userName": "shacharcohen", "init": "SC", "avatar": "" },
-            { "id": "u104", "fullname": "Tommy Irmia", "userName": "tommyirmia", "init": "TI", "avatar": "" }
+            { "id": "u101", "fullname": "Rotem Spivak", "userName": "rotemspivak", "init": "RS", "avatar": `${rotemImg}` },
+            { "id": "u102", "fullname": "Yotam Tsamir", "userName": "yotamtsamir", "init": "YT", "avatar": `${yotamImg}`},
+            { "id": "u103", "fullname": "Shahar Cohen", "userName": "shaharcohen", "init": "SC", "avatar": `${shaharImg}` },
+            { "id": "u104", "fullname": "Tommy Irmia", "userName": "tommyirmia", "init": "TI", "avatar": `${tommyImg}` }
         ],
         "boxes": [],
     })
@@ -243,7 +248,16 @@ async function findBoxByTaskId(boardId, taskId) {
     return foundBox
 }
 
-
+async function updateUserImgInBoards(user) {
+    const boards = await query()
+    boards.forEach(async board => {
+        const memberIdx = board.members.findIndex(member => member.id === user._id)
+        if (memberIdx === -1) return
+        board.members[memberIdx].avatar = user.avatar
+        await save(board)
+    })
+    return await query()
+}
 async function getBoardColorTheme(img, isColor = false) {
 
     const cleanUrl = img.substring(4, img.length - 1)
@@ -317,7 +331,7 @@ const board = {
     "members": [
         { id: 'u101', userName: 'Rotem Spivak', fullname: 'Rotem Spivak', init: 'RS', avatar: '' },
         { id: 'u102', userName: 'Yotam Tsamir', fullname: 'Yotam Tsamir', init: 'YT', avatar: '' },
-        { id: 'u103', fullname: 'Shachar Cohen', userName: 'Shachar Cohen', init: 'SC', avatar: '' },
+        { id: 'u103', fullname: 'Shahar Cohen', userName: 'Shahar Cohen', init: 'SC', avatar: '' },
         { fullname: 'Tommy Irmia', id: 'u104', userName: 'Tommy Irmia', init: 'TI', avatar: '' }
     ],
 }
