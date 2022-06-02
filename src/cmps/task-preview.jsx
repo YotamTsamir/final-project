@@ -99,7 +99,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
     if (task.archivedAt !== '') return
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
-            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg + 'round' }}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
+            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center'}}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className={`label ${(isLabelOpen)}`} onClick={(ev) => onOpenLabel(ev)}
                     style={{ backgroundColor: label.color }}>{(isLabelOpen === 'label-open') && label.title}</div>) : ''}
@@ -146,12 +146,12 @@ export const TaskPreview = ({ task, board, box, index }) => {
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
             <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
-                {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg + 'round' }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
+                {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center'  }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>
                 <form className="edit-task-form" onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><textarea className="task-edit" {...register('title')} />
-                    <button className={`save-btn-edit ${(task.date ? 'down' : '')}`}>save</button></form>
+                    <button className={`save-btn-edit ${(task.date || task.members ? 'down' : '')}`}>save</button></form>
                 <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
                 <div className="flex space-between spacer-bottom-task">
                     <div className="flex task-prev-date-desc">
@@ -165,7 +165,14 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (
-                                <div key={idx} className="task-member"><p>{member.init}</p></div>
+                                <div className="board-members">
+
+                                <div  >
+                                    
+                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
+                                </div>
+                            
+                        </div>
                             )
                         })}
                     </div>

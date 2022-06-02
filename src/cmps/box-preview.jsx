@@ -77,7 +77,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
                 )
             }}
         </Droppable>
-        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ add a card</div> :
+        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ Add a card</div> :
             <div><div className="task task-add">
                 <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><textarea className="task-edit" {...registery('title')} autoFocus /></form>
             </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>

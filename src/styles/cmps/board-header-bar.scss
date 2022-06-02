@@ -244,6 +244,9 @@
                 gap: 1em;
                 align-items: center;
                 text-decoration: underline;
+                &:hover{
+                    background-color: unset;
+                }
             }
         }
     }

@@ -59,7 +59,7 @@
     & p {
         word-wrap: break-word;
         clear: both;
-        word-break: break-all;
+        // word-break: break-all;
         color: #172b4d;
         display: block;
         margin: 0 0 6px;
@@ -200,7 +200,7 @@
 }
 
 .desc-png {
-    margin-top: 7px;
+    margin-top: 21px;
     height: 12px;
     width: 12px;
 }
@@ -392,6 +392,8 @@
     max-width: 100%;
     min-height: 20px;
     overflow: hidden;
+    max-height: 20px;
+    margin-top: 15px;
     padding: 2px;
     border-radius: 3px;
 
