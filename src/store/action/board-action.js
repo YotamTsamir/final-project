@@ -15,7 +15,13 @@ export function loadBoards() {
     }
 }
 
-    
+export function updateUserImgInBoards(user){
+    return async (dispatch) => {
+        const boards = await boardService.updateUserImgInBoards(user)
+        dispatch({ type: 'SET_BOARDS', boards})
+    }
+}
+
 
 export function addBoard(newBoard) {
     return async (dispatch) => {
@@ -42,17 +48,17 @@ export function editBoard(board) {
 
 
 
-export function editComment(boardId, boxId, taskId, comment) {
-    return async dispatch => {
-        const board = await boardService.editComment(boardId, boxId, taskId, comment)
-        const box = board.boxes.find(box => box.id === boxId)
-        const task = box.tasks.find(task => task.id === taskId)
-        dispatch({ type: 'SET_BOARD', board })
 
-        dispatch({ type: 'SET_TASK', task, box })
+export function editComment(boardId, box, newTask, comment){
+    console.log('box action', box)
+    return async (dispatch) => {
+        const task = await boardService.editComment(boardId, box.id, newTask, comment)
+        dispatch({ type: 'SET_TASK',
+                task,
+                box
+        })
     }
 }
-
 
 export function editTask(boardId, boxId, task) {
     return async dispatch => {
@@ -78,16 +84,24 @@ export function editBoxes(boardId, boxes) {
         dispatch({ type: 'SET_BOARD', board })
     }
 }
-
+export function addComment(boardId, box, newTask){
+    return async (dispatch) => {
+        const task = await boardService.addComment(boardId, box.id, newTask)
+        dispatch({ type: 'SET_TASK',
+                task,
+                box
+        })
+    }
+}
 export function setTask(task, box) {
     return (dispatch) => {
         dispatch({ type: 'SET_TASK', task, box })
     }
 }
-export function onRemoveComment(boardId, boxId, taskId, commentId) {
+export function onRemoveComment(boardId, box, newTask) {
     return async (dispatch) => {
-        const board = await boardService.removeComment(boardId, boxId, taskId, commentId)
-        dispatch({ type: 'SET_BOARD', board })
+        const task = await boardService.removeComment(boardId, box, newTask)
+        dispatch({ type: 'SET_TASK', task, box })
     }
 }
 

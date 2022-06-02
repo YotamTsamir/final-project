@@ -185,6 +185,10 @@
         .bg-container {
             padding-top: 10px;
 
+
+            .cover-menu {
+                padding-bottom: 20px;
+            }
             ul {
                 li {
                     button {
@@ -331,11 +335,13 @@
         .member-preview {
             height: 28px;
             width: 28px;
+            
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #fafbfc;
+            color:#fafbfc;
+            margin-right: 4px;
         }
 
         .member-preview:hover {

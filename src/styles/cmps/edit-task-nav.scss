@@ -9,12 +9,17 @@
     }
 
     .Labels {
-        height: 80vh;
-        width: 20vw;
+        height: 50vh;
+        width:18vw;
         position: absolute;
-        transform: translateY(-20%);
-        margin-top: 5px;
-        padding: 10px, 18px;
+        transform: translateY(-60%);
+        padding: 6px, 12px;
+    }
+
+    .Cover{
+        transform: translate(2%,-69%);
+        padding: 20px;
+        height: 35vh;
     }
 }
 

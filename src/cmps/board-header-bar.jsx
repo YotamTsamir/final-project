@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { boardService } from "../services/board.service"
+import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faX, faFilter, faStar } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
@@ -47,6 +48,7 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
         setIsEditTitle(!isEditTitle)
     }
 
+    
     const getIsDarkTheme = async () => {
         if (board.style.backgroundColor) return
         const colorTheme = await boardService.getBoardColorTheme(board.style.backgroundImage)
@@ -58,7 +60,9 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
         setInputWidth({ width: txt.length + 'ch' })
     }
 
-    
+    const randomMemberColor=() => {
+        return utilService.getRandomColor()
+    }
 
 
     return <header className={`board-header-container 
@@ -90,11 +94,10 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
             {board.members &&
                 <div className="board-members">
                     {board.members.map((member, idx) => {
-                        return <div 
-                        className={`member-preview ${idx}`} 
+                        return <div
                         key={idx}
-                        style={{ background: (member.avatar) ? member.avatar : 'blue'}}>
-                            {member.init}
+                        className={`member-preview ${idx}`} >
+                        <img src={member.avatar}/>
                         </div>
                     })}
                 </div>
