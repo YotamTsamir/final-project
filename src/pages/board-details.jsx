@@ -61,13 +61,15 @@ export const Board = () => {
     const onDeleteBoard = async (boardId) => {
         dispatch(deleteBoard(boardId))
     }
+
+    //move to action
     const onEditBoardStyle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
         socketService.emit(SOCKET_EVENT_CHANGE_BOARD, newBoard)
         dispatch(setNewBoard(newBoard))
     }
-    const onEditBoardTitle = async (newBoard) => {
-        // const newBoard = await boardService.editBoardTitle(boardId, field, change)
+    const onEditBoardTitle = async (boardId, field, change) => {
+        const newBoard = await boardService.editBoardTitle(boardId, field, change)
         socketService.emit(SOCKET_EVENT_CHANGE_BOARD, newBoard)
         dispatch(setNewBoard(newBoard))
     }

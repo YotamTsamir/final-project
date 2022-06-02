@@ -191,6 +191,7 @@
             .cover-menu {
                 padding-bottom: 20px;
             }
+
             ul {
                 li {
                     button {
@@ -202,9 +203,15 @@
         }
 
         .toggle-Archive {
-            padding-left: 3px;
+            padding: 6px;
             display: flex;
             margin-bottom: 4px;
+
+            p {
+                height: 20px;
+                width: 20px;
+                padding-top: 3px;
+            }
         }
 
         .archived-tasks {
@@ -244,6 +251,9 @@
                 gap: 1em;
                 align-items: center;
                 text-decoration: underline;
+                &:hover{
+                    background-color: unset;
+                }
             }
         }
     }
@@ -337,12 +347,12 @@
         .member-preview {
             height: 28px;
             width: 28px;
-            
+
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color:#fafbfc;
+            color: #fafbfc;
             margin-right: 4px;
         }
 

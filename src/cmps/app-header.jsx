@@ -47,7 +47,7 @@ export const AppHeader = () => {
             const scrollCheck = window.scrollY < 100
             if (scrollCheck !== scroll) {
                 setScroll(scrollCheck)
-                setHeaderTheme({})
+                if (isHomePage) setHeaderTheme({})
             }
         })
     }
@@ -102,14 +102,18 @@ export const AppHeader = () => {
         onToggleLoginBar()
     }
 
+    const getHeaderClassname = () => {
+        return `${(location.pathname === '/boards') ? 'isDark' :
+            headerTheme.isDark ? 'is-dark' : 'is-light'}        } 
+                ${!isHomePage ? '' : ' home-page-header'
+            } 
+                ${(!scroll && isHomePage) ? ' scrolled' : ''}`
+    }
 
-    return <div className={`app-header 
-    ${headerTheme.isDark ? 'is-dark' : 'is-light'
-        } 
-        ${!isHomePage ? '' : ' home-page-header'
-        } 
-        ${(!scroll && isHomePage) ? ' scrolled' : ''}`}
+
+    return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
+
         <div className="logo-and-nav">
             <NavLink to="/" className="logo-container">
                 <div className="header-logo fa-trello">
