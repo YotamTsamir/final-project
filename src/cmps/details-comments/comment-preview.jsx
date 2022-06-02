@@ -4,7 +4,6 @@ import { editComment } from "../../store/action/board-action.js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faXmark} from "@fortawesome/free-solid-svg-icons";
 
-
 export const CommentPreview = ({board, box, task}) => {
 
     const [editCommentId, setEditCommentId] = useState('')

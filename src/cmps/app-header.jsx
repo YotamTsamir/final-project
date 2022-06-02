@@ -7,8 +7,7 @@ import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faTrello } from '@fortawesome/free-brands-svg-icons'
 import { boardService } from '../services/board.service'
 import { userService } from '../services/user-service'
-
-
+import { useNavigate, useParams } from "react-router-dom"
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isHomePage, setIsHomePage] = useState(false)
@@ -21,6 +20,7 @@ export const AppHeader = () => {
         isDark: false,
     })
     const location = useLocation()
+    const navigate = useNavigate()
 
     useEffect(() => {
         scrollListener()
@@ -90,7 +90,11 @@ export const AppHeader = () => {
         }
     }
 
-
+    const onLogOut = (ev) => {
+        ev.preventDefault()
+        userService.logout()
+        navigate('/')
+    }
 
 
     return <div className={`app-header 
@@ -115,6 +119,7 @@ export const AppHeader = () => {
         </div>
 
         <div className='header-right-side'>
+<<<<<<< HEAD
             {!isHomePage &&
                 <div className="user-nav-links">
                     <button className='toggle-login-bar'
@@ -136,6 +141,26 @@ export const AppHeader = () => {
                 <NavLink className="nav-link-home login" to='/login'>Log in</NavLink>
                 <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
             </div>}
+=======
+            <div className="user-nav-links">
+                <button className='toggle-login-bar'
+                    onClick={onToggleLoginBar}>
+                    <h1>
+                        <FontAwesomeIcon icon={faUser} />
+                    </h1>
+                </button>
+                {isLoginBarOpen &&
+                    <div className="signin-signup-links">
+                        <h2>Account<hr /></h2>
+                        <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                        <NavLink className="nav-link login" to='/login'>Login</NavLink>
+                        <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                        <button onClick={(ev)=> onLogOut(ev)}>Logout</button>
+                    </div>
+                }
+            </div>
+            
+>>>>>>> b7889cf12ca66c74b32263e1ab47c42283571b2d
         </div>
     </div>
 }

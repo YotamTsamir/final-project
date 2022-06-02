@@ -14,6 +14,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
 
+
     const onAddLabel = async (ev, labelId) => {
         let newTask;
         if (task.labelIds.includes(labelId)) {
@@ -54,6 +55,9 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         dispatch(editTask(board._id, box.id, newTask))
     }
 
+    const randomMemberColor=() => {
+        return utilService.getRandomColor()
+    }
     const onChangeBgImg = async ({ target }) => {
         let newTask;
         console.log(target.value)
@@ -101,10 +105,20 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
             <Calendar onChange={onChangeDate} value={value} />
         </div>}
 
-        {(topic === 'Members') && <div className="members-contianer">
+        {(topic === 'Members') && <div className="members-container">
             {board.members.map((member, idx) => {
-                return (
-                    <div key={idx} onClick={() => onAddMember(member)} className="members-div">{member.userName}</div>
+                return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
+                    {board.members &&
+                        <div className="board-members">
+
+                                <div  >
+                                    
+                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
+                                </div>
+                            
+                        </div>
+                    }
+                     {member.fullname} ({member.userName}) </div>
                 )
             })}
         </div>}

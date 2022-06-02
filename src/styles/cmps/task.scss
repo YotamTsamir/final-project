@@ -55,6 +55,7 @@
     text-decoration: none;
     z-index: 0;
 
+
     & p {
         word-wrap: break-word;
         clear: both;
@@ -146,6 +147,50 @@
     }
 
 }
+.member-preview {
+    display: flex;
+    align-items: center;
+    color: #fafbfc;
+    
+    img {
+        height:32px;
+        width: 32px;
+        border-radius: 50%;
+        margin-right: 5px;
+
+    }
+}
+
+.board-members {
+
+    .members-div {
+        cursor: pointer;
+        margin: 0 ;
+        line-height: 32px;
+        white-space: nowrap;
+        color: rgb(7, 7, 153);
+        height: 50px;
+        align-items: center;
+        display: flex;
+        
+    
+    }
+    img {
+        height:30px;
+        width: 30px;
+        border-radius: 50%;
+        margin: 0%;
+        padding: 0;
+    }
+    
+    .member-preview:hover {
+        height: 32px;
+        width: 32px;
+        z-index: 100;
+        cursor: pointer;
+    }
+}
+
 
 .labels {
     display: flex;

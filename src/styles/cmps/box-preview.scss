@@ -6,7 +6,8 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    max-height: 100%;
+    $height: calc(100vh - 116px);
+    max-height: $height;
 
     & h2 {
         margin-left: 15px;
@@ -15,8 +16,8 @@
     .task-list-wraper {
         flex-grow: 1;
         margin-right: 2px;
-
-        max-height: inherit;
+        $height: calc(100% - 68px);
+        max-height: $height;
         overflow-y: auto;
     }
 

@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {  getBoard, setTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
-
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,10 +10,10 @@ import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons"
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
-import { CommentPreview } from "./details-comments/comment-preview";
 
 import windowImg from '../imgs/window-details.png'
 import coverImg from '../imgs/cover.png'
+import { utilService } from "../services/util.service";
 
 
 
@@ -26,7 +25,6 @@ export const TaskDetails = () => {
   const [menuState, setMenuState] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
   const {bg, description } = task;
-
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
@@ -69,6 +67,9 @@ export const TaskDetails = () => {
     if (!task.members.length) return false
     if (task.members.length > 0) return true
   };
+  const randomMemberColor=() => {
+    return utilService.getRandomColor()
+}
 
   const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
 // NO NEED JUST USE THE INSIDE FUNC
@@ -80,7 +81,7 @@ export const TaskDetails = () => {
     if (!labels) return
     if (labels.length > 0) return true
   };
-  
+  if(!task) return <h1>Loading...</h1>
   return (
     <section>
       <div className="task-details">
@@ -130,11 +131,15 @@ export const TaskDetails = () => {
                   <div className="task-members">
                     {(task.members) &&
                       task.members.map((member, idx) => {
-                        return (<div key={idx} className="task-member">
-                          <div className="member-background">
-                            <p style={{ backgroundColor: member.img }}>{member.init}</p>
-                          </div>
-                        </div>)
+                        return <div 
+                        className="board-members">
+
+                        <div >
+                            <img className={`member-preview ${idx}`}src={member.avatar}/>
+                        </div>
+
+                        </div>
+                  
                       })
                     }
                   </div>
@@ -171,8 +176,7 @@ export const TaskDetails = () => {
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
                   <div className="activity left-details">Activity</div>
                 </div>
-                <InputComments />
-                <CommentPreview board={board} box={box} task={task} />
+                <InputComments board={board} box={box} task={task} />
                 <CommentList board={board} box={box} task={task}/>
               </div>
             </div>

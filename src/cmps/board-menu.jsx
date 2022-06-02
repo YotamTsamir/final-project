@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRemove, faX } from '@fortawesome/free-solid-svg-icons'
+import { faRemove, faX, faArchive } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
 import { ArchivedTasks } from './archive'
 
@@ -65,7 +65,10 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
             <BoardBgMenu dfBgs={dfBgs}
                 handleChange={handleChange}>
             </BoardBgMenu>}
-        <button onClick={() => openArchive()} className="change-board-bg">Archive</button>
+        <button onClick={() => openArchive()} className="toggle-Archive">
+            <p>Archive</p>
+            <FontAwesomeIcon icon={faArchive} />
+        </button>
         {archiveMenu && <ArchivedTasks board={board} />}
     </div>
 }

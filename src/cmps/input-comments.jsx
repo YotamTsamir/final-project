@@ -1,19 +1,13 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useFormRegister } from "../hooks/useFormRegister";
-import { editTask, getBoard, setTask } from "../store/action/board-action";
+import { editTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { utilService } from '../services/util.service.js'
-export const InputComments = () => {
+export const InputComments = ({board, box, task}) => {
+
   const dispatch = useDispatch();
-  const params = useParams();
-
-  const { board, box, task } = useSelector(
-    (storeState) => storeState.boardModule
-  );
-
-
 
   const [register, entity, editEntity] = useFormRegister({ comment: "" });
 
@@ -27,23 +21,26 @@ export const InputComments = () => {
     setFieldsEdit({ ...fieldsEdit, isComments: true });
   };
 
+
   const onEditTaskEntity = async (ev) => {
     ev.preventDefault();
-    const newTask = { ...task, comments: [...task.comments, {
-      txt: entity.comments,
+    const newTask = { ...task, comments: 
+      [...task.comments, {
+      txt: entity.comment,
       id: utilService.makeId(),
       createdAt: Date.now(),
-    
+      
     }] };
+    
     dispatch(editTask(board._id, box.id, newTask));
-    dispatch(setTask(task, box));
     setFieldsEdit({ isComments: false });
-    entity.comments = "";
+    entity.comment = "";
+    console.log('enityty', entity.comment)
   };
 
-  const {text, ...rest} = register("comments")
 
-  if(!comments) return <h1>Loading...</h1>
+
+  if(!comments || !box) return <h1>Loading...</h1>
   return (
     <div className="comment-cmps">
       {isEditShownCom() && (
@@ -55,9 +52,7 @@ export const InputComments = () => {
           <textarea
             placeholder="Write a comment..."
             className="comment-input left-details"
-            rows="2"
-            cols="50"
-            {...register("comments")}
+            {...register("comment")}
           ></textarea>
           <button className="save-btn">Save</button>
         </form>
