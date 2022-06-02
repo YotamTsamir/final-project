@@ -66,8 +66,10 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
                 handleChange={handleChange}>
             </BoardBgMenu>}
         <button onClick={() => openArchive()} className="toggle-Archive">
-            <p>Archive</p>
-            <FontAwesomeIcon icon={faArchive} />
+            <span>Archive</span>
+            <p>
+                <FontAwesomeIcon icon={faArchive} />
+            </p>
         </button>
         {archiveMenu && <ArchivedTasks board={board} />}
     </div>

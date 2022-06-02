@@ -34,8 +34,8 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
         ev.preventDefault()
         const field = ev.target.name
         const value = boardTitleEdit.title
-        board = {...board, [field]: value}
-        onEditBoardTitle(board)
+        // board = {...board, [field]: value}
+        onEditBoardTitle(board._id, field, value)
         onToggleEditTitle()
     }
 
