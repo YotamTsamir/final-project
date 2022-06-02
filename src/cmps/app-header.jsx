@@ -119,29 +119,6 @@ export const AppHeader = () => {
         </div>
 
         <div className='header-right-side'>
-<<<<<<< HEAD
-            {!isHomePage &&
-                <div className="user-nav-links">
-                    <button className='toggle-login-bar'
-                        onClick={onToggleLoginBar}>
-                        <h1>
-                            <FontAwesomeIcon icon={faUser} />
-                        </h1>
-                    </button>
-                    {isLoginBarOpen &&
-                        <div className="signin-signup-links">
-                            <h2>Account<hr /></h2>
-                            <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                            <NavLink className="nav-link login" to='/login'>Login</NavLink>
-                            <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                            <button onClick={() => userService.logout()}>Logout</button>
-                        </div>}
-                </div>}
-            {isHomePage && <div className="user-nav-links-home">
-                <NavLink className="nav-link-home login" to='/login'>Log in</NavLink>
-                <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
-            </div>}
-=======
             <div className="user-nav-links">
                 <button className='toggle-login-bar'
                     onClick={onToggleLoginBar}>
@@ -160,7 +137,6 @@ export const AppHeader = () => {
                 }
             </div>
             
->>>>>>> b7889cf12ca66c74b32263e1ab47c42283571b2d
         </div>
     </div>
 }
