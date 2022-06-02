@@ -9,6 +9,7 @@ var axios = Axios.create({
     withCredentials: true
 })
 
+console.log('hhtp')
 export const httpService = {
     get(endpoint, data) {
         return ajax(endpoint, 'GET', data)

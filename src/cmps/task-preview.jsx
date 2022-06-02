@@ -165,7 +165,14 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (
-                                <div key={idx} className="task-member"><p>{member.init}</p></div>
+                                <div className="board-members">
+
+                                <div  >
+                                    
+                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
+                                </div>
+                            
+                        </div>
                             )
                         })}
                     </div>

@@ -8,8 +8,11 @@ import { faTrello } from '@fortawesome/free-brands-svg-icons'
 import { boardService } from '../services/board.service'
 import { userService } from '../services/user-service'
 import { useNavigate, useParams } from "react-router-dom"
+import { logout } from '../store/action/user-action.js'
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
+    const { user } = useSelector((storeState) => storeState.userModule)
+    const [newUser, editNewUser] = useState(user)
     const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
     const [scroll, setScroll] = useState(0)
@@ -21,11 +24,11 @@ export const AppHeader = () => {
     })
     const location = useLocation()
     const navigate = useNavigate()
-
+    const dispatch = useDispatch()
     useEffect(() => {
+        if(!user) navigate('/')
         scrollListener()
     }, [])
-
     useEffect(() => {
         getIsDarkTheme()
     }, [board])
@@ -36,6 +39,7 @@ export const AppHeader = () => {
 
     const onToggleLoginBar = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
+
     }
 
     const scrollListener = () => {
@@ -89,11 +93,13 @@ export const AppHeader = () => {
             setIsHomePage(true)
         }
     }
-
+    console.log(user)
     const onLogOut = (ev) => {
         ev.preventDefault()
-        userService.logout()
+        dispatch(logout())
+        console.log('null user?', user)
         navigate('/')
+        onToggleLoginBar()
     }
 
 
@@ -117,26 +123,33 @@ export const AppHeader = () => {
                 </div>
             }
         </div>
-
+            {!user && 
+            <div className='home-signup-login'>
+                <NavLink className="nav-link login" to='/login'>Login</NavLink>
+                <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                </div>
+            }
         <div className='header-right-side'>
             <div className="user-nav-links">
+                {user &&
                 <button className='toggle-login-bar'
                     onClick={onToggleLoginBar}>
                     <h1>
                         <FontAwesomeIcon icon={faUser} />
                     </h1>
-                </button>
+                </button> 
+                }
                 {isLoginBarOpen &&
                     <div className="signin-signup-links">
                         <h2>Account<hr /></h2>
-                        <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                        <NavLink className="nav-link login" to='/login'>Login</NavLink>
-                        <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                        <button onClick={(ev)=> onLogOut(ev)}>Logout</button>
-                    </div>
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link login" to='/login'>Login</NavLink>
+                        <NavLink  onClick={onToggleLoginBar} className="nav-link signup" to='/signup'>Sign up</NavLink>
+                        <NavLink to='/' onClick={(ev)=> onLogOut(ev)}>Logout</NavLink>
+                    </div> 
                 }
+
             </div>
-            
         </div>
     </div>
 }
