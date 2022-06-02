@@ -43,6 +43,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onChangeDate = (value) => {
         onChange(value)
+        
 
         const newTask = {
             ...task, date: {

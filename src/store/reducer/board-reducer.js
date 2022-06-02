@@ -3,6 +3,7 @@ const initialState = {
     task: {},
     box: {},
     boards: [],
+    isLabelOpen: ''
 
 }
 export function boardReducer(state = initialState, action) {
@@ -16,6 +17,9 @@ export function boardReducer(state = initialState, action) {
                 ...state, boards: state.boards.map(board =>
                     board._id === action.board._id ? action.board : board)
             }
+            break;
+        case 'SET_LABELS':
+            newState = { ...state, isLabelOpen: action.labelState }
             break;
         case 'ADD_BOARD':
             newState = { ...state, boards: [...state.boards, action.board] }
