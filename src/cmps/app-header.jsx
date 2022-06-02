@@ -43,7 +43,7 @@ export const AppHeader = () => {
             const scrollCheck = window.scrollY < 100
             if (scrollCheck !== scroll) {
                 setScroll(scrollCheck)
-                setHeaderTheme({})
+                if (isHomePage) setHeaderTheme({})
             }
         })
     }
@@ -96,14 +96,18 @@ export const AppHeader = () => {
         navigate('/')
     }
 
+    const getHeaderClassname = () => {
+        return `${(location.pathname === '/boards') ? 'isDark' :
+            headerTheme.isDark ? 'is-dark' : 'is-light'}        } 
+                ${!isHomePage ? '' : ' home-page-header'
+            } 
+                ${(!scroll && isHomePage) ? ' scrolled' : ''}`
+    }
 
-    return <div className={`app-header 
-    ${headerTheme.isDark ? 'is-dark' : 'is-light'
-        } 
-        ${!isHomePage ? '' : ' home-page-header'
-        } 
-        ${(!scroll && isHomePage) ? ' scrolled' : ''}`}
+
+    return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
+
         <div className="logo-and-nav">
             <NavLink to="/" className="logo-container">
                 <div className="header-logo fa-trello">
@@ -119,24 +123,33 @@ export const AppHeader = () => {
         </div>
 
         <div className='header-right-side'>
-            <div className="user-nav-links">
-                <button className='toggle-login-bar'
-                    onClick={onToggleLoginBar}>
-                    <h1>
-                        <FontAwesomeIcon icon={faUser} />
-                    </h1>
-                </button>
-                {isLoginBarOpen &&
-                    <div className="signin-signup-links">
-                        <h2>Account<hr /></h2>
-                        <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                        <NavLink className="nav-link login" to='/login'>Login</NavLink>
-                        <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
-                        <button onClick={(ev)=> onLogOut(ev)}>Logout</button>
-                    </div>
-                }
-            </div>
-            
+            {!isHomePage &&
+                <div className="user-nav-links">
+                    <button className='toggle-login-bar'
+                        onClick={onToggleLoginBar}>
+                        <h1>
+                            <FontAwesomeIcon icon={faUser} />
+                        </h1>
+                    </button>
+                    {isLoginBarOpen &&
+                        <div className="signin-signup-links">
+                            <h2>Account<hr /></h2>
+                            <NavLink className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                            <NavLink className="nav-link login" to='/login'>Login</NavLink>
+                            <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                            <button onClick={(ev) => onLogOut(ev)}>Logout</button>
+                        </div>
+                    }
+                </div>
+            }
+
+            {isHomePage &&
+                <div className="user-nav-links-home">
+                    <NavLink className="nav-link-home login" to='/login'>Login</NavLink>
+                    <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
+                </div>
+            }
+
         </div>
     </div>
 }
