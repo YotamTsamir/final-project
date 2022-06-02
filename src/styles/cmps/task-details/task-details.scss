@@ -12,7 +12,7 @@
     border-radius: 3px;
     overscroll-behavior: contain;
     min-height: 90vh;
-    
+    cursor: default;
 
     .window-img-details{
         height: 26px;
@@ -265,6 +265,7 @@
             font-size: 14px;
             font-weight: 400;
             margin: 15px 0 20px 30px;
+            cursor: pointer;
         }
         .desc-btn-container{
             display: flex;

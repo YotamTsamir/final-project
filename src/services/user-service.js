@@ -15,14 +15,17 @@ export const userService = {
 window.us = userService
 
 async function login(credentials) {
-    const user = await httpService.post('auth/login', credentials)
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-
-
+    try {
+        const user = await httpService.post('auth/login', credentials)
+        sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
+        return true
+    } catch (err) {
+        return false
+    }
 }
 
 async function logout() {
-
+    console.log('logout user service')
     // socketService.emit('unset-user-socket');
     sessionStorage.clear(STORAGE_KEY_LOGGEDIN)
     return await httpService.post('auth/logout')
@@ -37,7 +40,6 @@ async function updateUser(user) {
 
 
 async function signup(userInfo) {
-    console.log(userInfo)
     await httpService.post('auth/signup', userInfo)
     const user = await storageService.post(STORAGE_KEY, userInfo)
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))

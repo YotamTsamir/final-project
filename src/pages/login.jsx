@@ -1,47 +1,40 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { useFormRegister } from "../hooks/useFormRegister"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrello } from "@fortawesome/free-brands-svg-icons"
 import { useNavigate, useParams } from "react-router-dom"
 import { userService } from "../services/user-service"
-
+import { login } from "../store/action/user-action"
 export const Login = () => {
     const { user } = useSelector((storeState) => storeState.userModule)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [signUp, editSignUp] = useState(false)
-    const [registerSignUp, newSignUp, setSignUp] = useFormRegister({
+    const [registerLogin, newLogin, setLogin] = useFormRegister({
         username: '',
         password: '',
     })
 
-    const { isSignUp, username, password, repassword, fullname, email } = newSignUp
+    useEffect (() => {
+        if(user) navigate('/boards')
+        
+    }, [user])
 
-    const isDisabled = () => {
-        if (username && password) return false
-        return true
-    }
-
-    const onSignUp = (ev) => {
+    const onLogin = (ev) => {
         ev.preventDefault()
-        console.log('username login', username)
-        if (!username || !password) return
-        userService.login(newSignUp)
-        // dispatch(signup({ email, username, fullname, password }))
-        navigate('/boards')
+        dispatch(login(newLogin))
     }
 
 
     return <div className="signup">
         <div className="signup-name-logo">
             <div>
-                <FontAwesomeIcon icon={faTrello} />
+                <FontAwesomeIcon icon={faTrello}/>
             </div>
             <div className="name">Tredux</div>
         </div>
         <div className="signup-section">
-            <form className="signup-form" onSubmit={(ev) => (onSignUp(ev))}>
+            <form className="signup-form" onSubmit={(ev) => (onLogin(ev))}>
                 <div className="signup-title">Log in for your account </div>
                 <div className="signup-input-container">
                     <input
@@ -49,27 +42,24 @@ export const Login = () => {
                         className="signup-input"
                         placeholder="Username"
                         required
-                        {...registerSignUp('username')}
+                        {...registerLogin('username')}
                     />
                     <input
                         autoComplete='off'
-                        {...registerSignUp('password')}
+                        {...registerLogin('password')}
                         className="signup-input"
                         type="password"
                         placeholder="Password"
                         required
                     />
-                    {isDisabled() ? <button
+                    {<button
                         className="signup-btn"
-                        disabled
-                    >Login!</button> : <button
-                        className="signup-btn"
-                    >Login!</button>}
+                    >Login!</button>  }
                 </div>
             </form>
         </div>
 
-        {/* <footer className="signup-footer">hello</footer> */}
+
 
     </div>
 }

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import desc from '../pngs/menu.png'
 import { useSelector } from "react-redux"
 import { boardService } from "../services/board.service"
@@ -79,7 +79,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         setIsEdit(!isEdit)
     }
 
-    const randomMemberColor=() => {
+    const randomMemberColor = () => {
         return utilService.getRandomColor()
     }
 
@@ -99,13 +99,13 @@ export const TaskPreview = ({ task, board, box, index }) => {
     if (task.archivedAt !== '') return
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
-            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center'}}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
+            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className={`label ${(isLabelOpen)}`} onClick={(ev) => onOpenLabel(ev)}
                     style={{ backgroundColor: label.color }}>{(isLabelOpen === 'label-open') && label.title}</div>) : ''}
             </div>}
             <div className="flex space-between" onClick={() => { onSetTask(box) }}>
-                <div>
+                <div className="lower-task-container">
                     <p >{task.title}</p>
                     <div className="flex space-between spacer-bottom-task">
                         <div className="flex task-prev-date-desc">
@@ -114,17 +114,20 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                 {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
                                 <FontAwesomeIcon className="fa font-clock" icon={faClock} />
                                 <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
-                            {(task.description) && <div><img className="desc-png" src={desc} /></div>}
+                            {(task.description) && 
+                            <div className="desc-png-container">
+                                <img className="desc-png" src={desc} />
+                                </div>}
                         </div>
                         {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {
-                                return <div 
-                                key={idx}
-                                 className="board-members">
-                                     
-                                <div >
-                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
-                                </div>
+                                return <div
+                                    key={idx}
+                                    className="board-members">
+
+                                    <div >
+                                        <img className={`member-preview ${idx}`} src={member.avatar} />
+                                    </div>
 
                                 </div>
                             })}
@@ -146,7 +149,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
             <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
-                {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg,backgroundSize:'cover',backgroundRepeat:'no-repeat',backgroundPosition:'center'  }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
+                {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>
@@ -160,19 +163,21 @@ export const TaskPreview = ({ task, board, box, index }) => {
                             {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
                             <FontAwesomeIcon className="fa font-clock" icon={faClock} />
                             <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
-                        {(task.description) && <div><img className="desc-png" src={desc} /></div>}
-                    </div>
+                        {(task.description) && 
+                        <div className="desc-png-container">
+                            <img className="desc-png" src={desc} /></div>}
+                        </div>
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (
                                 <div className="board-members">
 
-                                <div  >
-                                    
-                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
+                                    <div>
+
+                                        <img className={`member-preview ${idx}`} src={member.avatar} />
+                                    </div>
+
                                 </div>
-                            
-                        </div>
                             )
                         })}
                     </div>
