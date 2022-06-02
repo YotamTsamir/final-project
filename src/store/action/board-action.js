@@ -1,10 +1,16 @@
 import { boardService } from "../../services/board.service"
-import { socketService,SOCKET_EVENT_CHANGE_BOARD } from "../../services/socket.service"
+import { socketService, SOCKET_EVENT_CHANGE_BOARD } from "../../services/socket.service"
 
 export function getBoard(boardId) {
     return async (dispatch) => {
         const board = await boardService.getById(boardId)
         dispatch({ type: 'SET_BOARD', board })
+    }
+}
+
+export function toggleLabels(labelState) {
+    return async (dispatch) => {
+        dispatch({ type: 'SET_LABELS', labelState })
     }
 }
 
@@ -15,7 +21,7 @@ export function loadBoards() {
     }
 }
 
-    
+
 
 export function addBoard(newBoard) {
     return async (dispatch) => {
@@ -34,7 +40,7 @@ export function deleteBoard(boardId) {
 
 export function editBoard(board) {
     return async (dispatch) => {
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD,board)
+        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
         await boardService.save(board)
     }
@@ -57,7 +63,7 @@ export function editComment(boardId, boxId, taskId, comment) {
 export function editTask(boardId, boxId, task) {
     return async dispatch => {
         const board = await boardService.updateTask(boardId, task, boxId)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD,board)
+        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
         const box = board.boxes.find(box => box.id === boxId)
         dispatch({ type: 'SET_BOARD', board })
     }
@@ -66,7 +72,7 @@ export function editTask(boardId, boxId, task) {
 export function editBox(boardId, box) {
     return async dispatch => {
         const board = await boardService.saveBox(boardId, box)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD,board)
+        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
@@ -74,7 +80,7 @@ export function editBox(boardId, box) {
 export function editBoxes(boardId, boxes) {
     return async dispatch => {
         const board = await boardService.editBoxes(boardId, boxes)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD,board)
+        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }

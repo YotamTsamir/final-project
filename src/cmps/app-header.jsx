@@ -131,13 +131,11 @@ export const AppHeader = () => {
                             <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
                             <button onClick={() => userService.logout()}>Logout</button>
                         </div>}
-                </div>
-            }
+                </div>}
             {isHomePage && <div className="user-nav-links-home">
                 <NavLink className="nav-link-home login" to='/login'>Log in</NavLink>
                 <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
-            </div>
-            }
+            </div>}
         </div>
     </div>
-}   
+}

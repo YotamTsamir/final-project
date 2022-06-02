@@ -169,6 +169,7 @@
 .label-open {
     animation: labelAniWidth 0.5s 1;
     height: 16px;
+    padding: 0 10px;
     color: white;
     border-radius: 3px;
     width: 60px;
@@ -224,7 +225,7 @@
 
 
 .save-btn {
-    transform: translate3d(10px, -6px, 10px);
+    transform: translate3d(10px, -4px, 10px);
     align-items: center;
     border: none;
     border-radius: 3px;
@@ -257,6 +258,7 @@
 
 .save-btn-edit {
     transform: translate3d(-6px, 47px, 10px);
+    bottom: -80px;
     align-items: center;
     border: none;
     border-radius: 3px;
@@ -282,31 +284,13 @@
 
 }
 
-// .save-btn-edit {
-//     background-color: #0065ff;
-//     transform: translateY(46px);
-//     margin: 10px 8px 0 0;
-//     color: #fefefe;
-//     padding: 6px 8px;
-//     border: none;
-//     border-radius: 2px;
-//     justify-content: center;
-// }
+.down {
+    transform: translate3d(-6px, 84px, 10px);
+}
 
 .add-card:hover {
     cursor: pointer;
 }
-
-// .new-task-input{
-//     background-color: #FFFFFF;
-//     height: -moz-fit-content;
-//     height: fit-content;
-//     border: none;
-//     border-radius: 5px;
-//     &:focus{
-//         outline: none;
-//     }
-// }
 
 .new-task-input {
     -webkit-appearance: none;
@@ -357,8 +341,9 @@
 
 .date-preview {
     // background-color: $clr8;
-    display: inline-block;
-    margin: 0 6px 6px 0;
+    display: flex;
+    align-items: center;
+    margin: 0 6px 4px 0;
     max-width: 100%;
     min-height: 20px;
     overflow: hidden;
@@ -383,7 +368,24 @@
 .passed {
     background-color: $clr8;
     color: #fff;
+    svg *{
+        color:white
+    }
+}
 
+.almost {
+    background-color: #f2d600;
+    color: white;
+    svg *{
+        color:white
+    }
+}
+.svg-inline--fa{
+    color: rgb(254, 254, 254);
+}
+
+.almost:hover {
+    background-color: #d9b51c;
 }
 
 .passed:hover {
@@ -401,6 +403,9 @@
 .complete {
     background-color: $clr10;
     color: #fff;
+    svg *{
+        color:white
+    }
 }
 
 .complete:hover {
@@ -441,6 +446,7 @@
 .task-prev-date-desc {
     position: relative;
     gap: 8px;
+  
 }
 
 .task-member {
