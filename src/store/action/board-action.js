@@ -1,9 +1,28 @@
 import { boardService } from "../../services/board.service"
-import { socketService, SOCKET_EVENT_CHANGE_BOARD } from "../../services/socket.service"
+import { userService } from "../../services/user-service"
+import { socketService, SOCKET_EVENT_LOAD_BOARD } from "../../services/socket.service"
 
 export function getBoard(boardId) {
     return async (dispatch) => {
         const board = await boardService.getById(boardId)
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
+
+export function addBox(boardId, box, activity) {
+    return async dispatch => {
+        let board = await boardService.saveBox(boardId, box)
+        board.activities.unshift(activity)
+        await boardService.save(board)
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
+
+export function addTask(boardId, task, boxId, activity) {
+    return async dispatch => {
+        let board = await boardService.saveTask(boardId, task, boxId)
+        board.activities.unshift(activity)
+        await boardService.save(board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
@@ -21,10 +40,10 @@ export function loadBoards() {
     }
 }
 
-export function updateUserImgInBoards(user){
+export function updateUserImgInBoards(user) {
     return async (dispatch) => {
         const boards = await boardService.updateUserImgInBoards(user)
-        dispatch({ type: 'SET_BOARDS', boards})
+        dispatch({ type: 'SET_BOARDS', boards })
     }
 }
 
@@ -46,7 +65,7 @@ export function deleteBoard(boardId) {
 
 export function editBoard(board) {
     return async (dispatch) => {
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
         await boardService.save(board)
     }
@@ -55,22 +74,24 @@ export function editBoard(board) {
 
 
 
-export function editComment(boardId, box, newTask, comment){
+export function editComment(boardId, box, newTask, comment) {
     console.log('box action', box)
     return async (dispatch) => {
         const task = await boardService.editComment(boardId, box.id, newTask, comment)
-        dispatch({ type: 'SET_TASK',
-                task,
-                box
+        dispatch({
+            type: 'SET_TASK',
+            task,
+            box
         })
     }
 }
 
-export function editTask(boardId, boxId, task) {
+export function editTask(boardId, boxId, task,activity) {
     return async dispatch => {
-        const board = await boardService.updateTask(boardId, task, boxId)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
-        const box = board.boxes.find(box => box.id === boxId)
+        let board = await boardService.saveTask(boardId, task, boxId)
+        board.activities.unshift(activity)
+        await boardService.save(board)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
@@ -78,24 +99,27 @@ export function editTask(boardId, boxId, task) {
 export function editBox(boardId, box) {
     return async dispatch => {
         const board = await boardService.saveBox(boardId, box)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
 
-export function editBoxes(boardId, boxes) {
+export function editBoxes(boardId, boxes,activity) {
     return async dispatch => {
-        const board = await boardService.editBoxes(boardId, boxes)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, board)
+        let board = await boardService.editBoxes(boardId, boxes)
+        board.activities.unshift(activity)
+        await boardService.save(board)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
-export function addComment(boardId, box, newTask){
+export function addComment(boardId, box, newTask) {
     return async (dispatch) => {
         const task = await boardService.addComment(boardId, box.id, newTask)
-        dispatch({ type: 'SET_TASK',
-                task,
-                box
+        dispatch({
+            type: 'SET_TASK',
+            task,
+            box
         })
     }
 }

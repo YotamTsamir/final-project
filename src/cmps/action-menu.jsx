@@ -6,11 +6,13 @@ import { setNewBoard, editTask } from "../store/action/board-action"
 import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
+import { useFormRegister } from "../hooks/useFormRegister";
 
 // dispatch(setNewBoard(newBoard))
 
 export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
+    const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
 
@@ -43,7 +45,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onChangeDate = (value) => {
         onChange(value)
-        
+
 
         const newTask = {
             ...task, date: {
@@ -54,8 +56,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
-
-    const randomMemberColor=() => {
+    const randomMemberColor = () => {
         return utilService.getRandomColor()
     }
     const onChangeBgImg = async ({ target }) => {
@@ -71,6 +72,14 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         dispatch(editTask(board._id, box.id, newTask))
     }
 
+    const onCreateCheckList = async (ev) => {
+        ev.preventDefault()
+        const newCheckList = { title: newCheckListTitle.title, todos: [] }
+        const newTask = { ...task, checkLists: [...task.checkLists, newCheckList] }
+        setCheckListTitle({ title: '' })
+        await boardService.saveTask(board._id, newTask, box.id)
+    }
+console.log(task)
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
@@ -111,16 +120,19 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                     {board.members &&
                         <div className="board-members">
 
-                                <div  >
-                                    
-                                    <img className={`member-preview ${idx}`}src={member.avatar}/>
-                                </div>
-                            
+                            <div  >
+
+                                <img className={`member-preview ${idx}`} src={member.avatar} />
+                            </div>
+
                         </div>
                     }
-                     {member.fullname} ({member.userName}) </div>
+                    {member.fullname} ({member.userName}) </div>
                 )
             })}
+        </div>}
+        {(topic === 'checkList') && <div>
+            <form onSubmit={(ev) => onCreateCheckList(ev)}>Title<input {...register('title')} /></form>
         </div>}
     </div>
 }

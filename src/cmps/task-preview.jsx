@@ -27,10 +27,10 @@ export const TaskPreview = ({ task, board, box, index }) => {
     useEffect(() => {
         if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
             setIsPassed('passed')
-        } else if(Date.now() - (Date.parse(task.date.timeStamp)) >= -5000000){
+        } 
+        else if(Date.now() - (Date.parse(task.date.timeStamp)) >= -(60*60*24*1000)){
             setIsPassed('almost')
         }
-        console.log(task,(Date.now() - Date.parse(task.date.timeStamp)))
         setLabels(getLabels)
     }, [task])
 

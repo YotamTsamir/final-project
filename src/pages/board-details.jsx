@@ -3,16 +3,17 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
 import { useFormRegister } from "../hooks/useFormRegister"
 import { useEffectUpdate } from "../hooks/useEffectUpdate"
-import { socketService, SOCKET_EVENT_CHANGE_BOARD, SOCKET_EVENT_SET_BOARD } from "../services/socket.service"
+import { socketService, SOCKET_EVENT_LOAD_BOARD, SOCKET_EVENT_SET_BOARD } from "../services/socket.service"
 import { BoxList } from "../cmps/box-list"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { utilService } from "../services/util.service"
 import { dragService } from "../services/drag-service"
 import { boardService } from "../services/board.service"
-import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard, toggleFavourite } from '../store/action/board-action'
+import { getBoard, setNewBoard, deleteBoard, editBox, editBoxes, editBoard, toggleFavourite, addBox } from '../store/action/board-action'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX } from '@fortawesome/free-solid-svg-icons'
+import { userService } from "../services/user-service"
 // import { useDraggable } from "react-use-draggable-scroll"
 
 export const Board = () => {
@@ -23,36 +24,32 @@ export const Board = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-
-    useEffect(() => {
-        // socketService.setup();
-
-        // socketService.off(SOCKET_EVENT_ADD_TASK);
-        // socketService.on(SOCKET_EVENT_ADD_TASK, onAddTask);
-        return () => {
-            // socketService.off(SOCKET_EVENT_ADD_TASK, onAddTask)
-            // socketService.terminate()
-        }
-    }, [])
-
     useEffect(() => {
         const { boardId } = params
         dispatch(getBoard(boardId))
-        socketService.emit(SOCKET_EVENT_SET_BOARD, board._id);
-        socketService.off(SOCKET_EVENT_CHANGE_BOARD);
-        socketService.on('load board', updateBoard);
-    }, [])
+        socketService.emit(SOCKET_EVENT_SET_BOARD, board?._id);
+        socketService.off(SOCKET_EVENT_LOAD_BOARD);
+        socketService.on(SOCKET_EVENT_LOAD_BOARD, updateBoard);
+        return () => {
+            socketService.off(SOCKET_EVENT_LOAD_BOARD, updateBoard)
+        }
 
+    }, [])
+    console.log(board)
     const updateBoard = (board) => {
         dispatch(setNewBoard(board))
     }
 
     useEffectUpdate(() => {
-        if (!board._id) {
+        if (!board?._id) {
             navigate('/boards')
         }
     }, [board])
 
+    const addActivity = (activity, board) => {
+        const newBoard = { ...board, activities: [...board.activities || [], activity] }
+        return newBoard
+    }
 
     const setAddBox = () => {
         setIsAdd(!isAdd)
@@ -65,12 +62,12 @@ export const Board = () => {
     //move to action
     const onEditBoardStyle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, newBoard)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, newBoard)
         dispatch(setNewBoard(newBoard))
     }
     const onEditBoardTitle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardTitle(boardId, field, change)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, newBoard)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, newBoard)
         dispatch(setNewBoard(newBoard))
     }
 
@@ -85,13 +82,15 @@ export const Board = () => {
             return
         }
         const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
-        const newBoard = await boardService.saveBox(boardId, box)
-        socketService.emit(SOCKET_EVENT_CHANGE_BOARD, newBoard)
+        const user = userService.getLoggedinUser()
+        const activity = { user, action: `added`,id:utilService.makeId(), object:box , about: 'to his board', timeStamp: Date.now() }
         setIsAdd(false)
-        EditBoxTitle('')
-        dispatch(setNewBoard(newBoard))
-    }
+        EditBoxTitle({ title: '' })
+        // const newBoard = await boardService.saveBox(boardId, box)
+        dispatch(addBox(boardId,box,activity))
 
+        // dispatch(setNewBoard(updatedBoard))
+    }
     const onDragEnd = (res) => {
         const { destination, source, draggableId } = res
         if (!destination) return
@@ -102,15 +101,21 @@ export const Board = () => {
             return
         }
         else if (destination.droppableId !== source.droppableId) {
+            const destinationBox = board.boxes.find(box=>box.id===destination.droppableId)
+            const originBox = board.boxes.find(box=> box.id===source.droppableId)
+            console.log(originBox)
+            console.log('task is', source)
+            const user = userService.getLoggedinUser()
+            const activity = {user,action:`moved`,id:utilService.makeId(), object:originBox.tasks[source.index],about:`from ${originBox.title} to ${destinationBox.title}`,timeStamp:Date.now()}
             const newOrder = dragService.moveTaskToOtherBox(board, source, destination)
-            dispatch(editBoxes(board._id, newOrder))
+            dispatch(editBoxes(board._id, newOrder,activity))
             return
         }
         const currBox = dragService.moveTaskInBox(board, source, destination)
         dispatch(editBox(board._id, currBox))
     }
 
-    if (!board.boxes || !board._id) return <h1>Loading...</h1>
+    if (!board?.boxes || !board?._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar
             board={board}
@@ -125,7 +130,7 @@ export const Board = () => {
                         <div ref={provided.innerRef}
                             {...provided.droppableProps}>
                             <div className="board">
-                                <BoxList board={board} boxes={board.boxes} />
+                                <BoxList addActivity={addActivity} board={board} boxes={board.boxes} />
                                 {(!isAdd) &&
                                     <div className="add-box before-click" onClick={() => setAddBox()}>
                                         <span className="plus-sign">+</span> Add another list

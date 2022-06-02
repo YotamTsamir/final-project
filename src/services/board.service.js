@@ -13,7 +13,7 @@ export const boardService = {
     getById,
     save,
     remove,
-    updateTask,
+    saveTask,
     addNewBoard,
     saveBox,
     getDefaultBgs,
@@ -33,6 +33,7 @@ export const boardService = {
     addComment,
     deleteTask,
     updateUserImgInBoards,
+    addActivity
 }
 
 
@@ -46,6 +47,12 @@ async function addLabelToTask(task, box, labelId, boardId) {
     return save(board)
 }
 
+async function addActivity(boardId,activity){
+        const board = await getById(boardId)
+        const newBoard = { ...board, activities: [...board.activities, activity] }
+        save(newBoard)
+        return newBoard
+}
 
 async function saveBox(boardId, box) {
     return await httpService.put(`board/updateBox/${boardId}`,box)
@@ -84,7 +91,7 @@ async function deleteTask(boardId, boxId, taskId) {
     save(newBoard)
 }
 
-async function updateTask(boardId, task, boxId) {
+async function saveTask(boardId, task, boxId) {
     return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
 }
 
@@ -145,6 +152,7 @@ function _createBoard(userBoard) {
     return ({
 
         "title": userBoard.title,
+        "activities":[],
         "isStarred": false,
         "archivedAt": null,
         "createdAt": Date.now(),

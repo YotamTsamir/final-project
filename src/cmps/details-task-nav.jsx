@@ -9,12 +9,14 @@ import labelImg from '../imgs/label.png'
 import copyImg from '../imgs/copy.png'
 import archiveImg from '../imgs/archive.png'
 import coverImg from '../imgs/cover.png'
+import { boardService } from '../services/board.service'
 export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setIsEdit }) => {
     const [menuState, setMenuState] = useState({
         'Labels': false,
         'Dates': false,
         'Members': false,
-        "Cover": false
+        "Cover": false,
+        "Checklist":false
     })
 
     const [dateValue, setDateValue] = useState(Date.now())
@@ -36,11 +38,16 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
         setDateValue(value)
     }
 
+    const createCheckList = () => {
+        const newTask={...task,checklists:[...task.checklists,]}
+    }
+
     const menuBtns = [
         { txt: 'Labels', fa: <img className="menu-imgs" src={labelImg} /> },
         { txt: 'Cover', fa: <img className="menu-imgs" src={coverImg} /> },
         { txt: 'Members', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faUser} /> },
         { txt: 'Move', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faArrowRight} /> },
+        {txt:'Checklist'},
         { txt: 'Copy', fa: <img className="menu-imgs" src={copyImg} /> },
         { txt: 'Dates', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faClock} /> },
         { txt: 'Archive', fa: <img className="menu-imgs" src={archiveImg} /> },
@@ -69,11 +76,13 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
                         task={task} box={box} board={board} />}
 
                     {(menuState['Dates']) && btn.txt === 'Dates' && <ActionMenu
-                        topic={'Dates'} task={task}
+                        topic={'Date'} task={task}
                         box={box} board={board} emitDateValue={emitDateValue} />}
 
                     {(menuState['Members']) && btn.txt === 'Members' && <ActionMenu
                         topic={'Members'} task={task} box={box} board={board} />}
+                    {(menuState['Checklist']) && btn.txt === 'Checklist' && <ActionMenu
+                        topic={'checkList'} task={task} box={box} board={board} />}
                 </div>)
             })}
         </div>
