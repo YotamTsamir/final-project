@@ -42,7 +42,7 @@ export const CommentList = ({ board, box, task }) => {
         onEditComment(comment)
     }
 
-    return <ul className="comments left-details-container">
+    return <ul className="comments-container">
         <CommentPreview board={board} box={box} task={task} />
         {isCommentsLength() &&
             comments.map((comment, idx) => {

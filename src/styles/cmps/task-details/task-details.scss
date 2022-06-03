@@ -28,15 +28,30 @@
         display: flex;
         flex-direction: column;
 
-        textarea,
-        .comments {
-            margin-left: 30px;
-            // width: 100%;
-            display: flex;
-            flex-direction: column;
+        .desc-input {
             height: 108px;
-            resize: none;
+        }
 
+
+        .left-details-container.form-comment-details {
+            padding: 8px 12px 56px 31px;
+            box-sizing: border-box;
+            position: relative;
+
+            .comment-input {
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                resize: none;
+                height: 20px;
+            }
+
+            .save-btn.comment {
+                margin-left: 0;
+                position: absolute;
+                bottom: 8px;
+                left: 21px;
+            }
         }
 
         .comment-edit-delete-container {
@@ -147,9 +162,9 @@
         background-color: #f62b2b
     }
 
-    & .desc-input {
+    .desc-input {
         margin-top: 10px;
-        margin-left: 32px;
+        margin-left: 31px;
         padding: 10px;
         font-size: 1.1rem;
         border: 1px solid rgba(184, 183, 183, 0.572);
@@ -299,7 +314,7 @@
 
         .desc-btn-container {
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             margin-left: 0px;
         }
 
@@ -307,6 +322,7 @@
             letter-spacing: 1.5px;
             font-weight: 600;
             cursor: pointer;
+            height: 32px;
 
 
             &.save-btn {
@@ -331,11 +347,11 @@
                 border: none;
                 color: black;
                 font-weight: 550;
-                margin: 10px 10px 13px 0px;
+                margin: 10px 10px 0 0px;
                 padding: 6px 15px;
                 border: none;
                 border-radius: 2px;
-                // background-color: rgb(220, 216, 216);
+
 
                 &:hover {
                     background-color: rgb(220, 216, 216);
