@@ -33,7 +33,7 @@ export const BoardExtrasMenu = ({ setAddTask, setBoardExtrasMenu, box, board }) 
 
     }
 
-    return <div class="board-extras-menu">
+    return <div className="board-extras-menu">
         {(!onCopy) && <div>
             <div className="extras-header">List actions</div>
             <div onClick={() => { onAddTask() }} className="extras-btn extras-add">Add card...</div>

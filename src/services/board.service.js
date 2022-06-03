@@ -82,8 +82,8 @@ async function editComment(boardId, boxId, task, comment) {
     const commentIdx = board.boxes[boxIdx].tasks[taskIdx].comments.findIndex(currComment => currComment.id === comment.id)
     if (commentIdx === -1) return board
     board.boxes[boxIdx].tasks[taskIdx].comments[commentIdx].txt = comment.txt
-    console.log('box comment list', comment.txt)
-    return save(board)
+    await save(board)
+    return board.boxes[boxIdx].tasks[taskIdx]
 }
 async function deleteTask(boardId, boxId, taskId) {
     await httpService.delete(`board/${boardId}/${boxId}/${taskId}`)
@@ -218,7 +218,6 @@ async function editBoardStyle(boardId, field, change) {
 async function editBoardTitle(boardId, field, change) {
     let board = await getById(boardId)
     board = { ...board, [field]: change }
-    console.log(field, change, board)
     return save(board)
 }
 

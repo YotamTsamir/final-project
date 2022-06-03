@@ -82,7 +82,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         setCheckListTitle({ title: '' })
         await boardService.saveTask(board._id, newTask, box.id)
     }
-    console.log(task)
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>

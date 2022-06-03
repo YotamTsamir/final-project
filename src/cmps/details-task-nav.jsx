@@ -23,6 +23,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
     const dispatch = useDispatch()
 
     const toggleMenu = (menuName) => {
+ 
         const newMenuState = {}
         for (const key in menuState) {
             newMenuState[key] = key === menuName ? !menuState[menuName] : false

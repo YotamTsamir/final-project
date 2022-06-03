@@ -39,7 +39,7 @@ export const InputComments = ({board, box, task}) => {
   };
 
 
-
+  console.log('task',task)
   if(!comments || !box) return <h1>Loading...</h1>
   return (
     <div className="comment-cmps">
