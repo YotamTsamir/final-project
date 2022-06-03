@@ -2,7 +2,8 @@
 export const dragService = {
     changeBoxesPos,
     moveTaskToOtherBox,
-    moveTaskInBox
+    moveTaskInBox,
+    moveTodoInChecklist
 }
 
 function changeBoxesPos(board, source, destination) {
@@ -39,6 +40,33 @@ function moveTaskToOtherBox(board,source,destination){
         let currBoxNew = { ...currBox, tasks: [...currBox.tasks] }
         return [currBoxNew,oldBoxNew]
     }
+}
+
+function moveTodoInChecklist(board,box,task,checklistId,source,destination){
+    const currBoxIdx = board.boxes.findIndex(currBox => currBox.id===box.id)
+    const currTask = board.boxes[currBoxIdx].tasks.find(currTask => currTask.id === task.id)
+    const currCheckList = currTask.checkLists.find(currCheckList => currCheckList.id === checklistId)
+    const currCheckListIdx = currTask.checkLists.findIndex(currCheckList => currCheckList.id === checklistId)
+    let newCheckList = [...currCheckList.todos]
+    if ((source.index - destination.index) < 1) {
+        currCheckList.todos.map((todo, index) => {
+            if (index < source.index) return
+            else if (index < destination.index) return newCheckList[index] = currCheckList.todos[index + 1]
+            else if (index === destination.index) return newCheckList[index] = currCheckList.todos[source.index]
+            else if (index === currCheckList.todos.length - 1) return newCheckList[index] = currCheckList.todos[index]
+        })
+    } else if ((source.index - destination.index) >= 1) {
+        currCheckList.todos.map((task, index) => {
+            if (index > source.index) return
+            else if (index > destination.index) return newCheckList[index] = currCheckList.todos[index - 1]
+            else if (index === destination.index) return newCheckList[index] = currCheckList.todos[source.index]
+            else if (index === 0) return newCheckList[index] = currCheckList.todos[index]
+        })
+    }
+    currTask.checkLists[currCheckListIdx].todos = newCheckList
+
+    return currTask
+    
 }
 
 function moveTaskInBox(board,source,destination){

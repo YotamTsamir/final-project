@@ -95,6 +95,8 @@ async function saveTask(boardId, task, boxId) {
     return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
 }
 
+
+
 async function query() {
     return await httpService.get('board/')
     // console.log(boards)

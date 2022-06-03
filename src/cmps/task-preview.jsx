@@ -187,6 +187,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
         </div>}
 
-        <Outlet />
+       
     </div>
 }

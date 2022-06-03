@@ -3,6 +3,7 @@ const initialState = {
     task: {},
     box: {},
     boards: [],
+    checklist:{},
     isLabelOpen: ''
 
 }
@@ -11,6 +12,9 @@ export function boardReducer(state = initialState, action) {
     switch (action.type) {
         case 'SET_BOARDS':
             newState = { ...state, boards: action.boards }
+            break;
+        case 'SET_CHECKLIST':
+            newState = { ...state, checklist: action.checklist }
             break;
         case 'UPDATE_BOARD':
             newState = {

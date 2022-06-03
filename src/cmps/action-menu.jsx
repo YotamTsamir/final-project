@@ -74,7 +74,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onCreateCheckList = async (ev) => {
         ev.preventDefault()
-        const newCheckList = { title: newCheckListTitle.title, todos: [] }
+        const newCheckList = { id:utilService.makeId(4),title: newCheckListTitle.title, todos: [] }
         const newTask = { ...task, checkLists: [...task.checkLists, newCheckList] }
         setCheckListTitle({ title: '' })
         await boardService.saveTask(board._id, newTask, box.id)

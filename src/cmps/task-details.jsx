@@ -29,12 +29,14 @@ export const TaskDetails = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-
   useEffect(() => {
     (async () => {
       const { boardId } = params;
       if (boardId === board._id) return
       dispatch(getBoard(boardId));
+      return () => {
+        boardService.saveTask(board._id,task,box.id)
+      }
     })();
   }, []);
   // CHANGE FUNC IN SERVICE FROM GETBYID TO FIND
@@ -172,7 +174,7 @@ export const TaskDetails = () => {
               </div>
               {(isDesc()) && <InputDesc className="is-desc" />}
               {(!isDesc()) && <InputDesc className="no-desc" />}
-              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => {return <CheckList checkList={checkList} task={task} />}))}
+              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => {return <CheckList board={board} box={box} checkList={checkList} task={task} />}))}
               <div className="activity-container">
                 <div className="left-details-container icon-details-list">
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
