@@ -43,102 +43,106 @@
         filter: brightness(1);
     }
 }
-    .menu-imgs {
-        height: 14px;
-        margin: 0 6px 0 -6px;
-        padding-left: 8px;
-        padding-right: 8px;
+
+.menu-imgs {
+    height: 14px;
+    margin: 0 6px 0 -6px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.details-task-nav-contianer {
+    display: flex;
+    flex-direction: column;
+    padding: 0 0 8px 8px;
+}
+
+.detail-container {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.add-to-card {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin-right: 20px 0 0 0;
+    padding: 5px;
+}
+
+
+.details-task-nav-btn {
+    background-color: $clr12;
+    color: blue;
+    font-weight: 500;
+    margin-top: 8px;
+    padding: 6px 12px;
+    border-radius: 3px;
+    height: 32px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    text-align: left;
+    text-overflow: ellipsis;
+    width: 100%;
+    padding-right: 80px;
+
+    // transition: transform 85ms ease-in;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.127);
+        // transform: translateX(5px);
     }
-    .details-task-nav-contianer{
+
+    .details-btn-txt-fa {
         display: flex;
-        flex-direction: column;
-    }
-    .detail-container {
-        display: flex;
-        flex-direction: column;
-    }
+        align-items: center;
+        justify-content: left;
+        letter-spacing: 1.5px;
 
-
-
-    .add-to-card {
-        display: flex;
-        justify-content: center;
-        width: fit-content;
-        margin-right: 20px 0 0 0;
-        padding: 5px;
-    }
-
-    
-    .details-task-nav-btn {
-        background-color: $clr12;
-        color: blue;
-        font-weight: 500;
-        margin-top: 8px;
-        padding: 6px 12px;
-        border-radius: 3px;
-        height: 32px;
-        border: none;
-        cursor: pointer;
-        position: relative;
-        text-align: left;
-        text-overflow: ellipsis;
-        width: 100%;
-        padding-right: 80px;
-
-        // transition: transform 85ms ease-in;
-
-        &:hover {
-            background-color: rgba(0, 0, 0, 0.127);
-            // transform: translateX(5px);
+        img {
+            padding-right: 10px;
         }
+    }
 
-        .details-btn-txt-fa {
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            letter-spacing: 1.5px;
 
-            img {
-                padding-right: 10px;
+    & .Cover {
+        box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.28);
+    }
+
+    .action-menu {
+        position: absolute;
+        margin: 0;
+        transform: unset;
+        z-index: 5;
+        top: 32px;
+        left: 0;
+
+
+        .label-choice-items {
+            color: #fefefe;
+            font-size: 14px;
+            padding: 6px 12px;
+            margin: 0 0 4px;
+            text-align: left;
+            font-weight: 600;
+            letter-spacing: 1px;
+            border-radius: 3px;
+
+            &.Labels {
+                box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.28);
+                padding: 0 10px;
+                width: 250px;
+
+
             }
+
         }
-
-
-        & .Cover {
-            box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.28);
-        }
-
-        .action-menu {
-            position: absolute;
-            margin: 0;
-            transform: unset;
-            z-index: 5;
-            top: 32px;
-            left: 0;
-
-
-            .label-choice-items {
-                color: #fefefe;
-                font-size: 14px;
-                padding: 6px 12px;
-                margin: 0 0 4px;
-                text-align: left;
-                font-weight: 600;
-                letter-spacing: 1px;
-                border-radius: 3px;
-
-                &.Labels {
-                    box-shadow: 0px 0px 10px -1px rgba(0, 0, 0, 0.28);
-                    padding: 0 10px;
-                    width: 250px;
-
-
-                }
-
-            }
-        }
-
     }
+
+}
 
 .detail-menu-container {
     display: flex;
@@ -154,6 +158,7 @@
     align-items: flex-end;
 
 }
+
 .details-task-cover-btn {
     position: relative;
     display: flex;
@@ -173,4 +178,3 @@
         background-color: rgba(0, 0, 0, 0.127);
     }
 }
-

@@ -8,7 +8,7 @@
     display: flex;
     flex-direction: column;
 
-    .lower-task-container{
+    .lower-task-container {
         width: 100%;
     }
 }
@@ -61,6 +61,7 @@
     padding-bottom: 5px;
     padding-left: 8px;
     padding-right: 6px;
+    // width: 229px;
 
 
     & p {
@@ -69,7 +70,7 @@
         // word-break: break-all;
         color: #172b4d;
         display: block;
-        margin: 0 0 6px;
+        margin: 0 0 3px;
         overflow: hidden;
         text-decoration: none;
     }
@@ -136,10 +137,11 @@
     position: absolute;
     top: 0;
     right: 0;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     z-index: 5;
     background-color: rgba(0, 0, 0, 0.44);
+    overflow-y: auto;
 }
 
 .task:hover {
@@ -154,45 +156,44 @@
     }
 
 }
+
 .member-preview {
     display: flex;
     align-items: center;
     color: #fafbfc;
-    
+
     img {
-        height:32px;
+        height: 32px;
         width: 32px;
         border-radius: 50%;
-        margin-right: 5px;
+        margin-right: 3px;
 
     }
 }
 
 .board-members {
-
     .members-div {
         cursor: pointer;
-        margin: 0 ;
+        margin: 0;
         line-height: 32px;
         white-space: nowrap;
         color: rgb(7, 7, 153);
         height: 50px;
         align-items: center;
         display: flex;
-        
-    
+
+
     }
+
     img {
-        height:30px;
+        height: 30px;
         width: 30px;
         border-radius: 50%;
         margin-left: 4px;
         padding: 0;
     }
-    
+
     .member-preview:hover {
-        height: 32px;
-        width: 32px;
         z-index: 100;
         cursor: pointer;
     }
@@ -204,19 +205,22 @@
     gap: 4px;
     padding: 6px;
     transform: translateX(-9px);
+    padding-top: 2px;
+    margin-left: 3px;
 }
 
-.desc-png-container{
+.desc-png-container {
     align-self: center;
 }
+
 .desc-png {
     height: 12px;
     width: 12px;
 }
 
 .label {
-    height: 10px;
-    width: 50px;
+    height: 8px;
+    width: 42px;
     border-radius: 4px;
 }
 
@@ -405,9 +409,11 @@
     border-radius: 3px;
 
 }
+
 .spacer-bottom-task {
     align-items: center;
 }
+
 .date-preview:hover {
     background-color: $clr5;
 
@@ -424,19 +430,22 @@
 .passed {
     background-color: $clr8;
     color: #fff;
-    svg *{
-        color:white
+
+    svg * {
+        color: white
     }
 }
 
 .almost {
     background-color: #f2d600;
     color: white;
-    svg *{
-        color:white
+
+    svg * {
+        color: white
     }
 }
-.svg-inline--fa{
+
+.svg-inline--fa {
     color: rgb(254, 254, 254);
 }
 
@@ -459,8 +468,9 @@
 .complete {
     background-color: $clr10;
     color: #fff;
-    svg *{
-        color:white
+
+    svg * {
+        color: white
     }
 }
 
@@ -500,7 +510,7 @@
 .task-prev-date-desc {
     position: relative;
     gap: 8px;
-  
+
 }
 
 .task-member {

@@ -8,7 +8,8 @@ import { SignUp } from './pages/signup.jsx';
 import { AppHeader } from './cmps/app-header.jsx';
 import { TaskDetails } from './cmps/task-details.jsx';
 import './styles/main.scss';
-import {Avatar} from './pages/avatar.jsx'
+import { Avatar } from './pages/avatar.jsx'
+
 function App() {
   return (
     <Router>
@@ -17,13 +18,14 @@ function App() {
       </header>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/boards'element={<BoardList />}/>
-        <Route path='/b/:boardId'element={<Board />}  >
-        <Route path='task/:taskId' element={<TaskDetails />} />
+        <Route path='/boards' element={<BoardList />} />
+        <Route path='/b/:boardId' element={<Board />}  >
+          <Route path='task/:taskId' element={<TaskDetails />} />
         </Route>
-        <Route path='/login'element={<Login />}/>
-        <Route path='/signup' element={<SignUp />}/>
-        <Route path='/avatar' element={<Avatar />}/>
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='/avatar' element={<Avatar />} />
+        {/* <Route path='/testarea' element={<  />} /> */}
       </Routes>
     </Router>
   );

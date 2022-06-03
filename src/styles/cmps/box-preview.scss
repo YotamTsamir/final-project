@@ -14,6 +14,7 @@
         font-weight: 600;
         font-size: 12px;
         letter-spacing: 1px;
+        padding-top: 4px;
     }
 
     .task-list-wraper {
@@ -25,7 +26,8 @@
     }
 
     .task-list-wraper::-webkit-scrollbar {
-        width: 5px;
+        width: 10px;
+        background-color: #efefef7a;
     }
 
     .task-list-wraper::-webkit-scrollbar-track {
@@ -34,7 +36,7 @@
 
     .task-list-wraper::-webkit-scrollbar-thumb {
         border-radius: 10px;
-        background-color: #8c8c8c;
+        background-color: #bfbebe;
     }
 }
 

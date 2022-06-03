@@ -8,8 +8,8 @@ export const BgClrList = ({ dfBgs, onChange }) => {
 
 
     return <ul className="bg-color"
-    {...events}
-    ref={ref}>
+        {...events}
+        ref={ref}>
         {dfBgs.color.map((color, idx) => {
             return <li key={`${idx + 10}`}>
                 <button

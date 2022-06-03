@@ -6,6 +6,9 @@ import { setNewBoard, editTask } from "../store/action/board-action"
 import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
+import { TaskBgPreview } from '../cmps/task/task-bg-preview';
+//Need to implement the component and it's function
+import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 
 // dispatch(setNewBoard(newBoard))
@@ -79,7 +82,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         setCheckListTitle({ title: '' })
         await boardService.saveTask(board._id, newTask, box.id)
     }
-console.log(task)
+    console.log(task)
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
@@ -96,6 +99,7 @@ console.log(task)
 
         <div >
             {(topic === 'Cover') && <div>
+                <TaskBgPreview />
                 <div className="color-grid">
                     {(colors.map(color => {
                         return (

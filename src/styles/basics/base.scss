@@ -4,6 +4,10 @@
     font-size: 14px;
 }
 
+html {
+    background-color: #ffffff;
+}
+
 html,
 body {
     height: 100%;
@@ -17,6 +21,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #ffffff;
 }
 
 .white-icons path {

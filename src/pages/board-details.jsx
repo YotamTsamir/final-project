@@ -36,7 +36,6 @@ export const Board = () => {
         }
 
     }, [])
-    console.log(board)
     const updateBoard = (board) => {
         dispatch(setNewBoard(board))
     }

@@ -1,0 +1,10 @@
+.task-description {
+    form {
+
+        textarea {
+            $width: calc(100% - 58px);
+            width: $width;
+        }
+    }
+}
+

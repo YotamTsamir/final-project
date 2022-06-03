@@ -1,5 +1,5 @@
 .app-header {
-    padding: 6px 4px 6px 4px;
+    padding: 6px 27px 6px 27px;
     z-index: 100;
     box-sizing: border-box;
     display: flex;
@@ -149,10 +149,12 @@
                     margin: 0;
                     text-decoration: none;
                 }
+
                 .small-right-menu-container a {
                     font-size: 20px;
                     text-decoration: none;
                 }
+
                 .nav-link:hover {
                     cursor: pointer;
                     background-color: #f4f5f7;
@@ -241,7 +243,7 @@
         }
 
         svg * {
-            color: #026aa7;
+            color: #0065ff;
         }
 
         h1 {
@@ -249,7 +251,17 @@
         }
     }
 
-    .user-nav-links-home {
+
+    .app-header.home-page-header.scrolled {
+        background: white;
+        box-shadow: 0 0 10px rgb(0 0 0 / 30%);
+        transition: background 1s ease 0s;
+    }
+
+
+
+    .home-signup-login {
+
         display: flex;
         align-items: center;
 
@@ -289,12 +301,6 @@
             background-color: #005eeb;
         }
     }
-}
-
-.app-header.home-page-header.scrolled {
-    background: white;
-    box-shadow: 0 0 10px rgb(0 0 0 / 30%);
-    transition: background 1s ease 0s;
 }
 
 .nav-link {
