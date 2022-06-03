@@ -61,7 +61,7 @@ export const BoardList = () => {
                 <div className="boards-container">
                     <div className='board-list-header'>
                         <FontAwesomeIcon icon={faStar} />
-                        <h2>Favourite Boards</h2>
+                        <h2>Starred boards</h2>
                     </div>
                     <div className='boards-container'>
                         {starredBoards.map((board, idx) => {
@@ -76,7 +76,7 @@ export const BoardList = () => {
                 <div className="all-boards">
                     <div className='board-list-header'>
                         <FontAwesomeIcon icon={faProjectDiagram} />
-                        <h2>Your Projects</h2>
+                        <h2>Your Boards</h2>
                     </div>
                     <div className="boards-container">
                         {isAddBoardOpen && <BoardAdd
