@@ -132,8 +132,8 @@ export const AppHeader = () => {
         </div>
             {(!user && location.pathname === '/') && 
             <div className='home-signup-login'>
-                <NavLink className="nav-link login" to='/login'>Login</NavLink>
-                <NavLink className="nav-link signup" to='/signup'>Sign up</NavLink>
+                <NavLink className="nav-link-home login" to='/login'>Login</NavLink>
+                <NavLink className="nav-link-home signup" to='/signup'>Sign up</NavLink>
                 </div>
             }
             
