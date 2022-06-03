@@ -84,9 +84,10 @@ export function updateBoard(user,boardId) {
 
 
 export function editComment(boardId, box, newTask, comment) {
-    console.log('box action', box)
     return async (dispatch) => {
         const task = await boardService.editComment(boardId, box.id, newTask, comment)
+
+        console.log('task action')
         dispatch({
             type: 'SET_TASK',
             task,
@@ -158,7 +159,6 @@ export function setNewBoard(board) {
 }
 
 export function toggleFavourite(boardId) {
-    console.log('im togglin a newboard ');
     return async dispatch => {
         const board = await boardService.toggleBoardStarred(boardId)
         dispatch({ type: 'UPDATE_BOARD', board })

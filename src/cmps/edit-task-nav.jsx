@@ -17,7 +17,9 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
     })
     const dispatch = useDispatch()
 
-    const toggleMenu = (menuName) => {
+    const toggleMenu = (ev, menuName) => {
+        console.log('set modal')
+        setModal(ev)
         const newMenuState = {}
         for (const key in menuState) {
             newMenuState[key] = key === menuName ? !menuState[menuName] : false
@@ -35,7 +37,18 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-
+    const setModal = (ev) => {
+        const x = window.innerWidth;
+        const y = window.innerHeight;
+        const DOMelement = ev.currentTarget
+        const values = DOMelement.getBoundingClientRect()
+        console.log(values, x, y)
+        if(x-values.right < (values.right-values.left) ){
+            return "right side"
+        } else return "all good"
+        
+    }
+    // && ())
 
     const menuBtns = [
         { txt: 'Open card', func: openDateMenu, fa: <FontAwesomeIcon style={{ color: '#fefefe' }} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} inverse /> },
@@ -57,7 +70,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
                 return (
                     <div key={idx}>
 
-                        {(btn.txt !== 'Archive' && btn.txt !== 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { toggleMenu(btn.txt) }}>
+                        {(btn.txt !== 'Archive' && btn.txt !== 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={(ev) => { toggleMenu(ev, btn.txt) }}>
                             {btn.fa} {btn.txt}
                         </button>}
                         {(btn.txt === 'Archive' || btn.txt === 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>
