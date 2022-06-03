@@ -21,7 +21,8 @@ export function addBox(boardId, box, activity) {
 export function addTask(boardId, task, boxId, activity) {
     return async dispatch => {
         let board = await boardService.saveTask(boardId, task, boxId)
-        board.activities.unshift(activity)
+        console.log(board.activities)
+        if (activity) board.activities.unshift(activity)
         await boardService.save(board)
         dispatch({ type: 'SET_BOARD', board })
     }
@@ -71,6 +72,14 @@ export function editBoard(board) {
     }
 }
 
+export function updateBoard(user,boardId) {
+    return async (dispatch) => {
+        const board = await boardService.addBoardMember(user,boardId)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
+        dispatch({ type: 'SET_BOARD', board })
+    }
+}
+
 
 
 
@@ -86,10 +95,11 @@ export function editComment(boardId, box, newTask, comment) {
     }
 }
 
-export function editTask(boardId, boxId, task,activity) {
+export function editTask(boardId, boxId, task, activity) {
     return async dispatch => {
         let board = await boardService.saveTask(boardId, task, boxId)
-        board.activities?.unshift(activity)
+        console.log(board.activities)
+        if (activity) board.activities?.unshift(activity)
         await boardService.save(board)
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
@@ -104,7 +114,7 @@ export function editBox(boardId, box) {
     }
 }
 
-export function editBoxes(boardId, boxes,activity) {
+export function editBoxes(boardId, boxes, activity) {
     return async dispatch => {
         let board = await boardService.editBoxes(boardId, boxes)
         board.activities.unshift(activity)
@@ -135,10 +145,10 @@ export function onRemoveComment(boardId, box, newTask) {
     }
 }
 
-export function setCheckList(checkList){
- return dispatch => {
-     dispatch({type:'SET_CHECKLIST',checkList})
- }   
+export function setCheckList(checkList) {
+    return dispatch => {
+        dispatch({ type: 'SET_CHECKLIST', checkList })
+    }
 }
 
 export function setNewBoard(board) {

@@ -4,7 +4,10 @@ import { boardService } from "../services/board.service"
 import { faClock, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { utilService } from "../services/util.service"
-import { Droppable,Draggable } from "react-beautiful-dnd"
+import { Droppable, Draggable } from "react-beautiful-dnd"
+import { checkListService } from '../services/check-list.service'
+import { useDispatch } from "react-redux"
+import { setNewBoard,editTask } from "../store/action/board-action"
 
 
 export const CheckList = ({ board, box, checkList, task }) => {
@@ -12,8 +15,16 @@ export const CheckList = ({ board, box, checkList, task }) => {
     const [register, newTodo, setNewTodo] = useFormRegister({ todo: '' })
     const [registery, editedTodo, setEditedTodo] = useFormRegister({ editedTodo: '' })
     const [doneTodos, setDoneTodos] = useState(0)
-
-   
+    const [completePerc,setCompletePerc] = useState(0)
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        calcCompletePercentage()
+    },[checkList])
+    const calcCompletePercentage = () => {
+        const whole = checkList.todos.length
+        const completedPercent = (doneTodos*100)/whole 
+        setCompletePerc(completedPercent)
+    }
 
     const addTodo = () => {
         setEditTodo('add-todo')
@@ -21,29 +32,20 @@ export const CheckList = ({ board, box, checkList, task }) => {
 
     const onAddTodo = (ev) => {
         ev.preventDefault()
-        const todoToAdd = { id: utilService.makeId(3), title: newTodo.todo, isDone: false }
-        const newCheckList = { ...checkList, todos: [...checkList.todos, todoToAdd] }
-        const currCheckListIdx = task.checkLists.findIndex(currCheckList => currCheckList.id === checkList.id)
-        let newTask = { ...task }
-        newTask.checkLists[currCheckListIdx] = newCheckList
-        console.log('task saving is', newTask)
+        const newTask = checkListService.addTodo(newTodo.todo,checkList,task)
         setNewTodo({ editedTodo: '' })
         setEditTodo('')
-        boardService.saveTask(board._id, newTask, box.id)
+        // boardService.saveTask(board._id, newTask, box.id)
+       dispatch(editTask(board._id, box.id, newTask))
     }
 
     const onEditTodo = (ev, todo) => {
         ev.preventDefault()
-        const currCheckListIdx = task.checkLists.findIndex(currCheckList => currCheckList.id === checkList.id)
-        const todoIdx = checkList.todos.findIndex(currTodo => currTodo.id === todo.id)
-        let newTask = { ...task }
-        let newTodo = { ...todo, title: editedTodo.editedTodo }
-        newTask.checkLists[currCheckListIdx].todos[todoIdx] = newTodo
+        const newTask = checkListService.editTodo(editedTodo.editedTodo,checkList,task,todo)
         setEditedTodo({ todo: '' })
         setEditTodo('')
-        setDoneTodos(doneTodos + 1)
-        boardService.saveTask(board._id, newTask, box.id)
-
+        dispatch(editTask(board._id, box.id, newTask))
+        console.log('current board is', board)
     }
 
     const toggleIsDone = (todo) => {
@@ -53,28 +55,30 @@ export const CheckList = ({ board, box, checkList, task }) => {
         let newTodo = { ...todo }
         if (todo.isDone) {
             newTodo.isDone = false
-            setDoneTodos(doneTodos + 1)
+            setDoneTodos(doneTodos - 1)
         }
         else {
             newTodo.isDone = true
-            setDoneTodos(doneTodos - 1)
+            setDoneTodos(doneTodos + 1)
         }
         newTask.checkLists[currCheckListIdx].todos[todoIdx] = newTodo
-        boardService.saveTask(board._id, newTask, box.id)
+        dispatch(editTask(board._id, box.id, newTask))
+        calcCompletePercentage()
     }
 
-    console.log(checkList)
+    console.log(completePerc)
+
 
     return <div className="check-list">
         <h1>{checkList.title}</h1>
         <div className="progress-bar"></div>
-        <Droppable type={{task,box}} droppableId={checkList.id}>
+        <Droppable type={{ task, box }} droppableId={checkList.id}>
             {provided => {
                 return (
                     <div className="check-list-container" ref={provided.innerRef}
                         {...provided.droppableProps}
                     >
-                        {checkList.todos.map((todo,index) => {
+                        {checkList.todos.map((todo, index) => {
                             return (
                                 //    (editTodo) && 
                                 <Draggable key={todo.id} draggableId={todo.id} index={index}>

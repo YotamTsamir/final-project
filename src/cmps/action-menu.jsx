@@ -10,6 +10,7 @@ import { TaskBgPreview } from '../cmps/task/task-bg-preview';
 //Need to implement the component and it's function
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
+import { checkListService } from "../services/check-list.service";
 
 // dispatch(setNewBoard(newBoard))
 
@@ -59,9 +60,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
-    const randomMemberColor = () => {
-        return utilService.getRandomColor()
-    }
+ 
     const onChangeBgImg = async ({ target }) => {
         let newTask;
         console.log(target.value)
@@ -77,12 +76,11 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onCreateCheckList = async (ev) => {
         ev.preventDefault()
-        const newCheckList = { id:utilService.makeId(4),title: newCheckListTitle.title, todos: [] }
-        const newTask = { ...task, checkLists: [...task.checkLists, newCheckList] }
+        const newTask = checkListService.addCheckList(newCheckListTitle.title,task)
         setCheckListTitle({ title: '' })
-        await boardService.saveTask(board._id, newTask, box.id)
+        dispatch(editTask(board._id, box.id, newTask))
     }
-    console.log(task)
+    
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
