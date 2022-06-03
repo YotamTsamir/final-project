@@ -1,7 +1,6 @@
 .task-details-window {
     .task-detail-body-container {
         display: flex;
-        align-items: center;
         justify-content: center;
         width: 100%;
         margin-top: 24px;
@@ -15,6 +14,7 @@
             flex-grow: 1;
             margin-left: 24px;
             padding-right: 8px;
+
 
             .members-labels-container {
                 margin-left: 40px;
@@ -72,10 +72,15 @@
         }
 
         .task-description {
+
             .task-desc-header {
                 display: flex;
                 align-items: center;
                 margin-top: 24px;
+            }
+
+            .task-desc-header.is-first {
+                margin-top: -2px;
             }
 
             .desc-cmp {
