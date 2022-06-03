@@ -61,6 +61,7 @@
     padding-bottom: 5px;
     padding-left: 8px;
     padding-right: 6px;
+    // width: 229px;
 
 
     & p {
@@ -69,7 +70,7 @@
         // word-break: break-all;
         color: #172b4d;
         display: block;
-        margin: 0 0 6px;
+        margin: 0 0 3px;
         overflow: hidden;
         text-decoration: none;
     }
@@ -163,13 +164,12 @@
         height:32px;
         width: 32px;
         border-radius: 50%;
-        margin-right: 5px;
+        margin-right: 3px;
 
     }
 }
 
 .board-members {
-
     .members-div {
         cursor: pointer;
         margin: 0 ;
@@ -191,8 +191,6 @@
     }
     
     .member-preview:hover {
-        height: 32px;
-        width: 32px;
         z-index: 100;
         cursor: pointer;
     }
@@ -204,6 +202,8 @@
     gap: 4px;
     padding: 6px;
     transform: translateX(-9px);
+    padding-top: 2px;
+    margin-left: 3px;
 }
 
 .desc-png-container{
@@ -215,8 +215,8 @@
 }
 
 .label {
-    height: 10px;
-    width: 50px;
+    height: 8px;
+    width: 42px;
     border-radius: 4px;
 }
 
