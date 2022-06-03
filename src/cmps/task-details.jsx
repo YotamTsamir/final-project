@@ -84,8 +84,12 @@ export const TaskDetails = () => {
   };
   if (!task) return <h1>Loading...</h1>
   return (
-    <section>
-      <div className="task-details">
+    <section className="the-great-one the-medium"
+      onClick={() => {
+        onToggleDetails();
+      }}>
+      <div className="task-details"
+        onClick={(ev) => ev.stopPropagation()}>
         <div className="color-cover-details">
           <div
             key={bg}
@@ -133,7 +137,7 @@ export const TaskDetails = () => {
                     {(task.members) &&
                       task.members.map((member, idx) => {
                         return <div key={idx}
-                        className="board-members">
+                          className="board-members">
 
                           <div >
                             <img className={`member-preview ${idx}`} src={member.avatar} />
@@ -172,7 +176,7 @@ export const TaskDetails = () => {
               </div>
               {(isDesc()) && <InputDesc className="is-desc" />}
               {(!isDesc()) && <InputDesc className="no-desc" />}
-              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => {return <CheckList checkList={checkList} task={task} />}))}
+              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => { return <CheckList checkList={checkList} task={task} /> }))}
               <div className="activity-container">
                 <div className="left-details-container icon-details-list">
                   <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
@@ -191,9 +195,9 @@ export const TaskDetails = () => {
 
       </div>
 
-      <div onClick={() => {
+      {/* <div onClick={() => {
         onToggleDetails();
-      }} className="the-great-one the-medium"></div>
+      }} className="the-great-one the-medium"></div> */}
     </section>
   );
 };

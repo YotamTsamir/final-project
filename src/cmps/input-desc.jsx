@@ -45,8 +45,8 @@ export const InputDesc = () => {
           <textarea
             placeholder="Add a more detailed descripton..."
             className="desc-input"
-            rows="4"
-            cols="50"
+            // rows="4"
+            // cols="50"
             {...rest}
           >{text}</textarea>
           <div className="desc-btn-container">

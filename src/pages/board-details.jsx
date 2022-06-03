@@ -35,7 +35,6 @@ export const Board = () => {
         }
 
     }, [])
-    console.log(board)
     const updateBoard = (board) => {
         dispatch(setNewBoard(board))
     }
@@ -83,11 +82,11 @@ export const Board = () => {
         }
         const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
         const user = userService.getLoggedinUser()
-        const activity = { user, action: `added`,id:utilService.makeId(), object:box , about: 'to his board', timeStamp: Date.now() }
+        const activity = { user, action: `added`, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
         setIsAdd(false)
         EditBoxTitle({ title: '' })
         // const newBoard = await boardService.saveBox(boardId, box)
-        dispatch(addBox(boardId,box,activity))
+        dispatch(addBox(boardId, box, activity))
 
         // dispatch(setNewBoard(updatedBoard))
     }
@@ -101,14 +100,14 @@ export const Board = () => {
             return
         }
         else if (destination.droppableId !== source.droppableId) {
-            const destinationBox = board.boxes.find(box=>box.id===destination.droppableId)
-            const originBox = board.boxes.find(box=> box.id===source.droppableId)
+            const destinationBox = board.boxes.find(box => box.id === destination.droppableId)
+            const originBox = board.boxes.find(box => box.id === source.droppableId)
             console.log(originBox)
             console.log('task is', source)
             const user = userService.getLoggedinUser()
-            const activity = {user,action:`moved`,id:utilService.makeId(), object:originBox.tasks[source.index],about:`from ${originBox.title} to ${destinationBox.title}`,timeStamp:Date.now()}
+            const activity = { user, action: `moved`, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
             const newOrder = dragService.moveTaskToOtherBox(board, source, destination)
-            dispatch(editBoxes(board._id, newOrder,activity))
+            dispatch(editBoxes(board._id, newOrder, activity))
             return
         }
         const currBox = dragService.moveTaskInBox(board, source, destination)
