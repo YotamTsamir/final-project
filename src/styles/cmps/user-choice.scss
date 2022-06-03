@@ -1,0 +1,12 @@
+.users-choice{
+    position: relative;
+    z-index: 100;
+    background-color: white;
+    transform: translateY(164px);
+}
+.user-preview{
+    background-color: white;
+}
+.user-preview:hover{
+background-color: grey;
+}
