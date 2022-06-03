@@ -43,7 +43,8 @@ export const AppHeader = () => {
 
     }
     const findPath = () => {
-        if (location.pathname === '/boards') return true
+        // console.log(location.pathname)
+        if (location.pathname === '/boards' || location.pathname.includes('/b/')) return true
     }
     const scrollListener = () => {
         document.addEventListener("scroll", () => {
