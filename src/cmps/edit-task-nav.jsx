@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ActionMenu } from './action-menu'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight, faArrowUpRightFromSquare, faTag, faFillDrip, faCopy, faInbox } from '@fortawesome/free-solid-svg-icons'
 import { faClock, faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
 import { useDispatch } from 'react-redux'
 import { editTask } from '../store/action/board-action'
+import { useRef } from 'react'
 
-export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEdit }) => {
+export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEdit, setModal, isLeftAlignActionMenu = false }) => {
 
     const [dateMenu, setDateMenu] = useState(false)
+    const editTaskNavRef = useRef(null)
     const [menuState, setMenuState] = useState({
         'Edit labels': false,
         'Edit dates': false,
@@ -17,8 +19,11 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
     })
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        setModal(editTaskNavRef.current.getBoundingClientRect())
+    }, [])
+
     const toggleMenu = (ev, menuName) => {
-        console.log('set modal')
         setModal(ev)
         const newMenuState = {}
         for (const key in menuState) {
@@ -37,19 +42,6 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    const setModal = (ev) => {
-        const x = window.innerWidth;
-        const y = window.innerHeight;
-        const DOMelement = ev.currentTarget
-        const values = DOMelement.getBoundingClientRect()
-        console.log(values, x, y)
-        if(x-values.right < (values.right-values.left) ){
-            return "right side"
-        } else return "all good"
-        
-    }
-    // && ())
-
     const menuBtns = [
         { txt: 'Open card', func: openDateMenu, fa: <FontAwesomeIcon style={{ color: '#fefefe' }} className="icon-task-menu fa-solid fa-arrow-up-right-from-square" icon={faArrowUpRightFromSquare} inverse /> },
         { txt: 'Edit labels', fa: <FontAwesomeIcon className="icon-task-menu fa-solid fa-tag" icon={faTag} /> },
@@ -65,7 +57,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
 
     return <section>
         {/* <div className='add-to-card'>Add to card</div> */}
-        <div className="edit-task-nav white-icons">
+        <div className={`edit-task-nav white-icons ${isLeftAlignActionMenu ? 'left-align-action-menu' : ''}`} ref={editTaskNavRef}>
             {menuBtns.map((btn, idx) => {
                 return (
                     <div key={idx}>
