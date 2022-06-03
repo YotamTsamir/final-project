@@ -7,7 +7,7 @@ import { utilService } from "../services/util.service"
 import { Droppable, Draggable } from "react-beautiful-dnd"
 import { checkListService } from '../services/check-list.service'
 import { useDispatch } from "react-redux"
-import { setNewBoard,editTask } from "../store/action/board-action"
+import { setNewBoard, editTask } from "../store/action/board-action"
 
 
 export const CheckList = ({ board, box, checkList, task }) => {
@@ -15,14 +15,14 @@ export const CheckList = ({ board, box, checkList, task }) => {
     const [register, newTodo, setNewTodo] = useFormRegister({ todo: '' })
     const [registery, editedTodo, setEditedTodo] = useFormRegister({ editedTodo: '' })
     const [doneTodos, setDoneTodos] = useState(0)
-    const [completePerc,setCompletePerc] = useState(0)
+    const [completePerc, setCompletePerc] = useState(0)
     const dispatch = useDispatch()
-    useEffect(()=>{
+    useEffect(() => {
         calcCompletePercentage()
-    },[checkList])
+    }, [checkList])
     const calcCompletePercentage = () => {
         const whole = checkList.todos.length
-        const completedPercent = (doneTodos*100)/whole 
+        const completedPercent = (doneTodos * 100) / whole
         setCompletePerc(completedPercent)
     }
 
@@ -30,18 +30,22 @@ export const CheckList = ({ board, box, checkList, task }) => {
         setEditTodo('add-todo')
     }
 
+    const closeTodo = () => {
+        setEditTodo('')
+    }
+
     const onAddTodo = (ev) => {
         ev.preventDefault()
-        const newTask = checkListService.addTodo(newTodo.todo,checkList,task)
+        const newTask = checkListService.addTodo(newTodo.todo, checkList, task)
         setNewTodo({ editedTodo: '' })
         setEditTodo('')
         // boardService.saveTask(board._id, newTask, box.id)
-       dispatch(editTask(board._id, box.id, newTask))
+        dispatch(editTask(board._id, box.id, newTask))
     }
 
     const onEditTodo = (ev, todo) => {
         ev.preventDefault()
-        const newTask = checkListService.editTodo(editedTodo.editedTodo,checkList,task,todo)
+        const newTask = checkListService.editTodo(editedTodo.editedTodo, checkList, task, todo)
         setEditedTodo({ todo: '' })
         setEditTodo('')
         dispatch(editTask(board._id, box.id, newTask))
@@ -66,11 +70,13 @@ export const CheckList = ({ board, box, checkList, task }) => {
         calcCompletePercentage()
     }
 
-    console.log(completePerc)
 
 
     return <div className="check-list">
-        <h1>{checkList.title}</h1>
+        <div className="checklist-header">
+            <span className="left-side-icons"><FontAwesomeIcon icon={faSquareCheck} /></span>
+            <h1 className="section-header">{checkList.title}</h1>
+        </div>
         <div className="progress-bar"></div>
         <Droppable type={{ task, box }} droppableId={checkList.id}>
             {provided => {
@@ -80,15 +86,43 @@ export const CheckList = ({ board, box, checkList, task }) => {
                     >
                         {checkList.todos.map((todo, index) => {
                             return (
-                                //    (editTodo) && 
                                 <Draggable key={todo.id} draggableId={todo.id} index={index}>
                                     {provided => {
                                         return <div className="todo-drag"  {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} index={index} >
                                             <div className="todo-container ">
-                                                {(todo.isDone) && <div onClick={() => toggleIsDone(todo)}><FontAwesomeIcon icon={faSquareCheck} /></div>}
-                                                {(!todo.isDone) && <div onClick={() => toggleIsDone(todo)}><FontAwesomeIcon icon={faSquare} /></div>}
-                                                {(!editTodo || editTodo !== todo.id) && <div onClick={() => setEditTodo(todo.id)} className={(todo.isDone) ? 'line-through' : ''} >{todo.title}</div>}
-                                                {(editTodo === todo.id) && <div><form onSubmit={(ev) => onEditTodo(ev, todo)}><input {...registery('editedTodo')} /></form></div>}
+                                                {(todo.isDone) &&
+                                                    <span onClick={() => toggleIsDone(todo)} className="left-side-icons">
+                                                        <FontAwesomeIcon icon={faSquareCheck} />
+                                                    </span>}
+                                                {(!todo.isDone) &&
+                                                    <span onClick={() => toggleIsDone(todo)} className="left-side-icons">
+                                                        <FontAwesomeIcon icon={faSquare} />
+                                                    </span>}
+                                                {(!editTodo || editTodo !== todo.id) &&
+                                                    <div onClick={() => setEditTodo(todo.id)} className={`todo-txt ${(todo.isDone) ? 'line-through' : ''}`} >
+                                                        {todo.title}
+                                                    </div>}
+                                                {(editTodo === todo.id) &&
+                                                    <div  className="edit-todo-container">
+                                                        <form 
+                                                        onSubmit={(ev) => onEditTodo(ev, todo)}
+                                                        className="edit-todo-form">
+                                                            <textarea {...registery('editedTodo')} className="edit-todo-textarea" value={todo.title} />
+                                                            <div className="edit-todo-btns">
+                                                                <button
+                                                                    type="submit"
+                                                                    className="save-todo-btn save-cancel-btns">
+                                                                    Save
+                                                                </button>
+                                                                <button
+                                                                    type="button"
+                                                                    className="exit-edit-todo save-cancel-btns"
+                                                                    onClick={closeTodo}>
+                                                                    Cancel
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>}
                                             </div>
                                         </div>
                                     }}
@@ -100,7 +134,35 @@ export const CheckList = ({ board, box, checkList, task }) => {
                 )
             }}
         </Droppable>
-        {(!editTodo) && <button onClick={() => addTodo()}>Add an item</button>}
-        {(editTodo === 'add-todo') && <div><form onSubmit={(ev) => { onAddTodo(ev) }}><input {...register('todo')} /></form></div>}
+        {(!editTodo) &&
+            <button className="add-todo-btn"
+                onClick={() => addTodo()}>
+                Add an item
+            </button>}
+        {(editTodo === 'add-todo') &&
+            <div>
+                <form 
+                onSubmit={(ev) => { onAddTodo(ev) }}
+                className="add-todo-form">
+                    <textarea
+                        {...register('todo')}
+                        className="add-todo-textarea"
+                        placeholder="Add an item"
+                    />
+                    <div className="add-todo-btns">
+                        <button
+                            type="submit"
+                            className="save-new-todo-btn save-cancel-btns">
+                            Save
+                        </button>
+                        <button
+                            type="button"
+                            className="exit-new-todo save-cancel-btns"
+                            onClick={closeTodo}>
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>}
     </div>
 }

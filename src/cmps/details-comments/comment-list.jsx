@@ -1,6 +1,7 @@
-
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faComments } from "@fortawesome/free-solid-svg-icons";
 import { onRemoveComment, editComment } from "../../store/action/board-action.js";
 import { CommentPreview } from "./comment-preview.jsx";
 
@@ -37,14 +38,14 @@ export const CommentList = ({ board, box, task }) => {
         setEditCommentId((editCommentId) ? '' : comment.id)
         // onEditComment(comment)
     }
-    return <ul className="comments left-details-container">
+    return <ul className="comments-container left-details-container">
         {isCommentsLength() &&
             comments.map((comment, idx) => {
                 return <div key={idx} className="comment-container">
                     {(comment.id !== editCommentId) ?
                         <div>
+                            <span className="comment-icon"><FontAwesomeIcon icon={faComments} /></span>
                             <div className="comment-edit-delete-container">
-                                <div className="comment-edit" onClick={() => (onToggleEditComment(comment))}>Edit</div>
                                 {isEditShownComment() &&
                                     <input type="text" onChange={handleChange} className="edit-comment-txt" value={comment.txt} />}
                                 {!isEditShownComment() &&
@@ -52,15 +53,17 @@ export const CommentList = ({ board, box, task }) => {
                                         {comment.txt}
                                     </li>
                                 }
-
-                                <div className="edit-delete--">-</div>
-
-                                <div className="comment-delete"
-                                    onClick={(ev) => onDeleteComment(ev, comment)}>Delete</div>
+                                <div className="comment-btn-container">
+                                    <button className="comment-edit" onClick={() => (onToggleEditComment(comment))}>Edit</button>
+                                    <div className="edit-delete--">-</div>
+                                    <button className="comment-delete"
+                                        onClick={(ev) => onDeleteComment(ev, comment)}>Delete</button>
+                                </div>
                             </div>
                         </div>
-                    : <CommentPreview comment={comment} editCommentId={editCommentId} onToggleEditComment={onToggleEditComment} onEditComment={onEditComment} />}
+                        : <CommentPreview comment={comment} editCommentId={editCommentId} onToggleEditComment={onToggleEditComment} onEditComment={onEditComment} />}
                 </div>
             })}
     </ul>
 }
+

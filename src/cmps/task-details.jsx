@@ -6,7 +6,7 @@ import { boardService } from "../services/board.service";
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignLeft, faXmark, faList, faWindowMaximize } from "@fortawesome/free-solid-svg-icons";
+import { faAlignLeft, faXmark, faList, faWindowMaximize, faComments } from "@fortawesome/free-solid-svg-icons";
 import { faWindowMaximize as faWindowMaximizeRegular } from "@fortawesome/free-regular-svg-icons";
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
@@ -194,10 +194,6 @@ export const TaskDetails = () => {
 
 
       </div>
-
-      {/* <div onClick={() => {
-        onToggleDetails();
-      }} className="the-great-one the-medium"></div> */}
     </section>
   );
 };

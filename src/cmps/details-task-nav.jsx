@@ -23,7 +23,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
     const dispatch = useDispatch()
 
     const toggleMenu = (menuName) => {
- 
+
         const newMenuState = {}
         for (const key in menuState) {
             newMenuState[key] = key === menuName ? !menuState[menuName] : false
@@ -83,7 +83,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
                     {(menuState['Members']) && btn.txt === 'Members' && <ActionMenu
                         topic={'Members'} task={task} box={box} board={board} />}
                     {(menuState['Checklist']) && btn.txt === 'Checklist' && <ActionMenu
-                        topic={'checkList'} task={task} box={box} board={board} />}
+                        topic={'Checklist'} task={task} box={box} board={board} toggleMenu={toggleMenu} />}
                 </div>)
             })}
         </div>

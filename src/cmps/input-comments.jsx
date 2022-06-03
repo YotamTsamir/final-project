@@ -5,7 +5,7 @@ import { editTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { utilService } from '../services/util.service.js'
-export const InputComments = ({board, box, task}) => {
+export const InputComments = ({ board, box, task }) => {
 
   const dispatch = useDispatch();
 
@@ -24,14 +24,16 @@ export const InputComments = ({board, box, task}) => {
 
   const onEditTaskEntity = async (ev) => {
     ev.preventDefault();
-    const newTask = { ...task, comments: 
-      [...task.comments, {
-      txt: entity.comment,
-      id: utilService.makeId(),
-      createdAt: Date.now(),
-      
-    }] };
-    
+    const newTask = {
+      ...task, comments:
+        [...task.comments, {
+          txt: entity.comment,
+          id: utilService.makeId(),
+          createdAt: Date.now(),
+
+        }]
+    };
+
     dispatch(editTask(board._id, box.id, newTask));
     setFieldsEdit({ isComments: false });
     entity.comment = "";
@@ -39,8 +41,7 @@ export const InputComments = ({board, box, task}) => {
   };
 
 
-  console.log('task',task)
-  if(!comments || !box) return <h1>Loading...</h1>
+  if (!comments || !box) return <h1>Loading...</h1>
   return (
     <div className="comment-cmp">
       {isEditShownCom() && (

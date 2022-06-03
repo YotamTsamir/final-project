@@ -77,6 +77,10 @@
                 display: flex;
                 align-items: center;
                 margin-top: 24px;
+
+                * {
+                    font-size: 16px;
+                }
             }
 
             .task-desc-header.is-first {
@@ -95,6 +99,11 @@
                         resize: none;
                         height: 108px;
                         width: 100%;
+                        border: none;
+                        outline: none;
+                        border-radius: 3px;
+                        padding: 8px 0 8px 12px;
+                        box-shadow: inset 0 0 0 2px #0079bf;
                     }
 
                     .desc-btns-container {
@@ -139,6 +148,10 @@
             .task-activity-header {
                 display: flex;
                 align-items: center;
+
+                * {
+                    font-size: 16px;
+                }
             }
 
             .comment-cmp {
@@ -149,6 +162,7 @@
                 border-radius: 3px;
                 box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
                 position: relative;
+                margin-bottom: 24px;
 
                 .task-comment-input {
                     overflow: hidden;
@@ -172,6 +186,11 @@
                     position: absolute;
                     bottom: 10px;
                 }
+
+                .save-comment-btn:hover {
+                    cursor: pointer;
+                    filter: brightness(90%);
+                }
             }
 
             .comments-container {
@@ -179,6 +198,103 @@
                 list-style: none;
                 list-style-position: left;
                 padding: 0;
+                position: relative;
+
+                .comment-icon {
+                    position: absolute;
+                    left: -32px;
+                }
+
+                .comment-container {
+                    margin-bottom: 24px;
+
+                    .comment-edit-delete-container {
+                        display: flex;
+                        flex-direction: column;
+
+                        .comment-btn-container {
+                            display: flex;
+
+                            * {
+                                color: #5e6c84;
+                                font-size: 12px;
+                            }
+
+                            button {
+                                background: none;
+                                border: none;
+                            }
+
+                            .comment-edit {
+                                margin-left: -6px;
+                            }
+                        }
+                    }
+                }
+
+                .edit-comment-txt {
+                    border: none;
+                    outline: none;
+                }
+
+                .edit-comment-container {
+                    padding: 8px 12px 56px;
+                    box-sizing: border-box;
+                    background-color: #ffffff;
+                    border-radius: 3px;
+                    box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
+                    position: relative;
+
+                    input {
+                        overflow: hidden;
+                        overflow-wrap: break-word;
+                        height: 20px;
+
+                        resize: none;
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                    }
+
+                    .save-x-btn-container {
+                        position: absolute;
+                        bottom: 8px;
+                        display: flex;
+                        align-items: center;
+                        gap: 4px;
+
+                        * {
+                            border: none;
+                            background: none;
+                        }
+
+                        .edit-save-btn {
+                            background-color: #0079bf;
+                            color: #ffffff;
+                            height: 32px;
+                            border-radius: 3px;
+                            padding: 6px 12px;
+                        }
+
+                        .edit-save-btn:hover {
+                            cursor: pointer;
+                            filter: brightness(90%);
+                        }
+
+                        .edit-x-btn {
+                            height: 32px;
+                            width: 32px;
+                        }
+
+                        .edit-x-btn:hover {
+                            cursor: pointer;
+
+                            * {
+                                color: #283141;
+                            }
+                        }
+                    }
+                }
             }
         }
     }

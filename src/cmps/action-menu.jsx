@@ -12,9 +12,8 @@ import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
 
-// dispatch(setNewBoard(newBoard))
 
-export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
+export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
@@ -60,7 +59,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
- 
+
     const onChangeBgImg = async ({ target }) => {
         let newTask;
         console.log(target.value)
@@ -76,11 +75,12 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onCreateCheckList = async (ev) => {
         ev.preventDefault()
-        const newTask = checkListService.addCheckList(newCheckListTitle.title,task)
+        const newTask = checkListService.addCheckList(newCheckListTitle.title, task)
         setCheckListTitle({ title: '' })
+        toggleMenu(topic)
         dispatch(editTask(board._id, box.id, newTask))
     }
-    
+
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
@@ -121,9 +121,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                 return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
                     {board.members &&
                         <div className="board-members">
-
                             <div  >
-
                                 <img className={`member-preview ${idx}`} src={member.avatar} />
                             </div>
 
@@ -133,8 +131,24 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                 )
             })}
         </div>}
-        {(topic === 'checkList') && <div>
-            <form onSubmit={(ev) => onCreateCheckList(ev)}>Title<input {...register('title')} /></form>
-        </div>}
+        {(topic === 'Checklist') &&
+            <div className="add-checklist-container">
+                <form
+                    onSubmit={(ev) => onCreateCheckList(ev)}>
+                    <h4>Title</h4>
+                    <input {...register('title')} />
+                    <div className="create-checklist-btns">
+                        <button className="create-new-checklist" type="submit">
+                            Create
+                        </button>
+                        <button
+                            className="cancel-checklist-creation"
+                            type="button"
+                            onClick={() => toggleMenu(topic)}>
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>}
     </div>
 }
