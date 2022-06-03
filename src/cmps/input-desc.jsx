@@ -41,17 +41,15 @@ export const InputDesc = () => {
           onSubmit={(ev) => {
             onEditTaskEntity(ev)
           }}
-        >
+          className="task-desc-form">
           <textarea
             placeholder="Add a more detailed descripton..."
-            className="desc-input"
-            // rows="4"
-            // cols="50"
+            className="task-desc-edit"
             {...rest}
           >{text}</textarea>
-          <div className="desc-btn-container">
-            <button className="save-btn">Save</button>
-            <button onClick={cancelDesc} className="cancel-btn" type="button">
+          <div className="desc-btns-container">
+            <button className="desc-save-btn desc-btn">Save</button>
+            <button onClick={cancelDesc} className="desc-cancel-btn desc-btn" type="button">
               Cancel
             </button>
           </div>

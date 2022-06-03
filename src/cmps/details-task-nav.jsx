@@ -4,7 +4,7 @@ import { setTask, toggleDetails, editTask } from "../store/action/board-action"
 import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { faClock, faUser, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
+import { faClock, faUser, faSquare, faSquareCheck, faCheckSquare } from '@fortawesome/free-regular-svg-icons'
 import labelImg from '../imgs/label.png'
 import copyImg from '../imgs/copy.png'
 import archiveImg from '../imgs/archive.png'
@@ -16,7 +16,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
         'Dates': false,
         'Members': false,
         "Cover": false,
-        "Checklist":false
+        "Checklist": false
     })
 
     const [dateValue, setDateValue] = useState(Date.now())
@@ -40,7 +40,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
     }
 
     const createCheckList = () => {
-        const newTask={...task,checklists:[...task.checklists,]}
+        const newTask = { ...task, checklists: [...task.checklists,] }
     }
 
     const menuBtns = [
@@ -48,7 +48,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
         { txt: 'Cover', fa: <img className="menu-imgs" src={coverImg} /> },
         { txt: 'Members', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faUser} /> },
         { txt: 'Move', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faArrowRight} /> },
-        {txt:'Checklist'},
+        { txt: 'Checklist', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faCheckSquare} /> },
         { txt: 'Copy', fa: <img className="menu-imgs" src={copyImg} /> },
         { txt: 'Dates', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faClock} /> },
         { txt: 'Archive', fa: <img className="menu-imgs" src={archiveImg} /> },

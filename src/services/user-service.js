@@ -9,7 +9,8 @@ export const userService = {
     logout,
     signup,
     getLoggedinUser,
-    updateUser
+    updateUser,
+    getUsers
 }
 
 window.us = userService
@@ -22,6 +23,10 @@ async function login(credentials) {
     } catch (err) {
         return false
     }
+}
+
+async function getUsers(){
+    return await httpService.get('user/')
 }
 
 async function logout() {

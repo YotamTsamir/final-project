@@ -47,6 +47,7 @@ function moveTodoInChecklist(board,box,task,checklistId,source,destination){
     const currTask = board.boxes[currBoxIdx].tasks.find(currTask => currTask.id === task.id)
     const currCheckList = currTask.checkLists.find(currCheckList => currCheckList.id === checklistId)
     const currCheckListIdx = currTask.checkLists.findIndex(currCheckList => currCheckList.id === checklistId)
+    console.log(currCheckList)
     let newCheckList = [...currCheckList.todos]
     if ((source.index - destination.index) < 1) {
         currCheckList.todos.map((todo, index) => {

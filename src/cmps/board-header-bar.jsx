@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { boardService } from "../services/board.service"
 import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { AddMember } from "./add-member"
 import { faBars, faX, faFilter, faStar } from '@fortawesome/free-solid-svg-icons'
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { BoardMenu } from '../cmps/board-menu.jsx'
@@ -10,6 +11,7 @@ import { BoxFilterMenu } from './box-filter-menu.jsx'
 export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoard, board, onEditBoardStyle }) => {
     const [isDark, setIsDark] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
+    const [isAddMember,setIsAddMember] = useState(false)
     const [isFilterOrMenuOpen, setIsFilterOrMenuOpen] = useState(false)
     const [inputWidth, setInputWidth] = useState({ width: '100%' })
     const [boardTitleEdit, setBoardTitleEdit] = useState({
@@ -60,11 +62,6 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
         setInputWidth({ width: txt.length + 'ch' })
     }
 
-    const randomMemberColor=() => {
-        return utilService.getRandomColor()
-    }
-
-
     return <header className={`board-header-container 
     ${isDark ? 'is-dark' : 'is-light'}`}>
         <div className="left-side-container">
@@ -100,6 +97,8 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
                         <img src={member.avatar}/>
                         </div>
                     })}
+                <button onClick={()=>setIsAddMember(!isAddMember)}>Add member</button>
+                {(isAddMember)&& <AddMember board={board}/>}
                 </div>
             }
         </div>

@@ -1,0 +1,180 @@
+.task-details-window {
+    .task-detail-body-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        margin-top: 24px;
+
+        .section-header {
+            padding: 4px 8px;
+            margin: 0;
+        }
+
+        .task-detail-main-container {
+            flex-grow: 1;
+            margin-left: 24px;
+            padding-right: 8px;
+
+            .members-labels-container {
+                margin-left: 40px;
+
+                display: flex;
+                align-items: center;
+                gap: 8px;
+
+                .task-detail-members-container {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 4px;
+
+                    * {
+                        font-size: 12px;
+                        font-weight: 500;
+                        line-height: 20px;
+                    }
+
+                    .task-detail-member {
+                        height: 32px;
+                        width: 32px;
+                        border-radius: 50%;
+
+                        margin-inline-end: 4px;
+                    }
+                }
+            }
+
+            .task-detail-label-container {
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+
+                * {
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 20px;
+                }
+
+                .label-detail-container {
+                    height: 32px;
+
+                    .label-details {
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        border-radius: 3px;
+                        padding: 0 12px;
+
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+
+        .task-description {
+            .task-desc-header {
+                display: flex;
+                align-items: center;
+                margin-top: 24px;
+            }
+
+            .desc-cmp {
+                margin-left: 40px;
+
+                .task-desc-form {
+                    width: 100%;
+
+                    .task-desc-edit {
+                        overflow: hidden;
+                        overflow-wrap: break-word;
+                        resize: none;
+                        height: 108px;
+                        width: 100%;
+                    }
+
+                    .desc-btns-container {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 8px;
+
+                        .desc-btn {
+                            height: 32px;
+                            padding: 6px 12px;
+                            border: none;
+                            border-radius: 3px;
+                            margin-inline-end: 4px;
+                        }
+
+                        .desc-save-btn {
+                            background-color: #0079bf;
+                            color: #ffffff;
+                        }
+
+                        .desc-save-btn:hover {
+                            filter: brightness(90%);
+                            cursor: pointer;
+                        }
+
+                        .desc-cancel-btn {
+                            background: none;
+                        }
+
+                        .desc-cancel-btn:hover {
+                            background-color: #091e420a;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+        }
+
+        .activity-container {
+            margin-top: 24px;
+
+            .task-activity-header {
+                display: flex;
+                align-items: center;
+            }
+
+            .comment-cmp {
+                margin-left: 40px;
+                padding: 8px 12px 56px;
+                box-sizing: border-box;
+                background-color: #ffffff;
+                border-radius: 3px;
+                box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
+                position: relative;
+
+                .task-comment-input {
+                    overflow: hidden;
+                    overflow-wrap: break-word;
+                    height: 20px;
+
+                    resize: none;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                }
+
+                .save-comment-btn {
+                    height: 32px;
+                    padding: 6px 12px;
+                    background-color: #0079bf;
+                    border: none;
+                    color: #ffffff;
+                    border-radius: 3px;
+
+                    position: absolute;
+                    bottom: 10px;
+                }
+            }
+
+            .comments-container {
+                margin-left: 40px;
+                list-style: none;
+                list-style-position: left;
+                padding: 0;
+            }
+        }
+    }
+}

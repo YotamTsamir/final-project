@@ -6,14 +6,15 @@ import { boardService } from "../services/board.service";
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignLeft, faXmark, faList } from "@fortawesome/free-solid-svg-icons";
+import { faAlignLeft, faXmark, faList, faWindowMaximize } from "@fortawesome/free-solid-svg-icons";
+import { faWindowMaximize as faWindowMaximizeRegular } from "@fortawesome/free-regular-svg-icons";
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
 import { CheckList } from "./task-check-list";
 
 import windowImg from '../imgs/window-details.png'
-import coverImg from '../imgs/cover.png'
+// import coverImg from '../imgs/cover.png'
 import { utilService } from "../services/util.service";
 
 
@@ -35,7 +36,7 @@ export const TaskDetails = () => {
       if (boardId === board._id) return
       dispatch(getBoard(boardId));
       return () => {
-        boardService.saveTask(board._id,task,box.id)
+        boardService.saveTask(board._id, task, box.id)
       }
     })();
   }, []);
@@ -86,63 +87,59 @@ export const TaskDetails = () => {
   };
   if (!task) return <h1>Loading...</h1>
   return (
-    <section className="the-great-one the-medium"
+    <section className="the-great-one the-medium task-details-window"
       onClick={() => {
         onToggleDetails();
       }}>
       <div className="task-details"
         onClick={(ev) => ev.stopPropagation()}>
-        <div className="color-cover-details">
+        <button
+          className="exit-task-details-btn "
+          onClick={() => {
+            onToggleDetails();
+          }}            >
+          <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
+        </button>
+        <div className="task-details-cover-area">
           <div
             key={bg}
-            className={`cover-menu-color-detail ${bg ? '' : 'no-color'}`}
+            className={`task-details-cover ${bg ? '' : 'no-color'}`}
             height={`${bg ? '90px;' : ''}`}
             style={{ background: bg }}
           >
-            <div className=" x-btn-cover">
-
-              <button
-                className="x-btn "
-                onClick={() => {
-                  onToggleDetails();
-                }}
-
-              >
-                <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
-              </button>
-              {task.bg && <button className="details-task-cover-btn" onClick={() => { toggleMenu() }}>
-                <img className="menu-imgs" src={coverImg} />
-                Cover
-                {(menuState) && <ActionMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
-              </button>}
-            </div>
+            {task.bg && <button className="task-details-change-cover-btn" onClick={() => { toggleMenu() }}>
+              <span><FontAwesomeIcon icon={faWindowMaximizeRegular} /></span>
+              <p>Cover</p>
+              {(menuState) && <ActionMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
+            </button>}
           </div>
         </div>
 
-        <div className="left-details-container detail-header-container">
-          <div className="icon-desc-details">
-            <img className="window-img-details" src={windowImg} />
-            <h1 className="left-details" >{task?.title}</h1>
+        <div className="detail-header-container">
+          <div className="task-details-title-container">
+            <span className="left-side-icons"><FontAwesomeIcon icon={faWindowMaximize} /></span>
+            <h1 className="task-details-title" >{task?.title}</h1>
           </div>
-          <h1 className="box-title left-details">
+          <h1 className="parent-box-refrance">
             in list <span className="box-title-details">{box.title}</span>
           </h1>
         </div>
 
-        <div className="detail-menu-container">
-          <div className="detail-container">
-            <div className="members-labels">
+        <div className="task-detail-body-container">
+          <div className="task-detail-main-container">
+            <div className="members-labels-container">
               {(isMembers() &&
-                <div className={`members-members-title ${labels && labels.length ? "members-with-labels" : "members-no-labels"}`}>
-                  <div className="members-header"> Members</div>
+                // <div className={`members-members-title ${labels && labels.length ? "members-with-labels" : "members-no-labels"}`}>
+                <div className="task-detail-members-container">
+                  <div className="members-header">Members</div>
                   <div className="task-members">
                     {(task.members) &&
                       task.members.map((member, idx) => {
                         return <div key={idx}
-                          className="board-members">
+                          className="task-detail-member">
 
                           <div >
-                            <img className={`member-preview ${idx}`} src={member.avatar} />
+                            <img className={`task-detail-member ${idx}`} src={member.avatar} />
                           </div>
 
                         </div>
@@ -150,8 +147,9 @@ export const TaskDetails = () => {
                       })
                     }
                   </div>
-                </div>)}
-              <div className="label-container">
+                </div>
+              )}
+              <div className="task-detail-label-container">
                 {isLabelsLength() && <div className="labels-header"> Labels</div>}
                 <div className="label-detail-container">
                   {isLabelsLength() && (
@@ -172,17 +170,17 @@ export const TaskDetails = () => {
             </div>
 
             <div className="task-description">
-              <div className="icon-desc-details left-details-container">
-                <FontAwesomeIcon className='fa-solid fa-align-left' icon={faAlignLeft} />
-                <div className="description left-details">Description</div>
+              <div className="task-desc-header">
+                <span className="left-side-icons"><FontAwesomeIcon icon={faAlignLeft} /></span>
+                <div className="description section-header">Description</div>
               </div>
               {(isDesc()) && <InputDesc className="is-desc" />}
               {(!isDesc()) && <InputDesc className="no-desc" />}
-              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => {return <CheckList board={board} box={box} checkList={checkList} task={task} />}))}
+              {(task.checkLists?.length > 0) && (task.checkLists.map(checkList => { return <CheckList board={board} box={box} checkList={checkList} task={task} /> }))}
               <div className="activity-container">
-                <div className="left-details-container icon-details-list">
-                  <FontAwesomeIcon className="fa-regular fa-list" icon={faList} />
-                  <div className="activity left-details">Activity</div>
+                <div className="task-activity-header">
+                  <span className="left-side-icons"><FontAwesomeIcon icon={faList} /></span>
+                  <div className="activity section-header">Activity</div>
                 </div>
                 <InputComments board={board} box={box} task={task} />
                 <CommentList board={board} box={box} task={task} />

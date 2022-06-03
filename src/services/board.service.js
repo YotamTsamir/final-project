@@ -33,7 +33,8 @@ export const boardService = {
     addComment,
     deleteTask,
     updateUserImgInBoards,
-    addActivity
+    addActivity,
+    addBoardMember
 }
 
 
@@ -92,7 +93,9 @@ async function deleteTask(boardId, boxId, taskId) {
 }
 
 async function saveTask(boardId, task, boxId) {
-    return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+   const newBoard = await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+   console.log(newBoard)
+   return save(newBoard)
 }
 
 
@@ -205,6 +208,18 @@ function _createBoard(userBoard) {
         ],
         "boxes": [],
     })
+}
+
+async function addBoardMember(member,boardId){
+     const board = await getById(boardId)
+     if(board.members.includes(member.id)) {
+        const idx = board.members.findIndex(currMember=>currMember.id===member.id)
+        board.member.splice(idx,1)
+        return save(board)
+        }
+     board.members.push(member)
+    return save(board)
+
 }
 
 async function editBoardStyle(boardId, field, change) {
