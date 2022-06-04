@@ -4,18 +4,9 @@ import { userService } from "../services/user-service"
 export const Notifications = ({user}) => {
     // const [user, setUser] = useState('')
     const [noti,setNoti] = useState(user.notifications)
-
-    // useEffect(() => {
-    //     (async () => {
-    //         const user = await userService.getLoggedinUser()
-    //         setUser(user)
-    //     })()
-    // },[])
-    // useEffect(()=>{
-    //     console.log('yes')
-    //     setNoti(user.notifications)
-    // },[user])
-
+    useEffect(()=>{
+        user = userService.getLoggedinUser()
+    },[])
 
 
     if (!user.notifications) return <h1>Loading...</h1>

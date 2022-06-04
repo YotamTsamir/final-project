@@ -7,12 +7,13 @@ import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
 import { TaskBgPreview } from '../cmps/task/task-bg-preview';
+import { userService } from "../services/user-service";
 //Need to implement the component and it's function
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from '@fortawesome/free-solid-svg-icons'
+import { faX, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
@@ -83,7 +84,12 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         const newTask = checkListService.addCheckList(newCheckListTitle.title, task)
         setCheckListTitle({ title: '' })
         toggleMenu(topic)
-        dispatch(editTask(board._id, box.id, newTask))
+        const user = await userService.getLoggedinUser()
+        const activity = {
+            user, action: `added`, isRead: false, id: utilService.makeId(),
+            object: { title: newCheckListTitle.title }, about: `to ${task.title}`, timeStamp: Date.now()
+        }
+        dispatch(editTask(board._id, box.id, newTask, activity))
     }
 
     const onSubmitCreateLabel = (ev) => {
@@ -92,6 +98,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         console.log(newLabelColor)
         const newLabel = { id: utilService.makeId(4), title: newLabelTxt.txt, color: newLabelColor }
         board.labels.push(newLabel)
+        onCreateLabel(false)
         dispatch(editBoard(board))
     }
 
@@ -100,7 +107,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             <h1 className="h1-topic">{topic}</h1>
         </div>
         <hr />
-        {(topic === 'Members' || topic === 'Labels') && <input {...labelFilter('txt')} />}
+        {(topic === 'Members' || topic === 'Labels') && (!createLabel) && <input {...labelFilter('txt')} />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
             <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
@@ -121,74 +128,74 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             {(topic === 'Labels') && (!createLabel) && <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>}
         </div>
 
-        <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
-    </div>
-    {
-        (createLabel) && <div>
+        {(createLabel) && <div>
             <p>Name</p>
             <form onSubmit={(ev) => { onSubmitCreateLabel(ev) }}><input {...registry('txt')} /></form>
             <div className="color-grid">
                 {(colors.map(color => {
                     return (
-                        <div key={color} className="cover-menu-color" value={color} onClick={() => setNewLabelColor(color)} style={{ backgroundColor: color }}></div>
+                        <div key={color} className="cover-menu-color flex-center" value={color} onClick={() => setNewLabelColor(color)} style={{ backgroundColor: color }}>
+                            {(newLabelColor === color) && <FontAwesomeIcon icon={faCheck} />}
+                        </div>
                     )
                 }))}
                 <button onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>
             </div>
         </div>
-    }
-    <div >
-        {(topic === 'Cover') &&
-            <div>
-                <TaskBgPreview />
-                <div className="bg-container cover-menu">
-                    <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                    <TaskCoverMenu
-                        dfBgs={dfBgs}
-                        onChange={onChangeBgImg}
-                        toggleMenu={toggleMenu}
-                        topic={topic} />
-                </div>
-            </div>
         }
-
-        {(topic === 'Date') && <div>
-            <Calendar onChange={onChangeDate} value={value} />
-        </div>}
-
-        {(topic === 'Members') &&
-            <div className="members-container">
-                {board.members.map((member, idx) => {
-                    return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
-                        {board.members &&
-                            <div className="board-members">
-                                <div  >
-                                    <img className={`member-preview ${idx}`} src={member.avatar} />
-                                </div>
-
-                            </div>
-                        }
-                        {member.fullname} ({member.userName}) </div>
-                    )
-                })}
-            </div>}
-        {(topic === 'Checklist') &&
-            <div className="add-checklist-container">
-                <form onSubmit={(ev) => onCreateCheckList(ev)}>
-                    <h4>Title</h4>
-                    <input {...register('title')} />
-                    <div className="create-checklist-btns">
-                        <button className="create-new-checklist" type="submit">
-                            Create
-                        </button>
-                        <button
-                            className="cancel-checklist-creation"
-                            type="button"
-                            onClick={() => toggleMenu(topic)}>
-                            Cancel
-                        </button>
+        <div >
+            {(topic === 'Cover') &&
+                <div>
+                    <TaskBgPreview />
+                    <div className="bg-container cover-menu">
+                        <h4 className="cover-menu-h4">Photos from Unsplash</h4>
+                        <TaskCoverMenu
+                            dfBgs={dfBgs}
+                            onChange={onChangeBgImg}
+                            toggleMenu={toggleMenu}
+                            topic={topic} />
                     </div>
-                </form>
+                </div>
+            }
+
+            {(topic === 'Date') && <div>
+                <Calendar onChange={onChangeDate} value={value} />
             </div>}
+
+            {(topic === 'Members') &&
+                <div className="members-container">
+                    {board.members.map((member, idx) => {
+                        return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
+                            {board.members &&
+                                <div className="board-members">
+                                    <div  >
+                                        <img className={`member-preview ${idx}`} src={member.avatar} />
+                                    </div>
+
+                                </div>
+                            }
+                            {member.fullname} ({member.userName}) </div>
+                        )
+                    })}
+                </div>}
+            {(topic === 'Checklist') &&
+                <div className="add-checklist-container">
+                    <form onSubmit={(ev) => onCreateCheckList(ev)}>
+                        <h4>Title</h4>
+                        <input {...register('title')} />
+                        <div className="create-checklist-btns">
+                            <button className="create-new-checklist" type="submit">
+                                Create
+                            </button>
+                            <button
+                                className="cancel-checklist-creation"
+                                type="button"
+                                onClick={() => toggleMenu(topic)}>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>}
+        </div>
     </div>
 }
