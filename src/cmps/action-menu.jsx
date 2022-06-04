@@ -81,6 +81,10 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         toggleMenu(topic)
         dispatch(editTask(board._id, box.id, newTask))
     }
+    
+    const onChangeNewLabelColor = () => {
+        
+    }
 
     return <div className={`menu-choice ${topic}`}>
         <div className="h1-topic-container">
