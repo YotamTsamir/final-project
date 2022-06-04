@@ -9,7 +9,7 @@ console.log(board.activities)
             return (
                 <div key={activity?.id} className="task-archived">
                     <div className="task-archived-txt" >
-                        <p>{activity?.user.fullname || 'guest'} {activity?.action} {activity?.object.title} {activity?.about}</p>
+                        <p>{activity.user?.fullname || 'guest'} {activity?.action} {activity?.object.title} {activity?.about}</p>
                     </div>
                 </div>
             )

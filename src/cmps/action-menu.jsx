@@ -18,6 +18,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
     const [images, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
+    const [createLabel, onCreateLabel] = useState(false)
     const dispatch = useDispatch()
 
 
@@ -60,7 +61,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         }
         dispatch(editTask(board._id, box.id, newTask))
     }
- 
+
     const onChangeBgImg = async ({ target }) => {
         let newTask;
         console.log(target.value)
@@ -76,11 +77,15 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
 
     const onCreateCheckList = async (ev) => {
         ev.preventDefault()
-        const newTask = checkListService.addCheckList(newCheckListTitle.title,task)
+        const newTask = checkListService.addCheckList(newCheckListTitle.title, task)
         setCheckListTitle({ title: '' })
         dispatch(editTask(board._id, box.id, newTask))
     }
-    
+
+    const onChangeNewLabelColor = () => {
+        
+    }
+
     return <div className={`label-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
@@ -89,19 +94,32 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         {(topic === 'Members' && topic === 'Labels') && <input type="text" />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
-            {(topic === 'Labels') && (board.labels.map(label => {
+            {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
                 return (
                     <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
                 )
-            }))}</div>
-
+            }))}
+            <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
+        </div>
+        {(createLabel) && <div>
+            <p>Name</p>
+            <form ><input /></form>
+            <div className="color-grid">
+                {(colors.map(color => {
+                    return (
+                        <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeNewLabelColor(color)} style={{ backgroundColor: color }}></div>
+                    )
+                }))}
+                <button onClick={() => { onCreateLabel(!createLabel) }}>Create</button>
+            </div>
+        </div>}
         <div >
             {(topic === 'Cover') && <div>
                 <TaskBgPreview />
                 <div className="color-grid">
                     {(colors.map(color => {
                         return (
-                            <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeBgColor(color)} style={{ backgroundColor: color }}></div>
+                            <div key={color} className="cover-menu-color" value={color} onClick={() => { }} style={{ backgroundColor: color }}></div>
                         )
                     }))}
                 </div>
@@ -123,7 +141,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                         <div className="board-members">
 
                             <div  >
-
                                 <img className={`member-preview ${idx}`} src={member.avatar} />
                             </div>
 

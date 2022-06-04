@@ -80,7 +80,7 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
                 )
             })}
 
-            {(menuState['Edit labels']) && <ActionMenu className="label-choice" topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
+            {(menuState['Edit labels']) && <ActionMenu className="label-choice" topic={'Labels'} colors={colors} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
             {(menuState['Change cover']) && <ActionMenu className="cover-choice" topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
             {(menuState['Edit dates']) && <ActionMenu topic={'Date'} task={task} box={box} board={board} />}
             {(menuState['Change members']) && <ActionMenu topic={'Members'} task={task} box={box} board={board} />}

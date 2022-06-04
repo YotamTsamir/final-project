@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import image from "../imgs/home-image.png"
 import exampleImg from "../imgs/board-ex.PNG"
+import { userService } from "../services/user-service";
+import { socketService, SOCKET_EVEN_SET_USER } from "../services/socket.service";
 
 
 export const Home = () => {
