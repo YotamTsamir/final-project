@@ -84,19 +84,31 @@
 
 
 
-.Members {
+.menu-choice-Members {
     transform: translateY(-210px);
     background-color: $clr4;
     display: flex;
     flex-direction: column;
     padding: 0 12px 12px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    border-radius: 3px;
 
-    .board-members {
+    .close-labels-btn {
+        * {
+            color: #42526E;
+        }
+    }
+
+
+
+    .task-members {
 
         display: flex;
         align-items: center;
-        flex-direction: row;
+        flex-direction: column;
         width: fit-content;
+        gap: 8px;
+        align-items: flex-start;
 
 
         .member-container {
@@ -107,15 +119,21 @@
             cursor: pointer;
             margin: 0;
             line-height: 32px;
+            width: 100%;
             white-space: nowrap;
             color: rgb(7, 7, 153);
-            // height: 50px;
-            // align-items: center;
             display: flex;
-            flex-direction: row;
-            width: max-content;
+            gap: 4px;
+            padding-bottom: 4px;
+            justify-content: flex-start;
+            // width: max-content;
+            border-bottom: 0.5px solid black;
         }
 
+        .member-name {
+            margin: 0;
+            padding: 0;
+        }
 
         .member-preview:hover {
             z-index: 100;
@@ -150,19 +168,6 @@
     border-radius: 3px;
     width: 50px;
     height: 32px;
-}
-
-
-
-
-
-
-.react-calendar__navigation__next2-button {
-    display: none;
-}
-
-.react-calendar__navigation__prev2-button {
-    display: none;
 }
 
 .cover-menu {

@@ -15,7 +15,7 @@ import { checkListService } from "../services/check-list.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
+export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverMenuClass }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [registry, newLabelTxt, setNewLabelTxt] = useFormRegister({ txt: '' })
@@ -39,7 +39,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     }
 
     const onAddMember = (member) => {
-        // const newTask = { ...task, members: [...task.members, member]}
         let newTask;
         if (task.members.find(currMember => currMember.userName === member.userName)) {
             const memberIdx = task.members.findIndex(currMember => currMember.userName === member.userName)
@@ -54,8 +53,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
 
     const onChangeDate = (value) => {
         onChange(value)
-
-
+    }
+    const onSaveDueDate = () => {
         const newTask = {
             ...task, date: {
                 timeStamp: value,
@@ -64,16 +63,18 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             }
         }
         dispatch(editTask(board._id, box.id, newTask))
+        toggleMenu(topic)
     }
 
-    const onChangeBgImg = async ({ target }) => {
+    const onChangeBgImg = async (imgUrl) => {
         let newTask;
-        console.log(target.value)
-        newTask = { ...task, bg: target.value }
+        // console.log(target.value)
+        newTask = { ...task, bg: `url(${imgUrl})` }
+        console.log(newTask)
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    const onChangeBgColor = async (color) => {
+    const onChangeBgClr = async (color) => {
         let newTask;
         newTask = { ...task, bg: color }
         dispatch(editTask(board._id, box.id, newTask))
@@ -102,7 +103,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         dispatch(editBoard(board))
     }
 
-    return <div className={`menu-choice ${topic}`}>
+    return <div className={`menu-choice-${topic} ${coverMenuClass ? coverMenuClass : ''}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
         </div>
@@ -127,7 +128,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             }
             {(topic === 'Labels') && (!createLabel) && <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>}
         </div>
-
         {(createLabel) && <div>
             <p>Name</p>
             <form onSubmit={(ev) => { onSubmitCreateLabel(ev) }}><input {...registry('txt')} /></form>
@@ -141,40 +141,39 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                 }))}
                 <button onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>
             </div>
-        </div>
-        }
+        </div>}
         <div >
-            {(topic === 'Cover') &&
-                <div>
-                    <TaskBgPreview />
-                    <div className="bg-container cover-menu">
-                        <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                        <TaskCoverMenu
-                            dfBgs={dfBgs}
-                            onChange={onChangeBgImg}
-                            toggleMenu={toggleMenu}
-                            topic={topic} />
-                    </div>
-                </div>
+            {(topic === 'Cover') && <div>
+                <TaskCoverMenu
+                    dfBgs={dfBgs}
+                    onChangeBgImg={onChangeBgImg}
+                    toggleMenu={toggleMenu}
+                    topic={topic}
+                    onChangeBgClr={onChangeBgClr}
+                    task={task}
+                />
+            </div>
             }
 
-            {(topic === 'Date') && <div>
+            {(topic === 'Date') && <div className="date-container">
                 <Calendar onChange={onChangeDate} value={value} />
+                <button className="save-due-date"
+                    onClick={onSaveDueDate}>Save</button>
             </div>}
 
             {(topic === 'Members') &&
-                <div className="members-container">
+                <div className="task-members">
                     {board.members.map((member, idx) => {
                         return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
                             {board.members &&
-                                <div className="board-members">
+                                <div className="member-container">
                                     <div  >
                                         <img className={`member-preview ${idx}`} src={member.avatar} />
                                     </div>
-
                                 </div>
                             }
-                            {member.fullname} ({member.userName}) </div>
+                            <p className="member-name">{member.fullname} ({member.userName})</p>
+                        </div>
                         )
                     })}
                 </div>}

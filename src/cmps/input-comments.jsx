@@ -6,6 +6,8 @@ import { boardService } from "../services/board.service";
 import { useNavigate, useParams } from "react-router-dom";
 import { utilService } from '../services/util.service.js'
 import { userService } from "../services/user-service";
+import { TimeAgo } from "../services/time-ago";
+
 export const InputComments = ({ board, box, task }) => {
 
   const dispatch = useDispatch();
@@ -13,11 +15,11 @@ export const InputComments = ({ board, box, task }) => {
   const [register, entity, editEntity] = useFormRegister({ comment: "" });
 
   const [fieldsEdit, setFieldsEdit] = useState({ isComments: false });
-  const user = userService.getLoggedinUser()
-
+  const { user } = useSelector((storeState) => storeState.userModule)
   const { comments } = task;
+  console.log('user',comments)
   const isEditShownCom = () => {
-    console.log(task)
+    // console.log(task)
     return !comments.length > 0 || !fieldsEdit.isComments;
   };
   const onEditField = () => {
@@ -33,6 +35,7 @@ export const InputComments = ({ board, box, task }) => {
           txt: entity.comment,
           id: utilService.makeId(),
           createdAt: Date.now(),
+          createdBy: user ? user.fullname : 'Guest'
         }]
     };
 
