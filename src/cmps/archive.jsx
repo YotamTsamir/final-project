@@ -4,7 +4,7 @@ import { boardService } from "../services/board.service"
 import { editTask, getBoard, loadBoards, setNewBoard } from "../store/action/board-action"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArchive } from '@fortawesome/free-solid-svg-icons'
-
+import { TimeAgo } from "../services/time-ago"
 export const ArchivedTasks = ({ board }) => {
     const [tasks, setTasks] = useState([])
     const dispatch = useDispatch()
@@ -16,14 +16,17 @@ export const ArchivedTasks = ({ board }) => {
     const setArchivedTasks = () => {
         let tasks = []
         board.boxes.map(box => {
-            box.tasks.map(task => {
+            box.tasks.map((task,idx) => {
+              
                 if (task.archivedAt) tasks.push({ task, inBox: box })
+
             })
         })
         setTasks(tasks)
     }
 
     const sendToBoard = (task, box, taskIdx) => {
+        console.log(task.archivedAt)
         const newTask = { ...task, archivedAt: '' }
         setTasks(tasks.splice(taskIdx, 1))
         dispatch(editTask(board._id, box.id, newTask))

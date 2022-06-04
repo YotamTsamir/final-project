@@ -9,6 +9,7 @@ export const CommentPreview = ({ comment, editCommentId, onToggleEditComment, on
     const [register, newComment, setNewComment] = useFormRegister({ editComment: '' })
 
     const emitEditComment = (comment) => {
+        console.log('COMMENT',comment)
         comment.txt = newComment.editComment
         onEditComment(comment)
     }
@@ -20,7 +21,7 @@ export const CommentPreview = ({ comment, editCommentId, onToggleEditComment, on
             <div className="edit-comment-container">
                 <input {...register('editComment')} className="edit-comment-txt" />
                 <div className="save-x-btn-container">
-                    <button className="edit-save-btn" onClick={() => emitEditComment(comment.txt)}>Save</button>
+                    <button className="edit-save-btn" onClick={() => emitEditComment(comment)}>Save</button>
                     <button className="edit-x-btn" onClick={() => (onToggleEditComment(comment.id))}>
                         <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
                     </button>

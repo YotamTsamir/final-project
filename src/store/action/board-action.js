@@ -99,7 +99,6 @@ export function editComment(boardId, box, newTask, comment) {
 export function editTask(boardId, boxId, task, activity) {
     return async dispatch => {
         let board = await boardService.saveTask(boardId, task, boxId)
-        console.log(board.activities)
         if (activity) board.activities?.unshift(activity)
         await boardService.save(board)
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)

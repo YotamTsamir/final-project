@@ -90,7 +90,7 @@ export const AppHeader = () => {
         } else if (location.pathname === '/') {
             setHeaderTheme({
                 style: {
-                    background: 'none'
+                    background: 'white'
                 },
                 isDark: false,
             })
