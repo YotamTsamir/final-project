@@ -6,11 +6,14 @@ import { setNewBoard, editTask, editBoard } from "../store/action/board-action"
 import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
+import { TaskBgPreview } from '../cmps/task/task-bg-preview';
+import { userService } from "../services/user-service";
+//Need to implement the component and it's function
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faX } from '@fortawesome/free-solid-svg-icons'
+import { faX, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverMenuClass }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
@@ -82,7 +85,12 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         const newTask = checkListService.addCheckList(newCheckListTitle.title, task)
         setCheckListTitle({ title: '' })
         toggleMenu(topic)
-        dispatch(editTask(board._id, box.id, newTask))
+        const user = await userService.getLoggedinUser()
+        const activity = {
+            user, action: `added`, isRead: false, id: utilService.makeId(),
+            object: { title: newCheckListTitle.title }, about: `to ${task.title}`, timeStamp: Date.now()
+        }
+        dispatch(editTask(board._id, box.id, newTask, activity))
     }
 
     const onSubmitCreateLabel = (ev) => {
@@ -91,6 +99,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         console.log(newLabelColor)
         const newLabel = { id: utilService.makeId(4), title: newLabelTxt.txt, color: newLabelColor }
         board.labels.push(newLabel)
+        onCreateLabel(false)
         dispatch(editBoard(board))
     }
 
@@ -99,7 +108,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
             <h1 className="h1-topic">{topic}</h1>
         </div>
         <hr />
-        {(topic === 'Members' || topic === 'Labels') && <input {...labelFilter('txt')} />}
+        {(topic === 'Members' || topic === 'Labels') && (!createLabel) && <input {...labelFilter('txt')} />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
             <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
@@ -125,7 +134,9 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
             <div className="color-grid">
                 {(colors.map(color => {
                     return (
-                        <div key={color} className="cover-menu-color" value={color} onClick={() => setNewLabelColor(color)} style={{ backgroundColor: color }}></div>
+                        <div key={color} className="cover-menu-color flex-center" value={color} onClick={() => setNewLabelColor(color)} style={{ backgroundColor: color }}>
+                            {(newLabelColor === color) && <FontAwesomeIcon icon={faCheck} />}
+                        </div>
                     )
                 }))}
                 <button onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>

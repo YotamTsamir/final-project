@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { userService } from "../services/user-service"
 
-export const Notifications = ({ user }) => {
-    const [noti, setNoti] = useState(user.notifications)
-
+export const Notifications = ({user}) => {
+    // const [user, setUser] = useState('')
+    const [noti,setNoti] = useState(user.notifications)
+    useEffect(()=>{
+        user = userService.getLoggedinUser()
+    },[])
 
 
     // console.log(user)

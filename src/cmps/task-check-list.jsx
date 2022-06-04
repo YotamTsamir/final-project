@@ -8,6 +8,7 @@ import { Droppable, Draggable } from "react-beautiful-dnd"
 import { checkListService } from '../services/check-list.service'
 import { useDispatch } from "react-redux"
 import { setNewBoard, editTask } from "../store/action/board-action"
+import { userService } from "../services/user-service"
 
 
 export const CheckList = ({ board, box, checkList, task }) => {
@@ -40,6 +41,7 @@ export const CheckList = ({ board, box, checkList, task }) => {
         setNewTodo({ editedTodo: '' })
         setEditTodo('')
         // boardService.saveTask(board._id, newTask, box.id)
+        // const activity = { user:userService.getLoggedinUser(), action: `added`, isRead: false, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
         dispatch(editTask(board._id, box.id, newTask))
     }
 
@@ -57,16 +59,21 @@ export const CheckList = ({ board, box, checkList, task }) => {
         const todoIdx = checkList.todos.findIndex(currTodo => currTodo.id === todo.id)
         let newTask = { ...task }
         let newTodo = { ...todo }
+        let activity
         if (todo.isDone) {
             newTodo.isDone = false
+            activity = { user:userService.getLoggedinUser(), action: `marked an item incomplete`, isRead: false,
+            id: utilService.makeId(), object:todo, about: `on ${task.title}`, timeStamp: Date.now() }
             setDoneTodos(doneTodos - 1)
         }
         else {
             newTodo.isDone = true
+            activity = { user:userService.getLoggedinUser(), action: `has completed`, isRead: false,
+            id: utilService.makeId(), object:todo, about: `on ${task.title}`, timeStamp: Date.now() }
             setDoneTodos(doneTodos + 1)
         }
         newTask.checkLists[currCheckListIdx].todos[todoIdx] = newTodo
-        dispatch(editTask(board._id, box.id, newTask))
+        dispatch(editTask(board._id, box.id, newTask,activity))
         calcCompletePercentage()
     }
 
