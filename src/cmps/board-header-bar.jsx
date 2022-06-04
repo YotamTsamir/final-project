@@ -89,7 +89,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
             </button>
             <span className="line-between-header">|</span>
             {board.members &&
-                <div className="board-members">
+                <div className="curr-task-members">
                     {board.members.map((member, idx) => {
                         return <div
                             key={idx}

@@ -11,7 +11,8 @@ import { TaskBgPreview } from '../cmps/task/task-bg-preview';
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
@@ -102,6 +103,10 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         {(topic === 'Members' || topic === 'Labels') && <input {...labelFilter('txt')} />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
+            <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
+                <FontAwesomeIcon icon={faX} />
+            </div>
+            {/* {(topic === 'Labels') && (board.labels.map(label => { */}
             {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
                 if (!label.title.includes(newLabelFilter.txt)) return
                 return (
@@ -115,7 +120,11 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             }
             {(topic === 'Labels') && (!createLabel) && <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>}
         </div>
-        {(createLabel) && <div>
+
+        <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
+    </div>
+    {
+        (createLabel) && <div>
             <p>Name</p>
             <form onSubmit={(ev) => { onSubmitCreateLabel(ev) }}><input {...registry('txt')} /></form>
             <div className="color-grid">
@@ -126,17 +135,12 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                 }))}
                 <button onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>
             </div>
-        </div>}
-        <div >
-            {(topic === 'Cover') && <div>
+        </div>
+    }
+    <div >
+        {(topic === 'Cover') &&
+            <div>
                 <TaskBgPreview />
-                <div className="color-grid">
-                    {(colors.map(color => {
-                        return (
-                            <div key={color} className="cover-menu-color" value={color} onClick={() => { }} style={{ backgroundColor: color }}></div>
-                        )
-                    }))}
-                </div>
                 <div className="bg-container cover-menu">
                     <h4 className="cover-menu-h4">Photos from Unsplash</h4>
                     <TaskCoverMenu
@@ -146,15 +150,15 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                         topic={topic} />
                 </div>
             </div>
-            }
+        }
 
-            {(topic === 'Date') && <div>
-                <Calendar onChange={onChangeDate} value={value} />
-            </div>}
+        {(topic === 'Date') && <div>
+            <Calendar onChange={onChangeDate} value={value} />
+        </div>}
 
-            {(topic === 'Members') && <div className="members-container">
+        {(topic === 'Members') &&
+            <div className="members-container">
                 {board.members.map((member, idx) => {
-                    if (!member.fullname.includes(newLabelFilter.txt)) return
                     return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
                         {board.members &&
                             <div className="board-members">
@@ -168,24 +172,23 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                     )
                 })}
             </div>}
-            {(topic === 'Checklist') &&
-                <div className="add-checklist-container">
-                    <form onSubmit={(ev) => onCreateCheckList(ev)}>
-                        <h4>Title</h4>
-                        <input {...register('title')} />
-                        <div className="create-checklist-btns">
-                            <button className="create-new-checklist" type="submit">
-                                Create
-                            </button>
-                            <button
-                                className="cancel-checklist-creation"
-                                type="button"
-                                onClick={() => toggleMenu(topic)}>
-                                Cancel
-                            </button>
-                        </div>
-                    </form>
-                </div>}
-        </div>
+        {(topic === 'Checklist') &&
+            <div className="add-checklist-container">
+                <form onSubmit={(ev) => onCreateCheckList(ev)}>
+                    <h4>Title</h4>
+                    <input {...register('title')} />
+                    <div className="create-checklist-btns">
+                        <button className="create-new-checklist" type="submit">
+                            Create
+                        </button>
+                        <button
+                            className="cancel-checklist-creation"
+                            type="button"
+                            onClick={() => toggleMenu(topic)}>
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>}
     </div>
 }

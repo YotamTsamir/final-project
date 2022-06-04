@@ -96,23 +96,39 @@
         display: flex;
         align-items: center;
         flex-direction: row;
-        width: 5vw;
+        width: fit-content;
+
+
         .member-container {
             display: flex;
         }
-        .member-preview{
 
+        .members-div {
+            cursor: pointer;
+            margin: 0;
+            line-height: 32px;
+            white-space: nowrap;
+            color: rgb(7, 7, 153);
+            // height: 50px;
+            // align-items: center;
+            display: flex;
+            flex-direction: row;
+            width: max-content;
         }
 
-            img{
-                height:32px;
-                width: 32px;
-                border-radius: 50%;
-                margin-right: 5px;
-                    
-                
-            }
-        
+
+        .member-preview:hover {
+            z-index: 100;
+            cursor: pointer;
+        }
+
+        img {
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            margin: 0;
+        }
+
     }
 
 }
@@ -138,21 +154,7 @@
 
 
 
-.members-div {
-    cursor: pointer;
-    // margin: 0 0 2px;
-    // padding: 4px;
-    line-height: 32px;
-    white-space: nowrap;
-    color: rgb(7, 7, 153);
-    align-items: flex-end;
-    margin-bottom: 1px;
-    justify-content: end;
-    display: flex;
-    margin-left: 8px;
 
-
-}
 
 
 .react-calendar__navigation__next2-button {
@@ -182,4 +184,3 @@
     }
 
 }
-
