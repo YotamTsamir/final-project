@@ -12,10 +12,9 @@ import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
 
-// dispatch(setNewBoard(newBoard))
 
-export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) => {
-    const [images, onSetImages] = useState(boardService.getDefaultBgs())
+export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
+    const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
     const [createLabel, onCreateLabel] = useState(false)
@@ -79,14 +78,11 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         ev.preventDefault()
         const newTask = checkListService.addCheckList(newCheckListTitle.title, task)
         setCheckListTitle({ title: '' })
+        toggleMenu(topic)
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    const onChangeNewLabelColor = () => {
-        
-    }
-
-    return <div className={`label-choice ${topic}`}>
+    return <div className={`menu-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
         </div>
@@ -96,7 +92,11 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
         <div className="labels-container">
             {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
                 return (
-                    <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
+                    <div className="label-choice"
+                        key={label.id}
+                        onClick={(ev) => onAddLabel(ev, label.id)}
+                        style={{ backgroundColor: label.color }}>
+                        {label.title}</div>
                 )
             }))}
             <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
@@ -125,10 +125,14 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                 </div>
                 <div className="bg-container cover-menu">
                     <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                    < BgImgList dfBgs={images} onChange={onChangeBgImg} />
+                    <TaskCoverMenu 
+                    dfBgs={dfBgs} 
+                    onChange={onChangeBgImg} 
+                    toggleMenu={toggleMenu}
+                    topic={topic}/>
                 </div>
-            </div>}
         </div>
+                }
 
         {(topic === 'Date') && <div>
             <Calendar onChange={onChangeDate} value={value} />
@@ -139,7 +143,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                 return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
                     {board.members &&
                         <div className="board-members">
-
                             <div  >
                                 <img className={`member-preview ${idx}`} src={member.avatar} />
                             </div>
@@ -150,8 +153,24 @@ export const ActionMenu = ({ topic, board, task, box, colors, emitDateValue }) =
                 )
             })}
         </div>}
-        {(topic === 'checkList') && <div>
-            <form onSubmit={(ev) => onCreateCheckList(ev)}>Title<input {...register('title')} /></form>
-        </div>}
+        {(topic === 'Checklist') &&
+            <div className="add-checklist-container">
+                <form onSubmit={(ev) => onCreateCheckList(ev)}>
+                    <h4>Title</h4>
+                    <input {...register('title')} />
+                    <div className="create-checklist-btns">
+                        <button className="create-new-checklist" type="submit">
+                            Create
+                        </button>
+                        <button
+                            className="cancel-checklist-creation"
+                            type="button"
+                            onClick={() => toggleMenu(topic)}>
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>}
+    </div>
     </div>
 }

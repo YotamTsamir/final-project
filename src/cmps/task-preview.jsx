@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import desc from '../pngs/menu.png'
 import { useSelector } from "react-redux"
 import { boardService } from "../services/board.service"
@@ -21,8 +21,13 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [isPassed, setIsPassed] = useState()
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
+    const [taskMarginTop, setTaskMarginTop] = useState('0px')
+    const [taskMarginLeft, setTaskMarginLeft] = useState('0px')
+    const [isLeftAlignActionMenu, setIsLeftAlignActionMenu] = useState(false)
+    const taskRef = useRef(null)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
 
     useEffect(() => {
         if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
@@ -51,6 +56,23 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
     const onDown = () => {
         setIsEdit(false)
+        setTaskMarginTop('0px')
+        // setTaskMarginLeft('0px')
+        setIsLeftAlignActionMenu(false)
+    }
+
+    const setModal = (position) => {
+        if (position.bottom > window.innerHeight) {
+             const diff = position.bottom - window.innerHeight
+            setTaskMarginTop(`-${diff}px`)
+        } 
+        if(position.right > window.innerWidth){
+            //  const diff = position.right - window.innerWidth
+            const extraSpacing = 20
+            const diff = taskRef.current.getBoundingClientRect().right - window.innerWidth + extraSpacing
+            setTaskMarginLeft(`-${diff}px`)
+            setIsLeftAlignActionMenu(true)
+        }
     }
 
     const onEditTask = async (ev, board, box) => {
@@ -68,21 +90,20 @@ export const TaskPreview = ({ task, board, box, index }) => {
         dispatch(setTask(task, box))
         navigate(`task/${task.id}`)
     }
-
+    
     const openTask = () => {
         navigate(`task/${task.id}`)
+        setTaskMarginTop('0px')
+        // setTaskMarginLeft('0px')
+        setIsLeftAlignActionMenu(false)
         setIsEdit(false)
     }
-
+    
     const onOpenEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
     }
-
-    const randomMemberColor = () => {
-        return utilService.getRandomColor()
-    }
-
+    
     const onOpenLabel = (ev) => {
         ev.stopPropagation()
         if (!labelOpen) dispatch(toggleLabels('label-open'))
@@ -90,7 +111,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         if (!labelOpen) setLabelOpen('label-open')
         else setLabelOpen('')
     }
-
+    
     const getLabels = () => {
         if (!task.labelIds) return
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
@@ -109,6 +130,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     <p >{task.title}</p>
                     <div className="flex space-between spacer-bottom-task">
                         <div className="flex task-prev-date-desc">
+
                             {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isPassed} ${isComplete}`}>
                                 {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
                                 {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
@@ -148,14 +170,14 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
-            <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`}>
+            <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`} ref={taskRef} style={{ marginTop: taskMarginTop, marginLeft: taskMarginLeft}} >
                 {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>
                 <form className="edit-task-form" onSubmit={(ev) => { onEditTask(ev, board, box, task) }}><textarea className="task-edit" {...register('title')} />
                     <button className={`save-btn-edit ${(task.date || task.members ? 'down' : '')}`}>save</button></form>
-                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} />
+                <EditTaskNav openTask={openTask} setIsEdit={setIsEdit} isEdit={isEdit} box={box} task={task} board={board} setModal={setModal} isLeftAlignActionMenu={isLeftAlignActionMenu} />
                 <div className="flex space-between spacer-bottom-task">
                     <div className="flex task-prev-date-desc">
                         {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isPassed} ${isComplete}`}>
@@ -170,8 +192,8 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (
-                                <div className="board-members">
-
+                                <div className="board-members"
+                                    key={idx}>
                                     <div>
 
                                         <img className={`member-preview ${idx}`} src={member.avatar} />

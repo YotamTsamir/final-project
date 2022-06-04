@@ -11,7 +11,7 @@ import { BoxFilterMenu } from './box-filter-menu.jsx'
 export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoard, board, onEditBoardStyle }) => {
     const [isDark, setIsDark] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
-    const [isAddMember,setIsAddMember] = useState(false)
+    const [isAddMember, setIsAddMember] = useState(false)
     const [isFilterOrMenuOpen, setIsFilterOrMenuOpen] = useState(false)
     const [inputWidth, setInputWidth] = useState({ width: '100%' })
     const [boardTitleEdit, setBoardTitleEdit] = useState({
@@ -36,13 +36,12 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
         ev.preventDefault()
         const field = ev.target.name
         const value = boardTitleEdit.title
-        // board = {...board, [field]: value}
         onEditBoardTitle(board._id, field, value)
         onToggleEditTitle()
     }
 
     const onOpenFilterOrMenu = (val) => {
-        if(val === isFilterOrMenuOpen) val = false
+        if (val === isFilterOrMenuOpen) val = false
         setIsFilterOrMenuOpen(val)
     }
 
@@ -50,7 +49,7 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
         setIsEditTitle(!isEditTitle)
     }
 
-    
+
     const getIsDarkTheme = async () => {
         if (board.style.backgroundColor) return
         const colorTheme = await boardService.getBoardColorTheme(board.style.backgroundImage)
@@ -92,13 +91,13 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
                 <div className="board-members">
                     {board.members.map((member, idx) => {
                         return <div
-                        key={idx}
-                        className={`member-preview ${idx}`} >
-                        <img src={member.avatar}/>
+                            key={idx}
+                            className={`member-preview ${idx}`} >
+                            <img src={member.avatar} />
                         </div>
                     })}
-                <button onClick={()=>setIsAddMember(!isAddMember)}>Add member</button>
-                {(isAddMember)&& <AddMember board={board}/>}
+                    <button onClick={() => setIsAddMember(!isAddMember)}>Add member</button>
+                    {(isAddMember) && <AddMember board={board} />}
                 </div>
             }
         </div>

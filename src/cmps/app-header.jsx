@@ -52,6 +52,7 @@ export const AppHeader = () => {
         if (!user) navigate('/')
         scrollListener()
     }, [])
+
     useEffect(() => {
         getIsDarkTheme()
     }, [board])
@@ -65,8 +66,8 @@ export const AppHeader = () => {
 
     }
     const findPath = () => {
-        console.log(location.pathname)
-        if (location.pathname === '/boards') return true
+        // console.log(location.pathname)
+        if (location.pathname === '/boards' || location.pathname.includes('/b/')) return true
     }
     const scrollListener = () => {
         document.addEventListener("scroll", () => {

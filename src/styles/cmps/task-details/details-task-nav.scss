@@ -8,8 +8,9 @@
         position: relative;
 
 
-        .label-choice.Labels {
+        .menu-choice.Labels {
             position: absolute;
+
             transform: unset;
             background-color: #fefefe;
             border: 0.5px solid $clr18;
@@ -17,9 +18,11 @@
             width: fit-content;
 
 
+            z-index: 100;
+            padding: 6px;
         }
 
-        .label-choice.Members {
+        .menu-choice.Members {
             position: absolute;
             transform: unset;
             margin: 0;
@@ -31,25 +34,29 @@
             background-color: #fefefe;
         }
 
-        .label-choice .Cover {
+        .menu-choice.Cover {
             position: absolute;
             transform: unset;
             margin: 0;
             background-color: rgb(249, 249, 249);
+            z-index: 100;
+            top: 195px;
+            right: -30px;
         }
 
     }
 
-    .label-choice.Cover:hover {
+    .menu-choice.Cover:hover {
         filter: brightness(1);
     }
 }
 
 .menu-imgs {
     height: 14px;
-    margin: 0 6px 0 -6px;
+    margin: 0 0 0 -6px;
     padding-left: 8px;
     padding-right: 8px;
+    width: 32px;
 }
 
 .details-task-nav-contianer {
@@ -106,6 +113,7 @@
 
         img {
             padding-right: 10px;
+
         }
     }
 
@@ -144,39 +152,4 @@
         }
     }
 
-}
-
-.detail-menu-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.x-btn-cover {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 5px;
-    align-items: flex-end;
-
-}
-
-.details-task-cover-btn {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background-color: $clr12;
-    color: $clr3;
-    margin: 18px 0 4px 8px;
-    padding: 6px 12px 6px 8px;
-    border-radius: 3px;
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    background-color: $clr13;
-
-
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.127);
-    }
 }

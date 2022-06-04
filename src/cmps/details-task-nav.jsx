@@ -3,8 +3,8 @@ import { ActionMenu } from './action-menu'
 import { setTask, toggleDetails, editTask } from "../store/action/board-action"
 import { useSelector, useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { faClock, faUser, faSquare, faSquareCheck, faCheckSquare } from '@fortawesome/free-regular-svg-icons'
+import { faArrowRight, faTag, faEyeDropper, faBoxArchive } from '@fortawesome/free-solid-svg-icons'
+import { faClock, faUser, faCheckSquare, faCopy } from '@fortawesome/free-regular-svg-icons'
 import labelImg from '../imgs/label.png'
 import copyImg from '../imgs/copy.png'
 import archiveImg from '../imgs/archive.png'
@@ -23,7 +23,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
     const dispatch = useDispatch()
 
     const toggleMenu = (menuName) => {
- 
+
         const newMenuState = {}
         for (const key in menuState) {
             newMenuState[key] = key === menuName ? !menuState[menuName] : false
@@ -44,14 +44,14 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
     }
 
     const menuBtns = [
-        { txt: 'Labels', fa: <img className="menu-imgs" src={labelImg} /> },
-        { txt: 'Cover', fa: <img className="menu-imgs" src={coverImg} /> },
+        { txt: 'Labels', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faTag} /> },
+        { txt: 'Cover', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faEyeDropper} /> },
         { txt: 'Members', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faUser} /> },
         { txt: 'Move', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faArrowRight} /> },
         { txt: 'Checklist', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faCheckSquare} /> },
-        { txt: 'Copy', fa: <img className="menu-imgs" src={copyImg} /> },
+        { txt: 'Copy', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faCopy} /> },
         { txt: 'Dates', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faClock} /> },
-        { txt: 'Archive', fa: <img className="menu-imgs" src={archiveImg} /> },
+        { txt: 'Archive', fa: <FontAwesomeIcon className="menu-imgs fa font-clock" icon={faBoxArchive} /> },
     ].filter(({ txt }) => !(task.color && txt === 'Cover'))
 
     const colors = ['#7BC86C', '#F5DD29', '#EF7564', '#CD8DE5', '#5BA4CF', '#29CCE5', '#6DECA9', 'orange', '#FF8ED4', '#8675A9']
@@ -74,7 +74,8 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
 
                     {(menuState['Cover']) && btn.txt === 'Cover' && <ActionMenu
                         topic={'Cover'} colors={colors}
-                        task={task} box={box} board={board} />}
+                        task={task} box={box} board={board}
+                        toggleMenu={toggleMenu} />}
 
                     {(menuState['Dates']) && btn.txt === 'Dates' && <ActionMenu
                         topic={'Date'} task={task}
@@ -83,7 +84,7 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
                     {(menuState['Members']) && btn.txt === 'Members' && <ActionMenu
                         topic={'Members'} task={task} box={box} board={board} />}
                     {(menuState['Checklist']) && btn.txt === 'Checklist' && <ActionMenu
-                        topic={'checkList'} task={task} box={box} board={board} />}
+                        topic={'Checklist'} task={task} box={box} board={board} toggleMenu={toggleMenu} />}
                 </div>)
             })}
         </div>

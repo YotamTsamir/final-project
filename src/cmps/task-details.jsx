@@ -6,7 +6,7 @@ import { boardService } from "../services/board.service";
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignLeft, faXmark, faList, faWindowMaximize } from "@fortawesome/free-solid-svg-icons";
+import { faAlignLeft, faXmark, faList, faWindowMaximize, faComments } from "@fortawesome/free-solid-svg-icons";
 import { faWindowMaximize as faWindowMaximizeRegular } from "@fortawesome/free-regular-svg-icons";
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
@@ -94,17 +94,17 @@ export const TaskDetails = () => {
       <div className="task-details"
         onClick={(ev) => ev.stopPropagation()}>
         <button
-          className="exit-task-details-btn "
+          className={`exit-task-details-btn ${bg ? 'yes-cover' : 'no-cover'}`}
           onClick={() => {
             onToggleDetails();
           }}            >
           <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
         </button>
         <div className="task-details-cover-area">
-          <div
+          {bg && <div
             key={bg}
-            className={`task-details-cover ${bg ? '' : 'no-color'}`}
-            height={`${bg ? '90px;' : ''}`}
+            className={`task-details-cover `}
+            // height={`${bg ? '90px;' : ''}`}
             style={{ background: bg }}
           >
             {task.bg && <button className="task-details-change-cover-btn" onClick={() => { toggleMenu() }}>
@@ -112,10 +112,10 @@ export const TaskDetails = () => {
               <p>Cover</p>
               {(menuState) && <ActionMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
             </button>}
-          </div>
+          </div>}
         </div>
 
-        <div className="detail-header-container">
+        <div className={`detail-header-container ${bg ? 'yes-cover' : 'no-cover'}`}>
           <div className="task-details-title-container">
             <span className="left-side-icons"><FontAwesomeIcon icon={faWindowMaximize} /></span>
             <h1 className="task-details-title" >{task?.title}</h1>
@@ -127,7 +127,7 @@ export const TaskDetails = () => {
 
         <div className="task-detail-body-container">
           <div className="task-detail-main-container">
-            <div className="members-labels-container">
+            {(isMembers() || isLabelsLength()) && <div className="members-labels-container">
               {(isMembers() &&
                 // <div className={`members-members-title ${labels && labels.length ? "members-with-labels" : "members-no-labels"}`}>
                 <div className="task-detail-members-container">
@@ -137,18 +137,14 @@ export const TaskDetails = () => {
                       task.members.map((member, idx) => {
                         return <div key={idx}
                           className="task-detail-member">
-
                           <div >
                             <img className={`task-detail-member ${idx}`} src={member.avatar} />
                           </div>
 
                         </div>
-
-                      })
-                    }
+                      })}
                   </div>
-                </div>
-              )}
+                </div>)}
               <div className="task-detail-label-container">
                 {isLabelsLength() && <div className="labels-header"> Labels</div>}
                 <div className="label-detail-container">
@@ -162,17 +158,21 @@ export const TaskDetails = () => {
                         >
                           {label.title}
                         </div>
-                      );
-                    })
-                  )}
+                      )
+                    }))}
                 </div>
               </div>
-            </div>
+            </div>}
 
             <div className="task-description">
-              <div className="task-desc-header">
-                <span className="left-side-icons"><FontAwesomeIcon icon={faAlignLeft} /></span>
-                <div className="description section-header">Description</div>
+              <div
+                className={`task-desc-header ${(isMembers() || isLabelsLength()) ? '' : 'is-first'}`}>
+                <span className="left-side-icons">
+                  <FontAwesomeIcon icon={faAlignLeft} />
+                </span>
+                <div className="description section-header">
+                  Description
+                </div>
               </div>
               {(isDesc()) && <InputDesc className="is-desc" />}
               {(!isDesc()) && <InputDesc className="no-desc" />}
@@ -194,10 +194,6 @@ export const TaskDetails = () => {
 
 
       </div>
-
-      {/* <div onClick={() => {
-        onToggleDetails();
-      }} className="the-great-one the-medium"></div> */}
     </section>
   );
 };

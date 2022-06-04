@@ -1,0 +1,192 @@
+.check-list {
+    margin-bottom: 24px;
+
+    .checklist-header {
+        display: flex;
+        align-items: center;
+        margin-top: 24px;
+
+        * {
+            font-size: 16px;
+        }
+    }
+
+    .check-list-container {
+        display: flex;
+        flex-direction: column;
+
+        .todo-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .left-side-icons {
+            height: 32px;
+            width: 32px;
+        }
+
+        .todo-txt {
+            display: flex;
+            align-items: center;
+        }
+
+        .line-through {
+            text-decoration: line-through;
+        }
+    }
+
+    .add-todo-btn {
+        margin: 8px 0 0 40px;
+        border: none;
+        border-radius: 3px;
+        height: 32px;
+        padding: 6px 12px;
+        background-color: #091e420a;
+    }
+
+    .save-cancel-btns {
+        border: none;
+        background: none;
+        border-radius: 3px;
+        cursor: pointer;
+
+        height: 36px;
+        padding: 6px 12px;
+    }
+
+    .edit-todo-container {
+
+        .edit-todo-form {
+            position: relative;
+
+            .edit-todo-textarea {
+                width: 100%;
+                border: none;
+                box-shadow: inset 0 0 0 2px #0079bf;
+                outline: none;
+                border-radius: 3px;
+                padding: 8px 0 8px 12px;
+                overflow: hidden;
+                overflow-wrap: break-word;
+                resize: none;
+            }
+
+            .edit-todo-btns {
+                display: flex;
+                align-items: center;
+
+                .save-todo-btn {
+                    background-color: #0079bf;
+                    color: #ffffff;
+                    margin-right: 4px;
+                }
+
+                .save-todo-btn:hover {
+                    filter: brightness(90%);
+                    cursor: pointer;
+                }
+
+                .exit-edit-todo:hover {
+                    background-color: #091e420a;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .add-todo-form {
+        margin-left: 40px;
+
+        .add-todo-textarea {
+            width: 100%;
+            border: none;
+            box-shadow: inset 0 0 0 2px #0079bf;
+            outline: none;
+            border-radius: 3px;
+            height: 52px;
+            padding: 8px 0 8px 12px;
+            overflow: hidden;
+            overflow-wrap: break-word;
+            resize: none;
+        }
+
+        .add-todo-btns {
+            display: flex;
+            align-items: center;
+
+
+
+            .save-new-todo-btn {
+                background-color: #0079bf;
+                color: #ffffff;
+                margin-right: 4px;
+            }
+
+            .save-new-todo-btn:hover {
+                filter: brightness(90%);
+                cursor: pointer;
+            }
+
+            .exit-new-todo:hover {
+                background-color: #091e420a;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+.menu-choice.Checklist {
+    position: absolute;
+    background-color: #ffffff;
+    top: 4px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+    width: 304px;
+    z-index: 100;
+    padding: 6px;
+
+    h4 {
+        font-size: 12px;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    input {
+        width: 100%;
+        background-color: #fafbfc;
+        border: none;
+        border-radius: 3px;
+        box-shadow: inset 0 0 0 2px #dfe1e6;
+        box-sizing: border-box;
+        line-height: 20px;
+        padding: 8px 12px;
+        margin-bottom: 12px;
+    }
+
+    .create-checklist-btns {
+        display: flex;
+        align-items: center;
+
+        button {
+            height: 32px;
+            border: none;
+            background: none;
+            padding: 6px 12px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .create-new-checklist {
+            margin-right: 4px;
+            background-color: #0079bf;
+            color: #ffffff;
+        }
+
+        .create-new-checklist:hover {
+            filter: brightness(90%);
+        }
+
+        .cancel-checklist-creation:hover {
+            background-color: #091e420a;
+        }
+    }
+}
