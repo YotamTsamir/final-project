@@ -31,9 +31,10 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
         setAddNewTask(boxId)
         EditTask({ title: '' })
         const board = await boardService.saveTask(boardId, task, boxId)
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         const user = userService.getLoggedinUser()
-        const activity = { user: user || 'guest', action: `added `,id:utilService.makeId(), object:task , about: `to ${box.title}`, timeStamp: Date.now() }
+        const activity = { user: user || 'guest', action: `added `,id:utilService.makeId(),isRead:false, object:task , about: `to ${box.title}`, timeStamp: Date.now() }
+        const boardAndActivity = { board, activity }
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD,boardAndActivity)
         dispatch(addTask(boardId, task, boxId, activity))
     }
 

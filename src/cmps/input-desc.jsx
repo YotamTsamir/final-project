@@ -46,6 +46,7 @@ export const InputDesc = () => {
             placeholder="Add a more detailed descripton..."
             className="task-desc-edit"
             {...rest}
+            onBlur={cancelDesc}
           >{text}</textarea>
           <div className="desc-btns-container">
             <button className="desc-save-btn desc-btn">Save</button>

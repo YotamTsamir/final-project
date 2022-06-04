@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useFormRegister } from "../hooks/useFormRegister"
 import { Outlet } from "react-router-dom"
 import { useEffectUpdate } from "../hooks/useEffectUpdate"
-import { socketService, SOCKET_EVENT_LOAD_BOARD, SOCKET_EVENT_SET_BOARD } from "../services/socket.service"
+import { socketService, SOCKET_EVENT_LOAD_BOARD, SOCKET_EVENT_SET_BOARD, SOCKET_EVEN_SET_USERS, SOCKET_EVENT_PUSH_NOTIFICATION } from "../services/socket.service"
 import { BoxList } from "../cmps/box-list"
 import { BoardHeaderBar } from '../cmps/board-header-bar.jsx'
 import { utilService } from "../services/util.service"
@@ -33,12 +33,15 @@ export const Board = () => {
         socketService.on(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         return () => {
             socketService.off(SOCKET_EVENT_LOAD_BOARD, updateBoard)
+
         }
 
     }, [])
     const updateBoard = (board) => {
         dispatch(setNewBoard(board))
     }
+
+
 
     useEffectUpdate(() => {
         if (!board?._id) {
@@ -65,6 +68,7 @@ export const Board = () => {
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, newBoard)
         dispatch(setNewBoard(newBoard))
     }
+
     const onEditBoardTitle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardTitle(boardId, field, change)
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, newBoard)
@@ -83,7 +87,7 @@ export const Board = () => {
         }
         const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
         const user = userService.getLoggedinUser()
-        const activity = { user, action: `added`, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
+        const activity = { user, action: `added`, isRead: false, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
         setIsAdd(false)
         EditBoxTitle({ title: '' })
         // const newBoard = await boardService.saveBox(boardId, box)
@@ -97,7 +101,7 @@ export const Board = () => {
         if (destination.droppableId === source.droppableId && destination.index === source.index) return
         if (res.type !== 'box' && res.type !== 'task') {
             const newTask = dragService.moveTodoInChecklist(board, res.type.box, res.type.task, destination.droppableId, source, destination)
-            dispatch(editTask(board._id,res.type.box.id,newTask)) 
+            dispatch(editTask(board._id, res.type.box.id, newTask))
             return
         }
         if (res.type === 'box') {
@@ -111,7 +115,7 @@ export const Board = () => {
             console.log(originBox)
             console.log('task is', source)
             const user = userService.getLoggedinUser()
-            const activity = { user, action: `moved`, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
+            const activity = { user, action: `moved`,isRead:false, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
             const newOrder = dragService.moveTaskToOtherBox(board, source, destination)
             dispatch(editBoxes(board._id, newOrder, activity))
             return

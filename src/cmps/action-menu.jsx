@@ -14,9 +14,10 @@ import { checkListService } from "../services/check-list.service";
 
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
-    const [images, onSetImages] = useState(boardService.getDefaultBgs())
+    const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
+    const [createLabel, onCreateLabel] = useState(false)
     const dispatch = useDispatch()
 
 
@@ -80,8 +81,12 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         toggleMenu(topic)
         dispatch(editTask(board._id, box.id, newTask))
     }
+    
+    const onChangeNewLabelColor = () => {
+        
+    }
 
-    return <div className={`label-choice ${topic}`}>
+    return <div className={`menu-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
         </div>
@@ -89,28 +94,49 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         {(topic === 'Members' && topic === 'Labels') && <input type="text" />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
-            {(topic === 'Labels') && (board.labels.map(label => {
+            {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
                 return (
-                    <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
+                    <div className="label-choice"
+                        key={label.id}
+                        onClick={(ev) => onAddLabel(ev, label.id)}
+                        style={{ backgroundColor: label.color }}>
+                        {label.title}</div>
                 )
-            }))}</div>
-
+            }))}
+            <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
+        </div>
+        {(createLabel) && <div>
+            <p>Name</p>
+            <form ><input /></form>
+            <div className="color-grid">
+                {(colors.map(color => {
+                    return (
+                        <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeNewLabelColor(color)} style={{ backgroundColor: color }}></div>
+                    )
+                }))}
+                <button onClick={() => { onCreateLabel(!createLabel) }}>Create</button>
+            </div>
+        </div>}
         <div >
             {(topic === 'Cover') && <div>
                 <TaskBgPreview />
                 <div className="color-grid">
                     {(colors.map(color => {
                         return (
-                            <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeBgColor(color)} style={{ backgroundColor: color }}></div>
+                            <div key={color} className="cover-menu-color" value={color} onClick={() => { }} style={{ backgroundColor: color }}></div>
                         )
                     }))}
                 </div>
                 <div className="bg-container cover-menu">
                     <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                    < BgImgList dfBgs={images} onChange={onChangeBgImg} />
+                    <TaskCoverMenu 
+                    dfBgs={dfBgs} 
+                    onChange={onChangeBgImg} 
+                    toggleMenu={toggleMenu}
+                    topic={topic}/>
                 </div>
-            </div>}
         </div>
+                }
 
         {(topic === 'Date') && <div>
             <Calendar onChange={onChangeDate} value={value} />
@@ -133,8 +159,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         </div>}
         {(topic === 'Checklist') &&
             <div className="add-checklist-container">
-                <form
-                    onSubmit={(ev) => onCreateCheckList(ev)}>
+                <form onSubmit={(ev) => onCreateCheckList(ev)}>
                     <h4>Title</h4>
                     <input {...register('title')} />
                     <div className="create-checklist-btns">
@@ -150,5 +175,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                     </div>
                 </form>
             </div>}
+    </div>
     </div>
 }

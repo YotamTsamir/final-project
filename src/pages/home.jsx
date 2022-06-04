@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import image from "../imgs/home-image.png"
 import exampleImg from "../imgs/example-img.png"
+
+
 
 export const Home = () => {
     

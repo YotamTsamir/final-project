@@ -9,17 +9,29 @@ import { Draggable } from "react-beautiful-dnd"
 
 
 export const TaskList = ({ tasks, board, box }) => {
-  
+    const getStyle = (style, snapshot) => {
+        if (!snapshot.isDropAnimating) {
+            return {
+                ...style,
+                transition: `all 3s ease`,
+                backgroundColor: "blue"
+            }
+        }}
 
-    return <div className="task-list">
-        {tasks.map((task, index) => <Draggable key={task.id} draggableId={task.id} index={index}>
-            {provided => {
-                return <div className="task-father" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} index={index} >
-                 <TaskPreview box={box} board={board} key={task.id} task={task} />
-                </div>
-            }}
-        </Draggable>
-        )}
-       
-    </div>
-}
+        // patching the existing style
+
+
+        return <div className="task-list">
+            {tasks.map((task, index) => <Draggable key={task.id} draggableId={task.id} index={index}>
+                {(provided, snapshot) => {
+                    return <div 
+                        style={getStyle(provided.draggableProps.style, snapshot)}
+                        className="task-father" {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef} index={index} >
+                        <TaskPreview box={box} board={board} key={task.id} task={task} />
+                    </div>
+                }}
+            </Draggable>
+            )}
+
+        </div>
+    }

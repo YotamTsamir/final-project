@@ -3,6 +3,8 @@ import { userService } from './user-service'
 
 export const SOCKET_EVENT_ADD_TASK = 'new task'
 export const SOCKET_EVENT_SET_BOARD = 'set board'
+export const SOCKET_EVEN_SET_USER = 'set user'
+export const SOCKET_EVENT_PUSH_NOTIFICATION = 'push notification'
 export const SOCKET_EVENT_LOAD_BOARD = 'load board'
 export const SOCKET_EMIT_SEND_MSG = 'chat-send-msg'
 export const SOCKET_EMIT_SET_TOPIC = 'chat-set-topic'
