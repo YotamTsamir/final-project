@@ -2,7 +2,7 @@ import { useState } from "react";
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
 import { BgImgList } from "./bg-image-list";
-import { setNewBoard, editTask } from "../store/action/board-action"
+import { setNewBoard, editTask, editBoard } from "../store/action/board-action"
 import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
@@ -15,8 +15,11 @@ import { faX } from '@fortawesome/free-solid-svg-icons'
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverMenuClass }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
+    const [registry, newLabelTxt, setNewLabelTxt] = useFormRegister({ txt: '' })
+    const [labelFilter, newLabelFilter, setNewLabelFilter] = useFormRegister({ txt: '' })
     const [value, onChange] = useState(new Date());
     const [createLabel, onCreateLabel] = useState(false)
+    const [newLabelColor, setNewLabelColor] = useState('')
     const dispatch = useDispatch()
 
 
@@ -82,8 +85,13 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    const onChangeNewLabelColor = () => {
-
+    const onSubmitCreateLabel = (ev) => {
+        ev.preventDefault()
+        if (!newLabelColor) return
+        console.log(newLabelColor)
+        const newLabel = { id: utilService.makeId(4), title: newLabelTxt.txt, color: newLabelColor }
+        board.labels.push(newLabel)
+        dispatch(editBoard(board))
     }
 
     return <div className={`menu-choice-${topic} ${coverMenuClass ? coverMenuClass : ''}`}>
@@ -91,13 +99,15 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
             <h1 className="h1-topic">{topic}</h1>
         </div>
         <hr />
-        {(topic === 'Members' || topic === 'Labels') && <input type="text" />}
+        {(topic === 'Members' || topic === 'Labels') && <input {...labelFilter('txt')} />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
             <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
                 <FontAwesomeIcon icon={faX} />
             </div>
-            {(topic === 'Labels') && (board.labels.map(label => {
+            {/* {(topic === 'Labels') && (board.labels.map(label => { */}
+            {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
+                if (!label.title.includes(newLabelFilter.txt)) return
                 return (
                     <div className="label-choice"
                         key={label.id}
@@ -105,23 +115,20 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
                         style={{ backgroundColor: label.color }}>
                         {label.title}</div>
                 )
-            }))}
-            {(topic === 'Labels') && (!createLabel) && 
-            <button className="create-new-label-btn"
-            onClick={() => { onCreateLabel(!createLabel) }}>
-                Create a new label
-                </button>}
+            }))
+            }
+            {(topic === 'Labels') && (!createLabel) && <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>}
         </div>
         {(createLabel) && <div>
             <p>Name</p>
-            <form ><input /></form>
+            <form onSubmit={(ev) => { onSubmitCreateLabel(ev) }}><input {...registry('txt')} /></form>
             <div className="color-grid">
                 {(colors.map(color => {
                     return (
-                        <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeNewLabelColor(color)} style={{ backgroundColor: color }}></div>
+                        <div key={color} className="cover-menu-color" value={color} onClick={() => setNewLabelColor(color)} style={{ backgroundColor: color }}></div>
                     )
                 }))}
-                <button onClick={() => { onCreateLabel(!createLabel) }}>Create</button>
+                <button onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>
             </div>
         </div>}
         <div >

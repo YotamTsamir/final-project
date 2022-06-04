@@ -300,11 +300,12 @@
             }
 
             .comments-container {
-                margin-left: 40px;
+                margin-left: 44px;
                 list-style: none;
                 list-style-position: left;
                 padding: 0;
                 position: relative;
+                align-items: center;
 
                 .comment-icon {
                     position: absolute;
@@ -312,14 +313,58 @@
                 }
 
                 .comment-container {
-                    margin-bottom: 24px;
+                    min-height: 32px;
+                    padding: 8px 0;
+                    position: relative;
+                    
+                    .comment-fullname-timestamp {
+                        display: flex;
+                        align-items: left;
+                        flex-direction: column;
+                        
+
+                    }
+
+                    .comment-avatar img {
+                        border-radius: 25em;
+                        height: 32px;
+                        object-fit: cover;
+                        width: 32px;
+                        height: 32px;
+                        left: -40px;
+                        position: absolute;
+                        top: 8px;
+                        width: 32px;
+                    }
+
+                    .comment {
+                        background-color: white;
+                        padding: 8px 12px;
+                        overflow-wrap: break-word;
+                        word-break: break-word;
+                        box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.03);
+                        align-items: center;
+                    }
+
+                    .comment-createdBy-timeStamp {
+                        font-weight: 600;
+                        padding-bottom: 10px;
+
+                        span {
+                            font-size: 12px;
+                            font-weight: 300;
+                            color: rgb(126, 126, 126);
+                        }
+                    }
 
                     .comment-edit-delete-container {
                         display: flex;
                         flex-direction: column;
 
+
                         .comment-btn-container {
                             display: flex;
+                            padding-top: 10px;
 
                             * {
                                 color: #5e6c84;

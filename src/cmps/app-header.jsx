@@ -33,6 +33,7 @@ export const AppHeader = () => {
     useEffect(() => {
         (async () => {
             const user = await userService.getLoggedinUser()
+            dispatch(updateUser(user))
             if (user) socketService.emit(SOCKET_EVEN_SET_USER, user._id)
         })()
         socketService.on(SOCKET_EVENT_PUSH_NOTIFICATION, pushNotification)
@@ -137,7 +138,6 @@ export const AppHeader = () => {
                 ${(!scroll && isHomePage) ? ' scrolled' : ''}`
     }
 
-    // console.log(isNotificationsOpen)
     return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
 
