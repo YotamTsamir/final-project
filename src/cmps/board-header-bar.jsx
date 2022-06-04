@@ -88,7 +88,7 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
                     <FontAwesomeIcon icon={faStar} />}
             </button>
             {board.members &&
-                <div className="board-members">
+                <div className="curr-task-members">
                     {board.members.map((member, idx) => {
                         return <div
                             key={idx}

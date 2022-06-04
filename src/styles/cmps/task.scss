@@ -171,33 +171,7 @@
     }
 }
 
-.board-members {
-    .members-div {
-        cursor: pointer;
-        margin: 0;
-        line-height: 32px;
-        white-space: nowrap;
-        color: rgb(7, 7, 153);
-        height: 50px;
-        align-items: center;
-        display: flex;
 
-
-    }
-
-    img {
-        height: 30px;
-        width: 30px;
-        border-radius: 50%;
-        margin-left: 4px;
-        padding: 0;
-    }
-
-    .member-preview:hover {
-        z-index: 100;
-        cursor: pointer;
-    }
-}
 
 
 .labels {

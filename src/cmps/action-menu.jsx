@@ -11,7 +11,8 @@ import { TaskBgPreview } from '../cmps/task/task-bg-preview';
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
@@ -89,6 +90,9 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         {(topic === 'Members' && topic === 'Labels') && <input type="text" />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
+            <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
+                <FontAwesomeIcon icon={faX} />
+            </div>
             {(topic === 'Labels') && (board.labels.map(label => {
                 return (
                     <div className="label-choice"
@@ -97,17 +101,18 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                         style={{ backgroundColor: label.color }}>
                         {label.title}</div>
                 )
-            }))}</div>
+            }))}
+        </div>
 
         <div >
             {(topic === 'Cover') &&
                 <div className="bg-container cover-menu">
                     <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                    <TaskCoverMenu 
-                    dfBgs={dfBgs} 
-                    onChange={onChangeBgImg} 
-                    toggleMenu={toggleMenu}
-                    topic={topic}/>
+                    <TaskCoverMenu
+                        dfBgs={dfBgs}
+                        onChange={onChangeBgImg}
+                        toggleMenu={toggleMenu}
+                        topic={topic} />
                 </div>}
         </div>
 
@@ -115,21 +120,22 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             <Calendar onChange={onChangeDate} value={value} />
         </div>}
 
-        {(topic === 'Members') && <div className="members-container">
-            {board.members.map((member, idx) => {
-                return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
-                    {board.members &&
-                        <div className="board-members">
-                            <div  >
-                                <img className={`member-preview ${idx}`} src={member.avatar} />
-                            </div>
+        {(topic === 'Members') &&
+            <div className="members-container">
+                {board.members.map((member, idx) => {
+                    return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
+                        {board.members &&
+                            <div className="board-members">
+                                <div  >
+                                    <img className={`member-preview ${idx}`} src={member.avatar} />
+                                </div>
 
-                        </div>
-                    }
-                    {member.fullname} ({member.userName}) </div>
-                )
-            })}
-        </div>}
+                            </div>
+                        }
+                        {member.fullname} ({member.userName}) </div>
+                    )
+                })}
+            </div>}
         {(topic === 'Checklist') &&
             <div className="add-checklist-container">
                 <form

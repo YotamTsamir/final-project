@@ -24,7 +24,7 @@ export const TaskCoverMenu = ({ dfBgs, toggleMenu, topic }) => {
         <div className="color-grid">
             {dfBgs.color.map((color, idx) => {
                 if (idx < 10) {
-                    console.log(color, idx)
+                    // console.log(color, idx)
                     return <div className="cover-color"
                         key={idx}
                         style={{ backgroundColor: color }}>
@@ -36,7 +36,7 @@ export const TaskCoverMenu = ({ dfBgs, toggleMenu, topic }) => {
         <div className="bg-container-cover-menu">
             {dfBgs.image.map((imgUrl, idx) => {
                 if (idx < 6) {
-                    console.log(imgUrl, idx)
+                    // console.log(imgUrl, idx)
                     return <div className='cover-img'
                         key={idx}
                         style={{ backgroundImage: `url(${imgUrl})` }}>
