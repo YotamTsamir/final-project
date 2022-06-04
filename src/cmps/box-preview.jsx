@@ -12,7 +12,7 @@ import { BoardExtrasMenu } from "./board-extras-menu"
 import { socketService, SOCKET_EVENT_LOAD_BOARD } from "../services/socket.service"
 import { userService } from "../services/user-service"
 
-export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
+export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
     const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const [registery, newTask, EditTask] = useFormRegister({ title: '' })
@@ -67,7 +67,7 @@ export const BoxPreview = ({ box, board, setEditTitleId, editTitleId, setAddNewT
                         {...provided.droppableProps}
                         className="task-list-wraper">
                         <TaskList
-                            board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
+                          labelFilter={labelFilter} newBoardFilter={newBoardFilter} board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>
 
 

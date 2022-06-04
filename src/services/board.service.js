@@ -34,7 +34,8 @@ export const boardService = {
     addComment,
     deleteTask,
     updateUserImgInBoards,
-    addActivity
+    addActivity,
+    addBoardMember
 }
 
 

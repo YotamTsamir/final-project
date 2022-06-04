@@ -21,6 +21,8 @@ export const Board = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const [isAdd, setIsAdd] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
+    const [boardFilter, newBoardFilter, editBoardFilter] = useFormRegister({ filter: '' })
+    const [labelFilter,setLabelFilter] = useState([])
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -115,7 +117,7 @@ export const Board = () => {
             console.log(originBox)
             console.log('task is', source)
             const user = userService.getLoggedinUser()
-            const activity = { user, action: `moved`,isRead:false, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
+            const activity = { user, action: `moved`, isRead: false, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
             const newOrder = dragService.moveTaskToOtherBox(board, source, destination)
             dispatch(editBoxes(board._id, newOrder, activity))
             return
@@ -127,6 +129,9 @@ export const Board = () => {
     if (!board?.boxes || !board?._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar
+            labelFilter={labelFilter}
+            setLabelFilter={setLabelFilter}
+            boardFilter={boardFilter}
             board={board}
             deleteBoard={onDeleteBoard}
             onEditBoardStyle={onEditBoardStyle}
@@ -139,7 +144,7 @@ export const Board = () => {
                         <div ref={provided.innerRef}
                             {...provided.droppableProps}>
                             <div className="board">
-                                <BoxList addActivity={addActivity} board={board} boxes={board.boxes} />
+                                <BoxList labelFilter={labelFilter} newBoardFilter={newBoardFilter.filter} addActivity={addActivity} board={board} boxes={board.boxes} />
                                 {(!isAdd) &&
                                     <div className="add-box before-click" onClick={() => setAddBox()}>
                                         <span className="plus-sign">+</span> Add another list
