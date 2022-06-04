@@ -137,18 +137,14 @@ export const TaskDetails = () => {
                       task.members.map((member, idx) => {
                         return <div key={idx}
                           className="task-detail-member">
-
                           <div >
                             <img className={`task-detail-member ${idx}`} src={member.avatar} />
                           </div>
 
                         </div>
-
-                      })
-                    }
+                      })}
                   </div>
-                </div>
-              )}
+                </div>)}
               <div className="task-detail-label-container">
                 {isLabelsLength() && <div className="labels-header"> Labels</div>}
                 <div className="label-detail-container">
@@ -162,17 +158,21 @@ export const TaskDetails = () => {
                         >
                           {label.title}
                         </div>
-                      );
-                    })
-                  )}
+                      )
+                    }))}
                 </div>
               </div>
             </div>}
 
             <div className="task-description">
-              <div className={`task-desc-header ${(isMembers() || isLabelsLength()) ? '' : 'is-first'}`}>
-                <span className="left-side-icons"><FontAwesomeIcon icon={faAlignLeft} /></span>
-                <div className="description section-header">Description</div>
+              <div
+                className={`task-desc-header ${(isMembers() || isLabelsLength()) ? '' : 'is-first'}`}>
+                <span className="left-side-icons">
+                  <FontAwesomeIcon icon={faAlignLeft} />
+                </span>
+                <div className="description section-header">
+                  Description
+                </div>
               </div>
               {(isDesc()) && <InputDesc className="is-desc" />}
               {(!isDesc()) && <InputDesc className="no-desc" />}

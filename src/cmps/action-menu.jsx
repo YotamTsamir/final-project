@@ -14,7 +14,7 @@ import { checkListService } from "../services/check-list.service";
 
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
-    const [images, onSetImages] = useState(boardService.getDefaultBgs())
+    const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
     const dispatch = useDispatch()
@@ -81,7 +81,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    return <div className={`label-choice ${topic}`}>
+    return <div className={`menu-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
         </div>
@@ -91,25 +91,24 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         <div className="labels-container">
             {(topic === 'Labels') && (board.labels.map(label => {
                 return (
-                    <div className="label-choice" key={label.id} onClick={(ev) => onAddLabel(ev, label.id)} style={{ backgroundColor: label.color }}>{label.title}</div>
+                    <div className="label-choice"
+                        key={label.id}
+                        onClick={(ev) => onAddLabel(ev, label.id)}
+                        style={{ backgroundColor: label.color }}>
+                        {label.title}</div>
                 )
             }))}</div>
 
         <div >
-            {(topic === 'Cover') && <div>
-                <TaskBgPreview />
-                <div className="color-grid">
-                    {(colors.map(color => {
-                        return (
-                            <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeBgColor(color)} style={{ backgroundColor: color }}></div>
-                        )
-                    }))}
-                </div>
+            {(topic === 'Cover') &&
                 <div className="bg-container cover-menu">
                     <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                    < BgImgList dfBgs={images} onChange={onChangeBgImg} />
-                </div>
-            </div>}
+                    <TaskCoverMenu 
+                    dfBgs={dfBgs} 
+                    onChange={onChangeBgImg} 
+                    toggleMenu={toggleMenu}
+                    topic={topic}/>
+                </div>}
         </div>
 
         {(topic === 'Date') && <div>
