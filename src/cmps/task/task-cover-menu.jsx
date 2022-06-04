@@ -4,28 +4,16 @@ import { boardService } from '../../services/board.service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRemove } from '@fortawesome/free-solid-svg-icons'
 
-export const TaskCoverMenu = ({ dfBgs, toggleMenu, topic }) => {
+export const TaskCoverMenu = ({ dfBgs, onChangeBgClr, onChangeBgImg, task }) => {
 
 
-    const onChangeBgImg = () => {
-        console.log('hello')
-    }
-
-    return <div className="task-cover-menu">
-        <div className='cover-menu-header'>
-            <h2>Cover</h2>
-            <div className='close-cover-menu' onClick={() => toggleMenu(topic)}>
-                <FontAwesomeIcon icon={faRemove} />
-            </div>
-        </div>
-        <div><hr /></div>
-        <TaskBgPreview />
+    return <div className={`task-cover-menu`}>
+        <TaskBgPreview task={task} />
         <h4 className='cover-menu-h4'>Colors</h4>
         <div className="color-grid">
             {dfBgs.color.map((color, idx) => {
                 if (idx < 10) {
-                    // console.log(color, idx)
-                    return <div className="cover-color"
+                    return <div className="cover-color" onClick={() => onChangeBgClr(color)}
                         key={idx}
                         style={{ backgroundColor: color }}>
                     </div>
@@ -36,8 +24,7 @@ export const TaskCoverMenu = ({ dfBgs, toggleMenu, topic }) => {
         <div className="bg-container-cover-menu">
             {dfBgs.image.map((imgUrl, idx) => {
                 if (idx < 6) {
-                    // console.log(imgUrl, idx)
-                    return <div className='cover-img'
+                    return <div className='cover-img' onClick={() => onChangeBgImg(imgUrl)}
                         key={idx}
                         style={{ backgroundImage: `url(${imgUrl})` }}>
                     </div>

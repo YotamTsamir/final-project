@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getBoard, setTask } from "../store/action/board-action";
+import { getBoard, setTask, editTask } from "../store/action/board-action";
 import { boardService } from "../services/board.service";
 import { InputDesc } from "./input-desc";
 import { InputComments } from "./input-comments";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignLeft, faXmark, faList, faWindowMaximize, faComments } from "@fortawesome/free-solid-svg-icons";
-import { faWindowMaximize as faWindowMaximizeRegular } from "@fortawesome/free-regular-svg-icons";
+import { faAlignLeft, faXmark, faList, faWindowMaximize, faSquareCheck } from "@fortawesome/free-solid-svg-icons";
+import { faWindowMaximize as faWindowMaximizeRegular, faSquare } from "@fortawesome/free-regular-svg-icons";
 import { DetailsTaskNav } from "./details-task-nav";
 import { ActionMenu } from './action-menu'
 import { CommentList } from "./details-comments/comment-list";
 import { CheckList } from "./task-check-list";
-
-import windowImg from '../imgs/window-details.png'
-// import coverImg from '../imgs/cover.png'
 import { utilService } from "../services/util.service";
 
 
@@ -26,10 +23,12 @@ export const TaskDetails = () => {
   );
   const [menuState, setMenuState] = useState(false)
   const [isEdit, setIsEdit] = useState(false)
+  const [isPassed, setIsPassed] = useState()
   const { bg, description } = task;
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     (async () => {
       const { boardId } = params;
@@ -40,6 +39,16 @@ export const TaskDetails = () => {
       }
     })();
   }, []);
+
+  useEffect(() => {
+    if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
+      setIsPassed('passed')
+    }
+    else if (Date.now() - (Date.parse(task.date.timeStamp)) >= -(60 * 60 * 24 * 1000)) {
+      setIsPassed('almost')
+    }
+  }, [task])
+
   // CHANGE FUNC IN SERVICE FROM GETBYID TO FIND
   useEffect(() => {
     (async () => {
@@ -50,6 +59,18 @@ export const TaskDetails = () => {
     })()
   }, [board])
 
+  const toggleComplete = () => {
+    if (task.date.isComplete) {
+      const newTask = { ...task, date: { ...task.date, isComplete: '' } }
+      dispatch(editTask(board._id, box.id, newTask))
+      // setIsComplete('')
+    }
+    else {
+      const newTask = { ...task, date: { ...task.date, isComplete: 'complete' } }
+      dispatch(editTask(board._id, box.id, newTask))
+      // setIsComplete('complete')
+    }
+  }
 
   const getLabels = () => {
     if (!task.labelIds) return;
@@ -61,11 +82,13 @@ export const TaskDetails = () => {
   const onToggleDetails = () => {
     navigate(`/b/${board._id}`);
   };
+
   //CHANGE NO NEED FOR THIS FUNC
   const isDesc = () => {
     if (!description) return false
     return true
   }
+
   const isMembers = () => {
     if (!task.members) return false
     if (!task.members.length) return false
@@ -80,11 +103,15 @@ export const TaskDetails = () => {
   const toggleMenu = () => {
     setMenuState(!menuState)
   }
+
   const labels = getLabels()
+
   const isLabelsLength = () => {
     if (!labels) return
     if (labels.length > 0) return true
   };
+
+  // console.log(task)
   if (!task) return <h1>Loading...</h1>
   return (
     <section className="the-great-one the-medium task-details-window"
@@ -104,13 +131,24 @@ export const TaskDetails = () => {
           {bg && <div
             key={bg}
             className={`task-details-cover `}
-            // height={`${bg ? '90px;' : ''}`}
-            style={{ background: bg }}
+            style={{
+              background: bg,
+              backgroundSize: 'contain',
+              backgroundRepeat: 'no-repeat',
+              backgroundPosition: 'center'
+            }}
           >
             {task.bg && <button className="task-details-change-cover-btn" onClick={() => { toggleMenu() }}>
               <span><FontAwesomeIcon icon={faWindowMaximizeRegular} /></span>
               <p>Cover</p>
-              {(menuState) && <ActionMenu topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
+              {(menuState) &&
+                <ActionMenu
+                  topic={'Cover'}
+                  colors={colors}
+                  task={task}
+                  box={box}
+                  board={board}
+                  coverMenuClass="from-cover-area" />}
             </button>}
           </div>}
         </div>
@@ -129,7 +167,6 @@ export const TaskDetails = () => {
           <div className="task-detail-main-container">
             {(isMembers() || isLabelsLength()) && <div className="members-labels-container">
               {(isMembers() &&
-                // <div className={`members-members-title ${labels && labels.length ? "members-with-labels" : "members-no-labels"}`}>
                 <div className="task-detail-members-container">
                   <div className="members-header">Members</div>
                   <div className="task-members">
@@ -146,7 +183,8 @@ export const TaskDetails = () => {
                   </div>
                 </div>)}
               <div className="task-detail-label-container">
-                {isLabelsLength() && <div className="labels-header"> Labels</div>}
+                {isLabelsLength() &&
+                  <div className="labels-header"> Labels</div>}
                 <div className="label-detail-container">
                   {isLabelsLength() && (
                     labels.map((label) => {
@@ -162,6 +200,15 @@ export const TaskDetails = () => {
                     }))}
                 </div>
               </div>
+              {task.date &&
+                <div className="task-details-date-container">
+                  <h4 className="date-header">Due Date</h4>
+                  <div className={`date-preview ${isPassed} ${task.date.isComplete}`} onClick={(ev) => toggleComplete(ev)}>
+                    {(!task.date.isComplete) && <FontAwesomeIcon icon={faSquare} />}
+                    {(task.date.isComplete) && <FontAwesomeIcon icon={faSquareCheck} />}
+                    <span>{task.date?.month || ''} {task.date?.day || ''}</span>
+                  </div>
+                </div>}
             </div>}
 
             <div className="task-description">

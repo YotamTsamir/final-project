@@ -9,7 +9,7 @@ import { boardService } from '../services/board.service'
 import { Notifications } from './notifications.jsx'
 import { userService } from '../services/user-service'
 import { useNavigate, useParams } from "react-router-dom"
-import { logout,updateUser } from '../store/action/user-action.js'
+import { logout, updateUser } from '../store/action/user-action.js'
 import { socketService } from '../services/socket.service.js'
 import { SOCKET_EVEN_SET_USER, SOCKET_EVENT_PUSH_NOTIFICATION } from '../services/socket.service.js'
 export const AppHeader = () => {
@@ -40,16 +40,16 @@ export const AppHeader = () => {
     }, [])
 
     const pushNotification = async (yes) => {
-        console.log(yes)
+        // console.log(yes)
         const user = await userService.getById(yes.memberId)
         user.notifications.push(yes.activity)
         const updatedUser = await userService.updateUser(user)
-        console.log(updatedUser)
+        // console.log(updatedUser)
         dispatch(updateUser(updatedUser))
         return
     }
     useEffect(() => {
-        if (!user) navigate('/')
+        // if (!user) navigate('/')
         scrollListener()
     }, [])
 
@@ -137,7 +137,7 @@ export const AppHeader = () => {
                 ${(!scroll && isHomePage) ? ' scrolled' : ''}`
     }
 
-console.log(isNotificationsOpen)
+    // console.log(isNotificationsOpen)
     return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
 
@@ -172,7 +172,7 @@ console.log(isNotificationsOpen)
                     </button>
                 }
                 <button onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>noti</button>
-                {(isNotificationsOpen) && <Notifications user={user}/>}
+                {(isNotificationsOpen) && <Notifications user={user} />}
                 {(location.pathname === '/signup' || location.pathname === '/login') &&
                     <button onClick={pathToHome}  >Back to home</button>
                 }

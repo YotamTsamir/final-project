@@ -25,17 +25,17 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [taskMarginTop, setTaskMarginTop] = useState('0px')
     const [taskMarginLeft, setTaskMarginLeft] = useState('0px')
     const [isLeftAlignActionMenu, setIsLeftAlignActionMenu] = useState(false)
-    
+
     const taskRef = useRef(null)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    
+
     useEffect(() => {
         if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
             setIsPassed('passed')
-        } 
-        else if(Date.now() - (Date.parse(task.date.timeStamp)) >= -(60*60*24*1000)){
+        }
+        else if (Date.now() - (Date.parse(task.date.timeStamp)) >= -(60 * 60 * 24 * 1000)) {
             setIsPassed('almost')
         }
         setLabels(getLabels)
@@ -59,7 +59,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const onDown = () => {
         setIsEdit(false)
         setTaskMarginTop('0px')
-        // setTaskMarginLeft('0px')
         setIsLeftAlignActionMenu(false)
     }
 
@@ -67,19 +66,19 @@ export const TaskPreview = ({ task, board, box, index }) => {
         const bodyElement = window.document.body
         const bodyWidth = bodyElement.getBoundingClientRect()
         const scrollX = bodyElement.scrollWidth
-        console.log(bodyElement.scrollWidth)
-        console.log(bodyWidth)
-        console.log(position.left)
-        console.dir(taskRef.current.getBoundingClientRect().right)
+        // console.log(bodyElement.scrollWidth)
+        // console.log(bodyWidth)
+        // console.log(position.left)
+        // console.dir(taskRef.current.getBoundingClientRect().right)
 
         if (position.bottom > window.innerHeight) {
-             const diff = position.bottom - window.innerHeight
+            const diff = position.bottom - window.innerHeight
             setTaskMarginTop(`-${diff}px`)
-        } 
-        if(position.left > bodyWidth.width){
+        }
+        if (position.left > bodyWidth.width) {
             //  const diff = position.right - window.innerWidth
             const extraSpacing = 20
-            const diff =position.left - taskRef.current.getBoundingClientRect().right + extraSpacing 
+            const diff = position.left - taskRef.current.getBoundingClientRect().right + extraSpacing
             setTaskMarginLeft(`-${diff}px`)
             setIsLeftAlignActionMenu(true)
         }
@@ -100,7 +99,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         dispatch(setTask(task, box))
         navigate(`task/${task.id}`)
     }
-    
+
     const openTask = () => {
         navigate(`task/${task.id}`)
         setTaskMarginTop('0px')
@@ -108,12 +107,12 @@ export const TaskPreview = ({ task, board, box, index }) => {
         setIsLeftAlignActionMenu(false)
         setIsEdit(false)
     }
-    
+
     const onOpenEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
     }
-    
+
     const onOpenLabel = (ev) => {
         ev.stopPropagation()
         if (!labelOpen) dispatch(toggleLabels('label-open'))
@@ -121,7 +120,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         if (!labelOpen) setLabelOpen('label-open')
         else setLabelOpen('')
     }
-    
+
     const getLabels = () => {
         if (!task.labelIds) return
         const taskLabels = task.labelIds.map(labelId => boardService.getLabelById(labelId, board))
@@ -130,7 +129,13 @@ export const TaskPreview = ({ task, board, box, index }) => {
     if (task.archivedAt !== '') return
     return <div>
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
-            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{ background: task.bg, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
+            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{
+                background: task.bg,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
+                backgroundColor: 'rgb(25, 26, 25)'
+            }}></div> : <div className="task-preview-color" style={{ background: task.bg }}></div> : ''}
             {(labels && labels.length > 0) && <div className="labels">
                 {(labels) ? labels.map(label => <div key={label.id} className={`label ${(isLabelOpen)}`} onClick={(ev) => onOpenLabel(ev)}
                     style={{ backgroundColor: label.color }}>{(isLabelOpen === 'label-open') && label.title}</div>) : ''}
@@ -141,21 +146,25 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     <div className="flex space-between spacer-bottom-task">
                         <div className="flex task-prev-date-desc">
 
-                            {(task.date) && <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isPassed} ${isComplete}`}>
-                                {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
-                                {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
-                                <FontAwesomeIcon className="fa font-clock" icon={faClock} />
-                                <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
-                            {(task.description) && 
-                            <div className="desc-png-container">
-                                <img className="desc-png" src={desc} />
+                            {(task.date) &&
+                                <div onClick={(ev) => toggleComplete(ev)} className={`date-preview ${isPassed} ${isComplete}`}>
+                                    {(!isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquare} />}
+                                    {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
+                                    <span>
+                                        <FontAwesomeIcon className="fa font-clock" icon={faClock} />
+                                    </span>
+                                    {task.date?.month || ''} {task.date?.day || ''}
+                                </div>}
+                            {(task.description) &&
+                                <div className="desc-png-container">
+                                    <img className="desc-png" src={desc} />
                                 </div>}
                         </div>
                         {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {
                                 return <div
                                     key={idx}
-                                    className="board-members">
+                                    className="task-member">
                                     <div >
                                         <img className={`member-preview ${idx}`} src={member.avatar} />
                                     </div>
@@ -178,8 +187,20 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
         {(isEdit) && <div>
             <div onClick={() => { onDown() }} className="the-great-one"></div>
-            <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`} ref={taskRef} style={{ marginTop: taskMarginTop, marginLeft: taskMarginLeft}} >
-                {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo edited-photo" style={{ background: task.bg, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center' }}></div> : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
+            <div className="task-link task no-flow task-edited" onClick={() => { }} to={`/b/${board._id}/card/${task.id}`} ref={taskRef} style={{ marginTop: taskMarginTop, marginLeft: taskMarginLeft }} >
+                {(task.bg) ? (task.bg.includes('url')) ?
+                    <div
+                        className="task-preview-photo edited-photo"
+                        style={{
+                            background: task.bg, backgroundSize: 'contain',
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
+                            backgroundColor: 'rgb(25, 26, 25)'
+                        }}>
+
+                    </div>
+                    : <div className="task-preview-color edited" style={{ background: task.bg }}></div> : ''}
                 <div className="labels">
                     {(labels) ? labels.map(label => <div key={label.id} className="label" style={{ backgroundColor: label.color }}></div>) : ''}
                 </div>
@@ -193,14 +214,14 @@ export const TaskPreview = ({ task, board, box, index }) => {
                             {(isComplete) && <FontAwesomeIcon className="fa font-square" icon={faSquareCheck} />}
                             <FontAwesomeIcon className="fa font-clock" icon={faClock} />
                             <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
-                        {(task.description) && 
-                        <div className="desc-png-container">
-                            <img className="desc-png" src={desc} /></div>}
-                        </div>
+                        {(task.description) &&
+                            <div className="desc-png-container">
+                                <img className="desc-png" src={desc} /></div>}
+                    </div>
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (
-                                <div className="board-members"
+                                <div className="task-member"
                                     key={idx}>
                                     <div>
 
@@ -217,6 +238,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
 
         </div>}
 
-       
+
     </div>
 }

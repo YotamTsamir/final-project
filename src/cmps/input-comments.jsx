@@ -17,7 +17,7 @@ export const InputComments = ({ board, box, task }) => {
 
   const { comments } = task;
   const isEditShownCom = () => {
-    console.log(task)
+    // console.log(task)
     return !comments.length > 0 || !fieldsEdit.isComments;
   };
   const onEditField = () => {

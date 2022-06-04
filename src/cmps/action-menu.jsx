@@ -6,15 +6,13 @@ import { setNewBoard, editTask } from "../store/action/board-action"
 import DatePicker from 'react-date-picker';
 import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
-import { TaskBgPreview } from '../cmps/task/task-bg-preview';
-//Need to implement the component and it's function
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from '@fortawesome/free-solid-svg-icons'
 
-export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
+export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverMenuClass }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
@@ -35,7 +33,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     }
 
     const onAddMember = (member) => {
-        // const newTask = { ...task, members: [...task.members, member]}
         let newTask;
         if (task.members.find(currMember => currMember.userName === member.userName)) {
             const memberIdx = task.members.findIndex(currMember => currMember.userName === member.userName)
@@ -50,8 +47,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
 
     const onChangeDate = (value) => {
         onChange(value)
-
-
+    }
+    const onSaveDueDate = () => {
         const newTask = {
             ...task, date: {
                 timeStamp: value,
@@ -60,16 +57,18 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             }
         }
         dispatch(editTask(board._id, box.id, newTask))
+        toggleMenu(topic)
     }
 
-    const onChangeBgImg = async ({ target }) => {
+    const onChangeBgImg = async (imgUrl) => {
         let newTask;
-        console.log(target.value)
-        newTask = { ...task, bg: target.value }
+        // console.log(target.value)
+        newTask = { ...task, bg: `url(${imgUrl})` }
+        console.log(newTask)
         dispatch(editTask(board._id, box.id, newTask))
     }
 
-    const onChangeBgColor = async (color) => {
+    const onChangeBgClr = async (color) => {
         let newTask;
         newTask = { ...task, bg: color }
         dispatch(editTask(board._id, box.id, newTask))
@@ -87,19 +86,18 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
 
     }
 
-    return <div className={`menu-choice ${topic}`}>
+    return <div className={`menu-choice-${topic} ${coverMenuClass ? coverMenuClass : ''}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
         </div>
         <hr />
-        {(topic === 'Members' && topic === 'Labels') && <input type="text" />}
+        {(topic === 'Members' || topic === 'Labels') && <input type="text" />}
         {(topic === 'Members') && <p>Board members</p>}
         <div className="labels-container">
             <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
                 <FontAwesomeIcon icon={faX} />
             </div>
-            {/* {(topic === 'Labels') && (board.labels.map(label => { */}
-            {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
+            {(topic === 'Labels') && (board.labels.map(label => {
                 return (
                     <div className="label-choice"
                         key={label.id}
@@ -108,12 +106,13 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                         {label.title}</div>
                 )
             }))}
+            {(topic === 'Labels') && (!createLabel) && 
+            <button className="create-new-label-btn"
+            onClick={() => { onCreateLabel(!createLabel) }}>
+                Create a new label
+                </button>}
         </div>
-
-        <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
-    </div>
-    {
-        (createLabel) && <div>
+        {(createLabel) && <div>
             <p>Name</p>
             <form ><input /></form>
             <div className="color-grid">
@@ -124,60 +123,60 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                 }))}
                 <button onClick={() => { onCreateLabel(!createLabel) }}>Create</button>
             </div>
-        </div>
-    }
-    <div >
-        {(topic === 'Cover') &&
-            <div>
-                <TaskBgPreview />
-                <div className="bg-container cover-menu">
-                    <h4 className="cover-menu-h4">Photos from Unsplash</h4>
-                    <TaskCoverMenu
-                        dfBgs={dfBgs}
-                        onChange={onChangeBgImg}
-                        toggleMenu={toggleMenu}
-                        topic={topic} />
-                </div>
-            </div>
-        }
-
-        {(topic === 'Date') && <div>
-            <Calendar onChange={onChangeDate} value={value} />
         </div>}
+        <div >
+            {(topic === 'Cover') && <div>
+                <TaskCoverMenu
+                    dfBgs={dfBgs}
+                    onChangeBgImg={onChangeBgImg}
+                    toggleMenu={toggleMenu}
+                    topic={topic}
+                    onChangeBgClr={onChangeBgClr}
+                    task={task}
+                />
+            </div>
+            }
 
-        {(topic === 'Members') &&
-            <div className="members-container">
-                {board.members.map((member, idx) => {
-                    return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
-                        {board.members &&
-                            <div className="board-members">
-                                <div  >
-                                    <img className={`member-preview ${idx}`} src={member.avatar} />
+            {(topic === 'Date') && <div className="date-container">
+                <Calendar onChange={onChangeDate} value={value} />
+                <button className="save-due-date"
+                    onClick={onSaveDueDate}>Save</button>
+            </div>}
+
+            {(topic === 'Members') &&
+                <div className="task-members">
+                    {board.members.map((member, idx) => {
+                        return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
+                            {board.members &&
+                                <div className="member-container">
+                                    <div  >
+                                        <img className={`member-preview ${idx}`} src={member.avatar} />
+                                    </div>
                                 </div>
-
-                            </div>
-                        }
-                        {member.fullname} ({member.userName}) </div>
-                    )
-                })}
-            </div>}
-        {(topic === 'Checklist') &&
-            <div className="add-checklist-container">
-                <form onSubmit={(ev) => onCreateCheckList(ev)}>
-                    <h4>Title</h4>
-                    <input {...register('title')} />
-                    <div className="create-checklist-btns">
-                        <button className="create-new-checklist" type="submit">
-                            Create
-                        </button>
-                        <button
-                            className="cancel-checklist-creation"
-                            type="button"
-                            onClick={() => toggleMenu(topic)}>
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            </div>}
+                            }
+                            <p className="member-name">{member.fullname} ({member.userName})</p>
+                        </div>
+                        )
+                    })}
+                </div>}
+            {(topic === 'Checklist') &&
+                <div className="add-checklist-container">
+                    <form onSubmit={(ev) => onCreateCheckList(ev)}>
+                        <h4>Title</h4>
+                        <input {...register('title')} />
+                        <div className="create-checklist-btns">
+                            <button className="create-new-checklist" type="submit">
+                                Create
+                            </button>
+                            <button
+                                className="cancel-checklist-creation"
+                                type="button"
+                                onClick={() => toggleMenu(topic)}>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>}
+        </div>
     </div>
 }

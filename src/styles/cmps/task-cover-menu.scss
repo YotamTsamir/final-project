@@ -1,15 +1,32 @@
-.task-cover-menu {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 3px;
-    width: fit-content;
-    padding: 0 12px 12px 12px;
+.menu-choice-Cover.from-cover-area {
     background-color: #ffffff;
-    border: none;
+    padding: 0 12px 12px 12px;
+    position: absolute;
+    top: 36px;
+    right: 0;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+}
 
+.menu-choice-Cover.from-action-menu {
+    right: 0;
+    top: -100px;
+    box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+}
 
+.close-labels-btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 6px;
+}
+
+.close-labels-btn:hover {
+    cursor: pointer;
+    color: #273141;
+}
+
+.task-cover-menu {
     .cover-menu-h4 {
         color: #5e6c84;
         text-align: left;

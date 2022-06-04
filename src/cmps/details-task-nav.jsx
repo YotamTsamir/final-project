@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { ActionMenu } from './action-menu'
 import { setTask, toggleDetails, editTask } from "../store/action/board-action"
 import { useSelector, useDispatch } from 'react-redux'
@@ -76,21 +76,28 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
                     {(menuState['Cover']) && btn.txt === 'Cover' && <ActionMenu
                         topic={'Cover'} colors={colors}
                         task={task} box={box} board={board}
-                        toggleMenu={toggleMenu} />}
+                        toggleMenu={toggleMenu}
+                        coverMenuClass="from-action-menu" />}
 
-                    {(menuState['Dates']) && btn.txt === 'Dates' && <ActionMenu
-                        topic={'Date'} task={task}
-                        box={box} board={board} emitDateValue={emitDateValue} />}
+                    {(menuState['Dates']) && btn.txt === 'Dates' &&
+                        <ActionMenu
+                            topic={'Date'} task={task}
+                            box={box} board={board} emitDateValue={emitDateValue}
+                            toggleMenu={toggleMenu}
+                            toggleEditTask={toggleEditTask} />
+                    }
 
                     {(menuState['Members']) && btn.txt === 'Members' && <ActionMenu
-                        topic={'Members'} task={task} box={box} board={board} />}
+                        topic={'Members'} task={task} box={box} board={board}
+                        toggleMenu={toggleMenu} />}
+
                     {(menuState['Checklist']) && btn.txt === 'Checklist' && <ActionMenu
                         topic={'Checklist'} task={task} box={box} board={board} toggleMenu={toggleMenu} />}
                 </div>)
             })}
         </div>
-        {(menuState['Dates']) &&
+        {/* {(menuState['Dates']) &&
             <button onClick={(ev) => { toggleEditTask() }}>Save</button>
-        }
+        } */}
     </section>
 }
