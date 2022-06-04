@@ -21,14 +21,16 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [isPassed, setIsPassed] = useState()
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
+
     const [taskMarginTop, setTaskMarginTop] = useState('0px')
     const [taskMarginLeft, setTaskMarginLeft] = useState('0px')
     const [isLeftAlignActionMenu, setIsLeftAlignActionMenu] = useState(false)
+    
     const taskRef = useRef(null)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-
+    
     useEffect(() => {
         if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
             setIsPassed('passed')
@@ -62,14 +64,22 @@ export const TaskPreview = ({ task, board, box, index }) => {
     }
 
     const setModal = (position) => {
+        const bodyElement = window.document.body
+        const bodyWidth = bodyElement.getBoundingClientRect()
+        const scrollX = bodyElement.scrollWidth
+        console.log(bodyElement.scrollWidth)
+        console.log(bodyWidth)
+        console.log(position.left)
+        console.dir(taskRef.current.getBoundingClientRect().right)
+
         if (position.bottom > window.innerHeight) {
              const diff = position.bottom - window.innerHeight
             setTaskMarginTop(`-${diff}px`)
         } 
-        if(position.right > window.innerWidth){
+        if(position.left > bodyWidth.width){
             //  const diff = position.right - window.innerWidth
             const extraSpacing = 20
-            const diff = taskRef.current.getBoundingClientRect().right - window.innerWidth + extraSpacing
+            const diff =position.left - taskRef.current.getBoundingClientRect().right + extraSpacing 
             setTaskMarginLeft(`-${diff}px`)
             setIsLeftAlignActionMenu(true)
         }

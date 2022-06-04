@@ -1,6 +1,7 @@
 import { storageService } from './async-storage.service'
 import getAverageColor from 'get-average-color'
 import { httpService } from './http.service'
+import { userService } from './user-service'
 let tommyImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654117856/tommyImg_fcp4fb.png'
 let yotamImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119142/yotamImg_mddok7.png'
 let shaharImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119196/shaharImg_qlkyzl.png'
@@ -33,8 +34,7 @@ export const boardService = {
     addComment,
     deleteTask,
     updateUserImgInBoards,
-    addActivity,
-    addBoardMember
+    addActivity
 }
 
 
@@ -48,15 +48,15 @@ async function addLabelToTask(task, box, labelId, boardId) {
     return save(board)
 }
 
-async function addActivity(boardId,activity){
-        const board = await getById(boardId)
-        const newBoard = { ...board, activities: [...board.activities, activity] }
-        save(newBoard)
-        return newBoard
+async function addActivity(boardId, activity) {
+    const board = await getById(boardId)
+    const newBoard = { ...board, activities: [...board.activities, activity] }
+    save(newBoard)
+    return newBoard
 }
 
 async function saveBox(boardId, box) {
-    return await httpService.put(`board/updateBox/${boardId}`,box)
+    return await httpService.put(`board/updateBox/${boardId}`, box)
 }
 
 async function editBoxes(boardId, boxes) {
@@ -93,9 +93,8 @@ async function deleteTask(boardId, boxId, taskId) {
 }
 
 async function saveTask(boardId, task, boxId) {
-   const newBoard = await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
-   console.log(newBoard)
-   return save(newBoard)
+    const newBoard = await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+    return save(newBoard)
 }
 
 
@@ -135,14 +134,15 @@ async function save(board) {
     }
 }
 
-async function addComment(boardId, boxId, task){
+async function addComment(boardId, boxId, task) {
     return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
 }
 
 async function removeComment(boardId, boxId, task, comment) {
     const commentIdx = task.comments.findIndex(currComment => currComment.id === comment)
     task.comments.splice(commentIdx, 1)
-    return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+    await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+    return task
 }
 
 function getLabelById(labelId, board) {
@@ -157,7 +157,7 @@ function _createBoard(userBoard) {
     return ({
 
         "title": userBoard.title,
-        "activities":[],
+        "activities": [],
         "isStarred": false,
         "archivedAt": null,
         "createdAt": Date.now(),
@@ -200,24 +200,21 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members": [
-            { "id": "u101", "fullname": "Rotem Spivak", "userName": "rotemspivak", "init": "RS", "avatar": `${rotemImg}` },
-            { "id": "u102", "fullname": "Yotam Tsamir", "userName": "yotamtsamir", "init": "YT", "avatar": `${yotamImg}`},
-            { "id": "u103", "fullname": "Shahar Cohen", "userName": "shaharcohen", "init": "SC", "avatar": `${shaharImg}` },
-            { "id": "u104", "fullname": "Tommy Irmia", "userName": "tommyirmia", "init": "TI", "avatar": `${tommyImg}` }
+        "members":[userService.getLoggedinUser()] || [
         ],
         "boxes": [],
     })
 }
 
-async function addBoardMember(member,boardId){
-     const board = await getById(boardId)
-     if(board.members.includes(member.id)) {
-        const idx = board.members.findIndex(currMember=>currMember.id===member.id)
-        board.member.splice(idx,1)
+async function addBoardMember(member, boardId) {
+    const board = await getById(boardId)
+    const check = board.members.find(currMember => {if(currMember._id === member._id) return member})
+    if (check) {
+        const idx = board.members.findIndex(currMember => currMember._id === member._id)
+        board.members.splice(idx, 1)
         return save(board)
-        }
-     board.members.push(member)
+    }
+    board.members.push(member)
     return save(board)
 
 }

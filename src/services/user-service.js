@@ -10,10 +10,21 @@ export const userService = {
     signup,
     getLoggedinUser,
     updateUser,
-    getUsers
+    getUsers,
+    pushNotification,
+    getById
 }
 
 window.us = userService
+
+async function pushNotification(activity) {
+    const user = await getLoggedinUser()
+    user.notifications.unshift(activity)
+}
+
+async function getById(userId) {
+    return await httpService.get(`user/${userId}`)
+}
 
 async function login(credentials) {
     try {
@@ -25,7 +36,7 @@ async function login(credentials) {
     }
 }
 
-async function getUsers(){
+async function getUsers() {
     return await httpService.get('user/')
 }
 
@@ -38,7 +49,7 @@ async function logout() {
 
 async function updateUser(user) {
     await storageService.put('user', user)
-    user = await httpService.put(`user/${user._id}`, user)
+    return await httpService.put(`user/${user._id}`, user)
     return user;
 }
 

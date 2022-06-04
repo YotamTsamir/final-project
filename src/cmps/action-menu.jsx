@@ -18,6 +18,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
     const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [value, onChange] = useState(new Date());
+    const [createLabel, onCreateLabel] = useState(false)
     const dispatch = useDispatch()
 
 
@@ -82,6 +83,10 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
         dispatch(editTask(board._id, box.id, newTask))
     }
 
+    const onChangeNewLabelColor = () => {
+
+    }
+
     return <div className={`menu-choice ${topic}`}>
         <div className="h1-topic-container">
             <h1 className="h1-topic">{topic}</h1>
@@ -93,7 +98,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             <div className="close-labels-btn" onClick={() => toggleMenu(topic)}>
                 <FontAwesomeIcon icon={faX} />
             </div>
-            {(topic === 'Labels') && (board.labels.map(label => {
+            {/* {(topic === 'Labels') && (board.labels.map(label => { */}
+            {(topic === 'Labels') && (!createLabel) && (board.labels.map(label => {
                 return (
                     <div className="label-choice"
                         key={label.id}
@@ -104,8 +110,26 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             }))}
         </div>
 
-        <div >
-            {(topic === 'Cover') &&
+        <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>
+    </div>
+    {
+        (createLabel) && <div>
+            <p>Name</p>
+            <form ><input /></form>
+            <div className="color-grid">
+                {(colors.map(color => {
+                    return (
+                        <div key={color} className="cover-menu-color" value={color} onClick={() => onChangeNewLabelColor(color)} style={{ backgroundColor: color }}></div>
+                    )
+                }))}
+                <button onClick={() => { onCreateLabel(!createLabel) }}>Create</button>
+            </div>
+        </div>
+    }
+    <div >
+        {(topic === 'Cover') &&
+            <div>
+                <TaskBgPreview />
                 <div className="bg-container cover-menu">
                     <h4 className="cover-menu-h4">Photos from Unsplash</h4>
                     <TaskCoverMenu
@@ -113,8 +137,9 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
                         onChange={onChangeBgImg}
                         toggleMenu={toggleMenu}
                         topic={topic} />
-                </div>}
-        </div>
+                </div>
+            </div>
+        }
 
         {(topic === 'Date') && <div>
             <Calendar onChange={onChangeDate} value={value} />
@@ -138,8 +163,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
             </div>}
         {(topic === 'Checklist') &&
             <div className="add-checklist-container">
-                <form
-                    onSubmit={(ev) => onCreateCheckList(ev)}>
+                <form onSubmit={(ev) => onCreateCheckList(ev)}>
                     <h4>Title</h4>
                     <input {...register('title')} />
                     <div className="create-checklist-btns">

@@ -6,7 +6,14 @@
     padding: 8px 0;
     width: 100%;
 
-
+    .line-between-header {
+        color: rgb(151, 148, 148);
+        float: left;
+        height: 16px;
+        font-size: 24px;
+        margin: 0 8px 15px 4px;
+        align-self: center;
+    }
 
     .left-side-container {
         display: flex;
@@ -14,8 +21,8 @@
 
     .board-title {
         height: 32px;
-        font-size: 18px;
-        font-weight: 700;
+        font-size: 16px;
+        font-weight: 500;
         line-height: 32px;
         margin: 0;
         padding: 0 15px;
@@ -52,12 +59,15 @@
         width: 32px;
         padding: 6px;
         margin-left: 4px;
+        margin-right: 6px;
     }
 
     .starred-board {
         * {
             color: #f2d600;
         }
+
+        margin-right: 6px;
     }
 
     .fav-btn:hover {
@@ -78,19 +88,22 @@
 
         .menu-btn {
             width: 116.74px;
-            
+
 
             p {
                 width: 84.74px;
                 padding-right: 12px;
                 text-align: left;
+                margin: 0%;
+                padding: 8;
+                background-color: rgba(250, 248, 248, 0.239);
 
             }
 
             span {
                 width: 32px;
                 height: 32px;
-                padding: 6px;
+                padding: 8px;
                 box-sizing: border-box;
             }
         }
@@ -122,7 +135,9 @@
         }
     }
 
-
+    .add-member-board {
+        margin-left: 8px;
+    }
 
     .board-menu {
         background-color: #f4f5f7;
@@ -206,61 +221,86 @@
         }
 
         .toggle-Archive {
-            padding: 6px;
+            padding: 7px;
             display: flex;
-            margin-bottom: 4px;
 
             p {
                 height: 20px;
                 width: 20px;
-                padding-top: px;
+
             }
         }
 
         .archived-tasks {
             display: flex;
             flex-direction: column;
-            align-items: center;
+            align-items: flex-start;
 
             .task-archived {
-
-                width: 260px;
-                margin-bottom: 4px;
-                border-radius: 3px;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 20px;
+                min-height: 32px;
+                padding: 8px 0;
+                position: relative;
 
                 .task-archived-txt {
+                    display: block;
                     padding: 4px 8px;
                     border-radius: 3px;
-                    box-shadow: 0 0.5px 1px 0.5px #091e4240;
-                    background-color: #ffffff;
+
 
                     p {
                         display: flex;
                         align-items: flex-start;
                         gap: 4px;
                         margin-bottom: 0;
+                        color: rgb(35, 35, 35);
 
+                        .bold-span {
+                            font-size: 14px;
+                            font-weight: 700;
+                            color: rgb(35, 35, 35);
+                            display: block;
+                            white-space: nowrap;
+                        }
+                        .underline-span {
+                            font-size: 12px;
+                            color: rgb(35, 35, 35);
+                            text-decoration: underline;
+                        }
                         * {
                             font-size: 8px;
-                            font-weight: 700;
                             color: #7485a2;
                         }
+
                     }
                 }
             }
+            
 
             .archived-tasks-btns {
                 display: flex;
                 gap: 1em;
                 align-items: center;
                 text-decoration: underline;
-                &:hover{
+
+                &:hover {
                     background-color: unset;
                 }
             }
         }
     }
+    .activities-container {
+        display: flex;
+        align-items: center;
+        padding: 6px;
+        padding-left: 10px;
 
+        .activities-board-menu{
+            padding-left: 14px;
+        }
+    }
     .filter-container {
         width: 360px;
         height: 593px;
@@ -347,6 +387,7 @@
         padding: 4px;
         align-items: center;
 
+
         .member-preview {
             height: 28px;
             width: 28px;
@@ -375,21 +416,41 @@
 .board-header-container.is-light {
 
     .board-title,
+    .add-member-board,
     .fav-btn,
     .menu-btn,
     .filter-btn {
-        color: #172b4d;
+        color: #040404;
+        background-color: #00000029;
+        border: transparent;
+        border-radius: 3px;
+    }
+    .menu-btn,
+    .filter-btn {
+        p,
+        svg {
+            color: rgb(42, 42, 42);
+            text-align: center;
+        }
     }
 }
 
 .board-header-container.is-dark {
 
     .board-title,
+    .add-member-board,
     .fav-btn,
     .menu-btn *,
     .filter-btn * {
         color: #ffffff;
+        background-color: #ffffff3d;
+        border: transparent;
+        border-radius: 3px;
     }
+
+    // .filter-btn{
+    //     color: ;
+    // }
 }
 
 .close-board-menu-btn {

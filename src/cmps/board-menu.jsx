@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faRemove, faX, faArchive } from '@fortawesome/free-solid-svg-icons'
+import { faAlignLeft, faRemove, faX, faArchive } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
 import { ArchivedTasks } from './archive'
 import { Activities } from './activities'
@@ -11,7 +11,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
         style: board.style
     })
     const [archiveMenu, setArchiveMenu] = useState(false)
-    const [activitiesMenu,setActivitiesMenu] = useState(false)
+    const [activitiesMenu, setActivitiesMenu] = useState(false)
 
 
     const deleteCurrBoard = () => {
@@ -30,7 +30,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
     }
 
     const toggleActivies = () => {
-        
+
     }
 
     const toggleBgMenu = () => {
@@ -77,8 +77,11 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
                 <FontAwesomeIcon icon={faArchive} />
             </p>
         </button>
-        <button onClick={()=>setActivitiesMenu(!activitiesMenu)}>Activities</button>
+        <div className='activities-container'>
+            <FontAwesomeIcon icon={faAlignLeft} />
+            <button className='activities-board-menu' onClick={() => setActivitiesMenu(!activitiesMenu)}><span className="left-side-icons"></span>Activities</button>
+            </div>
         {archiveMenu && <ArchivedTasks board={board} />}
-        {activitiesMenu && <Activities board={board}/>}
+        {activitiesMenu && <Activities board={board} />}
     </div>
 }

@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import image from "../imgs/home-image.png"
-import exampleImg from "../imgs/board-ex.PNG"
+import exampleImg from "../imgs/example-img.png"
+
 
 
 export const Home = () => {
-
+    
     return <div className="home-page">
         <div className="home-upper">
             <div className="home-texts">
@@ -14,7 +15,7 @@ export const Home = () => {
                 <NavLink to="/boards"><button>Continue as Guest</button></NavLink>
             </div>
             <div className="img-container">
-                <img src={image} />
+                <img src="https://images.ctfassets.net/rz1oowkt5gyp/5QIzYxue6b7raOnVFtMyQs/113acb8633ee8f0c9cb305d3a228823c/hero.png?w=1200&fm=webp" />
             </div>
         </div>
 

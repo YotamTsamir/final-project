@@ -18,10 +18,7 @@ export const AddMember = ({board}) => {
     }
 
     const onAddMember = (user) => {
-        console.log('baga')
-        
         dispatch(updateBoard(user,board._id))
-
     }
 
 

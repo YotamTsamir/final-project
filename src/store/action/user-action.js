@@ -14,7 +14,12 @@ export function loadUsers() {
     }
 }
 
+export function updateUser(user) {
+    return (dispatch) => {
+        dispatch({ type: 'UPDATE_USER', user })
+    }
 
+}
 
 export function login(credentials) {
     // Action Creator
@@ -61,7 +66,7 @@ export function signup(credentials) {
             type: 'SET_USER',
             user,
         })
-          
+
     }
 }
 export function setUserAvatar(user, imageUrl) {

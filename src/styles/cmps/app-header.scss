@@ -1,5 +1,5 @@
 .app-header {
-    padding: 6px 27px 6px 27px;
+    padding: 6px 0 6px 27px;
     z-index: 100;
     box-sizing: border-box;
     display: flex;
@@ -225,17 +225,15 @@
 }
 
 .app-header.home-page-header {
-    padding: 16px;
     position: fixed;
     width: 100%;
-    background: none;
+    background: white;
     transition: background 1s ease 0s;
     box-shadow: none;
 
 
 
     .logo-and-nav {
-        height: 36px;
 
         * {
             font-size: 25px;
@@ -288,6 +286,9 @@
 
         .nav-link-home.signup {
             background-color: #0065ff;
+            padding-right: 30px;
+            padding-left: 30px;
+
         }
 
         .nav-link-home.login:hover {

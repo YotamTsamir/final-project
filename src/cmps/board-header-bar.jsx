@@ -87,19 +87,21 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
                 {board.isStarred &&
                     <FontAwesomeIcon icon={faStar} />}
             </button>
+            <span className="line-between-header">|</span>
             {board.members &&
                 <div className="curr-task-members">
                     {board.members.map((member, idx) => {
                         return <div
                             key={idx}
                             className={`member-preview ${idx}`} >
-                            <img src={member.avatar} />
+                            <img src={member.avatar} /> 
                         </div>
                     })}
-                    <button onClick={() => setIsAddMember(!isAddMember)}>Add member</button>
-                    {(isAddMember) && <AddMember board={board} />}
+
                 </div>
-            }
+            }                    
+            <button className="add-member-board" onClick={() => setIsAddMember(!isAddMember)}>Add member</button>
+                    {(isAddMember) && <AddMember board={board} />}
         </div>
         <div className="header-btn-contianer">
             {(isFilterOrMenuOpen !== 'menu') && <button className="menu-btn"
