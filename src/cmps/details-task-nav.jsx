@@ -70,7 +70,8 @@ export const DetailsTaskNav = ({ board, task, box, onEditTaskTitle, isEdit, setI
 
                     {(menuState['Labels']) && btn.txt === 'Labels' && <ActionMenu
                         topic={'Labels'} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle}
-                        task={task} box={box} board={board} />}
+                        task={task} box={box} board={board}
+                        toggleMenu={toggleMenu} />}
 
                     {(menuState['Cover']) && btn.txt === 'Cover' && <ActionMenu
                         topic={'Cover'} colors={colors}

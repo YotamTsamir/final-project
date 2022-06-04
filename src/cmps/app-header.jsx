@@ -138,7 +138,6 @@ export const AppHeader = () => {
                 ${(!scroll && isHomePage) ? ' scrolled' : ''}`
     }
 
-console.log(isNotificationsOpen)
     return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
 

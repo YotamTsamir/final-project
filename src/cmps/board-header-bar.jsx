@@ -8,7 +8,7 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import { BoardMenu } from '../cmps/board-menu.jsx'
 import { BoxFilterMenu } from './box-filter-menu.jsx'
 
-export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoard, board, onEditBoardStyle }) => {
+export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEditBoardTitle, onToggleStarBoard, deleteBoard, board, onEditBoardStyle }) => {
     const [isDark, setIsDark] = useState(false)
     const [isEditTitle, setIsEditTitle] = useState(false)
     const [isAddMember, setIsAddMember] = useState(false)
@@ -89,19 +89,19 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
             </button>
             <span className="line-between-header">|</span>
             {board.members &&
-                <div className="board-members">
+                <div className="curr-task-members">
                     {board.members.map((member, idx) => {
                         return <div
                             key={idx}
                             className={`member-preview ${idx}`} >
-                            <img src={member.avatar} /> 
+                            <img src={member.avatar} />
                         </div>
                     })}
 
                 </div>
-            }                    
+            }
             <button className="add-member-board" onClick={() => setIsAddMember(!isAddMember)}>Add member</button>
-                    {(isAddMember) && <AddMember board={board} />}
+            {(isAddMember) && <AddMember board={board} />}
         </div>
         <div className="header-btn-contianer">
             {(isFilterOrMenuOpen !== 'menu') && <button className="menu-btn"
@@ -127,6 +127,9 @@ export const BoardHeaderBar = ({ onEditBoardTitle, onToggleStarBoard, deleteBoar
             </button>
             {(isFilterOrMenuOpen === 'filter') &&
                 <BoxFilterMenu
+                    labelFilter={labelFilter}
+                    setLabelFilter={setLabelFilter}
+                    boardFilter={boardFilter}
                     board={board}
                     onToggleMenu={onOpenFilterOrMenu} />}
         </div>

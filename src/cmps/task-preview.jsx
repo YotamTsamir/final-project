@@ -156,11 +156,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                 return <div
                                     key={idx}
                                     className="board-members">
-
                                     <div >
                                         <img className={`member-preview ${idx}`} src={member.avatar} />
                                     </div>
-
                                 </div>
                             })}
                         </div>

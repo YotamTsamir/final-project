@@ -1,8 +1,17 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons'
 
-export const BoxFilterMenu = ({ onToggleMenu, board }) => {
-
+export const BoxFilterMenu = ({labelFilter,setLabelFilter, boardFilter, onToggleMenu, board }) => {
+    const onAddLabelFilter = (labelId) => {
+        if(labelFilter.includes(labelId)){
+            const labelIdx = labelFilter.findIndex(currLabelId=>currLabelId === labelId)
+            const newLabelFilter = [...labelFilter]
+            newLabelFilter.splice(labelIdx,1)
+            setLabelFilter(newLabelFilter)
+            return
+        }
+        setLabelFilter([...labelFilter,labelId])
+    }
 
 
     return <div className="filter-container">
@@ -15,8 +24,8 @@ export const BoxFilterMenu = ({ onToggleMenu, board }) => {
         <div><hr /></div>
         <div className="filter-by-kw">
             <h6>Keywords</h6>
-            <input type="text"
-                name="title"
+            <input 
+                {...boardFilter('filter')}
                 placeholder="search by keywords..."
             />
             <div><hr /></div>
@@ -28,6 +37,7 @@ export const BoxFilterMenu = ({ onToggleMenu, board }) => {
                     className="label-picker-container"
                     key={label.id}>
                     <input type="checkbox"
+                        onChange={()=>onAddLabelFilter(label.id)}
                         name="labelIds"
                         id={`check-label-${label.id}`}
                     />
