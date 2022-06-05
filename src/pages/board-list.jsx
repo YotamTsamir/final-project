@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { userService } from '../services/user-service'
 import { boardService } from "../services/board.service"
 import { loadBoards, addBoard, toggleFavourite } from '../store/action/board-action'
 import { BoardAdd } from '../cmps/board-add.jsx'
@@ -13,19 +14,37 @@ export const BoardList = () => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
     const [defaultBgs, setDefaultBgs] = useState([])
     const { boards } = useSelector((storeState) => storeState.boardModule)
+    const [loggedInUser, setLoggedInUser] = useState({})
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(loadBoards())
         setBgs()
+        getLoggedInUser()
     }, [])
+
+    useEffect(() => {
+        dispatch(loadBoards())
+    }, [boards])
+
+    const getLoggedInUser = () => {
+        const user = userService.getLoggedinUser()
+        setLoggedInUser(user)
+    }
+
+
+    const myBoards = boards.filter(board => {
+        if (!loggedInUser) return
+        return board.members.some(member => {
+            if (member) return (member._id === loggedInUser._id)
+        })
+    })
 
 
     const setBgs = async () => {
-        // const bgs = await boardService.getDefaultBgs()
-        // setDefaultBgs(bgs)
+        const bgs = await boardService.getDefaultBgs()
+        setDefaultBgs(bgs)
     }
-    // console.log(defaultBgs)
 
     const onToggleAddBoard = () => {
         setIsAddBoardOpen(!isAddBoardOpen)
@@ -50,6 +69,9 @@ export const BoardList = () => {
     const starredBoards = boards.filter(board => {
         return board.isStarred
     })
+
+    // console.log(boards)
+
     if (!boards) return <div>Loading...</div>
     return <div className='board-lists-page'>
         <div className="list-page-menu">
@@ -94,15 +116,27 @@ export const BoardList = () => {
                         {isAddBoardOpen && <BoardAdd
                             onToggleAddBoard={onToggleAddBoard}
                             onAddBoard={onAddBoard}
-                            dfBgs={() => boardService.getDefaultBgs()} />}
+                            dfBgs={defaultBgs} />}
 
-                        {boards.map((board, idx) => {
-                            return <BoardThumbnailPreview
-                                key={idx}
-                                board={board}
-                                onToggleFavourite={onToggleFavourite}
-                                fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
-                        })}
+                        {loggedInUser &&
+                            myBoards.map((board, idx) => {
+                                return <BoardThumbnailPreview
+                                    key={idx}
+                                    board={board}
+                                    onToggleFavourite={onToggleFavourite}
+                                    fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
+                            })}
+
+                        {!loggedInUser &&
+                            boards.map((board, idx) => {
+                                return <BoardThumbnailPreview
+                                    key={idx}
+                                    board={board}
+                                    onToggleFavourite={onToggleFavourite}
+                                    fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
+                            })
+                        }
+
                         <div className="board-prev board-new"
                             onClick={() => setIsAddBoardOpen(!isAddBoardOpen)}>
                             <p> Create new board </p>

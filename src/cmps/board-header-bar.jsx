@@ -14,6 +14,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
     const [isAddMember, setIsAddMember] = useState(false)
     const [isFilterOrMenuOpen, setIsFilterOrMenuOpen] = useState(false)
     const [inputWidth, setInputWidth] = useState({ width: '100%' })
+    const [defaultBgs, setDefaultBgs] = useState([])
     const [boardTitleEdit, setBoardTitleEdit] = useState({
         title: board.title
     })
@@ -21,7 +22,13 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
 
     useEffect(() => {
         getIsDarkTheme()
+        setBgs()
     }, [board])
+
+    const setBgs = async () => {
+        const bgs = await boardService.getDefaultBgs()
+        setDefaultBgs(bgs)
+    }
 
     const handleTitleChange = ({ target }) => {
         const field = target.name
@@ -98,7 +105,6 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                             <img src={member.avatar} alt="user-avatar" />
                         </div>
                     })}
-
                 </div>
             }
             <button className="add-member-board" onClick={() => setIsAddMember(!isAddMember)}>Add member</button>
@@ -117,6 +123,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                 deleteBoard={deleteBoard}
                 onEditBoardStyle={onEditBoardStyle}
                 onToggleMenu={onOpenFilterOrMenu}
+                dfBgs={defaultBgs}
             />}
             <button className="filter-btn"
                 onClick={() => onOpenFilterOrMenu('filter')}>

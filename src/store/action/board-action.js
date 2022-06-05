@@ -39,6 +39,7 @@ export function toggleLabels(labelState) {
 export function loadBoards() {
     return async (dispatch) => {
         const boards = await boardService.query()
+        // console.log(boards)
         dispatch({ type: 'SET_BOARDS', boards })
     }
 }
@@ -76,7 +77,6 @@ export function editBoard(board) {
 
 export function updateBoard(user, boardId) {
     return async (dispatch) => {
-    console.log(user)
         const board = await boardService.addBoardMember(user, boardId)
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
@@ -104,7 +104,7 @@ export function editTask(boardId, boxId, task, activity) {
         let board = await boardService.saveTask(boardId, task, boxId)
         if (activity) board.activities?.unshift(activity)
         await boardService.save(board)
-        const boardAndActivity = {board,activity}
+        const boardAndActivity = { board, activity }
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, boardAndActivity)
         dispatch({ type: 'SET_BOARD', board })
     }
@@ -125,9 +125,9 @@ export function editBoxes(boardId, boxes, activity) {
         let board = await boardService.editBoxes(boardId, boxes)
         board.activities.unshift(activity)
         // const board = await boardService.save(currBoard)
-        const boardAndActivity = { board,activity }
+        const boardAndActivity = { board, activity }
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, boardAndActivity)
-        dispatch({ type: 'SET_BOARD', board})
+        dispatch({ type: 'SET_BOARD', board })
     }
 }
 export function addComment(boardId, box, newTask) {

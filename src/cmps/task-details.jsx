@@ -25,6 +25,7 @@ export const TaskDetails = () => {
   const [isEdit, setIsEdit] = useState(false)
   const [isPassed, setIsPassed] = useState()
   const { bg, description } = task;
+  // const [defaultBgs, setDefaultBgs] = useState([])
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
@@ -38,7 +39,13 @@ export const TaskDetails = () => {
         boardService.saveTask(board._id, task, box.id)
       }
     })();
+    // setBgs()
   }, []);
+
+  //   const setBgs = async () => {
+  //     const bgs = await boardService.getDefaultBgs()
+  //     setDefaultBgs(bgs)
+  // }
 
   useEffect(() => {
     // if(!task?.date?.timeStamp) return 

@@ -1,19 +1,24 @@
 .login {
     margin-top: 50px;
 
-    
+
     .login-name-logo {
         display: flex;
         justify-content: center;
         align-items: center;
 
 
-        .name{
+        * {
+
             font-size: 50px;
-            padding-left: 20px ;
+        }
+
+        .name {
+            padding-left: 20px;
             font-weight: 900;
         }
-        img.logo{
+
+        img.logo {
             height: 42px;
         }
     }

@@ -26,7 +26,7 @@
                 gap: 32px;
                 // margin-bottom: 10px;
 
-                .label-choice:hover{
+                .label-choice:hover {
                     filter: brightness(90%);
                 }
 
@@ -248,18 +248,24 @@
             }
         }
 
-        .input-comment{
+        .input-comment {
             max-width: calc(100% - 30px);
             margin-top: 20px;
+            margin-left: 40px;
+
+
             .avatar-comment-cmp-edit {
-                
-                .comment-avatar-img  {
+                position: relative;
+
+                .comment-avatar-img {
                     border-radius: 25em;
                     height: 32px;
                     width: 32px;
-                    margin-left: 4px;
+                    // margin-left: 4px;
+                    position: absolute;
+                    left: -40px;
                 }
-                
+
             }
         }
 
@@ -278,18 +284,18 @@
                     font-size: 16px;
                 }
             }
+
             .comment-cmp {
                 border-radius: 3px;
                 border: none;
-                box-shadow:  0px 0px 1px 0px rgba(0, 0, 0, 0.351);
+                box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.351);
                 background: #fff;
                 height: 20px;
                 resize: none;
                 padding: 8px 0 8px 12px;
                 width: 100%;
                 outline: none;
-                border:none;
-                margin-left: 44px;
+                border: none;
                 padding-bottom: 56px;
                 cursor: pointer;
 
@@ -297,24 +303,32 @@
                     background-color: #ebecf0;
                 }
             }
+
             .form-comment-details {
-                .task-comment-input{
-                    margin-left: 40px;
+                // margin-left: 40px;
+
+                .new-comment-container {
+                    // box-sizing: border-box;
                     padding: 8px 12px 56px;
-                    box-sizing: border-box;
                     background-color: #ffffff;
                     border-radius: 3px;
-                    border: none;
                     box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
                     position: relative;
-                    margin-bottom: 24px;
+                }
+
+                .task-comment-input {
+                    box-sizing: border-box;
+                    border: none;
+                    // margin-bottom: 24px;
                     resize: none;
                     width: 100%;
+                    // height: 100%;
                     overflow: hidden;
                     overflow-wrap: break-word;
                     outline: none;
-                    
+
                 }
+
                 .save-comment-btn {
                     height: 32px;
                     padding: 6px 12px;
@@ -322,10 +336,11 @@
                     border: none;
                     color: #ffffff;
                     border-radius: 3px;
-                    
+                    position: absolute;
+                    left: 10px;
                     bottom: 10px;
                 }
-                
+
                 .save-comment-btn:hover {
                     cursor: pointer;
                     filter: brightness(90%);
@@ -349,12 +364,12 @@
                     min-height: 32px;
                     padding: 8px 0;
                     position: relative;
-                    
+
                     .comment-fullname-timestamp {
                         display: flex;
                         align-items: left;
                         flex-direction: column;
-                        
+
 
                     }
 
@@ -378,13 +393,15 @@
                         box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.03);
                         align-items: center;
                     }
+
                     span.comment-timeStamp {
-                        
+
                         font-size: 12px;
                         font-weight: 300;
                         color: rgb(126, 126, 126);
-                        
+
                     }
+
                     .comment-createdBy-timeStamp {
                         font-weight: 600;
                         padding-bottom: 10px;
