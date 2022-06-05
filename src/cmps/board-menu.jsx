@@ -52,6 +52,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
         </button>
         <h5 className="menu-header">Menu</h5>
         <div><hr /></div>
+        <div className='board-menu-btns-container'>
         <button
             className="delete-board-btn"
             onClick={deleteCurrBoard}>
@@ -80,6 +81,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
         <div className='activities-container'>
             <FontAwesomeIcon icon={faAlignLeft} />
             <button className='activities-board-menu' onClick={() => setActivitiesMenu(!activitiesMenu)}><span className="left-side-icons"></span>Activities</button>
+            </div>
             </div>
         {archiveMenu && <ArchivedTasks board={board} />}
         {activitiesMenu && <Activities board={board} />}

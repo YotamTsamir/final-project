@@ -35,7 +35,6 @@ export const CommentList = ({ board, box, task }) => {
         setEditComment(null)
     }
     const onDeleteComment = (ev, comment) => {
-        console.log('onDeleteComment comment list', comment)
         const newTask = { ...task, comments: [...task.comments, comment] }
         dispatch(onRemoveComment(board._id, box, newTask, comment))
     }

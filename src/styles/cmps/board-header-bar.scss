@@ -140,6 +140,7 @@
     }
 
     .board-menu {
+
         background-color: #f4f5f7;
         $height: calc(100vh - 44px);
         height: $height;
@@ -147,17 +148,48 @@
         z-index: 100;
         top: -8px;
         right: -4px;
-        width: 339px;
+        width: 350px;
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         padding: 12px 6px 12px 12px;
-
         animation: fadeIn 0.2s 1;
 
-        .close-board-menu-btn {
+        .change-board-bg {
+
+            .curr-bg-preview {
+                border-radius: 3px;
+                background-size: cover;
+                background-repeat: no-repeat;
+                height: 24px;
+                width: 24px;
+                .icon-btn {
+                    height: 20px;
+                    width: 20px;
+                    padding-top: 3px;
+                }   
+            }
+            p{
+                font-size: 18px;
+            }
+        }
+        
+        .board-menu-btns-container{
+            font-size: 16px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
+
+            .delete-board-btn{
+                padding: 10px;
+                p{
+                    padding-left: 5px ;
+                    font-size: 18px;
+                }
+            }
+        }
+    .close-board-menu-btn {
+        display: flex;
+        align-items: center;
             justify-content: center;
         }
 
@@ -178,6 +210,7 @@
             border: none;
             padding: 6px 6px 6px 6px;
             border-radius: 3px;
+            font-size: 18px;
             background: none;
 
             p {
@@ -185,20 +218,12 @@
             }
 
             .fa-remove * {
-                font-size: 16px;
+                font-size: 20px;
             }
 
-            .icon-btn {
-                height: 20px;
-                width: 20px;
-                padding-top: 3px;
-            }
 
-            .curr-bg-preview {
-                border-radius: 3px;
-                background-size: cover;
-                background-repeat: no-repeat;
-            }
+
+
         }
 
         .bg-container {
@@ -227,7 +252,16 @@
         .toggle-Archive {
             padding: 7px;
             display: flex;
+            
+            span {
+                font-size: 18px;
+                padding-left: 4px;
 
+            }
+
+            svg {
+                height: 20px;
+            }
             p {
                 height: 20px;
                 width: 20px;
@@ -241,22 +275,21 @@
             align-items: flex-start;
 
             .task-archived {
+                display: flex;
+                align-items: center;
                 font-size: 14px;
                 font-weight: 400;
                 line-height: 20px;
                 min-height: 32px;
                 padding: 8px 0;
-                position: relative;
+                // position: relative;
 
                 .task-archived-txt {
                     display: block;
                     padding: 4px 8px;
                     border-radius: 3px;
-                    
-
 
                     p {
-                        display: flex;
                         align-items: flex-start;
                         gap: 4px;
                         margin-bottom: 0;
@@ -266,7 +299,6 @@
                             font-size: 14px;
                             font-weight: 700;
                             color: rgb(35, 35, 35);
-                            display: block;
                             white-space: nowrap;
                         }
 
@@ -297,6 +329,7 @@
                 }
             }
         }
+      
     }
 
     .activities-container {
@@ -304,6 +337,10 @@
         align-items: center;
         padding: 6px;
         padding-left: 10px;
+
+        svg {
+            height: 20px;
+        }
 
         .activities-board-menu {
             padding-left: 14px;

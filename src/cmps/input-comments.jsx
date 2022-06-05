@@ -42,13 +42,13 @@ export const InputComments = ({ board, box, task }) => {
     onEditField()
     entity.comment = "";
   };
-
+  console.log(userService.getLoggedinUser())
   if (!comments || !box) return <h1>Loading...</h1>
   return (
     <div className="input-comment">
       <div className="avatar-comment-cmp-edit">
       <div className="comment-cmp-avatar">
-        {(user.fullname !== 'Guest') ?
+        {(userService.getLoggedinUser().fullname !== 'Guest') ?
           <img className="comment-avatar-img" src={user.avatar} />
           :
           <img className="comment-avatar-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUqOq31iJPIGiwT8if3AxZugFDpkNPz5YXTg&usqp=CAU" />}
@@ -59,6 +59,7 @@ export const InputComments = ({ board, box, task }) => {
             onEditTaskEntity(ev);
           }}
         >
+          <div>
           <textarea
             placeholder="Write a comment..."
             className="task-comment-input"
@@ -66,6 +67,7 @@ export const InputComments = ({ board, box, task }) => {
             autoFocus
           ></textarea>
           <button className="save-comment-btn comment">Save</button>
+        </div>
         </form>
         :
         <textarea onClick={onEditField}
