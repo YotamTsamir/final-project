@@ -55,8 +55,8 @@
         border: none;
         background-color: #00000014;
         border-radius: 3px;
-        height: 32px;
-        width: 32px;
+        height: 36px;
+        width: 36px;
         padding: 6px;
         margin-left: 4px;
         margin-right: 6px;
@@ -204,14 +204,18 @@
         .bg-container {
             padding-top: 10px;
 
-
-
             .cover-menu {
                 padding-bottom: 20px;
             }
 
             ul {
+                height: fit-content;
+                padding-bottom: 4px;
+                margin-bottom: 4px;
+
                 li {
+                    height: 44px;
+
                     button {
                         background-size: cover;
                         background-repeat: no-repeat;
@@ -426,6 +430,7 @@
         background-color: #00000029;
         border: transparent;
         border-radius: 3px;
+        height: 36px;
     }
 
     .menu-btn,
@@ -450,6 +455,7 @@
         background-color: #ffffff3d;
         border: transparent;
         border-radius: 3px;
+        height: 36px;
     }
 
     // .filter-btn{

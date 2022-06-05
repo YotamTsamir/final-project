@@ -1,15 +1,46 @@
-.avatar-header{
-    padding-top: 30px;
+.avatar {
     display: flex;
-    justify-content: space-evenly;
+    flex-direction: column;
     align-items: center;
+    padding: 32px;
 
-    .avatar-img {
-        height: 20vh;
-        border: 1px solid rgb(200, 199, 199);
-        border-radius: 50%;
+
+
+    .avatar-img-container {
+        position: relative;
+
+        .costum-input::-webkit-file-upload-button{
+            height: 20vh;
+            width: 20vh;
+            border-radius: 50%;
+            // border: none;
+            background: none;
+        }
+
     }
-    .avatar-fullname {
-        font-size: 50px;
+
+    .avatar-header {
+        padding: 20px 0;
+        display: flex;
+        align-items: baseline;
+        gap: 10px;
+
+
+        .avatar-img {
+            height: 20vh;
+            border: 1px solid rgb(200, 199, 199);
+            border-radius: 50%;
+        }
+
+        .avatar-fullname {
+            font-size: 30px;
+            // height: 30px;
+        }
+
+        .avatar-email {
+            font-size: 20px;
+            color: #5e6c84;
+            font-weight: 100;
+        }
     }
 }

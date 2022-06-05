@@ -1,6 +1,72 @@
-.notifications{
+.notifications-container {
     position: fixed;
-    top: 100px;
-    background-color: black;
+    top: 48px;
+    background-color: white;
     z-index: 200;
+    padding: 6px 12px;
+    border-radius: 3px;
+    box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
+    max-height: 650px;
+    width: 332px;
+    overflow-y: auto;
+
+
+    * {
+        color: black;
+    }
+
+    h4 {
+        text-align: center;
+        font-weight: 400;
+        font-size: 16px;
+    }
+
+    .notification-container {
+        margin-bottom: 8px;
+
+
+        .notification-details {
+            display: flex;
+            gap: 4px;
+            padding-left: 36px;
+            flex-wrap: wrap;
+
+            * {
+                margin: 0;
+            }
+        }
+
+        .notification-user {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+
+            .not-user-name {
+                margin: 0;
+                text-decoration: underline;
+                font-size: 16px;
+            }
+
+            .not-user-img {
+                height: 32px;
+                width: 32px;
+                border-radius: 50%;
+            }
+        }
+    }
+}
+
+.notifications-container::-webkit-scrollbar {
+    width: 10px;
+}
+
+.notifications-container::-webkit-scrollbar-track {
+    background: none;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+}
+
+.notifications-container::-webkit-scrollbar-thumb {
+    background-color: #c4c4c4;
+    border-radius: 10px;
 }
