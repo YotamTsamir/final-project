@@ -172,6 +172,7 @@ function getMemberById(memberId, board) {
 }
 
 function _createBoard(userBoard) {
+    const user = userService.getLoggedinUser()
     return ({
 
         "title": userBoard.title,
@@ -179,7 +180,7 @@ function _createBoard(userBoard) {
         "isStarred": false,
         "archivedAt": null,
         "createdAt": Date.now(),
-        "createdBy": {},
+        "createdBy": user||'',
         "style": userBoard.style,
         "labels": [
             {
@@ -218,8 +219,8 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members": [userService.getLoggedinUser()] || [
-        ],
+        "members": [user]||[]
+        ,
         "boxes": [],
     })
 }

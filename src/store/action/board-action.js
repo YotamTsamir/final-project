@@ -23,7 +23,6 @@ export function addBox(boardId, box, activity) {
 export function addTask(boardId, task, boxId, activity) {
     return async dispatch => {
         let board = await boardService.saveTask(boardId, task, boxId)
-        console.log(board)
 
         if (activity) board.activities.unshift(activity)
         await boardService.save(board)
@@ -78,7 +77,6 @@ export function editBoard(board) {
 
 export function updateBoard(user, boardId) {
     return async (dispatch) => {
-        console.log(boardId)
         const board = await boardService.addBoardMember(user, boardId)
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })

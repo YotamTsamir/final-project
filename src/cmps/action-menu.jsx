@@ -23,6 +23,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     const [createLabel, onCreateLabel] = useState(false)
     const [newLabelColor, setNewLabelColor] = useState('')
     const dispatch = useDispatch()
+    const [imageURL, setImageURL] = useState(null)
+
 
     useEffect(() => {
         setBgs()
@@ -65,6 +67,20 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     const onChangeDate = (value) => {
         onChange(value)
     }
+
+    const  promptPicture  =  () => {
+        const pictureUrl = prompt('Add a picture url')
+        onChangeBgImg(pictureUrl)
+    }
+
+    useEffect(() => {
+        promptPicture()
+    }, [])
+
+    useEffect(() => {
+        console.log(imageURL)
+    }, [imageURL])
+
     const onSaveDueDate = () => {
         const newTask = {
             ...task, date: {
@@ -157,6 +173,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
             {(topic === 'Cover') && <div>
                 <TaskCoverMenu
                     dfBgs={defaultBgs}
+                    board={board}
+                    box={box}
                     onChangeBgImg={onChangeBgImg}
                     toggleMenu={toggleMenu}
                     topic={topic}
@@ -184,7 +202,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
                                     </div>
                                 </div>
                             }
-                            <p className="member-name">{member.fullname} ({member.userName})</p>
+                            <p className="member-name">{member.fullname} ({member.username})</p>
                         </div>
                         )
                     })}

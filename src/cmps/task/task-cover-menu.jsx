@@ -4,13 +4,13 @@ import { boardService } from '../../services/board.service'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRemove } from '@fortawesome/free-solid-svg-icons'
 
-export const TaskCoverMenu = ({ dfBgs, onChangeBgClr, onChangeBgImg, task }) => {
+export const TaskCoverMenu = ({ dfBgs, onChangeBgClr, onChangeBgImg, task, board, box }) => {
 
 
-    console.log(dfBgs)
-    if(!dfBgs) return <h1>l</h1>
+    if(!dfBgs) return <h1>Loading...</h1>
     return <div className={`task-cover-menu`}>
-        <TaskBgPreview task={task} />
+
+        <TaskBgPreview board={board} box={box} task={task} />
         <h4 className='cover-menu-h4'>Colors</h4>
         <div className="color-grid">
             {dfBgs.color.map((color, idx) => {

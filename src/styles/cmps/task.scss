@@ -74,8 +74,14 @@
         overflow: hidden;
         text-decoration: none;
     }
+    .comment-task-preview{
+        position: relative;
+        top: 5px;
+    }
     .checklist-task-preview{
         border-radius: 3px;
+        position: relative;
+        top: 5px;
     }
 
 }
@@ -108,7 +114,19 @@
 
 .task-preview-photo {
     height: 260px;
-    width: 100%;
+    width: 94%;
+    &.not-edit{
+        height: 260px;
+        width: 106%;
+        position: relative;
+        border-top-right-radius: 3px;
+        border-top-left-radius: 3px;
+        right: 8px;
+        top: -5px;
+    }
+    &.full-photo{
+      
+    }
 }
 
 .task-preview-color {
@@ -125,7 +143,7 @@
 }
 
 .edited-photo {
-    width: 251px;
+    width: 250px;
     transform: translate3d(-8px, -7px, 3px);
 }
 
@@ -466,6 +484,8 @@
 .task-prev-date-desc {
     position: relative;
     gap: 8px;
+
+    
 
     .passed {
         background-color: $clr8;

@@ -7,7 +7,7 @@ import { boardService } from "../services/board.service"
 import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
-import { faClock, faSquare, faSquareCheck,faMessage } from '@fortawesome/free-regular-svg-icons'
+import { faClock, faSquare, faSquareCheck, faMessage } from '@fortawesome/free-regular-svg-icons'
 import { Outlet } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { setTask, editTask, toggleLabels } from "../store/action/board-action"
@@ -142,8 +142,19 @@ export const TaskPreview = ({ task, board, box, index }) => {
     }
     if (task.archivedAt !== '') return
     return <div>
-        {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
-            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{
+        {(!isEdit) && (task.isFull) && (task.bg) ? (task.bg.includes('url')) ? <div className="task task-preview-photo full-photo" style={{
+            background: task.bg,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundColor: 'rgb(25, 26, 25)'
+        }}>{task.title}  <div className="edit-fav grey-icons">
+                <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
+            </div></div> : <div className="task" style={{ background: task.bg }}>{task.title}  <div className="edit-fav grey-icons">
+                <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
+            </div></div> : ''}
+        {(!isEdit) && (!task.isFull) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
+            {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo not-edit" style={{
                 background: task.bg,
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
@@ -173,9 +184,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                 <div className="desc-png-container">
                                     <img className="desc-png" src={desc} />
                                 </div>}
-                        </div>
-                        {(task.comments.length>0)&&<span><FontAwesomeIcon icon={faMessage}/>{task.comments.length}</span>}
+                        {(task.comments.length > 0) && <span className="comment-task-preview"><FontAwesomeIcon icon={faMessage} />{task.comments.length}</span>}
                         {(task.checkLists.length > 0) && <span className="checklist-task-preview" style={{ backgroundColor: (doneTodos === totalTodos) ? '#61bd4f' : '' }}><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
+                        </div>
                         {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {
                                 return <div
@@ -233,8 +244,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                         {(task.description) &&
                             <div className="desc-png-container">
                                 <img className="desc-png" src={desc} /></div>}
+                    {(task.comments.length > 0) && <span className="comment-task-preview"><FontAwesomeIcon icon={faMessage} />{task.comments.length}</span>}
+                    {(task.checkLists.length>0) && <span className="checklist-task-preview"><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                     </div>
-                    {(task.checkLists.length) && <span><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (

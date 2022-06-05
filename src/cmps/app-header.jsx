@@ -59,7 +59,7 @@ export const AppHeader = () => {
         return
     }
     useEffect(() => {
-        // if (user) navigate('/')
+        // if (!user) navigate('/')
         scrollListener()
     }, [])
 

@@ -24,16 +24,18 @@ export function updateUser(user) {
 export function login(credentials) {
     // Action Creator
     return async (dispatch) => {
+        try {
         const user = await userService.login(credentials)
-                dispatch({
-                    type: 'SET_USER',
-                    user,
-                })
+        dispatch({
+            type: 'SET_USER',
+            user,
+        })
+        } catch (err) {
+            console.error('Error:', err)
+            setUserMsg('Cannot login', 'bad')
+        }
         
-            .catch((err) => {
-                console.error('Error:', err)
-                setUserMsg('Cannot login', 'bad')
-            })
+            
     }
 }
 
