@@ -35,7 +35,7 @@ export const CheckList = ({ board, box, checkList, task }) => {
         console.log('im here', doneTodos)
         const whole = checkList.todos.length
         const completedPercent = (doneTodos * 100) / whole
-        setCompletePerc(completedPercent)
+        setCompletePerc(Math.floor(completedPercent))
     }
 
     const addTodo = () => {
@@ -138,7 +138,7 @@ export const CheckList = ({ board, box, checkList, task }) => {
                                                         <form
                                                             onSubmit={(ev) => onEditTodo(ev, todo)}
                                                             className="edit-todo-form">
-                                                            <textarea {...registery('editedTodo')} className="edit-todo-textarea" value={todo.title} />
+                                                            <textarea {...registery('editedTodo')} className="edit-todo-textarea"  />
                                                             <div className="edit-todo-btns">
                                                                 <button
                                                                     type="submit"

@@ -113,6 +113,11 @@
 }
 
 .task-preview-photo {
+    display: flex;
+    justify-content: flex-start;
+    align-items: end;
+    font-weight: 600;
+    color: white;
     height: 260px;
     width: 94%;
     &.not-edit{

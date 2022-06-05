@@ -30,7 +30,7 @@ async function login(credentials) {
     try {
         const user = await httpService.post('auth/login', credentials)
         sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
-        return true
+        return user
     } catch (err) {
         return false
     }

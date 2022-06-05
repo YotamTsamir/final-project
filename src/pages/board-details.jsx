@@ -30,7 +30,7 @@ export const Board = () => {
     useEffect(() => {
         const { boardId } = params
         dispatch(getBoard(boardId))
-        socketService.emit(SOCKET_EVENT_SET_BOARD, board?._id);
+        socketService.emit(SOCKET_EVENT_SET_BOARD, boardId);
         socketService.off(SOCKET_EVENT_LOAD_BOARD);
         socketService.on(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         return () => {
@@ -40,6 +40,7 @@ export const Board = () => {
 
     }, [])
     const updateBoard = (board) => {
+        console.log('yes',board)
         dispatch(setNewBoard(board))
     }
 

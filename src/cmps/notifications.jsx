@@ -7,13 +7,10 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons'
 export const Notifications = ({ user }) => {
     // const [user, setUser] = useState('')
     // const [noti, setNoti] = useState(user.notifications)
-    useEffect(() => {
-        user = userService.getLoggedinUser()
-    }, [])
 
 
     //need to add a toggle function to "read-unread-toggle" span
-
+    console.log(user)
     // console.log(user.notifications)
     if (!user.notifications) return <div className="notifications-container">
         <h4>Notifications</h4>
