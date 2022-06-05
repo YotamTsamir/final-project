@@ -3,13 +3,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { NavLink, useLocation } from "react-router-dom"
 import { HeaderNav } from "./header-nav.jsx"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faUser, faSearch, faBell } from '@fortawesome/free-solid-svg-icons'
+import { faBell as faBellRegular } from '@fortawesome/free-regular-svg-icons'
 import { faTrello } from '@fortawesome/free-brands-svg-icons'
 import { boardService } from '../services/board.service'
 import { Notifications } from './notifications.jsx'
 import { userService } from '../services/user-service'
 import { useNavigate, useParams } from "react-router-dom"
-import { logout,updateUser } from '../store/action/user-action.js'
+import { logout, updateUser } from '../store/action/user-action.js'
 import { socketService } from '../services/socket.service.js'
 import { SOCKET_EVEN_SET_USER, SOCKET_EVENT_PUSH_NOTIFICATION } from '../services/socket.service.js'
 export const AppHeader = () => {
@@ -41,16 +42,14 @@ export const AppHeader = () => {
     }, [])
 
     const pushNotification = async (yes) => {
-        console.log(yes)
         const user = await userService.getById(yes.memberId)
         user.notifications.push(yes.activity)
         const updatedUser = await userService.updateUser(user)
-        console.log(updatedUser)
         dispatch(updateUser(updatedUser))
         return
     }
     useEffect(() => {
-        if (!user) navigate('/')
+        // if (!user) navigate('/')
         scrollListener()
     }, [])
 
@@ -138,6 +137,7 @@ export const AppHeader = () => {
                 ${(!scroll && isHomePage) ? ' scrolled' : ''}`
     }
 
+    // console.log(user)
     return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
 
@@ -171,8 +171,14 @@ export const AppHeader = () => {
                         </h1>
                     </button>
                 }
-                <button onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}>noti</button>
-                {(isNotificationsOpen) && <Notifications user={user}/>}
+                {user &&
+                    <button
+                        onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
+                        className="notification-btn empty">
+                        <FontAwesomeIcon icon={faBellRegular} />
+                    </button>
+                }
+                {(isNotificationsOpen) && <Notifications user={user} />}
                 {(location.pathname === '/signup' || location.pathname === '/login') &&
                     <button onClick={pathToHome}  >Back to home</button>
                 }
@@ -180,10 +186,18 @@ export const AppHeader = () => {
                     <div className="signin-signup-links">
                         <h2>Account<hr /></h2>
                         <div className='small-right-menu-container'>
-                            <NavLink onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                            <NavLink onClick={onToggleLoginBar} className="nav-link login" to='/login'>Login</NavLink>
-                            <NavLink onClick={onToggleLoginBar} className="nav-link signup-link" to='/signup'>Sign up</NavLink>
-                            <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link avatar">Logout</NavLink>
+                            {user &&
+                                <React.Fragment>
+                                    <NavLink onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
+                                    <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link avatar">Logout</NavLink>
+                                </React.Fragment>
+                            }
+                            {!user &&
+                                <React.Fragment>
+                                    <NavLink onClick={onToggleLoginBar} className="nav-link login" to='/login'>Login</NavLink>
+                                    <NavLink onClick={onToggleLoginBar} className="nav-link signup-link" to='/signup'>Sign up</NavLink>
+                                </React.Fragment>
+                            }
                         </div>
                     </div>
                 }

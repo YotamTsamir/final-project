@@ -13,19 +13,143 @@
         font-size: 24px;
     }
 
-    .Labels {
-        height: 50vh;
-        width:fit-content;
+    .menu-choice-Labels {
         position: absolute;
-        transform: translateY(20%);
-        padding: 6px, 12px;
-        background-color: white;
+        transform: unset;
+        background-color: #fefefe;
+        border: 0.5px solid $clr18;
+        width: 20vw;
+        width: fit-content;
+        box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+        border-radius: 3px;
+        z-index: 100;
+        padding: 6px;
+        top: -23px;
+        left: 0;
+
+        .label-choice:hover {
+            filter: brightness(90%);
+        }
+
+        .create-new-label-btn {
+            border: none;
+            background: none;
+            background-color: #091e420a;
+            text-align: center;
+            width: 100%;
+            padding: 6px 12px;
+            border-radius: 3px;
+        }
+
+        .create-new-label-btn:hover {
+            cursor: pointer;
+            background-color: #091e4241;
+        }
+
+        input {
+            margin-bottom: 8px;
+        }
+
+
+        .close-labels-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px;
+            // z-index: 1000;
+
+            * {
+                color: #3b485d;
+            }
+        }
+
+        .close-labels-btn:hover {
+            cursor: pointer;
+            color: #0d1117;
+        }
+
+
     }
 
-    .Cover{
-        transform: translate(2%,-69%);
+    .menu-choice-Date {
+        position: absolute;
+        background-color: #ffffff;
+        border: none;
+        box-shadow: 0 8px 16px -4px #091e4240, 0 0 0 1px #091e4214;
+        padding: 6px 12px;
+        z-index: 100;
+        border-radius: 3px;
+        top: -30px;
+        left: 0;
+
+        * {
+            border: none;
+        }
+
+        .close-labels-btn {
+            * {
+                color: #3b485d;
+            }
+        }
+
+        .react-calendar {
+            max-width: 300px;
+
+            button {
+                border-radius: 3px;
+            }
+
+            .react-calendar__tile--active * {
+                color: white;
+            }
+
+            .react-calendar__navigation__next-button {
+                font-size: 20px;
+            }
+
+            .react-calendar__navigation__prev-button {
+                font-size: 20px;
+            }
+        }
+
+        .react-calendar__navigation__next2-button {
+            display: none;
+        }
+
+        .react-calendar__navigation__prev2-button {
+            display: none;
+        }
+
+        .date-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .save-due-date {
+                margin: auto;
+                padding: 6px 12px;
+                height: 32px;
+                background-color: #0079bf;
+                border-radius: 3px;
+                color: #ffffff;
+            }
+        }
+
+    }
+
+    .menu-choice-Cover {
         padding: 20px;
-        height: 35vh;
+        background-color: #ffffff;
+        border-radius: 3px;
+        position: absolute;
+        top: -30px;
+        left: 0;
+
+        .close-labels-btn {
+            * {
+                color: #3b485d;
+            }
+        }
     }
 }
 

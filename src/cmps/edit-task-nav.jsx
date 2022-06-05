@@ -62,20 +62,44 @@ export const EditTaskNav = ({ board, task, box, onEditTaskTitle, setIsEdit, isEd
                 return (
                     <div key={idx}>
 
-                        {(btn.txt !== 'Archive' && btn.txt !== 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={(ev) => { toggleMenu(ev, btn.txt) }}>
-                            {btn.fa} {btn.txt}
-                        </button>}
-                        {(btn.txt === 'Archive' || btn.txt === 'Open card') && <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>
-                            {btn.fa} {btn.txt}
-                        </button>}
+                        {(btn.txt !== 'Archive' && btn.txt !== 'Open card') &&
+                            <button key={btn.txt} className="edit-task-nav-btn" onClick={(ev) => { toggleMenu(ev, btn.txt) }}>
+                                {btn.fa} {btn.txt}
+                            </button>}
+                        {(btn.txt === 'Archive' || btn.txt === 'Open card') &&
+                            <button key={btn.txt} className="edit-task-nav-btn" onClick={() => { btn.func() }}>
+                                {btn.fa} {btn.txt}
+                            </button>}
                     </div>
                 )
             })}
 
-            {(menuState['Edit labels']) && <ActionMenu className="label-choice" topic={'Labels'} colors={colors} setIsEdit={setIsEdit} onEditTaskTitle={onEditTaskTitle} task={task} box={box} board={board} />}
-            {(menuState['Change cover']) && <ActionMenu className="cover-choice" topic={'Cover'} colors={colors} task={task} box={box} board={board} />}
-            {(menuState['Edit dates']) && <ActionMenu topic={'Date'} task={task} box={box} board={board} />}
-            {(menuState['Change members']) && <ActionMenu topic={'Members'} task={task} box={box} board={board} />}
+            {(menuState['Edit labels']) &&
+                <ActionMenu
+                    className="label-choice"
+                    topic={'Labels'}
+                    colors={colors}
+                    setIsEdit={setIsEdit}
+                    onEditTaskTitle={onEditTaskTitle}
+                    task={task} box={box} board={board}
+                    toggleMenu={toggleMenu} />}
+            {(menuState['Change cover']) &&
+                <ActionMenu
+                    className="cover-choice"
+                    topic={'Cover'}
+                    colors={colors}
+                    task={task} box={box} board={board}
+                    toggleMenu={toggleMenu} />}
+            {(menuState['Edit dates']) &&
+                <ActionMenu
+                    topic={'Date'}
+                    task={task} box={box} board={board}
+                    toggleMenu={toggleMenu} />}
+            {(menuState['Change members']) &&
+                <ActionMenu
+                    topic={'Members'}
+                    task={task} box={box} board={board}
+                    toggleMenu={toggleMenu} />}
         </div>
     </section>
 }

@@ -10,7 +10,7 @@ export const Avatar = () => {
     );
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
-        
+
     const handleFileInputChange = (e) => {
         const file = e.target.files[0];
         setSelectedFile(file);
@@ -30,9 +30,9 @@ export const Avatar = () => {
         };
     };
 
-    
+
     const uploadImage = async (imageUrl) => {
-        const UPLOAD_PRESET = 'uzukqpqj' 
+        const UPLOAD_PRESET = 'uzukqpqj'
         const CLOUD_NAME = 'ddlztsqql'
         const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
         const FORM_DATA = new FormData();
@@ -54,21 +54,24 @@ export const Avatar = () => {
     };
     if(!user) return <h1>Loading...</h1>
     return <div className="avatar">
-        
+
         <div className="avatar-header">
-            {(user.img) &&     
-            <img className="avatar-img" src={user.img}/> } 
+            {user.avatar &&
+                <div className="avatar-img-container">
+                    <img className="avatar-img" src={user.avatar} />
+                    <input onChange={handleFileInputChange} value={fileInputState} type="file"  className="costum-input"/>
+                    <button onClick={handleSubmitFile}>Submit</button>
+                </div>
+            }
             <div className="avatar-fullname">
-            {user.fullname} 
+                {user.fullname}
             </div>
             <div className="avatar-email">
-            {user.email} 
+                {user.email}
             </div>
         </div>
 
-        <input onChange={handleFileInputChange} value={fileInputState} type="file"/>
-        <button onClick={handleSubmitFile}>Submit</button>
 
-        </div>
+    </div>
 }
 

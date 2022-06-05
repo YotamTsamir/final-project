@@ -24,7 +24,7 @@
 
         .exit-task-details-btn.no-cover {
             background: none;
-            top: 0;
+            top: 0px;
 
             * {
                 font-size: 20px;
@@ -42,7 +42,7 @@
             padding: 4px;
             position: absolute;
             right: 0;
-            top: -16px;
+            top: 0;
             z-index: 15;
         }
 
@@ -54,8 +54,9 @@
         .task-details-cover-area {
             border-radius: 3px 3px 0 0;
             position: relative;
-            top: -18px;
             z-index: 10;
+            margin-bottom: 10px;
+            background: linear-gradient(to left, black, #191a19, black);
 
 
             .task-details-cover {
@@ -81,7 +82,7 @@
                 gap: 10px;
 
                 * {
-                    margin: 0;
+                    // margin: 0;
                 }
             }
 
