@@ -219,7 +219,7 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members": [user]||[]
+        "members": [user]
         ,
         "boxes": [],
     })
