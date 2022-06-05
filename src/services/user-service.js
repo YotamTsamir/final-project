@@ -48,7 +48,7 @@ async function logout() {
 }
 
 async function updateUser(user) {
-    await storageService.put('user', user)
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
     return await httpService.put(`user/${user._id}`, user)
     return user;
 }

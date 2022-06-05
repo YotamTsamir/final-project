@@ -164,6 +164,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
             {(topic === 'Members') &&
                 <div className="task-members">
                     {board.members.map((member, idx) => {
+                        if (!member.fullname.includes(newLabelFilter.txt)) return
                         return (<div key={idx} onClick={() => onAddMember(member)} className="members-div">
                             {board.members &&
                                 <div className="member-container">

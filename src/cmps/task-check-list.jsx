@@ -19,9 +19,20 @@ export const CheckList = ({ board, box, checkList, task }) => {
     const [completePerc, setCompletePerc] = useState(0)
     const dispatch = useDispatch()
     useEffect(() => {
+        // console.log('here')
+        // calcCompletePercentage()
+        let doneTodosNum = 0
+        checkList.todos.map(todo => {
+            if (todo.isDone) doneTodosNum += 1
+        })
+        console.log(doneTodosNum)
+        setDoneTodos(doneTodosNum)
+    }, [])
+    useEffect(() => {
         calcCompletePercentage()
-    }, [checkList])
+    }, [doneTodos])
     const calcCompletePercentage = () => {
+        console.log('im here', doneTodos)
         const whole = checkList.todos.length
         const completedPercent = (doneTodos * 100) / whole
         setCompletePerc(completedPercent)
@@ -40,6 +51,7 @@ export const CheckList = ({ board, box, checkList, task }) => {
         const newTask = checkListService.addTodo(newTodo.todo, checkList, task)
         setNewTodo({ editedTodo: '' })
         setEditTodo('')
+        calcCompletePercentage()
         // boardService.saveTask(board._id, newTask, box.id)
         // const activity = { user:userService.getLoggedinUser(), action: `added`, isRead: false, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
         dispatch(editTask(board._id, box.id, newTask))
@@ -62,19 +74,26 @@ export const CheckList = ({ board, box, checkList, task }) => {
         let activity
         if (todo.isDone) {
             newTodo.isDone = false
-            activity = { user:userService.getLoggedinUser(), action: `marked an item incomplete`, isRead: false,
-            id: utilService.makeId(), object:todo, about: `on ${task.title}`, timeStamp: Date.now() }
+            activity = {
+                user: userService.getLoggedinUser(), action: `marked an item incomplete`, isRead: false,
+                id: utilService.makeId(), object: todo, about: `on ${task.title}`, timeStamp: Date.now()
+            }
             setDoneTodos(doneTodos - 1)
+            calcCompletePercentage()
         }
         else {
             newTodo.isDone = true
-            activity = { user:userService.getLoggedinUser(), action: `has completed`, isRead: false,
-            id: utilService.makeId(), object:todo, about: `on ${task.title}`, timeStamp: Date.now() }
+            activity = {
+                user: userService.getLoggedinUser(), action: `has completed`, isRead: false,
+                id: utilService.makeId(), object: todo, about: `on ${task.title}`, timeStamp: Date.now()
+            }
             setDoneTodos(doneTodos + 1)
+            calcCompletePercentage()
         }
         newTask.checkLists[currCheckListIdx].todos[todoIdx] = newTodo
-        dispatch(editTask(board._id, box.id, newTask,activity))
+
         calcCompletePercentage()
+        dispatch(editTask(board._id, box.id, newTask, activity))
     }
 
 
@@ -84,7 +103,12 @@ export const CheckList = ({ board, box, checkList, task }) => {
             <span className="left-side-icons"><FontAwesomeIcon icon={faSquareCheck} /></span>
             <h1 className="section-header">{checkList.title}</h1>
         </div>
-        <div className="progress-bar"></div>
+        <span className="check-list-progress-desc">{`${completePerc}%`}</span>
+        <div className="progress-bar">
+            <div className="progress-done" style={{ width: `${completePerc}%`, backgroundColor: (completePerc === 100) ? '#61bd4f' : '' }}>
+
+            </div>
+        </div>
         <Droppable type={{ task, box }} droppableId={checkList.id}>
             {provided => {
                 return (
@@ -110,10 +134,10 @@ export const CheckList = ({ board, box, checkList, task }) => {
                                                         {todo.title}
                                                     </div>}
                                                 {(editTodo === todo.id) &&
-                                                    <div  className="edit-todo-container">
-                                                        <form 
-                                                        onSubmit={(ev) => onEditTodo(ev, todo)}
-                                                        className="edit-todo-form">
+                                                    <div className="edit-todo-container">
+                                                        <form
+                                                            onSubmit={(ev) => onEditTodo(ev, todo)}
+                                                            className="edit-todo-form">
                                                             <textarea {...registery('editedTodo')} className="edit-todo-textarea" value={todo.title} />
                                                             <div className="edit-todo-btns">
                                                                 <button
@@ -148,9 +172,9 @@ export const CheckList = ({ board, box, checkList, task }) => {
             </button>}
         {(editTodo === 'add-todo') &&
             <div>
-                <form 
-                onSubmit={(ev) => { onAddTodo(ev) }}
-                className="add-todo-form">
+                <form
+                    onSubmit={(ev) => { onAddTodo(ev) }}
+                    className="add-todo-form">
                     <textarea
                         {...register('todo')}
                         className="add-todo-textarea"
