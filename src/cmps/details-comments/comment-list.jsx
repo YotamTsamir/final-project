@@ -15,13 +15,13 @@ export const CommentList = ({ board, box, task }) => {
     const dispatch = useDispatch()
 
     const { comments } = task;
-    useEffect(() => {
-        setInterval(() => {
-            editCommentList(commentList + 1)
-        }, 60000)
-    }, [commentList])
+    // useEffect(() => {
+    //     setInterval(() => {
+    //         editCommentList(commentList + 1)
+    //     }, 60000)
+    // }, [commentList])
 
-    console.log('userrrrrr', user)
+    // console.log('userrrrrr', user)
     const isEditShownComment = () => {
         return fieldsEdit.isEditOpen;
     };

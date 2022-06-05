@@ -17,7 +17,7 @@ export const Activities = ({ board }) => {
                 <div key={activity?.id} className="task-archived">
 
                     <div className="task-archived-txt" >
-                        <p> <span className="bold-span"> {activity?.user.fullname || 'guest'}</span> {activity?.action} <span className="underline-span">{activity?.object.title}</span> {activity?.about}</p>
+                        <p> <span className="bold-span"> {activity?.user?.fullname || 'guest'}</span> {activity?.action} <span className="underline-span">{activity?.object.title}</span> {activity?.about}</p>
                     </div>
                     <div className="activities-time-ago">{getTimeStamp(activity)}</div>
                 </div>

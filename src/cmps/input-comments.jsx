@@ -17,7 +17,6 @@ export const InputComments = ({ board, box, task }) => {
   const [fieldsEdit, setFieldsEdit] = useState({ isComments: false });
   const { user } = useSelector((storeState) => storeState.userModule)
   const { comments } = task;
-  console.log('user',comments)
   const isEditShownCom = () => {
     // console.log(task)
     return !comments.length > 0 || !fieldsEdit.isComments;
