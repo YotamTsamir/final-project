@@ -91,10 +91,11 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
             {board.members &&
                 <div className="curr-task-members">
                     {board.members.map((member, idx) => {
+                        if(!member) return
                         return <div
                             key={idx}
                             className={`member-preview ${idx}`} >
-                            <img src={member.avatar} />
+                            <img src={member.avatar} alt="user-avatar" />
                         </div>
                     })}
 

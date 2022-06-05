@@ -145,6 +145,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         <div >
             {(topic === 'Cover') && <div>
                 <TaskCoverMenu
+                    board={board}
+                    box={box}
                     dfBgs={dfBgs}
                     onChangeBgImg={onChangeBgImg}
                     toggleMenu={toggleMenu}

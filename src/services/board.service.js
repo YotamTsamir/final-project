@@ -155,6 +155,7 @@ function getMemberById(memberId, board) {
 }
 
 function _createBoard(userBoard) {
+    const user = userService.getLoggedinUser()
     return ({
 
         "title": userBoard.title,
@@ -162,7 +163,7 @@ function _createBoard(userBoard) {
         "isStarred": false,
         "archivedAt": null,
         "createdAt": Date.now(),
-        "createdBy": {},
+        "createdBy": user||'',
         "style": userBoard.style,
         "labels": [
             {
@@ -201,15 +202,17 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members":[userService.getLoggedinUser()] || [
-        ],
+        "members": [user]||[]
+        ,
         "boxes": [],
     })
 }
 
 async function addBoardMember(member, boardId) {
     const board = await getById(boardId)
-    const check = board.members.find(currMember => {if(currMember._id === member._id) return member})
+    console.log(board)
+    let check
+    if (board.members.length > 0) check = board.members.find(currMember => { if (currMember._id === member._id) return member })
     if (check) {
         const idx = board.members.findIndex(currMember => currMember._id === member._id)
         board.members.splice(idx, 1)

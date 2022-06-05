@@ -26,13 +26,14 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), archivedAt: '',checkLists:[], members: [], title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), archivedAt: '',checkLists:[], members: [], isFull:false , title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        console.log(task)
         if (!input) return setAddNewTask('')
         setAddNewTask(boxId)
         EditTask({ title: '' })
         const board = await boardService.saveTask(boardId, task, boxId)
         const user = userService.getLoggedinUser()
-        const activity = { user: user || 'guest', action: `added `,id:utilService.makeId(),isRead:false, object:task , about: `to ${box.title}`, timeStamp: Date.now() }
+        const activity = { user: user || 'guest', action: `added `,id:utilService.makeId(), isRead:false , object:task , about: `to ${box.title}`, timeStamp: Date.now() }
         const boardAndActivity = { board, activity }
         socketService.emit(SOCKET_EVENT_LOAD_BOARD,boardAndActivity)
         dispatch(addTask(boardId, task, boxId, activity))
