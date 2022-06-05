@@ -145,9 +145,10 @@ export function setTask(task, box) {
         dispatch({ type: 'SET_TASK', task, box })
     }
 }
-export function onRemoveComment(boardId, box, newTask) {
+export function onRemoveComment(boardId, box, newTask, comment) {
+    console.log('onRemoveComment action', newTask)
     return async (dispatch) => {
-        const task = await boardService.removeComment(boardId, box, newTask)
+        const task = await boardService.removeComment(boardId, box, newTask, comment)
         dispatch({ type: 'SET_TASK', task, box })
     }
 }

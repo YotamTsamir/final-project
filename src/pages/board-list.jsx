@@ -6,18 +6,26 @@ import { BoardAdd } from '../cmps/board-add.jsx'
 import { BoardThumbnailPreview } from '../cmps/board-thumbnail-preview.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
-import { faStar } from '@fortawesome/free-regular-svg-icons'
+import { faStar, faClone } from '@fortawesome/free-regular-svg-icons'
 import { faTrello } from '@fortawesome/free-brands-svg-icons'
 
 export const BoardList = () => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
+    const [defaultBgs, setDefaultBgs] = useState([])
     const { boards } = useSelector((storeState) => storeState.boardModule)
     const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(loadBoards())
+        setBgs()
     }, [])
 
+
+    const setBgs = async () => {
+        // const bgs = await boardService.getDefaultBgs()
+        // setDefaultBgs(bgs)
+    }
+    // console.log(defaultBgs)
 
     const onToggleAddBoard = () => {
         setIsAddBoardOpen(!isAddBoardOpen)
@@ -54,6 +62,10 @@ export const BoardList = () => {
                     <span><FontAwesomeIcon icon={faStar} /></span>
                     <h2>Favourites</h2>
                 </div>
+                <div className="to-boards to-template">
+                    <span><FontAwesomeIcon icon={faClone} /></span>
+                    <h2>Templates</h2>
+                </div>
             </aside>
         </div>
         <div className="board-list-preview">
@@ -82,7 +94,7 @@ export const BoardList = () => {
                         {isAddBoardOpen && <BoardAdd
                             onToggleAddBoard={onToggleAddBoard}
                             onAddBoard={onAddBoard}
-                            dfBgs={boardService.getDefaultBgs()} />}
+                            dfBgs={() => boardService.getDefaultBgs()} />}
 
                         {boards.map((board, idx) => {
                             return <BoardThumbnailPreview

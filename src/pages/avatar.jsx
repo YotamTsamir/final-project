@@ -2,13 +2,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { setUserAvatar } from "../store/action/user-action";
 import { updateUserImgInBoards } from "../store/action/board-action";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
 
 export const Avatar = () => {
     const dispatch = useDispatch()
     const { user } = useSelector(
         (storeState) => storeState.userModule
     );
-    console.log(user)
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
 
@@ -20,17 +21,30 @@ export const Avatar = () => {
 
     const handleSubmitFile = (e) => {
         e.preventDefault();
-        console.log('submit')
         if (!selectedFile) return;
         const reader = new FileReader();
-        reader.readAsDataURL(selectedFile);
+        reader.readAsDataURL(file);
         reader.onloadend = () => {
             uploadImage(reader.result);
-        };
+        }
         reader.onerror = () => {
             console.error('AHHHHHHHH!!');
-        };
+        }
     };
+
+    // const handleSubmitFile = (e) => {
+    //     e.preventDefault();
+    //     // console.log('submit')
+    //     if (!selectedFile) return;
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(selectedFile);
+    //     reader.onloadend = () => {
+    //         uploadImage(reader.result);
+    //     }
+    //     reader.onerror = () => {
+    //         console.error('AHHHHHHHH!!');
+    //     }
+    // };
 
 
     const uploadImage = async (imageUrl) => {
@@ -40,7 +54,6 @@ export const Avatar = () => {
         const FORM_DATA = new FormData();
         FORM_DATA.append('file', imageUrl)
         FORM_DATA.append('upload_preset', UPLOAD_PRESET)
-        console.log(user.img)
         try {
             const res = await fetch(UPLOAD_URL, {
                 method: 'POST',
@@ -55,16 +68,17 @@ export const Avatar = () => {
             console.error(err);
         }
     };
-    console.log(user)
-    if (!user) return <h1>Loading...</h1>
+    if(!user) return <h1>Loading...</h1>
     return <div className="avatar">
-
         <div className="avatar-header">
             {user.avatar &&
                 <div className="avatar-img-container">
                     <img className="avatar-img" src={user.avatar} />
-                    <input onChange={handleFileInputChange} value={fileInputState} type="file"  className="costum-input"/>
-                    <button onClick={handleSubmitFile}>Submit</button>
+                    <label className="costum-input">
+                        <div><FontAwesomeIcon className="change-avatar" icon={faEdit} /></div>
+                        <input onChange={handleFileInputChange} value={fileInputState} type="file" />
+                    </label>
+                    {/* <button onClick={handleSubmitFile}>Submit</button> */}
                 </div>
             }
             <div className="avatar-fullname">
@@ -74,7 +88,6 @@ export const Avatar = () => {
                 {user.email}
             </div>
         </div>
-
 
     </div>
 }

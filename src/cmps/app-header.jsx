@@ -49,7 +49,7 @@ export const AppHeader = () => {
         return
     }
     useEffect(() => {
-        // if (!user) navigate('/')
+        // if (user) navigate('/')
         scrollListener()
     }, [])
 
@@ -174,13 +174,15 @@ export const AppHeader = () => {
                 {user &&
                     <button
                         onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                        className="notification-btn empty">
+                        className="notification-btn"
+                        // className={`notification-btn ${unreadNotes ? `unread` : ` empty`}`} 
+                        >
                         <FontAwesomeIcon icon={faBellRegular} />
                     </button>
                 }
                 {(isNotificationsOpen) && <Notifications user={user} />}
                 {(location.pathname === '/signup' || location.pathname === '/login') &&
-                    <button onClick={pathToHome}  >Back to home</button>
+                    <button className='back-to-home' onClick={pathToHome}  >Back to home</button>
                 }
                 {isLoginBarOpen &&
                     <div className="signin-signup-links">

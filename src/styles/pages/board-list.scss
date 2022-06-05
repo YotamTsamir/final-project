@@ -3,8 +3,6 @@
     align-self: center;
     display: flex;
     align-items: center;
-    // padding: 0 124px;
-    max-width: 1129px;
     gap: 32px;
 
     .list-page-menu{
@@ -55,7 +53,7 @@
     display: flex;
     justify-content: center;
     margin-top: 40px;
-    flex-grow:1;
+    // flex-grow:1;
     width: 825px;
 
     .board-list {
