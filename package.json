@@ -38,6 +38,7 @@
     "redux-thunk": "^2.4.1",
     "sass": "^1.52.1",
     "socket.io-client": "^4.5.1",
+    "unsplash-js": "^7.0.15",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

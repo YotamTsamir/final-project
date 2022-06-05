@@ -126,6 +126,8 @@ export const Board = () => {
         dispatch(editBox(board._id, currBox))
     }
 
+    console.log(board)
+
     if (!board?.boxes || !board?._id) return <h1>Loading...</h1>
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar

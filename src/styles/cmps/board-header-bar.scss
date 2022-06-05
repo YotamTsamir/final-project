@@ -55,8 +55,8 @@
         border: none;
         background-color: #00000014;
         border-radius: 3px;
-        height: 36px;
-        width: 36px;
+        height: 32px;
+        width: 32px;
         padding: 6px;
         margin-left: 4px;
         margin-right: 6px;
@@ -87,7 +87,7 @@
         padding-right: 8px;
 
         .menu-btn {
-            width: 116.74px;
+            // width: 116.74px;
 
 
             p {
@@ -95,7 +95,7 @@
                 padding-right: 12px;
                 text-align: left;
                 margin: 0%;
-                padding: 8;
+                padding: 8px;
                 // background-color: rgba(250, 248, 248, 0.239);
 
             }
@@ -138,6 +138,8 @@
     .add-member-board {
         margin-left: 8px;
     }
+
+
 
     .board-menu {
         background-color: #f4f5f7;
@@ -430,7 +432,13 @@
         background-color: #00000029;
         border: transparent;
         border-radius: 3px;
-        height: 36px;
+        // height: 32px;
+    }
+
+    .add-member-board:hover {
+        cursor: pointer;
+        transition: 0.2s;
+        background: #00000014;
     }
 
     .menu-btn,
@@ -449,13 +457,24 @@
     .board-title,
     .add-member-board,
     .fav-btn,
-    .menu-btn *,
-    .filter-btn * {
+    .menu-btn,
+    .filter-btn {
         color: #ffffff;
         background-color: #ffffff3d;
         border: transparent;
         border-radius: 3px;
-        height: 36px;
+
+        * {
+            color: #ffffff;
+        }
+    }
+
+    .fav-btn:hover,
+    .board-title:hover,
+    .add-member-board:hover {
+        cursor: pointer;
+        transition: 0.2s;
+        background: #00000014;
     }
 
     // .filter-btn{

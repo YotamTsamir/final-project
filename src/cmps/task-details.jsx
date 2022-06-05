@@ -133,7 +133,7 @@ export const TaskDetails = () => {
             className={`task-details-cover `}
             style={{
               background: bg,
-              backgroundSize: 'contain',
+              backgroundSize: 'cover',
               backgroundRepeat: 'no-repeat',
               backgroundPosition: 'center'
             }}

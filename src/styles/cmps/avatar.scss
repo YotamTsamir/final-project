@@ -9,14 +9,33 @@
     .avatar-img-container {
         position: relative;
 
-        .costum-input::-webkit-file-upload-button{
-            height: 20vh;
-            width: 20vh;
-            border-radius: 50%;
-            // border: none;
-            background: none;
+        input {
+            display: none;
         }
 
+        .costum-input {
+            div {
+                position: absolute;
+                top: 0;
+                left: 1px;
+                border: 1px solid black;
+                min-height: 20vh;
+                width: 20vh;
+                border-radius: 50%;
+
+                .change-avatar{
+                    position: absolute;
+                    left: 80%;
+                    bottom: 0;
+                }
+            }
+        }
+    }
+
+    .avatar-img {
+        height: 20vh;
+        border: 1px solid rgb(200, 199, 199);
+        border-radius: 50%;
     }
 
     .avatar-header {
@@ -26,11 +45,7 @@
         gap: 10px;
 
 
-        .avatar-img {
-            height: 20vh;
-            border: 1px solid rgb(200, 199, 199);
-            border-radius: 50%;
-        }
+
 
         .avatar-fullname {
             font-size: 30px;

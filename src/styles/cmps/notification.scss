@@ -2,17 +2,41 @@
     position: fixed;
     top: 48px;
     background-color: white;
+    padding: 6px 4px;
     z-index: 200;
-    padding: 6px 12px;
     border-radius: 3px;
     box-shadow: 0 8px 16px -4px rgb(9 30 66 / 25%), 0 0 0 1px rgb(9 30 66 / 8%);
-    max-height: 650px;
-    width: 332px;
-    overflow-y: auto;
+
+    .notification-list {
+        max-height: 50vh;
+        width: 332px;
+        overflow-y: auto;
+        padding: 6px 12px;
+
+        .task-archived-txt {
+            display: flex;
+            gap: 4px;
+
+            .read-unread-toggle {
+                svg {
+                    border: 1px solid #00AECC;
+                    border-radius: 50%;
+                }
+
+                svg * {
+                    fill: #ffffff;
+                }
+            }
+
+            .read-unread-toggle.unread {
+                svg * {
+                    color: #00C2E0;
+                    fill: #00C2E0;
+                }
+            }
 
 
-    * {
-        color: black;
+        }
     }
 
     h4 {
@@ -23,6 +47,13 @@
 
     .notification-container {
         margin-bottom: 8px;
+        box-shadow: 0 1px 1px rgb(9 45 66 / 25%), 0 0 0 1px rgb(9 45 66 / 8%);
+        border-radius: 3px;
+        padding: 4px;
+
+        &.unread {
+            background: #E4F7FA;
+        }
 
 
         .notification-details {
@@ -56,17 +87,17 @@
     }
 }
 
-.notifications-container::-webkit-scrollbar {
+.notification-list::-webkit-scrollbar {
     width: 10px;
 }
 
-.notifications-container::-webkit-scrollbar-track {
+.notification-list::-webkit-scrollbar-track {
     background: none;
     border-radius: 10px;
     background-color: #f2f2f2;
 }
 
-.notifications-container::-webkit-scrollbar-thumb {
+.notification-list::-webkit-scrollbar-thumb {
     background-color: #c4c4c4;
     border-radius: 10px;
 }

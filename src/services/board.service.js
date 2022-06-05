@@ -2,10 +2,15 @@ import { storageService } from './async-storage.service'
 import getAverageColor from 'get-average-color'
 import { httpService } from './http.service'
 import { userService } from './user-service'
+import { createApi } from 'unsplash-js'
 let tommyImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654117856/tommyImg_fcp4fb.png'
 let yotamImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119142/yotamImg_mddok7.png'
 let shaharImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119196/shaharImg_qlkyzl.png'
 let rotemImg = 'https://res.cloudinary.com/ddlztsqql/image/upload/v1654119219/rotemImg_src4ts.png'
+
+
+
+
 
 const STORAGE_KEY = 'board'
 
@@ -38,7 +43,16 @@ export const boardService = {
     addBoardMember
 }
 
-
+async function getImgsFromUnsplash() {
+    const unsplash = createApi({
+        accessKey: 'sKw1zGI6ZkoC69QrYw38NLcezGA9lznBoBhk02lBHNA',
+    })
+    const imgs = await unsplash.photos.list(1, 1)
+        .then(res => res.response.results.map(photo => {
+            return photo.urls.full
+        }))
+    return imgs
+}
 
 async function addLabelToTask(task, box, labelId, boardId) {
     let board = await getById(boardId)
@@ -122,6 +136,10 @@ async function addNewBoard(board) {
 }
 
 function getDefaultBgs() {
+    // const image = await defaultBgs.image()
+    // const color = defaultBgs.color
+    // // console.log(image)
+    // return { image, color }
     return defaultBgs
 }
 
@@ -201,7 +219,7 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members":[userService.getLoggedinUser()] || [
+        "members": [userService.getLoggedinUser()] || [
         ],
         "boxes": [],
     })
@@ -209,7 +227,7 @@ function _createBoard(userBoard) {
 
 async function addBoardMember(member, boardId) {
     const board = await getById(boardId)
-    const check = board.members.find(currMember => {if(currMember._id === member._id) return member})
+    const check = board.members.find(currMember => { if (currMember._id === member._id) return member })
     if (check) {
         const idx = board.members.findIndex(currMember => currMember._id === member._id)
         board.members.splice(idx, 1)
@@ -359,6 +377,7 @@ const board = {
 }
 
 const defaultBgs = {
+    // image: getImgsFromUnsplash,
     image: [
         "https://images.unsplash.com/photo-1653819305873-c3abd024d89f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDF8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
         "https://images.unsplash.com/photo-1653641563300-742183619684?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=Mnw3MDY2fDB8MXxjb2xsZWN0aW9ufDN8MzE3MDk5fHx8fHwyfHwxNjUzOTM2NzYw&ixlib=rb-1.2.1&q=80&w=2000",
@@ -385,6 +404,8 @@ const defaultBgs = {
         "#D836CC",
     ]
 }
+
+// console.log(defaultBgs)
 
 // {
 //     "id": "b101",

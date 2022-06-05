@@ -131,7 +131,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         {(!isEdit) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
             {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo" style={{
                 background: task.bg,
-                backgroundSize: 'contain',
+                backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
                 backgroundColor: 'rgb(25, 26, 25)'
@@ -192,8 +192,8 @@ export const TaskPreview = ({ task, board, box, index }) => {
                     <div
                         className="task-preview-photo edited-photo"
                         style={{
-                            background: task.bg, backgroundSize: 'contain',
-                            backgroundSize: 'contain',
+                            background: task.bg, 
+                            backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                             backgroundPosition: 'center',
                             backgroundColor: 'rgb(25, 26, 25)'
