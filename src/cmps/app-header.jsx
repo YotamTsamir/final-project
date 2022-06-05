@@ -49,7 +49,7 @@ export const AppHeader = () => {
         return
     }
     useEffect(() => {
-        // if (user) navigate('/')
+        // if (!user) navigate('/')
         scrollListener()
     }, [])
 
@@ -174,9 +174,7 @@ export const AppHeader = () => {
                 {user &&
                     <button
                         onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                        className="notification-btn"
-                        // className={`notification-btn ${unreadNotes ? `unread` : ` empty`}`} 
-                        >
+                        className="notification-btn empty">
                         <FontAwesomeIcon icon={faBellRegular} />
                     </button>
                 }

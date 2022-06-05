@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
 import { BgImgList } from "./bg-image-list";
@@ -24,6 +24,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     const [createLabel, onCreateLabel] = useState(false)
     const [newLabelColor, setNewLabelColor] = useState('')
     const dispatch = useDispatch()
+    const [imageURL, setImageURL] = useState(null)
+
 
 
     const onAddLabel = async (ev, labelId) => {
@@ -54,6 +56,20 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     const onChangeDate = (value) => {
         onChange(value)
     }
+
+    const  promptPicture  =  () => {
+        const pictureUrl = prompt('Add a picture url')
+        onChangeBgImg(pictureUrl)
+    }
+
+    useEffect(() => {
+        promptPicture()
+    }, [])
+
+    useEffect(() => {
+        console.log(imageURL)
+    }, [imageURL])
+
     const onSaveDueDate = () => {
         const newTask = {
             ...task, date: {
@@ -175,7 +191,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
                                     </div>
                                 </div>
                             }
-                            <p className="member-name">{member.fullname} ({member.userName})</p>
+                            <p className="member-name">{member.fullname} ({member.username})</p>
                         </div>
                         )
                     })}
