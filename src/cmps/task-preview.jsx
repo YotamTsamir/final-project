@@ -67,9 +67,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
         const bodyElement = window.document.body
         const bodyWidth = bodyElement.getBoundingClientRect()
         const scrollX = bodyElement.scrollWidth
-        console.log(bodyElement.scrollWidth)
-        console.log(bodyWidth)
-        console.log(position.left)
+        // console.log(bodyElement.scrollWidth)
+        // console.log(bodyWidth)
+        // console.log(position.left)
         console.dir(taskRef.current.getBoundingClientRect().right)
 
         if (position.bottom > window.innerHeight) {

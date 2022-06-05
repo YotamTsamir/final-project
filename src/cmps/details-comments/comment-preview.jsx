@@ -5,11 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { useFormRegister } from "../../hooks/useFormRegister.js";
 
-export const CommentPreview = ({ comment, editCommentId, onToggleEditComment, onEditComment }) => {
-    const [register, newComment, setNewComment] = useFormRegister({ editComment: '' })
+export const CommentPreview = ({ comment, editComment, onToggleEditComment, onEditComment }) => {
+    const [register, newComment, setNewComment] = useFormRegister({ editComment: editComment?.txt })
 
     const emitEditComment = (comment) => {
-        console.log('COMMENT',comment)
         comment.txt = newComment.editComment
         onEditComment(comment)
     }
@@ -17,7 +16,7 @@ export const CommentPreview = ({ comment, editCommentId, onToggleEditComment, on
 
 
     return <div className="comment-container">
-        {(comment.id === editCommentId) &&
+        {editComment && (comment.id === editComment.id) &&
             <div className="edit-comment-container">
                 <input {...register('editComment')} className="edit-comment-txt" />
                 <div className="save-x-btn-container">

@@ -146,8 +146,27 @@
             }
         }
 
+        .input-comment{
+            max-width: calc(100% - 30px);
+
+            .avatar-comment-cmp-edit {
+                
+                .comment-avatar-img  {
+                    border-radius: 25em;
+                    height: 32px;
+                    width: 32px;
+                    margin-left: 4px;
+                }
+                
+            }
+        }
+
         .activity-container {
             margin-top: 24px;
+
+            img {
+                position: absolute;
+            }
 
             .task-activity-header {
                 display: flex;
@@ -157,8 +176,26 @@
                     font-size: 16px;
                 }
             }
-
             .comment-cmp {
+                border-radius: 3px;
+                border: none;
+                box-shadow:  0px 0px 1px 0px rgba(0, 0, 0, 0.351);
+                background: #fff;
+                height: 20px;
+                min-height: 20px;
+                resize: none;
+                padding: 8px 0 8px 12px;
+                width: 100%;
+                outline: none;
+                margin-left: 44px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: #ebecf0;
+                }
+            }
+
+            .task-comment-input{
                 margin-left: 40px;
                 padding: 8px 12px 56px;
                 box-sizing: border-box;
@@ -167,6 +204,8 @@
                 box-shadow: 0 1px 2px -1px #091e4240, 0 0 0 1px #091e4214;
                 position: relative;
                 margin-bottom: 24px;
+                resize: none;
+                width: 100%;
 
                 .task-comment-input {
                     overflow: hidden;
@@ -243,15 +282,19 @@
                         box-shadow: 0px 0px 15px 3px rgba(0, 0, 0, 0.03);
                         align-items: center;
                     }
-
+                    span.comment-timeStamp {
+                        
+                        font-size: 12px;
+                        font-weight: 300;
+                        color: rgb(126, 126, 126);
+                        
+                    }
                     .comment-createdBy-timeStamp {
                         font-weight: 600;
                         padding-bottom: 10px;
 
                         span {
-                            font-size: 12px;
-                            font-weight: 300;
-                            color: rgb(126, 126, 126);
+
                         }
                     }
 
@@ -276,6 +319,11 @@
 
                             .comment-edit {
                                 margin-left: -6px;
+                                cursor: pointer;
+                            }
+
+                            .comment-delete {
+                                cursor: pointer;
                             }
                         }
                     }

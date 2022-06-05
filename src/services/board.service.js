@@ -139,10 +139,9 @@ async function addComment(boardId, boxId, task) {
     return await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
 }
 
-async function removeComment(boardId, boxId, task, comment) {
-    const commentIdx = task.comments.findIndex(currComment => currComment.id === comment)
-    task.comments.splice(commentIdx, 1)
-    await httpService.put(`board/updateTask/${boardId}/${boxId}`, task)
+async function removeComment(boardId, box, task, comment) {
+    task.comments = task.comments.filter(currComment => comment.id !== currComment.id)
+    await httpService.put(`board/updateTask/${boardId}/${box.id}`, task)
     return task
 }
 

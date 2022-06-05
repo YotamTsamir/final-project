@@ -14,41 +14,47 @@ export const InputComments = ({ board, box, task }) => {
 
   const [register, entity, editEntity] = useFormRegister({ comment: "" });
 
-  const [fieldsEdit, setFieldsEdit] = useState({ isComments: false });
+  const [fieldsEdit, setFieldsEdit] = useState({ isCommentEdit: false });
   const { user } = useSelector((storeState) => storeState.userModule)
   const { comments } = task;
-  console.log('user',comments)
+
   const isEditShownCom = () => {
-    console.log(task)
-    return !comments.length > 0 || !fieldsEdit.isComments;
+    return !comments.length > 0 || !fieldsEdit.isCommentEdit;
   };
   const onEditField = () => {
-    setFieldsEdit({ ...fieldsEdit, isComments: true });
+    setFieldsEdit({ isCommentEdit: !fieldsEdit.isCommentEdit });
   };
 
 
-  const onEditTaskEntity = async (ev) => {
+  const onEditTaskEntity = (ev) => {
     ev.preventDefault();
+    const currUser = userService.getLoggedinUser()
     const newTask = {
       ...task, comments:
-        [...task.comments, {
+        [{
           txt: entity.comment,
           id: utilService.makeId(),
           createdAt: Date.now(),
-          createdBy: user ? user.fullname : 'Guest'
-        }]
+          createdBy: currUser ? currUser : 'Guest'
+        }, ...task.comments]
     };
-
     dispatch(editTask(board._id, box.id, newTask));
     dispatch(setTask(newTask, box))
-    setFieldsEdit({ isComments: false });
+    onEditField()
     entity.comment = "";
   };
 
   if (!comments || !box) return <h1>Loading...</h1>
   return (
-    <div className="comment-cmp">
-      {isEditShownCom() && (
+    <div className="input-comment">
+      <div className="avatar-comment-cmp-edit">
+      <div className="comment-cmp-avatar">
+        {(user.fullname !== 'Guest') ?
+          <img className="comment-avatar-img" src={user.avatar} />
+          :
+          <img className="comment-avatar-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUqOq31iJPIGiwT8if3AxZugFDpkNPz5YXTg&usqp=CAU" />}
+      </div></div>
+      {fieldsEdit.isCommentEdit ?
         <form className="left-details-container form-comment-details"
           onSubmit={(ev) => {
             onEditTaskEntity(ev);
@@ -58,16 +64,17 @@ export const InputComments = ({ board, box, task }) => {
             placeholder="Write a comment..."
             className="task-comment-input"
             {...register("comment")}
+            autoFocus
           ></textarea>
           <button className="save-comment-btn comment">Save</button>
         </form>
-      )}
-      {!isEditShownCom() && (
-        <div
-          className="curr-comment"
-          onClick={() => onEditField("isComments")}
-        ></div>
-      )}
+        :
+        <textarea onClick={onEditField}
+          placeholder="Write a comment..."
+          className="comment-cmp"
+        ></textarea>
+      }
     </div>
+
   );
 };

@@ -67,7 +67,6 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu }) => {
 
     const onChangeBgImg = async ({ target }) => {
         let newTask;
-        console.log(target.value)
         newTask = { ...task, bg: target.value }
         dispatch(editTask(board._id, box.id, newTask))
     }
