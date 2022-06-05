@@ -37,6 +37,9 @@ export const BoardAdd = ({ dfBgs, onToggleAddBoard, onAddBoard }) => {
             ({ ...prevState, [field]: value }))
     }
 
+    // console.log(dfBgs)
+
+    if(!dfBgs) return <h1>loading...</h1>
     return <form className="board-add"
         onSubmit={(ev) => onCreateBoard(ev)}>
         <h2>Create Board</h2>

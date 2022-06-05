@@ -19,18 +19,18 @@ export const Avatar = () => {
         setFileInputState(e.target.value);
     };
 
-    const handleSubmitFile = (e) => {
-        e.preventDefault();
-        if (!selectedFile) return;
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            uploadImage(reader.result);
-        }
-        reader.onerror = () => {
-            console.error('AHHHHHHHH!!');
-        }
-    };
+    // const handleSubmitFile = (e) => {
+    //     e.preventDefault();
+    //     if (!selectedFile) return;
+    //     const reader = new FileReader();
+    //     reader.readAsDataURL(file);
+    //     reader.onloadend = () => {
+    //         uploadImage(reader.result);
+    //     }
+    //     reader.onerror = () => {
+    //         console.error('AHHHHHHHH!!');
+    //     }
+    // };
 
     // const handleSubmitFile = (e) => {
     //     e.preventDefault();

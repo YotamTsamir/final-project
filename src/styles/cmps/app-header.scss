@@ -29,6 +29,10 @@
             align-items: center;
             text-decoration: none;
             gap: 4px;
+            height: 28px;
+            padding: 6px 12px 6px 0;
+            margin: 0;
+            border-radius: 3px;
 
             * {
                 margin: 0;
@@ -65,6 +69,19 @@
                     display: flex;
                     align-items: center;
                     gap: 4px;
+                    height: 28px;
+                    padding: 6px 12px;
+                    border-radius: 3px;
+                }
+
+                .nav-link {
+                    height: 28px;
+                    padding: 6px 12px;
+                    display: flex;
+                    align-items: center;
+                    margin: 0;
+                    text-decoration: none;
+                    border-radius: 3px;
                 }
             }
 
@@ -87,7 +104,8 @@
         flex-direction: row-reverse;
         align-items: center;
         gap: 4px;
-        .back-to-home{
+
+        .back-to-home {
             background-color: #0065ff;
             padding-right: 20px;
             padding-left: 20px;
@@ -106,6 +124,7 @@
             border-radius: 3px;
             border: none;
         }
+
         .user-nav-links {
             position: relative;
             flex-grow: 1;
@@ -315,7 +334,7 @@
             flex-grow: 1;
             margin: 0;
             height: 36px;
-            border-radius: 0.2rem;
+            // border-radius: 0.2rem;
             font-size: 1.2em;
             letter-spacing: 1px;
             font-weight: 700;
@@ -336,7 +355,7 @@
             background-color: #0065ff;
             padding-right: 30px;
             padding-left: 30px;
-
+            color: #ffffff;
         }
 
         .nav-link-home.login:hover {

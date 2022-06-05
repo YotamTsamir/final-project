@@ -59,7 +59,7 @@ export const InputComments = ({ board, box, task }) => {
             onEditTaskEntity(ev);
           }}
         >
-          <div>
+          <div className="new-comment-container">
           <textarea
             placeholder="Write a comment..."
             className="task-comment-input"

@@ -7,6 +7,7 @@ export const BgClrList = ({ dfBgs, onChange }) => {
     const { events } = useDraggable(ref);
 
 
+    if(!dfBgs) return <h1>Loading...</h1>
     return <ul className="bg-color"
         {...events}
         ref={ref}>

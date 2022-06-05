@@ -7,6 +7,8 @@ import { faRemove } from '@fortawesome/free-solid-svg-icons'
 export const TaskCoverMenu = ({ dfBgs, onChangeBgClr, onChangeBgImg, task }) => {
 
 
+    console.log(dfBgs)
+    if(!dfBgs) return <h1>l</h1>
     return <div className={`task-cover-menu`}>
         <TaskBgPreview task={task} />
         <h4 className='cover-menu-h4'>Colors</h4>

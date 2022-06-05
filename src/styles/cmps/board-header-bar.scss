@@ -64,7 +64,7 @@
 
     .starred-board {
         * {
-            color: #f2d600;
+            color: #f2d600 !important;
         }
 
         margin-right: 6px;
@@ -76,7 +76,7 @@
         cursor: pointer;
 
         * {
-            color: #f2d600;
+            color: #f2d600 !important;
         }
     }
 

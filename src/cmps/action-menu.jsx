@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
 import { BgImgList } from "./bg-image-list";
@@ -8,7 +8,6 @@ import Calendar from 'react-calendar'
 import { utilService } from "../services/util.service";
 import { TaskBgPreview } from '../cmps/task/task-bg-preview';
 import { userService } from "../services/user-service";
-//Need to implement the component and it's function
 import { TaskCoverMenu } from "./task/task-cover-menu";
 import { useFormRegister } from "../hooks/useFormRegister";
 import { checkListService } from "../services/check-list.service";
@@ -16,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX, faCheck } from '@fortawesome/free-solid-svg-icons'
 
 export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverMenuClass }) => {
-    const [dfBgs, onSetImages] = useState(boardService.getDefaultBgs())
+    const [defaultBgs, setDefaultBgs] = useState(null)
     const [register, newCheckListTitle, setCheckListTitle] = useFormRegister({ title: '' })
     const [registry, newLabelTxt, setNewLabelTxt] = useFormRegister({ txt: '' })
     const [labelFilter, newLabelFilter, setNewLabelFilter] = useFormRegister({ txt: '' })
@@ -24,6 +23,18 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     const [createLabel, onCreateLabel] = useState(false)
     const [newLabelColor, setNewLabelColor] = useState('')
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        setBgs()
+        console.log('banaynay')
+    }, [])
+
+    const setBgs = async () => {
+        const bgs = await boardService.getDefaultBgs()
+        console.log(bgs)
+        setDefaultBgs(bgs)
+    }
+    console.log(defaultBgs)
 
 
     const onAddLabel = async (ev, labelId) => {
@@ -145,7 +156,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         <div >
             {(topic === 'Cover') && <div>
                 <TaskCoverMenu
-                    dfBgs={dfBgs}
+                    dfBgs={defaultBgs}
                     onChangeBgImg={onChangeBgImg}
                     toggleMenu={toggleMenu}
                     topic={topic}

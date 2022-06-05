@@ -17,6 +17,7 @@ export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const { user } = useSelector((storeState) => storeState.userModule)
     const [newUser, editNewUser] = useState(user)
+    const [isUnreadNots, setIsUnreadNots] = useState(false)
     const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
     const [scroll, setScroll] = useState(0)
@@ -38,8 +39,17 @@ export const AppHeader = () => {
             if (user) socketService.emit(SOCKET_EVEN_SET_USER, user._id)
         })()
         socketService.on(SOCKET_EVENT_PUSH_NOTIFICATION, pushNotification)
-
+        checkUnreadNots()
     }, [])
+
+    const checkUnreadNots = () => {
+        if (!user) return
+        const isUnreadNotifications = user.notifications.some(not => {
+            return !not.isRead
+        })
+        // console.log(isUnreadNotifications)
+        setIsUnreadNots(isUnreadNotifications)
+    }
 
     const pushNotification = async (yes) => {
         const user = await userService.getById(yes.memberId)
@@ -66,7 +76,6 @@ export const AppHeader = () => {
 
     }
     const findPath = () => {
-        // console.log(location.pathname)
         if (location.pathname === '/boards' || location.pathname.includes('/b/')) return true
     }
     const scrollListener = () => {
@@ -174,9 +183,8 @@ export const AppHeader = () => {
                 {user &&
                     <button
                         onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                        className="notification-btn"
-                        // className={`notification-btn ${unreadNotes ? `unread` : ` empty`}`} 
-                        >
+                        className={`notification-btn ${isUnreadNots ? `unread` : ` empty`}`}
+                    >
                         <FontAwesomeIcon icon={faBellRegular} />
                     </button>
                 }
