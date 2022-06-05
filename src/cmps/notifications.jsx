@@ -6,7 +6,7 @@ import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 export const Notifications = ({ user }) => {
     // const [user, setUser] = useState('')
-    const [noti, setNoti] = useState(user.notifications)
+    // const [noti, setNoti] = useState(user.notifications)
     useEffect(() => {
         user = userService.getLoggedinUser()
     }, [])

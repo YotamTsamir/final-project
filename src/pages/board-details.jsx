@@ -114,8 +114,8 @@ export const Board = () => {
         else if (destination.droppableId !== source.droppableId) {
             const destinationBox = board.boxes.find(box => box.id === destination.droppableId)
             const originBox = board.boxes.find(box => box.id === source.droppableId)
-            console.log(originBox)
-            console.log('task is', source)
+            // console.log(originBox)
+            // console.log('task is', source)
             const user = userService.getLoggedinUser()
             const activity = { user, action: `moved`, isRead: false, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
             const newOrder = dragService.moveTaskToOtherBox(board, source, destination)

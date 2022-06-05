@@ -1,3 +1,30 @@
+.progress-bar {
+    background: #091e4214;
+    border-radius: 4px;
+    clear: both;
+    height: 8px;
+    margin: 0 0 0 40px;
+    overflow: hidden;
+    position: relative;
 
+    .progress-done {
+        background: #5ba4cf;
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition-duration: .14s;
+    }
 
-
+  
+}
+.check-list-progress-desc {
+    color: #5e6c84;
+    font-size: 11px;
+    left: 1px;
+    line-height: 10px;
+    position: absolute;
+    text-align: center;
+    top: 32px;
+    width: 32px;
+}

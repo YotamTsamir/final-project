@@ -105,8 +105,8 @@ export function editTask(boardId, boxId, task, activity) {
         let board = await boardService.saveTask(boardId, task, boxId)
         if (activity) board.activities?.unshift(activity)
         await boardService.save(board)
-
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
+        const boardAndActivity = {board,activity}
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, boardAndActivity)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
@@ -146,9 +146,10 @@ export function setTask(task, box) {
         dispatch({ type: 'SET_TASK', task, box })
     }
 }
-export function onRemoveComment(boardId, box, newTask) {
+export function onRemoveComment(boardId, box, newTask, comment) {
+    console.log('onRemoveComment action', newTask)
     return async (dispatch) => {
-        const task = await boardService.removeComment(boardId, box, newTask)
+        const task = await boardService.removeComment(boardId, box, newTask, comment)
         dispatch({ type: 'SET_TASK', task, box })
     }
 }

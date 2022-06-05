@@ -10,7 +10,6 @@ export const Avatar = () => {
     const { user } = useSelector(
         (storeState) => storeState.userModule
     );
-    console.log(user)
     const [fileInputState, setFileInputState] = useState('');
     const [selectedFile, setSelectedFile] = useState();
 
@@ -18,6 +17,11 @@ export const Avatar = () => {
         const file = e.target.files[0];
         setSelectedFile(file);
         setFileInputState(e.target.value);
+    };
+
+    const handleSubmitFile = (e) => {
+        e.preventDefault();
+        if (!selectedFile) return;
         const reader = new FileReader();
         reader.readAsDataURL(file);
         reader.onloadend = () => {
@@ -50,7 +54,6 @@ export const Avatar = () => {
         const FORM_DATA = new FormData();
         FORM_DATA.append('file', imageUrl)
         FORM_DATA.append('upload_preset', UPLOAD_PRESET)
-        console.log(UPLOAD_URL)
         try {
             const res = await fetch(UPLOAD_URL, {
                 method: 'POST',
@@ -65,9 +68,7 @@ export const Avatar = () => {
             console.error(err);
         }
     };
-    console.log(user)
-
-    if (!user) return <h1>Loading...</h1>
+    if(!user) return <h1>Loading...</h1>
     return <div className="avatar">
         <div className="avatar-header">
             {user.avatar &&

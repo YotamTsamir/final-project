@@ -1,17 +1,19 @@
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect, useRef } from 'react'
 import desc from '../pngs/menu.png'
+import chat from '../imgs/conversation.png'
 import { useSelector } from "react-redux"
 import { boardService } from "../services/board.service"
 import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPen } from '@fortawesome/free-solid-svg-icons'
-import { faClock, faSquare, faSquareCheck } from '@fortawesome/free-regular-svg-icons'
+import { faClock, faSquare, faSquareCheck,faMessage } from '@fortawesome/free-regular-svg-icons'
 import { Outlet } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { setTask, editTask, toggleLabels } from "../store/action/board-action"
 import { useFormRegister } from "../hooks/useFormRegister"
 import { EditTaskNav } from "./edit-task-nav"
+
 
 export const TaskPreview = ({ task, board, box, index }) => {
     const [labelOpen, setLabelOpen] = useState('')
@@ -21,6 +23,8 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const [isPassed, setIsPassed] = useState()
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: task.title })
     const [labels, setLabels] = useState([])
+    const [doneTodos, setDoneTodos] = useState(0)
+    const [totalTodos, setTotalTodos] = useState(0)
 
     const [taskMarginTop, setTaskMarginTop] = useState('0px')
     const [taskMarginLeft, setTaskMarginLeft] = useState('0px')
@@ -30,7 +34,18 @@ export const TaskPreview = ({ task, board, box, index }) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
-
+    useEffect(() => {
+        let currTotalTodos = 0
+        let currDoneTodos = 0
+        task.checkLists.map(checkList => {
+            checkList.todos.map(todo => {
+                currTotalTodos += 1
+                if (todo.isDone) currDoneTodos += 1
+            })
+        })
+        setDoneTodos(currDoneTodos)
+        setTotalTodos(currTotalTodos)
+    }, [task])
     useEffect(() => {
         if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
             setIsPassed('passed')
@@ -69,7 +84,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
         // console.log(bodyElement.scrollWidth)
         // console.log(bodyWidth)
         // console.log(position.left)
-        // console.dir(taskRef.current.getBoundingClientRect().right)
+        console.dir(taskRef.current.getBoundingClientRect().right)
 
         if (position.bottom > window.innerHeight) {
             const diff = position.bottom - window.innerHeight
@@ -107,7 +122,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
         setIsLeftAlignActionMenu(false)
         setIsEdit(false)
     }
-
     const onOpenEditTask = (ev) => {
         ev.stopPropagation()
         setIsEdit(!isEdit)
@@ -160,6 +174,8 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                     <img className="desc-png" src={desc} />
                                 </div>}
                         </div>
+                        {(task.comments.length>0)&&<span><FontAwesomeIcon icon={faMessage}/>{task.comments.length}</span>}
+                        {(task.checkLists.length > 0) && <span className="checklist-task-preview" style={{ backgroundColor: (doneTodos === totalTodos) ? '#61bd4f' : '' }}><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                         {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {
                                 return <div
@@ -218,6 +234,7 @@ export const TaskPreview = ({ task, board, box, index }) => {
                             <div className="desc-png-container">
                                 <img className="desc-png" src={desc} /></div>}
                     </div>
+                    {(task.checkLists.length) && <span><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                     {(task.members) && <div className="task-members">
                         {task.members.map((member, idx) => {
                             return (

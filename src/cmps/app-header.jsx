@@ -182,7 +182,7 @@ export const AppHeader = () => {
                 }
                 {(isNotificationsOpen) && <Notifications user={user} />}
                 {(location.pathname === '/signup' || location.pathname === '/login') &&
-                    <button onClick={pathToHome}  >Back to home</button>
+                    <button className='back-to-home' onClick={pathToHome}  >Back to home</button>
                 }
                 {isLoginBarOpen &&
                     <div className="signin-signup-links">

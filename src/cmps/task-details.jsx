@@ -41,6 +41,7 @@ export const TaskDetails = () => {
   }, []);
 
   useEffect(() => {
+    // if(!task?.date?.timeStamp) return 
     if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
       setIsPassed('passed')
     }
@@ -124,7 +125,7 @@ export const TaskDetails = () => {
           className={`exit-task-details-btn ${bg ? 'yes-cover' : 'no-cover'}`}
           onClick={() => {
             onToggleDetails();
-          }}            >
+          }}>
           <FontAwesomeIcon className="fa-solid fa-xmark" icon={faXmark} />
         </button>
         <div className="task-details-cover-area">

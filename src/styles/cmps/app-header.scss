@@ -1,5 +1,5 @@
 .app-header {
-    padding: 6px 4px 6px 27px;
+    padding: 6px 27px 6px 27px;
     z-index: 100;
     box-sizing: border-box;
     display: flex;
@@ -87,7 +87,25 @@
         flex-direction: row-reverse;
         align-items: center;
         gap: 4px;
-
+        .back-to-home{
+            background-color: #0065ff;
+            padding-right: 20px;
+            padding-left: 20px;
+            flex-grow: 1;
+            margin: 0;
+            height: 36px;
+            border-radius: 0.2rem;
+            font-size: 1.2em;
+            letter-spacing: 1px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 4px 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            border: none;
+        }
         .user-nav-links {
             position: relative;
             flex-grow: 1;
@@ -172,7 +190,7 @@
                 }
 
                 .nav-link {
-                    height: 20px;
+                    height: 34px;
                     padding: 6px 12px;
                     display: flex;
                     align-items: center;
