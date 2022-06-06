@@ -107,7 +107,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                     })}
                 </div>
             }
-            <button className="add-member-board" onClick={() => setIsAddMember(!isAddMember)}>Add member</button>
+            <button className="add-member-board" onClick={() => setIsAddMember(!isAddMember)}>Add Member</button>
             {(isAddMember) && <AddMember board={board} />}
         </div>
         <div className="header-btn-contianer">

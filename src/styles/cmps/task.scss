@@ -79,6 +79,10 @@
     }
     .checklist-task-preview{
         border-radius: 3px;
+        padding: 3px 4px;
+        color: white;
+        fill: white;
+        font-weight: 800px;
         position: relative;
     }
 
@@ -187,6 +191,7 @@
         width: 32px;
         border-radius: 50%;
         margin-right: 3px;
+        cursor: default;
 
     }
 }
@@ -400,7 +405,7 @@
     min-height: 20px;
     overflow: hidden;
     max-height: 20px;
-    padding: 2px;
+    padding: 2px 3px;
     border-radius: 3px;
 
 }
@@ -426,6 +431,10 @@
 
 .svg-inline--fa {
     color: rgb(254, 254, 254);
+}
+.fa-square-check {
+    color: rgb(254, 254, 254);
+    padding-right: 3px;
 }
 
 .almost:hover {
@@ -462,6 +471,7 @@
             height: 32px;
             width: 32px;
             border-radius: 50%;
+            margin-left: 2px;
         }
     }
 }

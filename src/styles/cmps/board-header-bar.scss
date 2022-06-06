@@ -502,7 +502,12 @@
         border-radius: 3px;
         // height: 32px;
     }
-
+    .board-title,
+    .fav-btn,
+    .menu-btn,
+    .filter-btn {
+        cursor: pointer;
+    }
     .add-member-board:hover {
         cursor: pointer;
         transition: 0.2s;

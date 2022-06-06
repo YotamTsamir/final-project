@@ -58,7 +58,7 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
             {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
                 <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
             <div onClick={() => setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
-                <FontAwesomeIcon className="extra-menu-btn" icon={faEllipsis} />
+                <FontAwesomeIcon className="extra-menu-btn three-dot" icon={faEllipsis} />
             </div>
             {(boardExtrasMenu) && <BoardExtrasMenu board={board} box={box} setBoardExtrasMenu={setBoardExtrasMenu} setAddTask={setAddTask} />}
         </div>

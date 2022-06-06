@@ -51,8 +51,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
 
     const onAddMember = (member) => {
         let newTask;
-        if (task.members.find(currMember => currMember.userName === member.userName)) {
-            const memberIdx = task.members.findIndex(currMember => currMember.userName === member.userName)
+        if (task.members.find(currMember => currMember._id === member._id)) {
+            const memberIdx = task.members.findIndex(currMember => currMember._id === member._id)
             task.members.splice(memberIdx, 1)
             newTask = { ...task, members: task.members }
         } else {
@@ -75,10 +75,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     //     promptPicture()
     // }, [])
 
-    useEffect(() => {
-        console.log(imageURL)
-    }, [imageURL])
-
+  
     const onSaveDueDate = () => {
         const newTask = {
             ...task, date: {
