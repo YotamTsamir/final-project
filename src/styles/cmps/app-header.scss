@@ -141,6 +141,11 @@
                 background-color: #005789;
                 background-size: contain;
 
+                .header-user-avatar {
+                    height: 100%;
+                    border-radius: 50%;
+                }
+
                 svg * {
 
                     color: white;
