@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { HashRouter as Router, Route, Routes, NavLink } from 'react-router-dom'
 import { Home } from './pages/home';
 import { BoardList } from './pages/board-list.jsx';
@@ -9,8 +9,16 @@ import { AppHeader } from './cmps/app-header.jsx';
 import { TaskDetails } from './cmps/task-details.jsx';
 import './styles/main.scss';
 import { Avatar } from './pages/avatar.jsx'
+import { socketService } from './services/socket.service';
 
 function App() {
+  useEffect(() => {
+    console.log('setup');
+    return () => {
+      // socketService.terminate()
+    }
+  }, [])
+
   return (
     <Router>
       <header>

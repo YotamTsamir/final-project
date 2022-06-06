@@ -22,7 +22,7 @@ export const Board = () => {
     const [isAdd, setIsAdd] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: '' })
     const [boardFilter, newBoardFilter, editBoardFilter] = useFormRegister({ filter: '' })
-    const [labelFilter,setLabelFilter] = useState([])
+    const [labelFilter, setLabelFilter] = useState([])
     const params = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -31,7 +31,8 @@ export const Board = () => {
         const { boardId } = params
         dispatch(getBoard(boardId))
         socketService.emit(SOCKET_EVENT_SET_BOARD, boardId);
-        socketService.off(SOCKET_EVENT_LOAD_BOARD);
+        console.log('???');
+        socketService.off(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         socketService.on(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         return () => {
             socketService.off(SOCKET_EVENT_LOAD_BOARD, updateBoard)
@@ -39,8 +40,9 @@ export const Board = () => {
         }
 
     }, [])
+
     const updateBoard = (board) => {
-        console.log('yes',board)
+        console.log('yes', board)
         dispatch(setNewBoard(board))
     }
 
@@ -90,7 +92,7 @@ export const Board = () => {
         }
         const box = { id: utilService.makeId(4), tasks: [], title: newBoxTitle.title }
         const user = userService.getLoggedinUser()
-        const activity = { user, action: `added`, isRead: false, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
+        const activity = { user:userService.getMiniUser(), action: `added`, isRead: false, id: utilService.makeId(), object: box, about: 'to his board', timeStamp: Date.now() }
         setIsAdd(false)
         EditBoxTitle({ title: '' })
         // const newBoard = await boardService.saveBox(boardId, box)
@@ -118,7 +120,7 @@ export const Board = () => {
             // console.log(originBox)
             // console.log('task is', source)
             const user = userService.getLoggedinUser()
-            const activity = { user, action: `moved`, isRead: false, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
+            const activity = { user:userService.getMiniUser(), action: `moved`, isRead: false, id: utilService.makeId(), object: originBox.tasks[source.index], about: `from ${originBox.title} to ${destinationBox.title}`, timeStamp: Date.now() }
             const newOrder = dragService.moveTaskToOtherBox(board, source, destination)
             dispatch(editBoxes(board._id, newOrder, activity))
             return

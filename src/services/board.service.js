@@ -180,7 +180,7 @@ function _createBoard(userBoard) {
         "isStarred": false,
         "archivedAt": null,
         "createdAt": Date.now(),
-        "createdBy": user||'',
+        "createdBy": userService.getMiniUser()||'',
         "style": userBoard.style,
         "labels": [
             {
@@ -219,7 +219,7 @@ function _createBoard(userBoard) {
                 "color": "#00c2e0"
             },
         ],
-        "members": [user]
+        "members": [userService.getMiniUser()]
         ,
         "boxes": [],
     })

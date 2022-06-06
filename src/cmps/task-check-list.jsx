@@ -75,7 +75,7 @@ export const CheckList = ({ board, box, checkList, task }) => {
         if (todo.isDone) {
             newTodo.isDone = false
             activity = {
-                user: userService.getLoggedinUser(), action: `marked an item incomplete`, isRead: false,
+                user: userService.getMiniUser(), action: `marked an item incomplete`, isRead: false,
                 id: utilService.makeId(), object: todo, about: `on ${task.title}`, timeStamp: Date.now()
             }
             setDoneTodos(doneTodos - 1)
@@ -84,7 +84,7 @@ export const CheckList = ({ board, box, checkList, task }) => {
         else {
             newTodo.isDone = true
             activity = {
-                user: userService.getLoggedinUser(), action: `has completed`, isRead: false,
+                user: userService.getMiniUser(), action: `has completed`, isRead: false,
                 id: utilService.makeId(), object: todo, about: `on ${task.title}`, timeStamp: Date.now()
             }
             setDoneTodos(doneTodos + 1)
