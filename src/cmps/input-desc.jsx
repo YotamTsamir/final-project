@@ -11,16 +11,17 @@ export const InputDesc = () => {
   const params = useParams();
   const { board, box, task } = useSelector((storeState) => storeState.boardModule);
   const [register, entity, editEntity] = useFormRegister({ description: task?.description || "" })
-
   const [fieldsEdit, setFieldsEdit] = useState({ isDescription: false })
-
   const { description } = task
+
   const isEditShownDesc = () => {
     return !description || fieldsEdit.isDescription;
   };
+
   const onEditField = () => {
     setFieldsEdit({ ...fieldsEdit, isDescription: true });
   };
+
   const onEditTaskEntity = async (ev) => {
 
     ev.preventDefault()
@@ -29,9 +30,11 @@ export const InputDesc = () => {
     dispatch(setTask(task, box))
     setFieldsEdit({ isDescription: false })
   };
-  const cancelDesc = () => {
-    setFieldsEdit({ isDescription: false })
-  }
+
+  // const cancelDesc = () => {
+  //   setFieldsEdit({ isDescription: false })
+  // }
+
   const { text, ...rest } = register("description")
 
   return (
@@ -44,13 +47,16 @@ export const InputDesc = () => {
           className="task-desc-form">
           <textarea
             placeholder="Add a more detailed descripton..."
-            className="task-desc-edit"
+            className={`task-desc-edit`}
             {...rest}
-            onBlur={cancelDesc}
+          // onBlur={onEditField}
           >{text}</textarea>
           <div className="desc-btns-container">
             <button className="desc-save-btn desc-btn">Save</button>
-            <button onClick={cancelDesc} className="desc-cancel-btn desc-btn" type="button">
+            <button
+              // onClick={}
+              className="desc-cancel-btn desc-btn"
+              type="button">
               Cancel
             </button>
           </div>

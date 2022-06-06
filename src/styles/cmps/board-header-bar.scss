@@ -215,6 +215,7 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            padding: 4px 4px 6px 4px;
         }
 
 
@@ -223,7 +224,8 @@
             flex-grow: 1;
             // line-height: 20px;
             font-size: 16px;
-            margin: 12px 0 5px 0;
+            margin: 12px 0 0 0;
+            padding-bottom: 4px;
         }
 
         button {
@@ -340,6 +342,11 @@
                         }
 
                     }
+                }
+
+                .seperator {
+                    height: 0;
+                    border-bottom: 0.2 solid #00000038;
                 }
             }
 
@@ -555,12 +562,11 @@
 .board-menu-head {
     display: flex;
     flex-direction: row-reverse;
-    align-items: center;
+    align-items: flex-end;
 
     .close-board-menu-btn {
         width: 20px;
         height: 20px;
-        padding: 4px;
         display: flex;
         justify-content: center;
 

@@ -12,7 +12,7 @@ import { BoardExtrasMenu } from "./board-extras-menu"
 import { socketService, SOCKET_EVENT_LOAD_BOARD } from "../services/socket.service"
 import { userService } from "../services/user-service"
 
-export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
+export const BoxPreview = ({ labelFilter, newBoardFilter, box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
     const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const [registery, newTask, EditTask] = useFormRegister({ title: '' })
@@ -26,17 +26,17 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), archivedAt: '',checkLists:[], members: [], isFull:false , title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), archivedAt: '', checkLists: [], members: [], isFull: false, title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
         console.log(task)
         if (!input) return setAddNewTask('')
         setAddNewTask(boxId)
         EditTask({ title: '' })
         const board = await boardService.saveTask(boardId, task, boxId)
         const user = userService.getLoggedinUser()
-        const activity = { user:  userService.getMiniUser(), action: `added `,id:utilService.makeId(), isRead:false , object:task , about: `to ${box.title}`, timeStamp: Date.now() }
+        const activity = { user: userService.getMiniUser(), action: `added `, id: utilService.makeId(), isRead: false, object: task, about: `to ${box.title}`, timeStamp: Date.now() }
         const boardAndActivity = { board, activity }
 
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD,boardAndActivity)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, boardAndActivity)
         dispatch(addTask(boardId, task, boxId, activity))
     }
 
@@ -69,7 +69,7 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
                         {...provided.droppableProps}
                         className="task-list-wraper">
                         <TaskList
-                          labelFilter={labelFilter} newBoardFilter={newBoardFilter} board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
+                            labelFilter={labelFilter} newBoardFilter={newBoardFilter} board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>
 
 
@@ -78,10 +78,17 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
                 )
             }}
         </Droppable>
-        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ Add a card</div> :
-            <div><div className="task task-add">
-                <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><textarea className="task-edit" {...registery('title')} autoFocus /></form>
-            </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>
+        {(box.id !== newTaskId) ?
+            <div onClick={() => setAddTask()} className='add-card'>+ Add a card</div> :
+            <div>
+                <div className="task task-add">
+                    <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><textarea className="task-edit" {...registery('title')} autoFocus /></form>
+                </div>
+                <div>
+                    <button
+                        onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">
+                        Add card
+                    </button>
 
                     <button className="close-new-task" onClick={() => setAddNewTask('')}>X</button></div>
             </div>}

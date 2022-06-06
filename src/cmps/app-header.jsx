@@ -211,8 +211,20 @@ export const AppHeader = () => {
                         <div className='small-right-menu-container'>
                             {user &&
                                 <React.Fragment>
-                                    <NavLink onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                                    <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link avatar">Logout</NavLink>
+                                    <NavLink
+                                        onClick={onToggleLoginBar}
+                                        className="nav-link-avatar"
+                                        to='/avatar'>
+                                        <div>Avatar settings</div>
+                                        <span 
+                                        style={{
+                                            background: `url(${user.avatar})`,
+                                            backgroundSize: 'cover',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}>
+                                        </span>
+                                    </NavLink>
+                                    <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link-avatar">Logout</NavLink>
                                 </React.Fragment>
                             }
                             {!user &&
