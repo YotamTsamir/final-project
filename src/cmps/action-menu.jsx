@@ -33,10 +33,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
 
     const setBgs = async () => {
         const bgs = await boardService.getDefaultBgs()
-        console.log(bgs)
         setDefaultBgs(bgs)
     }
-    console.log(defaultBgs)
 
 
     const onAddLabel = async (ev, labelId) => {
