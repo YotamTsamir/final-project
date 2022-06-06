@@ -31,7 +31,6 @@ export const Board = () => {
         const { boardId } = params
         dispatch(getBoard(boardId))
         socketService.emit(SOCKET_EVENT_SET_BOARD, boardId);
-        console.log('???');
         socketService.off(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         socketService.on(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         return () => {

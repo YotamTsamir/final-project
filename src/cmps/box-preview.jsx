@@ -4,7 +4,7 @@ import { useFormRegister } from "../hooks/useFormRegister"
 import { boardService } from "../services/board.service"
 import { useDispatch } from 'react-redux'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faEllipsis } from "@fortawesome/free-solid-svg-icons"
+import { faEllipsis,faPlus } from "@fortawesome/free-solid-svg-icons"
 import { editBox, addTask, setNewBoard, editTask } from '../store/action/board-action'
 import { Droppable, Draggable } from "react-beautiful-dnd"
 import { utilService } from "../services/util.service"
@@ -34,9 +34,8 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
         const board = await boardService.saveTask(boardId, task, boxId)
         const user = userService.getLoggedinUser()
         const activity = { user:  userService.getMiniUser(), action: `added `,id:utilService.makeId(), isRead:false , object:task , about: `to ${box.title}`, timeStamp: Date.now() }
-        const boardAndActivity = { board, activity }
 
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD,boardAndActivity)
+        
         dispatch(addTask(boardId, task, boxId, activity))
     }
 
@@ -78,7 +77,7 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
                 )
             }}
         </Droppable>
-        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'>+ Add a card</div> :
+        {(box.id !== newTaskId) ? <div onClick={() => setAddTask()} className='add-card'><FontAwesomeIcon icon={faPlus}/> Add a card</div> :
             <div><div className="task task-add">
                 <form onSubmit={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }}><textarea className="task-edit" {...registery('title')} autoFocus /></form>
             </div>  <div><button onClick={(ev) => { onAddTask(ev, board._id, box.id, newTask.title) }} className="save-btn">Add card</button>

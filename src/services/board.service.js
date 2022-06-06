@@ -233,7 +233,8 @@ async function addBoardMember(member, boardId) {
         board.members.splice(idx, 1)
         return save(board)
     }
-    board.members.push(member)
+    const miniMember = {_id:member._id,fullname:member.fullname,username:member.username,avatar:member.avatar}
+    board.members.push(miniMember)
     return save(board)
 
 }

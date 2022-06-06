@@ -185,7 +185,8 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                     <img className="desc-png" src={desc} />
                                 </div>}
                             {(task.comments.length > 0) && <span className="comment-task-preview"><FontAwesomeIcon icon={faMessage} />{task.comments.length}</span>}
-                            {(task.checkLists.length > 0) && <span className="checklist-task-preview" style={{ backgroundColor: (doneTodos === totalTodos) ? '#61bd4f' : '' }}><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
+                            {(task.checkLists.length > 0) && <span className={`checklist-task-preview ${(doneTodos === totalTodos) ? 'checklist-complete' : ''}`} 
+                            style={{ backgroundColor: (doneTodos === totalTodos) ? '#61bd4f' : '' }}><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                         </div>
                         {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {

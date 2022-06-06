@@ -24,9 +24,10 @@ export function addBox(boardId, box, activity) {
 export function addTask(boardId, task, boxId, activity) {
     return async dispatch => {
         let board = await boardService.saveTask(boardId, task, boxId)
-
+        const boardAndActivity = { board, activity }
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD,boardAndActivity)
         if (activity) board.activities.unshift(activity)
-        await boardService.save(board)
+        // await boardService.save(board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }
@@ -114,8 +115,7 @@ export function editTask(boardId, boxId, task, activity) {
 export function editBox(boardId, box) {
     return async dispatch => {
         const board = await boardService.saveBox(boardId, box)
-        const bigBoard = { board }
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD, bigBoard)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
         dispatch({ type: 'SET_BOARD', board })
     }
 }

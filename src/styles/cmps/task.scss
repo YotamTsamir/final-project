@@ -58,7 +58,8 @@
     position: relative;
     text-decoration: none;
     z-index: 0;
-    padding-bottom: 5px;
+    padding-bottom: 4px;
+    padding-top: 6px;
     padding-left: 8px;
     padding-right: 6px;
     // width: 229px;
@@ -70,18 +71,27 @@
         // word-break: break-all;
         color: #172b4d;
         display: block;
-        margin: 0 0 3px;
+        margin: 0;
         overflow: hidden;
         text-decoration: none;
     }
     .comment-task-preview{
         position: relative;
+        top: 4px;
     }
     .checklist-task-preview{
         border-radius: 3px;
+        padding: 3px 4px;
         position: relative;
-    }
+        top: 4px;
 
+        &.checklist-complete{
+            color: white;
+            svg * {
+                color: white
+            }
+        }
+    }
 }
 
 .task:hover {
@@ -204,6 +214,8 @@
 }
 
 .desc-png-container {
+    position: relative;
+    top: 4px;
     align-self: center;
 }
 
@@ -238,7 +250,7 @@
     color: #5e6c84;
     text-align: left;
     max-width: 240px;
-    padding: 4px 8px;
+    padding: 6px 8px;
     margin: 2px 0 0 8px;
 }
 
@@ -398,6 +410,7 @@
     align-items: center;
     max-width: 100%;
     min-height: 20px;
+    margin-top: 2px;
     overflow: hidden;
     max-height: 20px;
     padding: 2px;

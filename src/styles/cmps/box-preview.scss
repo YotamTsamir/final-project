@@ -66,7 +66,9 @@
     line-height: 20px;
     border-radius: 3px;
 
-
+    svg * {
+        color: #6b778c;
+    }
 
     .extras-menu:hover {
         opacity: 1;

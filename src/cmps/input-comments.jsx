@@ -27,7 +27,7 @@ export const InputComments = ({ board, box, task }) => {
 
   const onEditTaskEntity = (ev) => {
     ev.preventDefault();
-    const currUser = userService.getLoggedinUser()
+    const currUser = userService.getMiniUser()
     const newTask = {
       ...task, comments:
         [{
@@ -42,7 +42,6 @@ export const InputComments = ({ board, box, task }) => {
     onEditField()
     entity.comment = "";
   };
-  console.log(userService.getLoggedinUser())
   if (!comments || !box) return <h1>Loading...</h1>
   return (
     <div className="input-comment">
