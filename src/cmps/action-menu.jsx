@@ -68,14 +68,14 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         onChange(value)
     }
 
-    const  promptPicture  =  () => {
-        const pictureUrl = prompt('Add a picture url')
-        onChangeBgImg(pictureUrl)
-    }
+    // const  promptPicture  =  () => {
+    //     const pictureUrl = prompt('Add a picture url')
+    //     onChangeBgImg(pictureUrl)
+    // }
 
-    useEffect(() => {
-        promptPicture()
-    }, [])
+    // useEffect(() => {
+    //     promptPicture()
+    // }, [])
 
     useEffect(() => {
         console.log(imageURL)
@@ -114,7 +114,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         toggleMenu(topic)
         const user = await userService.getLoggedinUser()
         const activity = {
-            user, action: `added`, isRead: false, id: utilService.makeId(),
+            user:userService.getMiniUser(), action: `added`, isRead: false, id: utilService.makeId(),
             object: { title: newCheckListTitle.title }, about: `to ${task.title}`, timeStamp: Date.now()
         }
         dispatch(editTask(board._id, box.id, newTask, activity))

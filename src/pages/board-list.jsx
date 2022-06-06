@@ -13,25 +13,20 @@ import { faTrello } from '@fortawesome/free-brands-svg-icons'
 export const BoardList = () => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
     const [defaultBgs, setDefaultBgs] = useState([])
+    const loggedInUser = useSelector((storeState) => storeState.userModule.user)
     const { boards } = useSelector((storeState) => storeState.boardModule)
-    const [loggedInUser, setLoggedInUser] = useState({})
     const [boardsToDisplay, setBoardsToDisplay] = useState('')
+    // const [loggedInUser, setLoggedInUser] = useState({})
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(loadBoards())
         setBgs()
-        getLoggedInUser()
     }, [])
 
-    // useEffect(() => {
-    //     dispatch(loadBoards())
-    // }, [boards.length])
+    useEffect(() => {
+        dispatch(loadBoards())
+    }, [boards.length])
 
-    const getLoggedInUser = () => {
-        const user = userService.getLoggedinUser()
-        setLoggedInUser(user)
-    }
 
     const myBoards = boards.filter(board => {
         if (!loggedInUser) return
@@ -142,8 +137,8 @@ export const BoardList = () => {
                             onAddBoard={onAddBoard}
                             dfBgs={defaultBgs} />}
 
-                        {(loggedInUser && !boardsToDisplay) &&
-                            myBoards.map((board, idx) => {
+                        {loggedInUser &&
+                            boards.map((board, idx) => {
                                 return <BoardThumbnailPreview
                                     key={idx}
                                     board={board}

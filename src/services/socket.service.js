@@ -23,8 +23,8 @@ export const socketService = createSocketService()
 
 // for debugging from console
 // window.socketService = socketService
+socketService.setup();
 
-socketService.setup()
 
 
 function createSocketService() {
@@ -32,7 +32,8 @@ function createSocketService() {
   const socketService = {
     setup() {
       socket = io(baseUrl)
-      setTimeout(()=>{
+      console.log('wtf')
+      setTimeout(() => {
         const user = userService.getLoggedinUser()
         if (user) this.login(user._id)
       }, 500)
@@ -46,6 +47,8 @@ function createSocketService() {
       else socket.off(eventName, cb)
     },
     emit(eventName, data) {
+      console.log('event', eventName);
+      console.log('data', data);
       socket.emit(eventName, data)
     },
     login(userId) {
@@ -73,9 +76,9 @@ function createDummySocketService() {
     terminate() {
       this.setup()
     },
-    login() {   
+    login() {
     },
-    logout() {   
+    logout() {
     },
     on(eventName, cb) {
       listenersMap[eventName] = [...(listenersMap[eventName]) || [], cb]

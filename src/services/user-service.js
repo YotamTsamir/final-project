@@ -12,7 +12,8 @@ export const userService = {
     updateUser,
     getUsers,
     pushNotification,
-    getById
+    getById,
+    getMiniUser
 }
 
 window.us = userService
@@ -68,7 +69,13 @@ function getLoggedinUser() {
     return JSON.parse(user || null)
 }
 
-
+function getMiniUser(){
+    let user = (sessionStorage.getItem(STORAGE_KEY_LOGGEDIN)) ? JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN)) : null
+    if(user) {
+        user = {fullname:user.fullname,avatar:user.avatar}
+    }
+    return user
+}
 
 
 

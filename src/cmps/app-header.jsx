@@ -32,7 +32,9 @@ export const AppHeader = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+
     useEffect(() => {
+
         (async () => {
             const user = await userService.getLoggedinUser()
             // dispatch(updateUser(user))
