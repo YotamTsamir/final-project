@@ -28,12 +28,11 @@
                 height: 32px;
                 padding: 6px 8px 8px 0;
                 border-radius: 3px;
-                background-color: #E4F0F6;
+                // background-color: #E4F0F6;
                 box-sizing: border-box;
 
                 * {
                     margin: 0;
-                    color: #0079BF;
                 }
 
                 span {
@@ -48,6 +47,10 @@
 
             .active {
                 background-color: #9bd9f8;
+
+                * {
+                    color: #0079BF;
+                }
             }
 
             .to-boards:hover {

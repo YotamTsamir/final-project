@@ -10,6 +10,12 @@
 
     .lower-task-container {
         width: 100%;
+        line-height: 14px;
+        p{
+            margin: 0;
+            font-size: 14px;
+            padding-top: 3px;
+        }
     }
 }
 
@@ -197,6 +203,7 @@
         width: 32px;
         border-radius: 50%;
         margin-right: 3px;
+        cursor: default;
 
     }
 }
@@ -413,7 +420,7 @@
     margin-top: 2px;
     overflow: hidden;
     max-height: 20px;
-    padding: 2px;
+    padding: 2px 3px;
     border-radius: 3px;
 
 }
@@ -439,6 +446,10 @@
 
 .svg-inline--fa {
     color: rgb(254, 254, 254);
+}
+.fa-square-check {
+    color: rgb(254, 254, 254);
+    padding-right: 3px;
 }
 
 .almost:hover {
@@ -475,6 +486,7 @@
             height: 32px;
             width: 32px;
             border-radius: 50%;
+            margin-left: 2px;
         }
     }
 }

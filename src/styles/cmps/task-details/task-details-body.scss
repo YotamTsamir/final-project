@@ -204,7 +204,8 @@
                         overflow-wrap: break-word;
                         resize: none;
                         height: 108px;
-                        width: 100%;
+                        $width: calc(100% - 12px);
+                        width: $width;
                         border: none;
                         outline: none;
                         border-radius: 3px;
@@ -293,10 +294,11 @@
                 height: 20px;
                 resize: none;
                 padding: 8px 0 8px 12px;
-                width: 100%;
+                $width: calc(100% - 12px);
+                width: $width;
                 outline: none;
                 border: none;
-                padding-bottom: 56px;
+                // padding-bottom: 56px;
                 cursor: pointer;
 
                 &:hover {
@@ -348,7 +350,7 @@
             }
 
             .comments-container {
-                margin-left: 44px;
+                margin-left: 40px;
                 list-style: none;
                 list-style-position: left;
                 padding: 0;

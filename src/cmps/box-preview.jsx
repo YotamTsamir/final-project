@@ -12,7 +12,7 @@ import { BoardExtrasMenu } from "./board-extras-menu"
 import { socketService, SOCKET_EVENT_LOAD_BOARD } from "../services/socket.service"
 import { userService } from "../services/user-service"
 
-export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
+export const BoxPreview = ({ labelFilter, newBoardFilter, box, board, setEditTitleId, editTitleId, setAddNewTask, newTaskId }) => {
     const [boardExtrasMenu, setBoardExtrasMenu] = useState(false)
     const [register, newBoxTitle, EditBoxTitle] = useFormRegister({ title: box.title })
     const [registery, newTask, EditTask] = useFormRegister({ title: '' })
@@ -26,7 +26,7 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
 
     const onAddTask = async (ev, boardId, boxId, input) => {
         ev.preventDefault()
-        const task = { id: utilService.makeId(4), archivedAt: '',checkLists:[], members: [], isFull:false , title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
+        const task = { id: utilService.makeId(4), archivedAt: '', checkLists: [], members: [], isFull: false, title: input, labelIds: [], date: '', comments: [], description: '', color: '' }
         console.log(task)
         if (!input) return setAddNewTask('')
         setAddNewTask(boxId)
@@ -57,7 +57,7 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
             {(box.id !== editTitleId) ? <h2 onClick={() => onEdit()} className="box-title">{box.title}</h2> :
                 <form onSubmit={(ev) => { onEditBoxTitle(ev) }}><input className="box-title-edit" {...register('title')} /></form>}
             <div onClick={() => setBoardExtrasMenu(!boardExtrasMenu)} className="extras-menu">
-                <FontAwesomeIcon className="extra-menu-btn" icon={faEllipsis} />
+                <FontAwesomeIcon className="extra-menu-btn three-dot" icon={faEllipsis} />
             </div>
             {(boardExtrasMenu) && <BoardExtrasMenu board={board} box={box} setBoardExtrasMenu={setBoardExtrasMenu} setAddTask={setAddTask} />}
         </div>
@@ -68,7 +68,7 @@ export const BoxPreview = ({labelFilter, newBoardFilter, box, board, setEditTitl
                         {...provided.droppableProps}
                         className="task-list-wraper">
                         <TaskList
-                          labelFilter={labelFilter} newBoardFilter={newBoardFilter} board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
+                            labelFilter={labelFilter} newBoardFilter={newBoardFilter} board={board} onAddTask={onAddTask} box={box} tasks={box.tasks}>
                         </TaskList>
 
 

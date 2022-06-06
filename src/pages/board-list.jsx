@@ -20,20 +20,13 @@ export const BoardList = () => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        // dispatch(loadBoards())
         setBgs()
-        // getLoggedInUser()
     }, [])
 
     useEffect(() => {
-        console.log('loading boards');
         dispatch(loadBoards())
     }, [boards.length])
 
-    // const getLoggedInUser = () => {
-    //     const user = userService.getLoggedinUser()
-    //     setLoggedInUser(user)
-    // }
 
     const myBoards = boards.filter(board => {
         if (!loggedInUser) return
@@ -68,9 +61,14 @@ export const BoardList = () => {
     }
 
 
-    const starredBoards = boards.filter(board => {
-        return board.isStarred
-    })
+    const getStarredBoards = () => {
+        const boardListToFilter = loggedInUser ? myBoards : boards
+        return boardListToFilter.filter(board => {
+            return board.isStarred
+        })
+    }
+    const starredBoards = getStarredBoards()
+
 
 
     if (!boards) return <div>Loading...</div>
@@ -148,7 +146,7 @@ export const BoardList = () => {
                                     fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
                             })}
 
-                        {(!loggedInUser || boardsToDisplay === 'all') &&
+                        {((!loggedInUser && boardsToDisplay !== 'all') || boardsToDisplay === 'all') &&
                             boards.map((board, idx) => {
                                 return <BoardThumbnailPreview
                                     key={idx}

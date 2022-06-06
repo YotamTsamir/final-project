@@ -84,7 +84,6 @@ export const TaskPreview = ({ task, board, box, index }) => {
         // console.log(bodyElement.scrollWidth)
         // console.log(bodyWidth)
         // console.log(position.left)
-        console.dir(taskRef.current.getBoundingClientRect().right)
 
         if (position.bottom > window.innerHeight) {
             const diff = position.bottom - window.innerHeight

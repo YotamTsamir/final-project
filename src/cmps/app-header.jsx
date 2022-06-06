@@ -17,7 +17,7 @@ export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const { user } = useSelector((storeState) => storeState.userModule)
     const [newUser, editNewUser] = useState(user)
-    const [isUnreadNots, setIsUnreadNots] = useState(false)
+    // const [isUnreadNots, setIsUnreadNots] = useState(false)
     const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
     const [scroll, setScroll] = useState(0)
@@ -49,8 +49,7 @@ export const AppHeader = () => {
         const isUnreadNotifications = user.notifications.some(not => {
             return !not.isRead
         })
-        // console.log(isUnreadNotifications)
-        setIsUnreadNots(isUnreadNotifications)
+        return isUnreadNotifications
     }
 
     const pushNotification = async (yes) => {
@@ -177,15 +176,27 @@ export const AppHeader = () => {
                 {((user) || findPath()) &&
                     <button className='toggle-login-bar'
                         onClick={onToggleLoginBar}>
-                        <h1>
-                            <FontAwesomeIcon icon={faUser} />
-                        </h1>
+                        {!user &&
+                            <h1>
+                                <FontAwesomeIcon icon={faUser} />
+                            </h1>
+                        }
+                        {user &&
+                            <h1 className='header-user-avatar'
+                                style={{
+                                    background: `url(${user.avatar})`,
+                                    backgroundSize: 'cover',
+                                    backgroundRepeat: 'no-repeat'
+                                }}>
+
+                            </h1>
+                        }
                     </button>
                 }
                 {user &&
                     <button
                         onClick={() => setIsNotificationsOpen(!isNotificationsOpen)}
-                        className={`notification-btn ${isUnreadNots ? `unread` : ` empty`}`}
+                        className={`notification-btn ${checkUnreadNots() ? `unread` : ` empty`}`}
                     >
                         <FontAwesomeIcon icon={faBellRegular} />
                     </button>
@@ -200,8 +211,20 @@ export const AppHeader = () => {
                         <div className='small-right-menu-container'>
                             {user &&
                                 <React.Fragment>
-                                    <NavLink onClick={onToggleLoginBar} className="nav-link avatar" to='/avatar'>Avatar settings</NavLink>
-                                    <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link avatar">Logout</NavLink>
+                                    <NavLink
+                                        onClick={onToggleLoginBar}
+                                        className="nav-link-avatar"
+                                        to='/avatar'>
+                                        <div>Avatar settings</div>
+                                        <span 
+                                        style={{
+                                            background: `url(${user.avatar})`,
+                                            backgroundSize: 'cover',
+                                            backgroundRepeat: 'no-repeat'
+                                        }}>
+                                        </span>
+                                    </NavLink>
+                                    <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link-avatar">Logout</NavLink>
                                 </React.Fragment>
                             }
                             {!user &&

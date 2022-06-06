@@ -84,10 +84,8 @@
         display: flex;
         flex-direction: row-reverse;
         height: 100%;
-        padding-right: 8px;
 
         .menu-btn {
-            // width: 116.74px;
 
 
             p {
@@ -96,8 +94,6 @@
                 text-align: left;
                 margin: 0%;
                 padding: 8px;
-                // background-color: rgba(250, 248, 248, 0.239);
-
             }
 
             span {
@@ -154,53 +150,82 @@
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
-        padding: 12px 6px 12px 12px;
+        padding: 0 6px 12px 12px;
         animation: fadeIn 0.2s 1;
 
         .change-board-bg {
+
+            padding: 6px;
 
             .curr-bg-preview {
                 border-radius: 3px;
                 background-size: cover;
                 background-repeat: no-repeat;
-                height: 24px;
-                width: 24px;
-                .icon-btn {
-                    height: 20px;
-                    width: 20px;
-                    padding-top: 3px;
-                }   
+                height: 20px;
+                width: 20px;
+
+
             }
-            p{
+
+            p {
                 font-size: 18px;
             }
         }
-        
-        .board-menu-btns-container{
+
+        .icon-btn {
+            height: 16px;
+            width: 20px;
+            padding: 3px;
+        }
+
+        .toggle-show-more {
+            padding: 6px;
+
+            p {
+                font-size: 18px;
+            }
+
+            .fa-ellipsis {
+                height: 16px;
+                width: 20px;
+                padding: 3px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+
+        .board-menu-btns-container {
             font-size: 16px;
             display: flex;
             flex-direction: column;
 
-            .delete-board-btn{
-                padding: 10px;
-                p{
-                    padding-left: 5px ;
-                    font-size: 18px;
+            .delete-board-btn {
+                padding: 6px;
+                margin: 6px 0;
+
+                p {
+                    // padding-left: 5px;
+                    font-size: 14px;
                 }
             }
         }
-    .close-board-menu-btn {
-        display: flex;
-        align-items: center;
+
+        .close-board-menu-btn {
+            display: flex;
+            align-items: flex-end;
             justify-content: center;
+            padding: 4px 4px 6px 4px;
         }
 
 
         .menu-header {
             text-align: center;
-            line-height: 20px;
+            flex-grow: 1;
+            // line-height: 20px;
             font-size: 16px;
-            margin: 14px 32px;
+            margin: 12px 0 0 0;
+            padding-bottom: 4px;
         }
 
         button {
@@ -210,7 +235,7 @@
             align-items: center;
             gap: 10px;
             border: none;
-            padding: 6px 6px 6px 6px;
+            padding: 0;
             border-radius: 3px;
             font-size: 18px;
             background: none;
@@ -252,23 +277,24 @@
         }
 
         .toggle-Archive {
-            padding: 7px;
+            padding: 6px;
             display: flex;
-            
+
             span {
                 font-size: 18px;
-                padding-left: 4px;
-
             }
 
             svg {
-                height: 20px;
-            }
-            p {
-                height: 20px;
+                height: 16px;
                 width: 20px;
-
+                padding: 3px;
             }
+
+            // p {
+            //     height: 20px;
+            //     width: 20px;
+            //     padding: 3px;
+            // }
         }
 
         .archived-tasks {
@@ -317,6 +343,11 @@
 
                     }
                 }
+
+                .seperator {
+                    height: 0;
+                    border-bottom: 0.2 solid #00000038;
+                }
             }
 
 
@@ -331,22 +362,28 @@
                 }
             }
         }
-      
+
+    }
+
+    .seperator {
+        height: 0;
+        width: 100%;
+        border-bottom: 0.5px solid black;
     }
 
     .activities-container {
         display: flex;
         align-items: center;
         padding: 6px;
-        padding-left: 10px;
+        gap: 10px;
+        margin-top: 12px;
 
         svg {
-            height: 20px;
+            height: 16px;
+            width: 20px;
+            padding: 3px;
         }
 
-        .activities-board-menu {
-            padding-left: 14px;
-        }
     }
 
     .filter-container {
@@ -472,7 +509,12 @@
         border-radius: 3px;
         // height: 32px;
     }
-
+    .board-title,
+    .fav-btn,
+    .menu-btn,
+    .filter-btn {
+        cursor: pointer;
+    }
     .add-member-board:hover {
         cursor: pointer;
         transition: 0.2s;
@@ -515,24 +557,23 @@
         background: #00000014;
     }
 
-    // .filter-btn{
-    //     color: ;
-    // }
 }
 
-.close-board-menu-btn {
-    position: absolute;
-    left: 6px;
-    top: 6px;
-    width: 20px;
-    height: 20px;
-    padding: 4px;
+.board-menu-head {
     display: flex;
-    justify-content: center;
+    flex-direction: row-reverse;
+    align-items: flex-end;
 
-    border: none;
-    border-radius: 3px;
-    background: none;
+    .close-board-menu-btn {
+        width: 20px;
+        height: 20px;
+        display: flex;
+        justify-content: center;
+
+        border: none;
+        border-radius: 3px;
+        background: none;
+    }
 }
 
 .close-board-menu-btn:hover {
