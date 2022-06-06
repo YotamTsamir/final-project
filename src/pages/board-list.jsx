@@ -15,6 +15,7 @@ export const BoardList = () => {
     const [defaultBgs, setDefaultBgs] = useState([])
     const loggedInUser = useSelector((storeState) => storeState.userModule.user)
     const { boards } = useSelector((storeState) => storeState.boardModule)
+    const [boardsToDisplay, setBoardsToDisplay] = useState('')
     // const [loggedInUser, setLoggedInUser] = useState({})
     const dispatch = useDispatch()
 
@@ -138,13 +139,8 @@ export const BoardList = () => {
                             onAddBoard={onAddBoard}
                             dfBgs={defaultBgs} />}
 
-<<<<<<< HEAD
                         {loggedInUser &&
                             boards.map((board, idx) => {
-=======
-                        {(loggedInUser && !boardsToDisplay) &&
-                            myBoards.map((board, idx) => {
->>>>>>> 09e1138c447c457e3816312ed7e98529bac6b4d4
                                 return <BoardThumbnailPreview
                                     key={idx}
                                     board={board}
