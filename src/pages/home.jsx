@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { NavLink } from "react-router-dom";
 import image from "../imgs/home-image.png"
 import exampleImg from "../imgs/example-img.png"
@@ -6,6 +7,8 @@ import exampleImg from "../imgs/example-img.png"
 
 
 export const Home = () => {
+    const { user } = useSelector((storeState) => storeState.userModule)
+
 
     return <div className="home-page">
         <div className="home-upper">
@@ -13,7 +16,12 @@ export const Home = () => {
                 <h1>Tredux - management made easy.</h1>
                 <p>Take productivity to another level, from business to personal use. Whether you collab with others or work alone, you can accomplish anything with Tredux.</p>
                 <NavLink to="/boards">
-                    <button>Continue as Guest</button>
+                    {!user &&
+                        <button>Continue as Guest</button>
+                    }
+                    {user &&
+                        <button>Continue</button>
+                    }
                 </NavLink>
             </div>
             <div className="img-container">

@@ -47,12 +47,12 @@ export const InputComments = ({ board, box, task }) => {
   return (
     <div className="input-comment">
       <div className="avatar-comment-cmp-edit">
-      <div className="comment-cmp-avatar">
-        {(userService.getLoggedinUser().fullname !== 'Guest') ?
-          <img className="comment-avatar-img" src={user.avatar} />
-          :
-          <img className="comment-avatar-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUqOq31iJPIGiwT8if3AxZugFDpkNPz5YXTg&usqp=CAU" />}
-      </div></div>
+        <div className="comment-cmp-avatar">
+          {(userService.getLoggedinUser().fullname !== 'Guest') ?
+            <img className="comment-avatar-img" src={user.avatar} />
+            :
+            <img className="comment-avatar-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUqOq31iJPIGiwT8if3AxZugFDpkNPz5YXTg&usqp=CAU" />}
+        </div></div>
       {fieldsEdit.isCommentEdit ?
         <form className="left-details-container form-comment-details"
           onSubmit={(ev) => {
@@ -60,14 +60,15 @@ export const InputComments = ({ board, box, task }) => {
           }}
         >
           <div className="new-comment-container">
-          <textarea
-            placeholder="Write a comment..."
-            className="task-comment-input"
-            {...register("comment")}
-            autoFocus
-          ></textarea>
-          <button className="save-comment-btn comment">Save</button>
-        </div>
+            <textarea
+              placeholder="Write a comment..."
+              className="task-comment-input"
+              {...register("comment")}
+              autoFocus
+              // onBlur={onEditField}
+            ></textarea>
+            <button className="save-comment-btn comment">Save</button>
+          </div>
         </form>
         :
         <textarea onClick={onEditField}

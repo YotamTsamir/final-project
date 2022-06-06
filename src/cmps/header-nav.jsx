@@ -8,9 +8,13 @@ import { RecentBoards } from './recent-boards.jsx'
 
 export const HeaderNav = () => {
     const [isRecentOpen, setIsRecentOpen] = useState(false)
+    const [isBoardsOpen, setIsBoardsOpen] = useState(false)
 
     const onToggleRecent = () => {
         setIsRecentOpen(!isRecentOpen)
+    }
+    const onToggleBoards = () => {
+        setIsBoardsOpen(!isBoardsOpen)
     }
 
     return <nav className="app-header-nav">
@@ -24,6 +28,17 @@ export const HeaderNav = () => {
         {/* {isRecentOpen &&
                 <RecentBoards />} */}
 
-        <NavLink className="nav-link" to='/boards'>Boards</NavLink>
+        <div className='go-to-boards' onClick={onToggleBoards}>
+            <p>Boards</p>
+            {!isBoardsOpen &&
+                <FontAwesomeIcon icon={faAngleDown} />}
+            {isBoardsOpen &&
+                <FontAwesomeIcon icon={faAngleUp} />}
+        </div>
+        {isBoardsOpen &&
+            <div className='nav-links'>
+                <NavLink className="nav-link" to='/boards'>My Boards</NavLink>
+            </div>
+        }
     </nav>
 }

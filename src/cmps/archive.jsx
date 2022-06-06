@@ -16,8 +16,8 @@ export const ArchivedTasks = ({ board }) => {
     const setArchivedTasks = () => {
         let tasks = []
         board.boxes.map(box => {
-            box.tasks.map((task,idx) => {
-              
+            box.tasks.map((task, idx) => {
+
                 if (task.archivedAt) tasks.push({ task, inBox: box })
 
             })
@@ -35,10 +35,10 @@ export const ArchivedTasks = ({ board }) => {
         await boardService.deleteTask(board._id, box.id, task.id)
         dispatch(getBoard(board._id))
     }
-    if(!tasks) return <h1>Loading...</h1>
+    if (!tasks) return <h1>Loading...</h1>
     return <div className="archived-tasks">
         {tasks.map((task, index) => {
-            return (
+            return (<div>
                 <div key={task.id} className="task-archived">
                     <div className="task-archived-txt" >
                         <span>{task.task.title}</span>
@@ -56,6 +56,8 @@ export const ArchivedTasks = ({ board }) => {
                         </button>
                     </div>
                 </div>
+                <div className="seperator"></div>
+            </div>
             )
         })}
     </div>
