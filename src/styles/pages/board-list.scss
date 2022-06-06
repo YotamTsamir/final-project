@@ -1,11 +1,11 @@
-.board-lists-page{
-    flex-grow: 1;  
+.board-lists-page {
+    flex-grow: 1;
     align-self: center;
     display: flex;
     align-items: center;
     gap: 32px;
 
-    .list-page-menu{
+    .list-page-menu {
         align-self: flex-start;
         flex-grow: 1;
         max-width: fit-content;
@@ -13,15 +13,15 @@
         justify-content: center;
         align-items: center;
 
-        .menu-container{
+        .menu-container {
             width: fit-content;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-top: 44px ;
+            padding-top: 44px;
             gap: 4px;
 
-            .to-boards{
+            .to-boards {
                 display: flex;
                 align-items: center;
                 width: 240px;
@@ -31,23 +31,33 @@
                 background-color: #E4F0F6;
                 box-sizing: border-box;
 
-                *{
+                * {
                     margin: 0;
                     color: #0079BF;
                 }
 
-                span{
+                span {
                     min-width: 32px;
                     text-align: center;
                 }
 
-                h2{
+                h2 {
                     flex-grow: 1;
                 }
+            }
+
+            .active {
+                background-color: #9bd9f8;
+            }
+
+            .to-boards:hover {
+                cursor: pointer;
+                background-color: #d4ecf8;
             }
         }
     }
 }
+
 .board-list-preview {
     margin: auto;
     display: flex;

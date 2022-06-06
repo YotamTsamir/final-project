@@ -6,31 +6,26 @@ import { loadBoards, addBoard, toggleFavourite } from '../store/action/board-act
 import { BoardAdd } from '../cmps/board-add.jsx'
 import { BoardThumbnailPreview } from '../cmps/board-thumbnail-preview.jsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faProjectDiagram } from '@fortawesome/free-solid-svg-icons'
+import { faProjectDiagram, faHome } from '@fortawesome/free-solid-svg-icons'
 import { faStar, faClone } from '@fortawesome/free-regular-svg-icons'
 import { faTrello } from '@fortawesome/free-brands-svg-icons'
 
 export const BoardList = () => {
     const [isAddBoardOpen, setIsAddBoardOpen] = useState(false)
     const [defaultBgs, setDefaultBgs] = useState([])
+    const loggedInUser = useSelector((storeState) => storeState.userModule.user)
     const { boards } = useSelector((storeState) => storeState.boardModule)
-    const [loggedInUser, setLoggedInUser] = useState({})
+    const [boardsToDisplay, setBoardsToDisplay] = useState('')
+    // const [loggedInUser, setLoggedInUser] = useState({})
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(loadBoards())
         setBgs()
-        getLoggedInUser()
     }, [])
 
     useEffect(() => {
         dispatch(loadBoards())
-    }, [boards])
-
-    const getLoggedInUser = () => {
-        const user = userService.getLoggedinUser()
-        setLoggedInUser(user)
-    }
+    }, [boards.length])
 
 
     const myBoards = boards.filter(board => {
@@ -66,25 +61,42 @@ export const BoardList = () => {
     }
 
 
-    const starredBoards = boards.filter(board => {
-        return board.isStarred
-    })
+    const getStarredBoards = () => {
+        const boardListToFilter = loggedInUser ? myBoards : boards
+        return boardListToFilter.filter(board => {
+            return board.isStarred
+        })
+    }
+    const starredBoards = getStarredBoards()
 
-    // console.log(boards)
+
 
     if (!boards) return <div>Loading...</div>
     return <div className='board-lists-page'>
         <div className="list-page-menu">
             <aside className='menu-container'>
-                <div className="to-boards to-all">
+                <div
+                    className={`to-boards to-home ${!boardsToDisplay && 'active'}`}
+                    onClick={() => setBoardsToDisplay('')}>
+                    <span><FontAwesomeIcon icon={faHome} /></span>
+                    <h2>Home</h2>
+                </div>
+                <div
+                    className={`to-boards to-all ${(boardsToDisplay === 'all') && 'active'}`}
+                    onClick={() => setBoardsToDisplay('all')}>
                     <span><FontAwesomeIcon icon={faTrello} /></span>
                     <h2>All boards</h2>
                 </div>
-                <div className="to-boards to-fav">
+                <div
+                    className={`to-boards to-fav ${(boardsToDisplay === 'fav') && 'active'}`}
+                    onClick={() => setBoardsToDisplay('fav')}>
                     <span><FontAwesomeIcon icon={faStar} /></span>
                     <h2>Favourites</h2>
                 </div>
-                <div className="to-boards to-template">
+
+                <div
+                    className={`to-boards to-template ${(boardsToDisplay === 'template') && 'active'}`}
+                    onClick={() => setBoardsToDisplay('template')}>
                     <span><FontAwesomeIcon icon={faClone} /></span>
                     <h2>Templates</h2>
                 </div>
@@ -92,25 +104,32 @@ export const BoardList = () => {
         </div>
         <div className="board-list-preview">
             <div className='board-list'>
-                <div className="boards-container">
-                    <div className='board-list-header'>
-                        <FontAwesomeIcon icon={faStar} />
-                        <h2>Starred boards</h2>
+                {(boardsToDisplay === 'fav' || !boardsToDisplay) &&
+                    <div className="boards-container">
+                        <div className='board-list-header'>
+                            <FontAwesomeIcon icon={faStar} />
+                            <h2>Starred boards</h2>
+                        </div>
+                        < div className='boards-container'>
+                            {starredBoards.map((board, idx) => {
+                                return <BoardThumbnailPreview
+                                    key={idx}
+                                    board={board}
+                                    onToggleFavourite={onToggleFavourite}
+                                    fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
+                            })}
+                        </div>
                     </div>
-                    <div className='boards-container'>
-                        {starredBoards.map((board, idx) => {
-                            return <BoardThumbnailPreview
-                                key={idx}
-                                board={board}
-                                onToggleFavourite={onToggleFavourite}
-                                fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
-                        })}
-                    </div>
-                </div>
+                }
                 <div className="all-boards">
                     <div className='board-list-header'>
                         <FontAwesomeIcon icon={faProjectDiagram} />
-                        <h2>Your Boards</h2>
+                        {(loggedInUser && !boardsToDisplay) &&
+                            <h2>Your Boards</h2>
+                        }
+                        {(!loggedInUser || boardsToDisplay === 'all') &&
+                            <h2>All Boards</h2>
+                        }
                     </div>
                     <div className="boards-container">
                         {isAddBoardOpen && <BoardAdd
@@ -119,7 +138,7 @@ export const BoardList = () => {
                             dfBgs={defaultBgs} />}
 
                         {loggedInUser &&
-                            myBoards.map((board, idx) => {
+                            boards.map((board, idx) => {
                                 return <BoardThumbnailPreview
                                     key={idx}
                                     board={board}
@@ -127,7 +146,7 @@ export const BoardList = () => {
                                     fourthChild={isFourthBoard(idx) ? 'fourth-child' : ''} />
                             })}
 
-                        {!loggedInUser &&
+                        {((!loggedInUser && boardsToDisplay !== 'all') || boardsToDisplay === 'all') &&
                             boards.map((board, idx) => {
                                 return <BoardThumbnailPreview
                                     key={idx}

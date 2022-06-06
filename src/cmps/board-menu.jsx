@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAlignLeft, faRemove, faX, faArchive } from '@fortawesome/free-solid-svg-icons'
+import { faAlignLeft, faRemove, faX, faArchive, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
 import { ArchivedTasks } from './archive'
 import { Activities } from './activities'
@@ -12,6 +12,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
     })
     const [archiveMenu, setArchiveMenu] = useState(false)
     const [activitiesMenu, setActivitiesMenu] = useState(false)
+    const [isShowMore, setIsShowMore] = useState(false)
 
 
     const deleteCurrBoard = () => {
@@ -29,8 +30,8 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
         onEditBoardStyle(board._id, field, value)
     }
 
-    const toggleActivies = () => {
-
+    const toggleShowMore = () => {
+        setIsShowMore(!isShowMore)
     }
 
     const toggleBgMenu = () => {
@@ -45,44 +46,54 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
     }
 
     return <div className="board-menu">
-        <button className='close-board-menu-btn'
-            title="close menu"
-            onClick={() => onToggleMenu(false)}>
-            <FontAwesomeIcon icon={faX} />
-        </button>
-        <h5 className="menu-header">Menu</h5>
+        <div className='board-menu-head'>
+            <button className='close-board-menu-btn'
+                title="close menu"
+                onClick={() => onToggleMenu(false)}>
+                <FontAwesomeIcon icon={faX} />
+            </button>
+            <h5 className="menu-header">Menu</h5>
+        </div>
         <div><hr /></div>
         <div className='board-menu-btns-container'>
-        <button
-            className="delete-board-btn"
-            onClick={deleteCurrBoard}>
-            <p>Delete Board</p>
-            <p className="fa-remove  icon-btn"><FontAwesomeIcon icon={faRemove} /></p>
-        </button>
-        <button
-            className="change-board-bg"
-            onClick={toggleBgMenu}>
+            <button
+                className="change-board-bg"
+                onClick={toggleBgMenu}>
 
-            <p>Change Background</p>
-            <p style={boardStyle.style}
-                className="curr-bg-preview icon-btn">
-            </p>
-        </button>
-        {boardStyle.isOpen &&
-            <BoardBgMenu dfBgs={dfBgs}
-                handleChange={handleChange}>
-            </BoardBgMenu>}
-        <button onClick={() => openArchive()} className="toggle-Archive">
-            <span>Archive</span>
-            <p>
-                <FontAwesomeIcon icon={faArchive} />
-            </p>
-        </button>
-        <div className='activities-container'>
-            <FontAwesomeIcon icon={faAlignLeft} />
-            <button className='activities-board-menu' onClick={() => setActivitiesMenu(!activitiesMenu)}><span className="left-side-icons"></span>Activities</button>
+                <p>Change Background</p>
+                <p style={boardStyle.style}
+                    className="curr-bg-preview icon-btn">
+                </p>
+            </button>
+            {boardStyle.isOpen &&
+                <BoardBgMenu dfBgs={dfBgs}
+                    handleChange={handleChange}>
+                </BoardBgMenu>}
+            <button onClick={() => openArchive()} className="toggle-Archive">
+                <span>Archive</span>
+                <p>
+                    <FontAwesomeIcon icon={faArchive} />
+                </p>
+            </button>
+            <button className='toggle-show-more' onClick={toggleShowMore}>
+                <p>Show More</p>
+                <span className='fa-ellipsis icon-btn'><FontAwesomeIcon icon={faEllipsis} /></span>
+            </button>
+            {isShowMore &&
+                <button
+                    className="delete-board-btn"
+                    onClick={deleteCurrBoard}>
+                    <p>Delete Board</p>
+                    <p className="fa-remove  icon-btn"><FontAwesomeIcon icon={faRemove} /></p>
+                </button>
+            }
+
+            <div className='seperator'></div>
+            <div className='activities-container'>
+                <FontAwesomeIcon icon={faAlignLeft} />
+                <button className='activities-board-menu' onClick={() => setActivitiesMenu(!activitiesMenu)}><span className="left-side-icons"></span>Activities</button>
             </div>
-            </div>
+        </div>
         {archiveMenu && <ArchivedTasks board={board} />}
         {activitiesMenu && <Activities board={board} />}
     </div>

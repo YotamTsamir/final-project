@@ -13,6 +13,7 @@ export function addBox(boardId, box, activity) {
     return async dispatch => {
         let board = await boardService.saveBox(boardId, box)
         const boardAndActivity = { board, activity }
+        console.log('here', boardAndActivity);
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, boardAndActivity)
         board.activities.unshift(activity)
         await boardService.save(board)
@@ -39,7 +40,7 @@ export function toggleLabels(labelState) {
 export function loadBoards() {
     return async (dispatch) => {
         const boards = await boardService.query()
-        // console.log(boards)
+        console.log(boards)
         dispatch({ type: 'SET_BOARDS', boards })
     }
 }
