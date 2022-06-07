@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux'
 import {  useEffect, useState } from "react"
 import { login, signup } from '../../store/action/user-action'
 import { utilService } from '../../services/util.service'
-
 import { userService } from '../../services/user-service'
-export const LoginGoogleButton = ({ onLogin }) => {
+
+export const LoginGoogleButton = () => {
     const dispatch = useDispatch()
     const clientId = "900836762463-e973v7b979c97kphq1ubsj6mt1jk33ot.apps.googleusercontent.com"
     const [users, setUsers] = useState(null)
@@ -44,15 +44,14 @@ export const LoginGoogleButton = ({ onLogin }) => {
     }
 
 
-    return <div id="signInButton">
+    return <div id="signInGoogleButton" className='sign-in-google-button'>
         <GoogleLogin
-
             clientId={clientId}
             buttonText="Continue with Google "
             onSuccess={onSuccess}
             onFailure={onFailure}
             cookiePolicy={'single_host_origin'}
-            isSignedIn={true}
+            // isSignedIn={true}
         />
     </div>
 }

@@ -202,6 +202,7 @@
                     .edit-task-desc {
                         margin-top: 10px;
                     }
+
                     .not-focus-desc {
                         background-color: #091e420a;
                         width: 100%;
@@ -214,6 +215,7 @@
                         position: relative;
                         margin-top: 10px;
                     }
+
                     .focused-desc {
                         overflow: hidden;
                         overflow-wrap: break-word;
@@ -523,4 +525,28 @@
             }
         }
     }
+
+}
+
+@media screen and (max-width: 480px) {
+
+    .task-details {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        padding-left: 35px;
+    }
+
+    .task-details-title-container {
+
+        h1 {
+
+            font-size: 10px
+        }
+    }
+
+
+
+
+
 }
