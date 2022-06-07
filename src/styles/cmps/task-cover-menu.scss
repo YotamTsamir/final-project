@@ -78,10 +78,11 @@
 
     .color-grid {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        grid-template-columns: 50px 50px 50px 50px 50px;
         gap: 8px;
         padding: 4px;
         margin: 0 -4px;
+
 
         .cover-color {
             height: 32px;

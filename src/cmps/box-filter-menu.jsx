@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faX } from '@fortawesome/free-solid-svg-icons'
 
-export const BoxFilterMenu = ({ labelFilter, setLabelFilter, boardFilter, onToggleMenu, board }) => {
+export const BoxFilterMenu = ({isMobile, labelFilter, setLabelFilter, boardFilter, onToggleMenu, board }) => {
 
     const onAddLabelFilter = (labelId) => {
         if (labelFilter.includes(labelId)) {
@@ -15,7 +15,7 @@ export const BoxFilterMenu = ({ labelFilter, setLabelFilter, boardFilter, onTogg
     }
 
 
-    return <div className="filter-container">
+    return <div className={`filter-container ${isMobile ? 'filter-container-on-mobile' : ''}`}>
         <button className='close-board-menu-btn'
             title="close menu"
             onClick={() => onToggleMenu(false)}>

@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAlignLeft, faRemove, faX, faArchive, faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import { BoardBgMenu } from './board-bg-menu'
 import { ArchivedTasks } from './archive'
 import { Activities } from './activities'
+import { BoardHeaderCmpsLeft } from './board-header-cmps-left'
+import { BoardHeaderCmpsRight } from './board-header-cmps-right'
 
-export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoardStyle }) => {
+export const BoardMenu = ({ onOpenFilterOrMenu, isFilterOrMenuOpen, setIsAddMember, onToggleStarBoard, isAddMember, isMobile, onToggleMenu, dfBgs, board, deleteBoard, onEditBoardStyle }) => {
     const [boardStyle, setBoardStyle] = useState({
         isOpen: false,
         style: board.style
@@ -45,7 +47,7 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
         setArchiveMenu(!archiveMenu)
     }
 
-    return <div className="board-menu">
+    return <div className={`board-menu ${isMobile ? 'menu-on-mobile' : ''}`}>
         <div className='board-menu-head'>
             <button className='close-board-menu-btn'
                 title="close menu"
@@ -69,6 +71,16 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
                 <BoardBgMenu dfBgs={dfBgs}
                     handleChange={handleChange}>
                 </BoardBgMenu>}
+            {isMobile &&
+                <React.Fragment>
+                    <BoardHeaderCmpsLeft
+                        setIsAddMember={setIsAddMember}
+                        onToggleStarBoard={onToggleStarBoard}
+                        board={board}
+                        isAddMember={isAddMember}
+                        isMobile={isMobile} />
+                </React.Fragment>
+            }
             <button onClick={() => openArchive()} className="toggle-Archive">
                 <span>Archive</span>
                 <p>

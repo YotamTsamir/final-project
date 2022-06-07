@@ -1,141 +1,217 @@
+.filter-btn.dash-board {
+    height: 32px;
+    width: fit-content !important;
+
+}
+
 .dash-board-container {
     backdrop-filter: blur(2px);
     background-color: rgb(3 3 3 / 76%);
     position: absolute;
-    height: 93vh !important;
+    bottom: -4px;
+    height: calc(100vh - 44px) !important;
+    padding: 32px 128px;
+    box-sizing: border-box;
     width: 100vw;
-    padding: 0 150px;
+    margin-left: -12px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 180px 180px;
+    grid-template-areas:
+        'head head doughnut'
+        'bar bar pie';
+
+    justify-items: center;
+
+    * {
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+
+    .exit-dashboard-btn {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+        padding: 16px;
+
+        svg {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
+    .left-graph-big {
+        grid-area: bar;
+        margin: 0;
+        width: fit-content;
+
+        .bar {
+            max-height: 90%;
+            width: 60ch !important;
+        }
+    }
+
+    .right-graph-top {
+        grid-area: doughnut;
+        margin: 0;
+        width: fit-content;
+
+        .doughnut {
+            max-width: 20vw;
+            max-height: 20vw;
+            margin: 0;
+        }
+    }
+
+    .top-info {
+        grid-area: head;
+        margin: 0;
+
+        display: flex;
+        gap: 8px;
+        align-items: center;
+
+        .members {
+            padding: 3px;
+            border-radius: 3px;
+            border: 1px solid white;
+            background-color: rgb(3 3 3 / 85%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 20vw;
+            height: 20vh;
+        }
+
+        .total-tasks {
+            border-radius: 3px;
+            padding: 3px;
+            border: 1px solid white;
+            background-color: #0000008a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 20vw;
+            height: 20vh;
+        }
+
+        .checklists {
+            border-radius: 3px;
+            padding: 3px;
+            border: 1px solid white;
+            background-color: #0000008a;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 20vw;
+            height: 20vh;
+        }
+    }
+
+    .right-graph-bottom {
+        grid-area: pie;
+        margin: 0;
+        width: fit-content;
+
+        .pie {
+            max-width: 20vw;
+            max-height: 20vw;
+            margin: 0;
+        }
+    }
+
 }
 
-.task-per-sp{
-    color: white;
-    position: relative;
-    right: 80px;
+
+@media (max-width: 480px) {
+    .dash-board-container {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            'head head'
+            'pie doughnut'
+            'bar bar';
+        top: 44px;
+        padding: 6px;
+        align-items: end;
+
+        .exit-dashboard-btn {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 8px;
+            
+
+            svg {
+                height: 16px;
+                width: 16px;
+            }
+        }
+
+        .left-graph-big {
+            grid-area: bar;
+            height: fit-content;
+
+            .bar {
+                height: 30vh;
+                width: calc(100vw - 8px) !important;
+            }
+        }
+
+        .top-info {
+            grid-area: head;
+
+            * {
+                font-size: 14px;
+            }
+
+            .members {
+                width: 30vw;
+            }
+
+            .total-tasks {
+                width: 30vw;
+            }
+
+            .checklists {
+                width: 30vw;
+            }
+        }
+
+        .right-graph-bottom {
+            grid-area: pie;
+
+            * {
+                margin: 0;
+            }
+
+            .pie {
+                max-width: 50vw;
+                max-height: 50vw;
+            }
+        }
+
+        .right-graph-top {
+            grid-area: doughnut;
+
+            .doughnut {
+                max-width: 50vw;
+                max-height: 50vw;
+            }
+        }
+    }
 }
 
-.checklist-sp{
-    // color: #1512cfd8;
-    color: white;
-    position: relative;
-    right: -25px;
-    top: 18px;
-}
 
-.bar {
-    position: absolute;
-    bottom: 0;
-    width: 800px !important;
-    height: 500px !important;
-}
+// @media (max-width: 480px) {
+//     .dash-board-container {
+//         margin-left: -12px;
+//         padding: 4px;
+//         min-height: calc(100vh - 44px) !important;
+//         grid-template-columns: 1fr 1fr;
 
-.checklist-info{
-    position: relative;
-    left: 51px;
-    bottom: 47px;
-    color: white;
-}
-
-.doughnut {
-    position: relative;
-    
-    margin-left: 71px;
-    width: 380px !important;
-    height: 380px !important;
-}
-
-.pie{
-    position: relative;
-    bottom: 32px;
-    margin-left: 100px;
-    width: 320px !important;
-    height: 320px !important;
-}
-
-.bar {
-position: relative;
-top: 10px;
-}
-
-.members {
-    width: 300px;
-    width: 200px;
-    padding: 3px;
-    border-radius: 3px;
-    height: 100px;
-
-    border: 1px solid white;
-    background-color: rgb(3 3 3 / 85%);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    grid-column: 1/2;
-}
-.dash-board{
-    width: fit-content !important;
-    height: 32px !important;
-}
-.top-info {
-    grid-column: 1;
-    display: flex;
-    position: relative;
-    top: 55px;
-    left: 100px;
-    // flex-direction: column;
-    gap: 10px;
-    justify-content: center;
-
-}
-
-.total-tasks {
-    border-radius: 3px;
-    padding: 3px;
-    width: 300px;
-    width: 200px;
-    height: 100px;
-    border: 1px solid white;
-    background-color: #0000008a;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    grid-column: 2/3;
-
-}
-
-.checklists {
-    border-radius: 3px;
-    padding: 3px;
-    width: 300px;
-    width: 200px;
-    height: 100px;
-    border: 1px solid white;
-    background-color: #0000008a;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    grid-column: 3;
-}
-
-.right-graph-top {
-    text-align: center;
-    color: white;
-    grid-column: 3;
-    grid-row: 1;
-}
-
-.right-graph-bottom {
-    position: absolute;
-    bottom: 0;
-    text-align: center;
-    color: white;
-    grid-column: 3;
-    grid-row: 3;
-}
 
 .left-graph-big {
     margin-top: 90px;

@@ -141,7 +141,8 @@ export const Board = () => {
                 {provided => {
                     return (
                         <div ref={provided.innerRef}
-                            {...provided.droppableProps}>
+                            {...provided.droppableProps}
+                            className="board-wrapper">
                             <div className="board">
                                 <BoxList labelFilter={labelFilter} newBoardFilter={newBoardFilter.filter} addActivity={addActivity} board={board} boxes={board.boxes} />
                                 {(!isAdd) &&

@@ -4,6 +4,9 @@ import { boardService } from "../services/board.service";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Doughnut, Pie, Bar } from "react-chartjs-2";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faX } from "@fortawesome/free-solid-svg-icons";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -101,57 +104,57 @@ export const DashBoard = () => {
             {
                 label: 'Tasks per member',
                 data: boardData.userCount,
-                backgroundColor: ['rgba(255, 99, 132, 0.8)','#006b00d8','#1512cfd8','#ebff11d8'],
-                color:'white',
+                backgroundColor: ['rgba(255, 99, 132, 0.8)', '#006b00d8', '#1512cfd8', '#ebff11d8'],
+                color: 'white',
             },
         ],
     };
 
-     const optionsBar = {
+    const optionsBar = {
         responsive: true,
         plugins: {
-          legend: {
-            display:false,
-            color:'white'
-          },
-          title: {
-            display: false,
-            text: 'Tasks per member',
-            color:'white'
-          },
+            legend: {
+                display: false,
+                color: 'white'
+            },
+            title: {
+                display: false,
+                text: 'Tasks per member',
+                color: 'white'
+            },
         },
-      };
-     const optionsPie = {
+    };
+    const optionsPie = {
         responsive: true,
         plugins: {
-          legend: {
-            position: 'top',
-            display:false,
-            font:{color:'white'},
-            color:'white'
-          }
-          },
-          title: {
+            legend: {
+                position: 'top',
+                display: false,
+                font: { color: 'white' },
+                color: 'white'
+            }
+        },
+        title: {
             display: true,
             text: 'Tasks per label',
-            color:'white'
-          },
-        }
-      
-     const optionsDou = {
+            color: 'white'
+        },
+    }
+
+    const optionsDou = {
         responsive: true,
         plugins: {
-          legend: {
-            position: 'top',
-            
-          },
-          title: {
-            display: true,
-            text: '',
-            color:'white'
-          },
+            legend: {
+                position: 'top',
+
+            },
+            title: {
+                display: true,
+                text: '',
+                color: 'white'
+            },
         },
-      };
+    };
 
     const doughnutData = {
         labels: [
@@ -166,7 +169,7 @@ export const DashBoard = () => {
                 'rgb(54, 162, 235)',
 
             ],
-            color:'white',
+            color: 'white',
             hoverOffset: 4
         }]
     };
@@ -182,22 +185,26 @@ export const DashBoard = () => {
         }]
     };
 
+    const handleKey = (ev) => {
+        console.log(ev)
+    }
+
     if (!board) return <h1>Loading...</h1>
     return <div className="dash-board-container">
-        <NavLink style={{position:'absolute'}} to={`/b/${board._id}`}>X</NavLink>
+        <NavLink className='exit-dashboard-btn' to={`/b/${board._id}`}><FontAwesomeIcon icon={faX} /></NavLink>
         <div className="top-info">
 
-        <div className="members" style={{ color: 'white' }}>Members:{boardData.members}</div>
-        <div className="total-tasks">
-            <div className="total-tasks-in" style={{ color: 'white' }}>Tasks:{boardData.taskNumbers}</div>
-            <div className="completed-tasks" style={{ color: 'white' }}>Completed tasks:{boardData.completedTasks}</div>
-            <div className="uncompleted-tasks" style={{ color: 'white' }}>Uncompleted tasks:{boardData.unCompletedTasks}</div>
-        </div>
-        <div className="checklists">
-            <div className="total-checklists" style={{ color: 'white' }}>Total checklists:{boardData.checkLists}</div>
-            <div className="done-todos" style={{ color: 'white' }}>Done todos:{boardData.doneTodos}</div>
-            <div className="total-todos" style={{ color: 'white' }}>Total todos:{boardData.totalTodos}</div>
-        </div>
+            <div className="members" style={{ color: 'white' }}>Members:{boardData.members}</div>
+            <div className="total-tasks">
+                <div className="total-tasks-in" style={{ color: 'white' }}>Tasks:{boardData.taskNumbers}</div>
+                <div className="completed-tasks" style={{ color: 'white' }}>Completed tasks:{boardData.completedTasks}</div>
+                <div className="uncompleted-tasks" style={{ color: 'white' }}>Uncompleted tasks:{boardData.unCompletedTasks}</div>
+            </div>
+            <div className="checklists">
+                <div className="total-checklists" style={{ color: 'white' }}>Total checklists:{boardData.checkLists}</div>
+                <div className="done-todos" style={{ color: 'white' }}>Done todos:{boardData.doneTodos}</div>
+                <div className="total-todos" style={{ color: 'white' }}>Total todos:{boardData.totalTodos}</div>
+            </div>
         </div>
 
         <div className="left-graph-big"><span className="task-per-sp">Tasks per member:</span><Bar className="bar" options={optionsBar} data={dataBig} /></div>

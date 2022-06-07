@@ -1,4 +1,20 @@
 .task-details-window {
+
+    .create-new-label-btn {
+        border: none;
+        background: none;
+        background-color: #091e420a;
+        text-align: center;
+        width: 100%;
+        padding: 6px 12px;
+        border-radius: 3px;
+    }
+
+    .create-new-label-btn:hover {
+        cursor: pointer;
+        background-color: #091e4241;
+    }
+
     .task-detail-body-container {
         display: flex;
         justify-content: center;
@@ -28,21 +44,6 @@
 
                 .label-choice:hover {
                     filter: brightness(90%);
-                }
-
-                .create-new-label-btn {
-                    border: none;
-                    background: none;
-                    background-color: #091e420a;
-                    text-align: center;
-                    width: 100%;
-                    padding: 6px 12px;
-                    border-radius: 3px;
-                }
-
-                .create-new-label-btn:hover {
-                    cursor: pointer;
-                    background-color: #091e4241;
                 }
 
                 .task-detail-members-container {
