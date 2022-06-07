@@ -45,7 +45,7 @@ export const AppHeader = () => {
     }, [user])
 
     const checkUnreadNots = () => {
-        if (!user) return
+        if(!user?.notifications) return
         const isUnreadNotifications = user.notifications.some(not => {
             return !not.isRead
         })
@@ -72,6 +72,9 @@ export const AppHeader = () => {
         resetHeaderTheme()
     }, [location.pathname])
 
+    useEffect(()=>{
+        checkUnreadNots()
+    },[user?.notifications])
     const onToggleLoginBar = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
 

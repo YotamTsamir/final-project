@@ -13,7 +13,6 @@ export function addBox(boardId, box, activity) {
     return async dispatch => {
         let board = await boardService.saveBox(boardId, box)
         const boardAndActivity = { board, activity }
-        console.log('here', boardAndActivity);
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, boardAndActivity)
         board.activities.unshift(activity)
         await boardService.save(board)
@@ -23,12 +22,14 @@ export function addBox(boardId, box, activity) {
 
 export function addTask(boardId, task, boxId, activity) {
     return async dispatch => {
-        let board = await boardService.saveTask(boardId, task, boxId)
-        const boardAndActivity = { board, activity }
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD,boardAndActivity)
-        if (activity) board.activities.unshift(activity)
-        // await boardService.save(board)
-        dispatch({ type: 'SET_BOARD', board })
+        try{
+            let board = await boardService.saveTask(boardId, task, boxId)
+            if (activity) board.activities.unshift(activity)
+            socketService.emit(SOCKET_EVENT_LOAD_BOARD,{ board, activity })
+            dispatch({ type: 'SET_BOARD', board })
+        } catch(err){
+            console.error(err)
+        }
     }
 }
 
@@ -53,7 +54,6 @@ export function updateUserImgInBoards(user) {
     }
 }
 
-
 export function addBoard(newBoard) {
     return async (dispatch) => {
         const board = await boardService.addNewBoard(newBoard)
@@ -71,7 +71,7 @@ export function deleteBoard(boardId) {
 
 export function editBoard(board) {
     return async (dispatch) => {
-        socketService.emit(SOCKET_EVENT_LOAD_BOARD, board)
+        socketService.emit(SOCKET_EVENT_LOAD_BOARD, {board})
         dispatch({ type: 'SET_BOARD', board })
         await boardService.save(board)
     }

@@ -1,0 +1,51 @@
+.dash-board-container {
+    background-color: #03030369;
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 2fr 3fr 3fr;
+}
+
+.members {
+    border: 1px solid white;
+    background-color: #0000008a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 1/2;
+}
+
+.total-tasks {
+    border: 1px solid white;
+    background-color: #0000008a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 2/3;
+
+}
+
+.checklists {
+    border: 1px solid white;
+    background-color: #0000008a;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    grid-column: 3;
+}
+.right-graph-top{
+        grid-column: 3;
+    }
+.right-graph-bottom{
+    grid-column: 3;
+}
+.left-graph-big{
+    margin-top: 150px;
+    grid-column: 1/3;
+    grid-row: 2/4;
+}

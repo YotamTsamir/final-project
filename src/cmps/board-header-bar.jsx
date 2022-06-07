@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { boardService } from "../services/board.service"
+import { NavLink } from "react-router-dom"
 import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { AddMember } from "./add-member"
@@ -133,6 +134,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                 </span>
                 <p>Filter</p>
             </button>
+            <NavLink to={`dashboard/${board._id}`}><button className="menu-btn">Dash board</button></NavLink>
             {(isFilterOrMenuOpen === 'filter') &&
                 <BoxFilterMenu
                     labelFilter={labelFilter}

@@ -10,6 +10,7 @@ import { TaskDetails } from './cmps/task-details.jsx';
 import './styles/main.scss';
 import { Avatar } from './pages/avatar.jsx'
 import { socketService } from './services/socket.service';
+import { DashBoard } from './pages/dashBoard';
 
 function App() {
   useEffect(() => {
@@ -29,6 +30,7 @@ function App() {
         <Route path='/boards' element={<BoardList />} />
         <Route path='/b/:boardId' element={<Board />}  >
           <Route path='task/:taskId' element={<TaskDetails />} />
+          <Route path='dashboard/:boardId' element={<DashBoard/>}/>
         </Route>
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
