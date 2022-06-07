@@ -16,7 +16,7 @@ export const InputDesc = () => {
   const [isDescFocus, setIsDescFocus] = useState(false)
 
   const isEditShownDesc = () => {
-    return !description ;
+    return !description || fieldsEdit.isDescription;
   };
 
   const onEditField = () => {
@@ -24,7 +24,7 @@ export const InputDesc = () => {
   };
 
   const onEditTaskEntity = async (ev) => {
-
+    console.log(ev)
     ev.preventDefault()
     const newTask = { ...task, description: entity.description }
     dispatch(editTask(board._id, box.id, newTask))
@@ -43,7 +43,8 @@ export const InputDesc = () => {
       {isEditShownDesc() && (
         <form
           onSubmit={(ev) => {
-            onEditTaskEntity(ev)
+            console.log('on submit')
+            // onEditTaskEntity(ev)
           }}
           className="task-desc-form">
           <textarea
@@ -54,9 +55,9 @@ export const InputDesc = () => {
             {...rest}
           >{text}</textarea>
           <div className="desc-btns-container">
-           {isDescFocus ? 
+           {isDescFocus && 
            <div className="desc-focus-btn-container">
-            <button className="desc-save-btn desc-btn">Save</button>
+            <button className="desc-save-btn desc-btn" onClick={() => console.log('on submit btn')}>Save</button>
             <button
               // onClick={}
               className="desc-cancel-btn desc-btn"
@@ -64,15 +65,12 @@ export const InputDesc = () => {
               Cancel
             </button>
           </div>
-
-            :
-            <div></div> 
           }
           </div>
         </form>
       )}
       <div className="left-details-container">
-        {description &&(
+        {!isEditShownDesc()  &&(
           <div
             className="curr-desc left-details"
             onClick={onEditField}>{description}

@@ -124,7 +124,7 @@ export const Board = () => {
     }
 
 
-    if (!board?.boxes || !board?._id) return <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+    if (!board?.boxes || !board?._id) return 
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar
             labelFilter={labelFilter}
