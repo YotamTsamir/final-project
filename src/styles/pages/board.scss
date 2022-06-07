@@ -9,24 +9,25 @@
     overflow: hidden;
     padding: 0 0 0 12px;
 
-    >div {
+    .board-wrapper {
         max-width: 100%;
         $height: calc(100% - 52px);
         height: $height;
         overflow-x: auto;
         margin-bottom: 4px;
+        overflow-y: hidden;
     }
 
-    >div::-webkit-scrollbar {
+    .board-wrapper::-webkit-scrollbar {
         height: 15px;
     }
 
-    >div::-webkit-scrollbar-track {
+    .board-wrapper::-webkit-scrollbar-track {
         background: none;
         border-radius: 3px;
     }
 
-    >div::-webkit-scrollbar-thumb {
+    .board-wrapper::-webkit-scrollbar-thumb {
         background-color: #ffffff47;
         border-radius: 3px;
     }
@@ -44,7 +45,7 @@
     flex: 1;
     display: flex;
     gap: 8px;
-
+    overflow-y: hidden;
     >div {
         // min-height: 100%;
         height: fit-content;

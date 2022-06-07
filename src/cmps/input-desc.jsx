@@ -16,7 +16,7 @@ export const InputDesc = () => {
   const [isDescFocus, setIsDescFocus] = useState(false)
 
   const isEditShownDesc = () => {
-    return !description || fieldsEdit.isDescription;
+    return !description ;
   };
 
   const onEditField = () => {
@@ -72,7 +72,7 @@ export const InputDesc = () => {
         </form>
       )}
       <div className="left-details-container">
-        {!isEditShownDesc() && (
+        {description &&(
           <div
             className="curr-desc left-details"
             onClick={onEditField}>{description}

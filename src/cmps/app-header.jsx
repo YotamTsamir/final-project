@@ -226,7 +226,8 @@ export const AppHeader = () => {
                         <FontAwesomeIcon icon={faBellRegular} />
                     </button>
                 }
-                {(isModal) && <div className='modal'><h1>New notification recieved</h1></div>}
+                
+                {(isModal) && <div className='modal-noti'><h1>New notification recieved</h1></div>}
                 {(isNotificationsOpen) && <Notifications user={user} />}
                 {(location.pathname === '/signup' || location.pathname === '/login') &&
                     <button className='back-to-home' onClick={pathToHome}  >Back to home</button>

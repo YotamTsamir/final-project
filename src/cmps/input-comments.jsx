@@ -64,7 +64,6 @@ export const InputComments = ({ board, box, task }) => {
               className="task-comment-input"
               {...register("comment")}
               autoFocus
-              // onBlur={onEditField}
             ></textarea>
             <button className="save-comment-btn comment">Save</button>
           </div>

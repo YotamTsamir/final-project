@@ -141,12 +141,42 @@
     padding-right: 8px;
     width: 32px;
 }
-
+.curr-desc {
+    margin-top: 10px;
+    background-color: transparent;
+    padding-left: 0;
+    cursor: pointer;
+}
 .details-task-nav-contianer {
     display: flex;
     flex-direction: column;
     padding: 0 0 8px 8px;
-    align-self: flex-start;
+    @media (max-width: 480px) {
+        align-self: flex-start;
+        background-color: #ffffff;
+        box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.40);
+        scroll-behavior: auto;
+        position: fixed;
+        bottom:0px;
+
+        .curr-desc {
+            padding-top: 10px;
+        }
+        .details-task-nav{
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap !important;
+            box-sizing: border-box;
+
+            .details-task-nav-btn {
+                padding: 0;
+
+                .menu-imgs{
+                    padding-right: 0;
+                }
+            }
+        }
+    }
 }
 
 .detail-container {

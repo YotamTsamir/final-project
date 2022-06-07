@@ -125,7 +125,7 @@ export const Board = () => {
     }
 
 
-    if (!board?.boxes || !board?._id) return <h1>Loading...</h1>
+    if (!board?.boxes || !board?._id) return <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     return <div className="board-container" style={board.style}>
         <BoardHeaderBar
             labelFilter={labelFilter}
@@ -141,7 +141,8 @@ export const Board = () => {
                 {provided => {
                     return (
                         <div ref={provided.innerRef}
-                            {...provided.droppableProps}>
+                            {...provided.droppableProps}
+                            className="board-wrapper">
                             <div className="board">
                                 <BoxList labelFilter={labelFilter} newBoardFilter={newBoardFilter.filter} addActivity={addActivity} board={board} boxes={board.boxes} />
                                 {(!isAdd) &&

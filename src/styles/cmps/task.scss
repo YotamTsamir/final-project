@@ -11,7 +11,8 @@
     .lower-task-container {
         width: 100%;
         line-height: 14px;
-        p{
+
+        p {
             margin: 0;
             font-size: 14px;
             padding-top: 3px;
@@ -81,18 +82,22 @@
         overflow: hidden;
         text-decoration: none;
     }
-    .comment-task-preview{
-        position: relative;
-        top: 4px;
-    }
-    .checklist-task-preview{
-        border-radius: 3px;
-        padding: 3px 4px;
-        position: relative;
-        top: 4px;
 
-        &.checklist-complete{
+    .comment-task-preview {
+        position: relative;
+        // top: 4px;
+        padding: 2px 3px;
+    }
+
+    .checklist-task-preview {
+        border-radius: 3px;
+        padding: 2px 3px;
+        position: relative;
+        // top: 4px;
+
+        &.checklist-complete {
             color: white;
+
             svg * {
                 color: white
             }
@@ -122,19 +127,21 @@
 
 .task-edited {
     position: absolute;
-    width: 235px;
+    width: 251px;
     z-index: 100;
 }
 
 .task-preview-photo {
     display: flex;
-    justify-content: flex-start;
     align-items: end;
     font-weight: 600;
     color: white;
     height: 260px;
-    width: 94%;
-    &.not-edit{
+    width: calc(100% + 14px);
+    margin-top: -1px;
+    border-radius: 3px 3px 0 0;
+
+    &.not-edit {
         height: 260px;
         width: 106%;
         position: relative;
@@ -143,27 +150,29 @@
         right: 8px;
         top: -5px;
     }
-    &.full-photo{
-      
-    }
+
+    &.full-photo {}
 }
 
 .task-preview-color {
-    width: 256px;
+    width: calc(100% + 14px);
+    margin: -6px 0 0 -8px;
     border-top-right-radius: 3px;
     border-top-left-radius: 3px;
-    transform: translate3d(-8px, -7px, 3px);
+    // transform: translate3d(-8px, -7px, 3px);
     min-height: 30px;
 
 }
 
 .edited {
-    width: 251px;
+    // width: 251px;
 }
 
 .edited-photo {
-    width: 250px;
-    transform: translate3d(-8px, -7px, 3px);
+    width: calc(100% + 14px);
+    margin-left: -8px;
+    margin-top: -6px;
+    border-radius: 3px 3px 0 0;
 }
 
 .the-great-one {
@@ -180,14 +189,16 @@
 .task:hover {
     .edit-fav {
         display: inline;
-        padding: 5px;
+        // padding: 5px;
         display: flex;
         align-items: center;
         justify-content: center;
         margin-top: 0.22rem;
 
+        svg {
+            padding: 5px;
+        }
     }
-
 }
 
 .member-preview {
@@ -216,14 +227,15 @@
     gap: 4px;
     padding: 6px;
     transform: translateX(-9px);
-    padding-top: 2px;
+    // padding-top: 3px;
     margin-left: 3px;
 }
 
 .desc-png-container {
     position: relative;
-    top: 4px;
+    // top: 4px;
     align-self: center;
+    padding: 2px 3px;
 }
 
 .desc-png {
@@ -238,7 +250,7 @@
 }
 
 .label-open {
-    animation: labelAnihHeight  0.5s 1;
+    animation: labelAnihHeight 0.5s 1;
     height: 16px;
     padding: 2px 10px;
     color: white;
@@ -408,7 +420,7 @@
     display: none;
     border-radius: 3px;
     height: fit-content;
-    padding: 5px;
+    // padding: 5px;
 }
 
 .date-preview {
@@ -427,6 +439,34 @@
 
 .spacer-bottom-task {
     align-items: center;
+    padding: 4px 0;
+    height: 40px;
+
+    .task-prev-date-desc {
+        height: 20px;
+        align-items: center;
+
+        // .desc-png-container {
+        //     height: 20px;
+        //     padding-left: 4px;
+        // }
+
+        // .comment-task-preview {
+        //     height: 20px;
+        //     padding-left: 4px;
+        // }
+
+        // .checklist-task-preview {
+        //     height: 20px;
+        //     padding: 0;
+        //     padding-left: 4px;
+        // }
+
+        * {
+            margin: 0;
+        }
+
+    }
 }
 
 .date-preview:hover {
@@ -447,6 +487,7 @@
 .svg-inline--fa {
     color: rgb(254, 254, 254);
 }
+
 .fa-square-check {
     color: rgb(254, 254, 254);
     padding-right: 3px;
@@ -513,7 +554,7 @@
     position: relative;
     gap: 8px;
 
-    
+
 
     .passed {
         background-color: $clr8;

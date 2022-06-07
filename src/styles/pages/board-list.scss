@@ -212,12 +212,12 @@
 @media screen and (max-width: 480px) {
     .board-lists-page {
         flex-direction: column;
-        padding: 20px 16px;
+        padding: 20px 12px;
         gap: 0;
 
         .hr {
             width: 100%;
-            
+
 
             hr {
                 background-color: #091e4221;
@@ -249,10 +249,14 @@
                 width: 100%;
                 flex-direction: row;
                 flex-wrap: wrap;
-                padding-top: 16px;
+                padding-top: 0;
 
                 .to-boards {
                     width: calc(50% - 4px);
+                }
+
+                .to-boards:nth-child(even) {
+                    margin-right: -8px;
                 }
             }
         }
