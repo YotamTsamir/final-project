@@ -28,6 +28,7 @@ export const BoardList = () => {
     }, [boards.length])
 
 
+
     const myBoards = boards.filter(board => {
         if (!loggedInUser) return
         return board.members.some(member => {
@@ -93,7 +94,6 @@ export const BoardList = () => {
                     <span><FontAwesomeIcon icon={faStar} /></span>
                     <h2>Favourites</h2>
                 </div>
-
                 <div
                     className={`to-boards to-template ${(boardsToDisplay === 'template') && 'active'}`}
                     onClick={() => setBoardsToDisplay('template')}>
@@ -102,6 +102,7 @@ export const BoardList = () => {
                 </div>
             </aside>
         </div>
+        <div className='hr'><hr /></div>
         <div className="board-list-preview">
             <div className='board-list'>
                 {(boardsToDisplay === 'fav' || !boardsToDisplay) &&

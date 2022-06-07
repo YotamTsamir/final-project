@@ -208,3 +208,53 @@
 .bg-shadow:hover {
     background-color: #21212189;
 }
+
+@media screen and (max-width: 400px) {
+    .board-lists-page {
+        flex-direction: column;
+        padding: 20px 16px;
+        gap: 0;
+
+        .hr {
+            width: 100%;
+            
+
+            hr {
+                background-color: #091e4221;
+                border: 0;
+                height: 1px;
+                margin: 4px 0;
+                padding: 0;
+            }
+        }
+
+        .board-list-preview {
+            width: 100%;
+            margin-top: 0;
+
+            .board-prev {
+                width: calc(50% - 4px);
+                margin: 0;
+            }
+        }
+
+        .board-prev:nth-child(odd) {
+            margin: 0 8px 8px 0;
+        }
+
+        .list-page-menu {
+            min-width: 100%;
+
+            .menu-container {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding-top: 16px;
+
+                .to-boards {
+                    width: calc(50% - 4px);
+                }
+            }
+        }
+    }
+}

@@ -158,7 +158,7 @@ export const AppHeader = () => {
                 </div>
                 <h1>Tredux</h1>
             </NavLink>
-            {(location.pathname !== '/') &&
+            {(location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup') &&
                 <div className="main-nav-container">
                     <HeaderNav />
                 </div>
