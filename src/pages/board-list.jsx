@@ -72,7 +72,7 @@ export const BoardList = () => {
 
 
 
-    if (!boards) return <div>Loading...</div>
+    if (!boards) return <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
     return <div className='board-lists-page'>
         <div className="list-page-menu">
             <aside className='menu-container'>

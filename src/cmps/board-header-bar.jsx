@@ -134,7 +134,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                 </span>
                 <p>Filter</p>
             </button>
-            <NavLink to={`dashboard/${board._id}`}><button className="filter-btn dash-board">Dash board</button></NavLink>
+            <NavLink to={`dashboard/${board._id}`}><button className="filter-btn dash-board">Dash Board</button></NavLink>
             {(isFilterOrMenuOpen === 'filter') &&
                 <BoxFilterMenu
                     labelFilter={labelFilter}

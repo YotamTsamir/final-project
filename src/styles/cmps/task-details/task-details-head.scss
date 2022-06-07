@@ -22,6 +22,76 @@
         top: 44px;
         padding-bottom: 10px;
 
+
+        @media (max-width: 480px) {
+            background-color: #f4f5f7;
+            display: flex;
+            flex-direction: column;
+            height: 100vh !important;
+            padding-left: 0px;
+            top:0;
+
+            .task-details-cover{
+                height: 85px !important;
+            }
+            .task-details-title-container {
+                h1 {
+
+                    font-size: 20px
+                }
+            }
+            .detail-header-container{
+                margin-left: 10px !important;
+
+            }
+            .task-desc-header {
+                margin-top: 12px !important;
+            }
+            .desc-cmp {
+                margin: 10px 0 10px 40px;
+
+            }
+            .task-detail-body-container {
+                display: flex;
+                background-color: #f4f5f7;
+                flex-direction: column;
+                margin-top: 5px;
+                margin-right: 5px !important;
+                padding-bottom: 115px;
+                .activity-container {
+                    margin-top: 0px;
+                }
+                .input-comment {
+                    width: 100% !important;
+                    margin-right: 10px !important;
+                    textarea.comment-cmp {
+                        width: 100% !important;
+                    }
+                    
+                }
+
+            }
+            .label-detail-container {
+
+                .label-details {
+                    padding: 0 5px !important;
+                }
+            }
+            .task-detail-main-container {
+                margin-left: 8px !important;
+                overflow-y: scroll;
+                overflow-x: hidden;
+            }
+            .details-task-nav-container {
+                display: flex;
+                flex-direction: row;
+                position: fixed;
+                bottom: 0;
+                background-color: white;
+            }
+
+        }
+
         .exit-task-details-btn.no-cover {
             background: none;
             top: 0px;
@@ -32,27 +102,27 @@
         }
 
         .exit-task-details-btn {
-            background-color: #fcf5f514;
+            background-color: #fcf5f5ec;
             color: #42526e;
             border: none;
             border-radius: 50%;
-            height: 40px;
-            width: 40px;
+            height: 30px;
+            width: 30px;
             margin: 4px;
             padding: 4px;
             position: absolute;
             right: 0;
             top: 0;
             z-index: 15;
-            
-            svg *{
-                color: rgba(255, 255, 255, 0.718);
+
+            svg * {
+                color: black;
             }
         }
 
         .exit-task-details-btn:hover {
             cursor: pointer;
-            background-color: #00000027;
+            background-color: #d4d4d4d1;
         }
 
         .task-details-cover-area {
@@ -65,15 +135,14 @@
 
             .task-details-cover {
                 border-radius: 3px 3px 0 0;
-                min-height: 116px;
+                height: 116px;
             }
 
             .task-details-change-cover-btn {
                 position: absolute;
                 right: 0;
                 bottom: 0;
-                background-color: #ffffff14;
-                color: #ffffff;
+                background-color: rgba(255, 255, 255, 0.831);
                 border-radius: 3px;
                 height: 32px;
                 margin: 4px 10px 8px 4px;
@@ -84,8 +153,10 @@
                 justify-content: center;
                 gap: 10px;
 
-                p, svg *{
-                    color: rgba(255, 255, 255, 0.718);
+                p,
+                svg * {
+                    color: black;
+
                 }
 
                 * {
@@ -95,7 +166,7 @@
 
             .task-details-change-cover-btn:hover {
                 cursor: pointer;
-                background-color: #00000027;
+                background-color: #d4d4d4d1;
             }
         }
     }
@@ -112,6 +183,12 @@
         .task-details-title-container {
             display: flex;
             align-items: center;
+            @media (max-width: 480px) {
+                
+                .task-detail-title {
+                    height: fit-content;
+                }
+            }
 
             * {
                 font-size: 20px;

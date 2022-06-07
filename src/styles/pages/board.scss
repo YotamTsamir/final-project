@@ -44,7 +44,7 @@
     flex: 1;
     display: flex;
     gap: 8px;
-
+    overflow-y: hidden;
     >div {
         // min-height: 100%;
         height: fit-content;
