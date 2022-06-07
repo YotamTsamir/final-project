@@ -48,7 +48,7 @@ export const TaskDetails = () => {
   // }
 
   useEffect(() => {
-    // if(!task?.date?.timeStamp) return 
+    if(!task?.date?.timeStamp) return 
     if ((Date.now() - Date.parse(task.date.timeStamp)) >= 0) {
       setIsPassed('passed')
     }

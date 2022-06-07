@@ -199,7 +199,22 @@
                 .task-desc-form {
                     width: 100%;
 
-                    .task-desc-edit {
+                    .edit-task-desc {
+                        margin-top: 10px;
+                    }
+                    .not-focus-desc {
+                        background-color: #091e420a;
+                        width: 100%;
+                        outline: none;
+                        border: none;
+                        border-radius: 3px;
+                        resize: none;
+                        min-height: 40px;
+                        padding: 8px 0 8px 12px;
+                        position: relative;
+                        margin-top: 10px;
+                    }
+                    .focused-desc {
                         overflow: hidden;
                         overflow-wrap: break-word;
                         resize: none;
@@ -211,6 +226,7 @@
                         border-radius: 3px;
                         padding: 8px 0 8px 12px;
                         box-shadow: inset 0 0 0 2px #0079bf;
+                        margin-top: 10px;
                     }
 
                     .desc-btns-container {

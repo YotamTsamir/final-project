@@ -22,6 +22,7 @@ export function updateUser(user) {
 }
 
 export function login(credentials) {
+    console.log('credentials', credentials)
     // Action Creator
     return async (dispatch) => {
         try {
@@ -34,7 +35,6 @@ export function login(credentials) {
             console.error('Error:', err)
             setUserMsg('Cannot login', 'bad')
         }
-        
             
     }
 }
