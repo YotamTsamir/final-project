@@ -40,7 +40,7 @@ export const Notifications = ({ user }) => {
                                 <div className="notification-user">
                                     <div className="not-user-img"
                                         style={{
-                                            background: `url(${notification.user.avatar})`,
+                                            background: `url(${notification.user.avatar})`||'',
                                             backgroundSize: 'cover',
                                             backgroundPosition: 'center'
                                         }}></div>
