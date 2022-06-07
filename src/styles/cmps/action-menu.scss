@@ -160,15 +160,38 @@
 
 .color-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 50px 50px 50px 50px 50px;
     gap: 5px;
+
+    .cover-menu-color {
+        border-radius: 3px;
+        width: 50px;
+        height: 32px;
+    }
+
+    .cover-menu-color:hover{
+        filter: brightness(110%);
+    }
 }
 
-.cover-menu-color {
+
+.on-create-new-label {
+    border: none;
+    background: none;
+    background-color: #091e420a;
+    text-align: center;
+    width: 100%;
+    padding: 6px 12px;
+    margin-top: 4px;
     border-radius: 3px;
-    width: 50px;
-    height: 32px;
 }
+
+.on-create-new-label:hover {
+    cursor: pointer;
+    background-color: #091e422c;
+}
+
+
 
 .cover-menu {
     .bg-image {

@@ -38,7 +38,7 @@ export const AppHeader = () => {
         window.addEventListener('resize', () => {
             setIsMobile(window.innerWidth <= 480)
         })
-    },[])
+    }, [])
 
     useEffect(() => {
 
@@ -160,7 +160,7 @@ export const AppHeader = () => {
         style={headerTheme.style}>
 
 
-     
+
 
 
 

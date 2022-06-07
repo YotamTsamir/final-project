@@ -75,7 +75,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
     //     promptPicture()
     // }, [])
 
-  
+
     const onSaveDueDate = () => {
         const newTask = {
             ...task, date: {
@@ -108,7 +108,7 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
         setCheckListTitle({ title: '' })
         toggleMenu(topic)
         const activity = {
-            user:userService.getMiniUser(), action: `added`, isRead: false, id: utilService.makeId(),
+            user: userService.getMiniUser(), action: `added`, isRead: false, id: utilService.makeId(),
             object: { title: newCheckListTitle.title }, about: `to ${task.title}`, timeStamp: Date.now()
         }
         dispatch(editTask(board._id, box.id, newTask, activity))
@@ -147,7 +147,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
                 )
             }))
             }
-            {(topic === 'Labels') && (!createLabel) && <button onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>}
+            {(topic === 'Labels') && (!createLabel) &&
+                <button className="create-new-label-btn" onClick={() => { onCreateLabel(!createLabel) }}>Create a new label</button>}
         </div>
         {(createLabel) && <div>
             <p>Name</p>
@@ -160,8 +161,8 @@ export const ActionMenu = ({ topic, board, task, box, colors, toggleMenu, coverM
                         </div>
                     )
                 }))}
-                <button onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>
             </div>
+            <button className='on-create-new-label' onClick={(ev) => { onSubmitCreateLabel(ev) }}>Create</button>
         </div>}
         <div >
             {(topic === 'Cover') && <div>

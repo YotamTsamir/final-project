@@ -6,7 +6,7 @@ import { useSelector } from "react-redux"
 import { boardService } from "../services/board.service"
 import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPen } from '@fortawesome/free-solid-svg-icons'
+import { faPen, faAlignLeft } from '@fortawesome/free-solid-svg-icons'
 import { faClock, faSquare, faSquareCheck, faMessage } from '@fortawesome/free-regular-svg-icons'
 import { Outlet } from "react-router-dom"
 import { useDispatch } from 'react-redux'
@@ -147,11 +147,18 @@ export const TaskPreview = ({ task, board, box, index }) => {
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
             backgroundColor: 'rgb(25, 26, 25)'
-        }}>{task.title}  <div style={{ fontWeight: '600' }} className="edit-fav grey-icons">
+        }}>
+            {task.title}
+            <div style={{ fontWeight: '600' }} className="edit-fav grey-icons">
                 <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
-            </div></div> : <div className="task" style={{ background: task.bg, fontWeight: '600' }}>{task.title}  <div className="edit-fav grey-icons">
-                <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
-            </div></div> : ''}
+            </div>
+        </div>
+            : <div className="task" style={{ background: task.bg, fontWeight: '600' }}>
+                {task.title}
+                <div className="edit-fav grey-icons">
+                    <FontAwesomeIcon className="on-edit" onClick={(ev) => onOpenEditTask(ev)} icon={faPen} />
+                </div>
+            </div> : ''}
         {(!isEdit) && (!task.isFull) && <div onClick={() => { }} className=" task " to={`/b/${board._id}/card/${task.id}`}>
             {(task.bg) ? (task.bg.includes('url')) ? <div className="task-preview-photo not-edit" style={{
                 background: task.bg,
@@ -181,11 +188,12 @@ export const TaskPreview = ({ task, board, box, index }) => {
                                 </div>}
                             {(task.description) &&
                                 <div className="desc-png-container">
-                                    <img className="desc-png" src={desc} />
+                                    {/* <img className="desc-png" src={desc} /> */}
+                                    <FontAwesomeIcon icon={faAlignLeft} />
                                 </div>}
                             {(task.comments.length > 0) && <span className="comment-task-preview"><FontAwesomeIcon icon={faMessage} />{task.comments.length}</span>}
-                            {(task.checkLists.length > 0) && <span className={`checklist-task-preview ${(doneTodos === totalTodos) ? 'checklist-complete' : ''}`} 
-                            style={{ backgroundColor: (doneTodos === totalTodos) ? '#61bd4f' : '' }}><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
+                            {(task.checkLists.length > 0) && <span className={`checklist-task-preview ${(doneTodos === totalTodos) ? 'checklist-complete' : ''}`}
+                                style={{ backgroundColor: (doneTodos === totalTodos) ? '#61bd4f' : '' }}><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                         </div>
                         {(task.members) && <div className="task-members members-div">
                             {task.members.map((member, idx) => {
@@ -243,7 +251,9 @@ export const TaskPreview = ({ task, board, box, index }) => {
                             <span>     </span> {task.date?.month || ''} {task.date?.day || ''}</div>}
                         {(task.description) &&
                             <div className="desc-png-container">
-                                <img className="desc-png" src={desc} /></div>}
+                                {/* <img className="desc-png" src={desc} /> */}
+                                <FontAwesomeIcon icon={faAlignLeft} />
+                            </div>}
                         {(task.comments.length > 0) && <span className="comment-task-preview"><FontAwesomeIcon icon={faMessage} />{task.comments.length}</span>}
                         {(task.checkLists.length > 0) && <span className="checklist-task-preview"><FontAwesomeIcon icon={faSquareCheck} />{doneTodos}/{totalTodos}</span>}
                     </div>
