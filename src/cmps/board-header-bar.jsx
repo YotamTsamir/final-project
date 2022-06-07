@@ -24,6 +24,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
     })
 
     useEffect(() => {
+        setIsMobile(window.innerWidth <= 480)
         window.addEventListener('resize', () => {
             setIsMobile(window.innerWidth <= 480)
         })
@@ -143,7 +144,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                     isFilterOrMenuOpen={isFilterOrMenuOpen}
                     onOpenFilterOrMenu={onOpenFilterOrMenu}
                     isMobile={isMobile} />}
-            <NavLink to={`dashboard/${board._id}`}><button className="filter-btn dash-board">Dash board</button></NavLink>
+            <NavLink to={`dashboard/${board._id}`}><button className="filter-btn dash-board">Dashboard</button></NavLink>
         </div>
     </header>
 }

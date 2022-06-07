@@ -3,9 +3,11 @@
     height: 52px;
     display: flex;
     justify-content: space-between;
-    padding: 8px 0;
+    padding: 8px 12px 8px 0;
     width: 100%;
     position: relative;
+
+
 
     .line-between-header {
         color: rgb(151, 148, 148);
@@ -138,7 +140,7 @@
         }
 
         .menu-btn.menu-btn-on-mobile {
-            margin-right: 27px;
+            margin-right: 12px;
         }
 
         .filter-btn {
@@ -473,10 +475,12 @@
 
     }
 
-    .filter-container.filter-container-on-mobile{
-        top: 0 ;
+    .filter-container.filter-container-on-mobile {
+        top: 0;
+        right: 0;
         width: 100vw;
         height: calc(100vh - 44px);
+        animation: fadeIn 0.2s 1;
     }
 
     .filter-container {
