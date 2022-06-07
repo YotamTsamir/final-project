@@ -37,7 +37,7 @@ export const HeaderNav = () => {
         </div>
         {isBoardsOpen &&
             <div className='nav-links'>
-                <NavLink className="nav-link" to='/boards'>My Boards</NavLink>
+                <NavLink className="nav-link" to='/boards' onClick={onToggleBoards}>My Boards</NavLink>
             </div>
         }
     </nav>

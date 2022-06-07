@@ -38,7 +38,7 @@ export const ArchivedTasks = ({ board }) => {
     if (!tasks) return <h1>Loading...</h1>
     return <div className="archived-tasks">
         {tasks.map((task, index) => {
-            return (<div>
+            return (<div className="task-archived-container">
                 <div key={task.id} className="task-archived">
                     <div className="task-archived-txt" >
                         <span>{task.task.title}</span>
@@ -56,7 +56,6 @@ export const ArchivedTasks = ({ board }) => {
                         </button>
                     </div>
                 </div>
-                <div className="seperator"></div>
             </div>
             )
         })}

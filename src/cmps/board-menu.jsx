@@ -85,11 +85,11 @@ export const BoardMenu = ({ onToggleMenu, dfBgs, board, deleteBoard, onEditBoard
                     className="delete-board-btn"
                     onClick={deleteCurrBoard}>
                     <p>Delete Board</p>
-                    <p className="fa-remove  icon-btn"><FontAwesomeIcon icon={faRemove} /></p>
+                    <span className="fa-remove  icon-btn"><FontAwesomeIcon icon={faRemove} /></span>
                 </button>
             }
 
-            <div className='seperator'></div>
+            <div><hr /></div>
             <div className='activities-container'>
                 <FontAwesomeIcon icon={faAlignLeft} />
                 <div className='activities-board-menu'

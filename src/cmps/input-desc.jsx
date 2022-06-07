@@ -13,6 +13,7 @@ export const InputDesc = () => {
   const [register, entity, editEntity] = useFormRegister({ description: task?.description || "" })
   const [fieldsEdit, setFieldsEdit] = useState({ isDescription: false })
   const { description } = task
+  const [isDescFocus, setIsDescFocus] = useState(false)
 
   const isEditShownDesc = () => {
     return !description || fieldsEdit.isDescription;
@@ -47,11 +48,14 @@ export const InputDesc = () => {
           className="task-desc-form">
           <textarea
             placeholder="Add a more detailed descripton..."
-            className={`task-desc-edit`}
+            className={`task-desc-edit ${isDescFocus ? 'focused-desc' : 'not-focus-desc'}`}
+            onFocus={() => setIsDescFocus(true)}
+            onBlur={() => setIsDescFocus(false)}
             {...rest}
-          // onBlur={onEditField}
           >{text}</textarea>
           <div className="desc-btns-container">
+           {isDescFocus ? 
+           <div className="desc-focus-btn-container">
             <button className="desc-save-btn desc-btn">Save</button>
             <button
               // onClick={}
@@ -59,6 +63,11 @@ export const InputDesc = () => {
               type="button">
               Cancel
             </button>
+          </div>
+
+            :
+            <div></div> 
+          }
           </div>
         </form>
       )}

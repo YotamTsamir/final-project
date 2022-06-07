@@ -16,12 +16,13 @@ import { SOCKET_EVEN_SET_USER, SOCKET_EVENT_PUSH_NOTIFICATION } from '../service
 export const AppHeader = () => {
     const { board } = useSelector((storeState) => storeState.boardModule)
     const { user } = useSelector((storeState) => storeState.userModule)
-    const [newUser, editNewUser] = useState(user)
+    // const [newUser, editNewUser] = useState(user)
     // const [isUnreadNots, setIsUnreadNots] = useState(false)
     const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
     const [scroll, setScroll] = useState(0)
     const [isNotificationsOpen, setIsNotificationsOpen] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
     const [headerTheme, setHeaderTheme] = useState({
         style: {
             backgroundColor: '#026aa7'
@@ -34,6 +35,12 @@ export const AppHeader = () => {
 
 
     useEffect(() => {
+        window.addEventListener('resize', () => {
+            setIsMobile(window.innerWidth <= 480)
+        })
+    },[])
+
+    useEffect(() => {
 
         (async () => {
             const user = await userService.getLoggedinUser()
@@ -43,6 +50,7 @@ export const AppHeader = () => {
         socketService.on(SOCKET_EVENT_PUSH_NOTIFICATION, pushNotification)
 
     }, [user])
+
 
     const checkUnreadNots = () => {
         if(!user?.notifications) return
@@ -154,6 +162,11 @@ export const AppHeader = () => {
     return <div className={`app-header ${getHeaderClassname()}`}
         style={headerTheme.style}>
 
+
+     
+
+
+
         <div className="logo-and-nav">
             <NavLink to="/" className="logo-container">
                 <div className="header-logo fa-trello">
@@ -161,7 +174,7 @@ export const AppHeader = () => {
                 </div>
                 <h1>Tredux</h1>
             </NavLink>
-            {(location.pathname !== '/') &&
+            {(location.pathname !== '/' && location.pathname !== '/login' && location.pathname !== '/signup') &&
                 <div className="main-nav-container">
                     <HeaderNav />
                 </div>
@@ -219,12 +232,12 @@ export const AppHeader = () => {
                                         className="nav-link-avatar"
                                         to='/avatar'>
                                         <div>Avatar settings</div>
-                                        <span 
-                                        style={{
-                                            background: `url(${user.avatar})`,
-                                            backgroundSize: 'cover',
-                                            backgroundRepeat: 'no-repeat'
-                                        }}>
+                                        <span
+                                            style={{
+                                                background: `url(${user.avatar})`,
+                                                backgroundSize: 'cover',
+                                                backgroundRepeat: 'no-repeat'
+                                            }}>
                                         </span>
                                     </NavLink>
                                     <NavLink to='/' onClick={(ev) => onLogOut(ev)} className="nav-link-avatar">Logout</NavLink>
