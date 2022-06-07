@@ -64,7 +64,6 @@ export const Board = () => {
         dispatch(deleteBoard(boardId))
     }
 
-    //move to action
     const onEditBoardStyle = async (boardId, field, change) => {
         const newBoard = await boardService.editBoardStyle(boardId, field, change)
         socketService.emit(SOCKET_EVENT_LOAD_BOARD, newBoard)

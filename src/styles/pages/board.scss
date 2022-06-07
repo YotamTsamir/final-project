@@ -18,16 +18,16 @@
         overflow-y: hidden;
     }
 
-    .board-wrapper::-webkit-scrollbar {
+    .board::-webkit-scrollbar {
         height: 15px;
     }
 
-    .board-wrapper::-webkit-scrollbar-track {
+    .board::-webkit-scrollbar-track {
         background: none;
         border-radius: 3px;
     }
 
-    .board-wrapper::-webkit-scrollbar-thumb {
+    .board::-webkit-scrollbar-thumb {
         background-color: #ffffff47;
         border-radius: 3px;
     }
