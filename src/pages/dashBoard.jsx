@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { boardService } from "../services/board.service";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import { Doughnut, Pie, Bar } from "react-chartjs-2";
 import {
     Chart as ChartJS,
@@ -27,6 +28,7 @@ export const DashBoard = () => {
         Legend,
         ArcElement
     );
+    ChartJS.defaults.color = "#fff";
     useEffect(() => {
         getData()
     }, [board])
@@ -99,10 +101,57 @@ export const DashBoard = () => {
             {
                 label: 'Tasks per member',
                 data: boardData.userCount,
-                backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                backgroundColor: ['rgba(255, 99, 132, 0.8)','#006b00d8','#1512cfd8','#ebff11d8'],
+                color:'white',
             },
         ],
     };
+
+     const optionsBar = {
+        responsive: true,
+        plugins: {
+          legend: {
+            display:false,
+            color:'white'
+          },
+          title: {
+            display: false,
+            text: 'Tasks per member',
+            color:'white'
+          },
+        },
+      };
+     const optionsPie = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            display:false,
+            font:{color:'white'},
+            color:'white'
+          }
+          },
+          title: {
+            display: true,
+            text: 'Tasks per label',
+            color:'white'
+          },
+        }
+      
+     const optionsDou = {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'top',
+            
+          },
+          title: {
+            display: true,
+            text: '',
+            color:'white'
+          },
+        },
+      };
 
     const doughnutData = {
         labels: [
@@ -117,6 +166,7 @@ export const DashBoard = () => {
                 'rgb(54, 162, 235)',
 
             ],
+            color:'white',
             hoverOffset: 4
         }]
     };
@@ -134,6 +184,8 @@ export const DashBoard = () => {
 
     if (!board) return <h1>Loading...</h1>
     return <div className="dash-board-container">
+        <NavLink style={{position:'absolute'}} to={`/b/${board._id}`}>X</NavLink>
+        <div className="top-info">
 
         <div className="members" style={{ color: 'white' }}>Members:{boardData.members}</div>
         <div className="total-tasks">
@@ -146,9 +198,10 @@ export const DashBoard = () => {
             <div className="done-todos" style={{ color: 'white' }}>Done todos:{boardData.doneTodos}</div>
             <div className="total-todos" style={{ color: 'white' }}>Total todos:{boardData.totalTodos}</div>
         </div>
+        </div>
 
-        <div className="left-graph-big"><Bar data={dataBig} /></div>
-        <div className="right-graph-top"><Doughnut data={doughnutData} /></div>
-        <div className="right-graph-bottom"><Pie data={pieData} /></div>
+        <div className="left-graph-big"><span className="task-per-sp">Tasks per member:</span><Bar className="bar" options={optionsBar} data={dataBig} /></div>
+        <div className="right-graph-top"><span className="checklist-sp">Checklist information:</span><Doughnut className="doughnut" options={optionsDou} data={doughnutData} /></div>
+        <div className="right-graph-bottom"> <span className="checklist-info">Tasks per label:</span><Pie className="pie" options={optionsPie} data={pieData} /></div>
     </div>
 }
