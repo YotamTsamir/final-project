@@ -35,9 +35,7 @@ export const Board = () => {
         socketService.on(SOCKET_EVENT_LOAD_BOARD, updateBoard);
         return () => {
             socketService.off(SOCKET_EVENT_LOAD_BOARD, updateBoard)
-
         }
-
     }, [])
 
     const updateBoard = (board) => {

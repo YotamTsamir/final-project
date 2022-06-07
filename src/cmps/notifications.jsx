@@ -8,7 +8,12 @@ export const Notifications = ({ user }) => {
     // const [user, setUser] = useState('')
     // const [noti, setNoti] = useState(user.notifications)
 
-
+    useEffect(() => {
+        if(!user?.notifications) return
+        user.notifications.forEach(not => {
+            not.isRead = true
+        })
+    }, [])
     //need to add a toggle function to "read-unread-toggle" span
     console.log(user)
     // console.log(user.notifications)

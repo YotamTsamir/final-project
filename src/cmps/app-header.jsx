@@ -18,6 +18,7 @@ export const AppHeader = () => {
     const { user } = useSelector((storeState) => storeState.userModule)
     // const [newUser, editNewUser] = useState(user)
     // const [isUnreadNots, setIsUnreadNots] = useState(false)
+    const [isModal, setIsModal] = useState(false)
     const [isHomePage, setIsHomePage] = useState(false)
     const [isLoginBarOpen, setIsLoginBarOpen] = useState(false)
     const [scroll, setScroll] = useState(0)
@@ -51,19 +52,27 @@ export const AppHeader = () => {
 
     }, [user])
 
-
+    useEffect(() => {
+        setTimeout(() => setIsModal(false), 2000)
+    }, [isModal])
     const checkUnreadNots = () => {
-        if (!user.notifications) return
-        const isUnreadNotifications = user?.notifications.some(not => {
+        if (!user?.notifications) return
+        const isUnreadNotifications = user.notifications.some(not => {
             return !not.isRead
         })
         return isUnreadNotifications
+    }
+
+    const openModal = () => {
+        setIsModal(true)
+        console.log(isModal)
     }
 
     const pushNotification = async (yes) => {
         const user = await userService.getById(yes.memberId)
         user.notifications.push(yes.activity)
         const updatedUser = await userService.updateUser(user)
+        openModal()
         dispatch(updateUser(updatedUser))
         return
     }
@@ -80,6 +89,9 @@ export const AppHeader = () => {
         resetHeaderTheme()
     }, [location.pathname])
 
+    useEffect(() => {
+        checkUnreadNots()
+    }, [user?.notifications])
     const onToggleLoginBar = () => {
         setIsLoginBarOpen(!isLoginBarOpen)
 
@@ -214,6 +226,7 @@ export const AppHeader = () => {
                         <FontAwesomeIcon icon={faBellRegular} />
                     </button>
                 }
+                {(isModal) && <div className='modal'><h1>New notification recieved</h1></div>}
                 {(isNotificationsOpen) && <Notifications user={user} />}
                 {(location.pathname === '/signup' || location.pathname === '/login') &&
                     <button className='back-to-home' onClick={pathToHome}  >Back to home</button>

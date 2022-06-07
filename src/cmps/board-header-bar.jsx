@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { boardService } from "../services/board.service"
-// import { utilService } from "../services/util.service"
+import { NavLink } from "react-router-dom"
+import { utilService } from "../services/util.service"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { AddMember } from "./add-member"
 import { faBars, faX, faFilter, faStar } from '@fortawesome/free-solid-svg-icons'
@@ -125,13 +126,13 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                     dfBgs={defaultBgs}
                     isMobile={isMobile}
                 />}
-           
-                <BoardHeaderCmpsRight
-                    isFilterOrMenuOpen={isFilterOrMenuOpen}
-                    onOpenFilterOrMenu={onOpenFilterOrMenu}
-                    isMobile={isMobile}
-                />
-          
+
+            <BoardHeaderCmpsRight
+                isFilterOrMenuOpen={isFilterOrMenuOpen}
+                onOpenFilterOrMenu={onOpenFilterOrMenu}
+                isMobile={isMobile}
+            />
+
             {(isFilterOrMenuOpen === 'filter') &&
                 <BoxFilterMenu
                     labelFilter={labelFilter}
@@ -142,6 +143,7 @@ export const BoardHeaderBar = ({ labelFilter, setLabelFilter, boardFilter, onEdi
                     isFilterOrMenuOpen={isFilterOrMenuOpen}
                     onOpenFilterOrMenu={onOpenFilterOrMenu}
                     isMobile={isMobile} />}
+            <NavLink to={`dashboard/${board._id}`}><button className="filter-btn dash-board">Dash board</button></NavLink>
         </div>
     </header>
 }

@@ -72,7 +72,7 @@ function getLoggedinUser() {
 function getMiniUser(){
     let user = (sessionStorage.getItem(STORAGE_KEY_LOGGEDIN)) ? JSON.parse(sessionStorage.getItem(STORAGE_KEY_LOGGEDIN)) : null
     if(user) {
-        user = {fullname:user.fullname,avatar:user.avatar}
+        user = {_id:user._id,fullname:user.fullname,avatar:user.avatar}
     }
     return user
 }
